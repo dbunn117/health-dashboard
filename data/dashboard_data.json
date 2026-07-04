@@ -1,11 +1,12 @@
 {
-  "generated_at": "2026-07-03T19:28:35.273913-07:00",
+  "generated_at": "2026-07-03T23:43:03.630487-07:00",
   "date_range": {
     "start": "2024-01-23",
     "end": "2026-07-03",
     "days": 893
   },
   "summary30": {
+    "days": 30,
     "avg_glucose": 162.73,
     "tir_70_180": 70.35,
     "high_pct": 24.1,
@@ -17,6 +18,9 @@
     "avg_basal": 22.0,
     "avg_bolus": 19.79,
     "avg_carbs": 148.7,
+    "avg_cv_pct": 30.86,
+    "overnight_low_pct": 2.89,
+    "evening_avg": 147.51,
     "avg_recovery": 62.6,
     "avg_hrv": 53.05,
     "avg_rhr": 51.24,
@@ -49,7 +53,16 @@
       "bolus_sum": 17.25,
       "carbs_sum": 155.0,
       "bolus_count": 7,
-      "alarm_count": 2
+      "alarm_count": 2,
+      "stddev": 35.37,
+      "cv_pct": 24.19,
+      "overnight_avg": 155.58,
+      "morning_avg": 139.65,
+      "afternoon_avg": 162.64,
+      "evening_avg": 127.07,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 1.39,
+      "evening_high_pct": 2.78
     },
     {
       "local_date": "2026-04-06",
@@ -68,7 +81,16 @@
       "bolus_sum": 27.6,
       "carbs_sum": 170.0,
       "bolus_count": 11,
-      "alarm_count": 13
+      "alarm_count": 13,
+      "stddev": 66.87,
+      "cv_pct": 39.36,
+      "overnight_avg": 157.64,
+      "morning_avg": 137.6,
+      "afternoon_avg": 182.24,
+      "evening_avg": 202.54,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 53.52
     },
     {
       "local_date": "2026-04-07",
@@ -87,7 +109,16 @@
       "bolus_sum": 18.6,
       "carbs_sum": 170.0,
       "bolus_count": 5,
-      "alarm_count": 4
+      "alarm_count": 4,
+      "stddev": 26.51,
+      "cv_pct": 18.93,
+      "overnight_avg": 136.43,
+      "morning_avg": 154.78,
+      "afternoon_avg": 144.5,
+      "evening_avg": 124.57,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 0.0
     },
     {
       "local_date": "2026-04-08",
@@ -106,7 +137,16 @@
       "bolus_sum": 13.1,
       "carbs_sum": 110.0,
       "bolus_count": 6,
-      "alarm_count": 1
+      "alarm_count": 1,
+      "stddev": 29.12,
+      "cv_pct": 17.67,
+      "overnight_avg": 158.8,
+      "morning_avg": 174.27,
+      "afternoon_avg": 159.08,
+      "evening_avg": 168.36,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 41.27,
+      "evening_high_pct": 37.14
     },
     {
       "local_date": "2026-04-09",
@@ -125,7 +165,16 @@
       "bolus_sum": 20.7,
       "carbs_sum": 230.0,
       "bolus_count": 9,
-      "alarm_count": 10
+      "alarm_count": 10,
+      "stddev": 67.67,
+      "cv_pct": 44.68,
+      "overnight_avg": 102.85,
+      "morning_avg": 161.6,
+      "afternoon_avg": 141.07,
+      "evening_avg": 193.38,
+      "overnight_low_pct": 5.0,
+      "morning_high_pct": 52.38,
+      "evening_high_pct": 50.0
     },
     {
       "local_date": "2026-04-10",
@@ -144,7 +193,16 @@
       "bolus_sum": 17.55,
       "carbs_sum": 165.0,
       "bolus_count": 6,
-      "alarm_count": 2
+      "alarm_count": 2,
+      "stddev": 83.09,
+      "cv_pct": 45.75,
+      "overnight_avg": 301.68,
+      "morning_avg": 174.64,
+      "afternoon_avg": 139.54,
+      "evening_avg": 110.54,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 40.28,
+      "evening_high_pct": 0.0
     },
     {
       "local_date": "2026-04-11",
@@ -163,7 +221,16 @@
       "bolus_sum": 15.25,
       "carbs_sum": 125.0,
       "bolus_count": 5,
-      "alarm_count": 2
+      "alarm_count": 2,
+      "stddev": 30.66,
+      "cv_pct": 21.79,
+      "overnight_avg": 152.28,
+      "morning_avg": 123.1,
+      "afternoon_avg": 148.19,
+      "evening_avg": 139.1,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 9.72
     },
     {
       "local_date": "2026-04-12",
@@ -182,7 +249,16 @@
       "bolus_sum": 10.9,
       "carbs_sum": 40.0,
       "bolus_count": 5,
-      "alarm_count": 4
+      "alarm_count": 4,
+      "stddev": 37.73,
+      "cv_pct": 24.04,
+      "overnight_avg": 168.22,
+      "morning_avg": 147.75,
+      "afternoon_avg": 123.99,
+      "evening_avg": 187.71,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 18.06,
+      "evening_high_pct": 45.83
     },
     {
       "local_date": "2026-04-13",
@@ -201,7 +277,16 @@
       "bolus_sum": 14.35,
       "carbs_sum": 85.0,
       "bolus_count": 11,
-      "alarm_count": 1
+      "alarm_count": 1,
+      "stddev": 35.73,
+      "cv_pct": 20.92,
+      "overnight_avg": 175.68,
+      "morning_avg": 176.08,
+      "afternoon_avg": 144.78,
+      "evening_avg": 186.44,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 58.33,
+      "evening_high_pct": 54.17
     },
     {
       "local_date": "2026-04-14",
@@ -220,7 +305,16 @@
       "bolus_sum": 22.0,
       "carbs_sum": 165.0,
       "bolus_count": 7,
-      "alarm_count": 0
+      "alarm_count": 0,
+      "stddev": 30.98,
+      "cv_pct": 17.46,
+      "overnight_avg": 155.96,
+      "morning_avg": 163.0,
+      "afternoon_avg": 208.04,
+      "evening_avg": 182.82,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 36.11,
+      "evening_high_pct": 61.11
     },
     {
       "local_date": "2026-04-15",
@@ -239,7 +333,16 @@
       "bolus_sum": 25.3,
       "carbs_sum": 140.0,
       "bolus_count": 8,
-      "alarm_count": 1
+      "alarm_count": 1,
+      "stddev": 32.71,
+      "cv_pct": 18.19,
+      "overnight_avg": 175.48,
+      "morning_avg": 160.12,
+      "afternoon_avg": 212.04,
+      "evening_avg": 171.61,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 12.5,
+      "evening_high_pct": 44.44
     },
     {
       "local_date": "2026-04-16",
@@ -258,7 +361,16 @@
       "bolus_sum": 29.55,
       "carbs_sum": 102.0,
       "bolus_count": 9,
-      "alarm_count": 4
+      "alarm_count": 4,
+      "stddev": 247.27,
+      "cv_pct": 117.25,
+      "overnight_avg": 159.56,
+      "morning_avg": 376.94,
+      "afternoon_avg": 157.71,
+      "evening_avg": 149.39,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 73.61,
+      "evening_high_pct": 19.44
     },
     {
       "local_date": "2026-04-17",
@@ -277,7 +389,16 @@
       "bolus_sum": 20.8,
       "carbs_sum": 100.0,
       "bolus_count": 9,
-      "alarm_count": 7
+      "alarm_count": 7,
+      "stddev": 63.03,
+      "cv_pct": 35.77,
+      "overnight_avg": 246.71,
+      "morning_avg": 142.54,
+      "afternoon_avg": 172.93,
+      "evening_avg": 145.6,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 33.33,
+      "evening_high_pct": 23.61
     },
     {
       "local_date": "2026-04-18",
@@ -296,7 +417,16 @@
       "bolus_sum": 18.45,
       "carbs_sum": 115.0,
       "bolus_count": 5,
-      "alarm_count": 19
+      "alarm_count": 19,
+      "stddev": 56.49,
+      "cv_pct": 34.85,
+      "overnight_avg": 163.86,
+      "morning_avg": 170.21,
+      "afternoon_avg": 189.38,
+      "evening_avg": 125.19,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 54.93,
+      "evening_high_pct": 20.83
     },
     {
       "local_date": "2026-04-19",
@@ -315,7 +445,16 @@
       "bolus_sum": 24.55,
       "carbs_sum": 170.0,
       "bolus_count": 13,
-      "alarm_count": 7
+      "alarm_count": 7,
+      "stddev": 56.57,
+      "cv_pct": 35.7,
+      "overnight_avg": 179.17,
+      "morning_avg": 124.39,
+      "afternoon_avg": 190.56,
+      "evening_avg": 139.03,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 5.56,
+      "evening_high_pct": 20.9
     },
     {
       "local_date": "2026-04-20",
@@ -334,7 +473,16 @@
       "bolus_sum": 11.55,
       "carbs_sum": 115.0,
       "bolus_count": 3,
-      "alarm_count": 1
+      "alarm_count": 1,
+      "stddev": 21.88,
+      "cv_pct": 16.59,
+      "overnight_avg": 132.15,
+      "morning_avg": 140.19,
+      "afternoon_avg": 123.32,
+      "evening_avg": 131.67,
+      "overnight_low_pct": 2.78,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 0.0
     },
     {
       "local_date": "2026-04-21",
@@ -353,7 +501,16 @@
       "bolus_sum": 18.8,
       "carbs_sum": 187.0,
       "bolus_count": 7,
-      "alarm_count": 0
+      "alarm_count": 0,
+      "stddev": 34.9,
+      "cv_pct": 22.49,
+      "overnight_avg": 184.19,
+      "morning_avg": 134.53,
+      "afternoon_avg": 143.12,
+      "evening_avg": 158.78,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 11.11,
+      "evening_high_pct": 26.39
     },
     {
       "local_date": "2026-04-22",
@@ -372,7 +529,16 @@
       "bolus_sum": 19.55,
       "carbs_sum": 150.0,
       "bolus_count": 9,
-      "alarm_count": 4
+      "alarm_count": 4,
+      "stddev": 33.47,
+      "cv_pct": 20.78,
+      "overnight_avg": 181.93,
+      "morning_avg": 143.56,
+      "afternoon_avg": 172.21,
+      "evening_avg": 146.1,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 15.71
     },
     {
       "local_date": "2026-04-23",
@@ -391,7 +557,16 @@
       "bolus_sum": 20.45,
       "carbs_sum": 210.0,
       "bolus_count": 10,
-      "alarm_count": 6
+      "alarm_count": 6,
+      "stddev": 42.82,
+      "cv_pct": 30.62,
+      "overnight_avg": 121.32,
+      "morning_avg": 125.85,
+      "afternoon_avg": 116.69,
+      "evening_avg": 195.54,
+      "overnight_low_pct": 4.17,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 76.39
     },
     {
       "local_date": "2026-04-24",
@@ -410,7 +585,16 @@
       "bolus_sum": 16.25,
       "carbs_sum": 170.0,
       "bolus_count": 7,
-      "alarm_count": 0
+      "alarm_count": 0,
+      "stddev": 37.58,
+      "cv_pct": 22.71,
+      "overnight_avg": 207.94,
+      "morning_avg": 131.47,
+      "afternoon_avg": 158.92,
+      "evening_avg": 163.66,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 49.3
     },
     {
       "local_date": "2026-04-25",
@@ -429,7 +613,16 @@
       "bolus_sum": 14.5,
       "carbs_sum": 145.0,
       "bolus_count": 5,
-      "alarm_count": 4
+      "alarm_count": 4,
+      "stddev": 40.26,
+      "cv_pct": 26.29,
+      "overnight_avg": 199.96,
+      "morning_avg": 147.49,
+      "afternoon_avg": 132.97,
+      "evening_avg": 132.1,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 1.39,
+      "evening_high_pct": 13.89
     },
     {
       "local_date": "2026-04-26",
@@ -448,7 +641,16 @@
       "bolus_sum": 17.75,
       "carbs_sum": 165.0,
       "bolus_count": 6,
-      "alarm_count": 4
+      "alarm_count": 4,
+      "stddev": 33.53,
+      "cv_pct": 23.34,
+      "overnight_avg": 158.76,
+      "morning_avg": 144.78,
+      "afternoon_avg": 146.67,
+      "evening_avg": 124.32,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 15.28,
+      "evening_high_pct": 9.72
     },
     {
       "local_date": "2026-04-27",
@@ -467,7 +669,16 @@
       "bolus_sum": 21.4,
       "carbs_sum": 165.0,
       "bolus_count": 8,
-      "alarm_count": 3
+      "alarm_count": 3,
+      "stddev": 37.05,
+      "cv_pct": 24.93,
+      "overnight_avg": 157.74,
+      "morning_avg": 122.67,
+      "afternoon_avg": 178.28,
+      "evening_avg": 135.9,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 8.33,
+      "evening_high_pct": 18.06
     },
     {
       "local_date": "2026-04-28",
@@ -486,7 +697,16 @@
       "bolus_sum": 15.25,
       "carbs_sum": 160.0,
       "bolus_count": 5,
-      "alarm_count": 13
+      "alarm_count": 13,
+      "stddev": 35.84,
+      "cv_pct": 25.11,
+      "overnight_avg": 136.43,
+      "morning_avg": 141.38,
+      "afternoon_avg": 136.14,
+      "evening_avg": 157.27,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 1.39,
+      "evening_high_pct": 30.99
     },
     {
       "local_date": "2026-04-29",
@@ -505,7 +725,16 @@
       "bolus_sum": 23.15,
       "carbs_sum": 150.0,
       "bolus_count": 10,
-      "alarm_count": 9
+      "alarm_count": 9,
+      "stddev": 57.04,
+      "cv_pct": 32.65,
+      "overnight_avg": 175.85,
+      "morning_avg": 125.17,
+      "afternoon_avg": 173.48,
+      "evening_avg": 228.09,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 77.61
     },
     {
       "local_date": "2026-04-30",
@@ -524,7 +753,16 @@
       "bolus_sum": 16.2,
       "carbs_sum": 125.0,
       "bolus_count": 5,
-      "alarm_count": 2
+      "alarm_count": 2,
+      "stddev": 47.7,
+      "cv_pct": 27.35,
+      "overnight_avg": 200.49,
+      "morning_avg": 168.62,
+      "afternoon_avg": 187.97,
+      "evening_avg": 140.97,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 44.44,
+      "evening_high_pct": 5.56
     },
     {
       "local_date": "2026-05-01",
@@ -543,7 +781,16 @@
       "bolus_sum": 16.4,
       "carbs_sum": 140.0,
       "bolus_count": 6,
-      "alarm_count": 0
+      "alarm_count": 0,
+      "stddev": 33.92,
+      "cv_pct": 21.11,
+      "overnight_avg": 186.97,
+      "morning_avg": 131.76,
+      "afternoon_avg": 165.01,
+      "evening_avg": 159.12,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 5.56,
+      "evening_high_pct": 27.78
     },
     {
       "local_date": "2026-05-02",
@@ -562,7 +809,16 @@
       "bolus_sum": 15.0,
       "carbs_sum": 110.0,
       "bolus_count": 7,
-      "alarm_count": 3
+      "alarm_count": 3,
+      "stddev": 37.21,
+      "cv_pct": 26.47,
+      "overnight_avg": 123.47,
+      "morning_avg": 135.93,
+      "afternoon_avg": 144.68,
+      "evening_avg": 158.19,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 12.5,
+      "evening_high_pct": 37.5
     },
     {
       "local_date": "2026-05-03",
@@ -581,7 +837,16 @@
       "bolus_sum": 13.3,
       "carbs_sum": 120.0,
       "bolus_count": 5,
-      "alarm_count": 2
+      "alarm_count": 2,
+      "stddev": 30.08,
+      "cv_pct": 21.46,
+      "overnight_avg": 159.35,
+      "morning_avg": 126.29,
+      "afternoon_avg": 146.67,
+      "evening_avg": 128.39,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 6.94
     },
     {
       "local_date": "2026-05-04",
@@ -600,7 +865,16 @@
       "bolus_sum": 19.2,
       "carbs_sum": 130.0,
       "bolus_count": 8,
-      "alarm_count": 5
+      "alarm_count": 5,
+      "stddev": 40.99,
+      "cv_pct": 26.75,
+      "overnight_avg": 152.78,
+      "morning_avg": 138.01,
+      "afternoon_avg": 178.78,
+      "evening_avg": 143.29,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 4.17,
+      "evening_high_pct": 13.89
     },
     {
       "local_date": "2026-05-05",
@@ -619,7 +893,16 @@
       "bolus_sum": 15.85,
       "carbs_sum": 150.0,
       "bolus_count": 5,
-      "alarm_count": 1
+      "alarm_count": 1,
+      "stddev": 32.17,
+      "cv_pct": 19.54,
+      "overnight_avg": 161.81,
+      "morning_avg": 138.28,
+      "afternoon_avg": 184.17,
+      "evening_avg": 174.56,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 47.89
     },
     {
       "local_date": "2026-05-06",
@@ -638,7 +921,16 @@
       "bolus_sum": 19.55,
       "carbs_sum": 165.0,
       "bolus_count": 6,
-      "alarm_count": 0
+      "alarm_count": 0,
+      "stddev": 30.91,
+      "cv_pct": 15.97,
+      "overnight_avg": 210.62,
+      "morning_avg": 177.23,
+      "afternoon_avg": 181.47,
+      "evening_avg": 204.64,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 61.97,
+      "evening_high_pct": 90.28
     },
     {
       "local_date": "2026-05-07",
@@ -657,7 +949,16 @@
       "bolus_sum": 28.6,
       "carbs_sum": 222.0,
       "bolus_count": 15,
-      "alarm_count": 4
+      "alarm_count": 4,
+      "stddev": 33.95,
+      "cv_pct": 18.87,
+      "overnight_avg": 193.33,
+      "morning_avg": 157.81,
+      "afternoon_avg": 165.59,
+      "evening_avg": 205.67,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 8.7,
+      "evening_high_pct": 75.44
     },
     {
       "local_date": "2026-05-08",
@@ -676,7 +977,16 @@
       "bolus_sum": 20.0,
       "carbs_sum": 120.0,
       "bolus_count": 13,
-      "alarm_count": 3
+      "alarm_count": 3,
+      "stddev": 46.75,
+      "cv_pct": 24.67,
+      "overnight_avg": 192.24,
+      "morning_avg": 218.01,
+      "afternoon_avg": 202.72,
+      "evening_avg": 145.56,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 78.87,
+      "evening_high_pct": 16.67
     },
     {
       "local_date": "2026-05-09",
@@ -695,7 +1005,16 @@
       "bolus_sum": 16.45,
       "carbs_sum": 130.0,
       "bolus_count": 5,
-      "alarm_count": 3
+      "alarm_count": 3,
+      "stddev": 42.54,
+      "cv_pct": 27.42,
+      "overnight_avg": 185.75,
+      "morning_avg": 116.72,
+      "afternoon_avg": 184.53,
+      "evening_avg": 131.09,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 9.23
     },
     {
       "local_date": "2026-05-10",
@@ -714,7 +1033,16 @@
       "bolus_sum": 8.1,
       "carbs_sum": 70.0,
       "bolus_count": 2,
-      "alarm_count": 2
+      "alarm_count": 2,
+      "stddev": 34.63,
+      "cv_pct": 21.52,
+      "overnight_avg": 182.35,
+      "morning_avg": 129.23,
+      "afternoon_avg": 157.11,
+      "evening_avg": 166.17,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 37.5
     },
     {
       "local_date": "2026-05-11",
@@ -733,7 +1061,16 @@
       "bolus_sum": 20.65,
       "carbs_sum": 175.0,
       "bolus_count": 10,
-      "alarm_count": 3
+      "alarm_count": 3,
+      "stddev": 47.52,
+      "cv_pct": 27.22,
+      "overnight_avg": 175.85,
+      "morning_avg": 196.43,
+      "afternoon_avg": 158.11,
+      "evening_avg": 168.01,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 65.28,
+      "evening_high_pct": 30.56
     },
     {
       "local_date": "2026-05-12",
@@ -752,7 +1089,16 @@
       "bolus_sum": 21.2,
       "carbs_sum": 180.0,
       "bolus_count": 9,
-      "alarm_count": 2
+      "alarm_count": 2,
+      "stddev": 36.39,
+      "cv_pct": 23.81,
+      "overnight_avg": 155.4,
+      "morning_avg": 143.29,
+      "afternoon_avg": 143.93,
+      "evening_avg": 168.88,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 13.89,
+      "evening_high_pct": 33.33
     },
     {
       "local_date": "2026-05-13",
@@ -771,7 +1117,16 @@
       "bolus_sum": 18.9,
       "carbs_sum": 210.0,
       "bolus_count": 6,
-      "alarm_count": 5
+      "alarm_count": 5,
+      "stddev": 27.26,
+      "cv_pct": 19.75,
+      "overnight_avg": 146.47,
+      "morning_avg": 153.56,
+      "afternoon_avg": 123.0,
+      "evening_avg": 128.97,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 6.94,
+      "evening_high_pct": 12.5
     },
     {
       "local_date": "2026-05-14",
@@ -790,7 +1145,16 @@
       "bolus_sum": 16.05,
       "carbs_sum": 175.0,
       "bolus_count": 7,
-      "alarm_count": 1
+      "alarm_count": 1,
+      "stddev": 32.88,
+      "cv_pct": 21.73,
+      "overnight_avg": 143.4,
+      "morning_avg": 135.68,
+      "afternoon_avg": 176.4,
+      "evening_avg": 149.9,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 26.39
     },
     {
       "local_date": "2026-05-15",
@@ -809,7 +1173,16 @@
       "bolus_sum": 12.2,
       "carbs_sum": 120.0,
       "bolus_count": 3,
-      "alarm_count": 0
+      "alarm_count": 0,
+      "stddev": 43.46,
+      "cv_pct": 26.1,
+      "overnight_avg": 215.79,
+      "morning_avg": 152.96,
+      "afternoon_avg": 164.69,
+      "evening_avg": 132.51,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 18.06,
+      "evening_high_pct": 5.56
     },
     {
       "local_date": "2026-05-16",
@@ -828,7 +1201,16 @@
       "bolus_sum": 14.55,
       "carbs_sum": 130.0,
       "bolus_count": 4,
-      "alarm_count": 0
+      "alarm_count": 0,
+      "stddev": 41.02,
+      "cv_pct": 25.77,
+      "overnight_avg": 190.96,
+      "morning_avg": 132.93,
+      "afternoon_avg": 140.88,
+      "evening_avg": 171.88,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 4.17,
+      "evening_high_pct": 29.17
     },
     {
       "local_date": "2026-05-17",
@@ -847,7 +1229,16 @@
       "bolus_sum": 17.5,
       "carbs_sum": 145.0,
       "bolus_count": 11,
-      "alarm_count": 5
+      "alarm_count": 5,
+      "stddev": 35.71,
+      "cv_pct": 21.63,
+      "overnight_avg": 159.62,
+      "morning_avg": 178.26,
+      "afternoon_avg": 155.9,
+      "evening_avg": 166.49,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 45.83,
+      "evening_high_pct": 31.94
     },
     {
       "local_date": "2026-05-18",
@@ -866,7 +1257,16 @@
       "bolus_sum": 15.4,
       "carbs_sum": 140.0,
       "bolus_count": 5,
-      "alarm_count": 0
+      "alarm_count": 0,
+      "stddev": 37.07,
+      "cv_pct": 21.41,
+      "overnight_avg": 200.25,
+      "morning_avg": 172.17,
+      "afternoon_avg": 151.67,
+      "evening_avg": 168.65,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 34.72,
+      "evening_high_pct": 40.28
     },
     {
       "local_date": "2026-05-19",
@@ -885,7 +1285,16 @@
       "bolus_sum": 16.3,
       "carbs_sum": 160.0,
       "bolus_count": 6,
-      "alarm_count": 0
+      "alarm_count": 0,
+      "stddev": 26.71,
+      "cv_pct": 18.81,
+      "overnight_avg": 145.76,
+      "morning_avg": 144.08,
+      "afternoon_avg": 128.26,
+      "evening_avg": 149.81,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 16.67
     },
     {
       "local_date": "2026-05-20",
@@ -904,7 +1313,16 @@
       "bolus_sum": 19.25,
       "carbs_sum": 140.0,
       "bolus_count": 6,
-      "alarm_count": 7
+      "alarm_count": 7,
+      "stddev": 39.59,
+      "cv_pct": 24.15,
+      "overnight_avg": 152.21,
+      "morning_avg": 191.61,
+      "afternoon_avg": 157.83,
+      "evening_avg": 153.29,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 48.61,
+      "evening_high_pct": 31.82
     },
     {
       "local_date": "2026-05-21",
@@ -923,7 +1341,16 @@
       "bolus_sum": 15.15,
       "carbs_sum": 160.0,
       "bolus_count": 4,
-      "alarm_count": 6
+      "alarm_count": 6,
+      "stddev": 40.9,
+      "cv_pct": 27.73,
+      "overnight_avg": 171.46,
+      "morning_avg": 136.38,
+      "afternoon_avg": 160.89,
+      "evening_avg": 121.36,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 1.39,
+      "evening_high_pct": 2.78
     },
     {
       "local_date": "2026-05-22",
@@ -942,7 +1369,16 @@
       "bolus_sum": 14.5,
       "carbs_sum": 175.0,
       "bolus_count": 7,
-      "alarm_count": 1
+      "alarm_count": 1,
+      "stddev": 32.58,
+      "cv_pct": 23.38,
+      "overnight_avg": 133.71,
+      "morning_avg": 139.69,
+      "afternoon_avg": 122.65,
+      "evening_avg": 161.44,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 30.56
     },
     {
       "local_date": "2026-05-23",
@@ -961,7 +1397,16 @@
       "bolus_sum": 10.6,
       "carbs_sum": 125.0,
       "bolus_count": 3,
-      "alarm_count": 10
+      "alarm_count": 10,
+      "stddev": 34.7,
+      "cv_pct": 24.21,
+      "overnight_avg": 168.24,
+      "morning_avg": 131.83,
+      "afternoon_avg": 135.78,
+      "evening_avg": 137.58,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 5.56
     },
     {
       "local_date": "2026-05-24",
@@ -980,7 +1425,16 @@
       "bolus_sum": 13.55,
       "carbs_sum": 120.0,
       "bolus_count": 6,
-      "alarm_count": 0
+      "alarm_count": 0,
+      "stddev": 37.05,
+      "cv_pct": 21.42,
+      "overnight_avg": 199.38,
+      "morning_avg": 159.24,
+      "afternoon_avg": 175.18,
+      "evening_avg": 157.92,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 47.22,
+      "evening_high_pct": 22.22
     },
     {
       "local_date": "2026-05-25",
@@ -999,7 +1453,16 @@
       "bolus_sum": 12.65,
       "carbs_sum": 125.0,
       "bolus_count": 6,
-      "alarm_count": 2
+      "alarm_count": 2,
+      "stddev": 40.4,
+      "cv_pct": 26.73,
+      "overnight_avg": 173.78,
+      "morning_avg": 137.4,
+      "afternoon_avg": 160.82,
+      "evening_avg": 132.64,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 4.17,
+      "evening_high_pct": 9.72
     },
     {
       "local_date": "2026-05-26",
@@ -1018,7 +1481,16 @@
       "bolus_sum": 19.15,
       "carbs_sum": 208.0,
       "bolus_count": 6,
-      "alarm_count": 1
+      "alarm_count": 1,
+      "stddev": 33.42,
+      "cv_pct": 21.63,
+      "overnight_avg": 159.99,
+      "morning_avg": 146.92,
+      "afternoon_avg": 170.12,
+      "evening_avg": 140.97,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 18.06,
+      "evening_high_pct": 23.61
     },
     {
       "local_date": "2026-05-27",
@@ -1037,7 +1509,16 @@
       "bolus_sum": 19.0,
       "carbs_sum": 180.0,
       "bolus_count": 6,
-      "alarm_count": 8
+      "alarm_count": 8,
+      "stddev": 49.29,
+      "cv_pct": 31.67,
+      "overnight_avg": 196.9,
+      "morning_avg": 132.03,
+      "afternoon_avg": 182.92,
+      "evening_avg": 110.56,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 0.0
     },
     {
       "local_date": "2026-05-28",
@@ -1056,7 +1537,16 @@
       "bolus_sum": 26.95,
       "carbs_sum": 165.0,
       "bolus_count": 19,
-      "alarm_count": 0
+      "alarm_count": 0,
+      "stddev": 45.2,
+      "cv_pct": 21.2,
+      "overnight_avg": 205.49,
+      "morning_avg": 193.87,
+      "afternoon_avg": 226.69,
+      "evening_avg": 225.07,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 66.67,
+      "evening_high_pct": 100.0
     },
     {
       "local_date": "2026-05-29",
@@ -1075,7 +1565,16 @@
       "bolus_sum": 31.05,
       "carbs_sum": 75.0,
       "bolus_count": 18,
-      "alarm_count": 4
+      "alarm_count": 4,
+      "stddev": 55.28,
+      "cv_pct": 23.12,
+      "overnight_avg": 201.39,
+      "morning_avg": 212.08,
+      "afternoon_avg": 238.83,
+      "evening_avg": 319.93,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 77.78,
+      "evening_high_pct": 98.28
     },
     {
       "local_date": "2026-05-30",
@@ -1113,7 +1612,16 @@
       "bolus_sum": 29.65,
       "carbs_sum": 40.0,
       "bolus_count": 11,
-      "alarm_count": 1
+      "alarm_count": 1,
+      "stddev": 17.28,
+      "cv_pct": 10.81,
+      "overnight_avg": null,
+      "morning_avg": null,
+      "afternoon_avg": null,
+      "evening_avg": 159.88,
+      "overnight_low_pct": null,
+      "morning_high_pct": null,
+      "evening_high_pct": 16.92
     },
     {
       "local_date": "2026-06-01",
@@ -1132,7 +1640,16 @@
       "bolus_sum": 18.35,
       "carbs_sum": 150.0,
       "bolus_count": 5,
-      "alarm_count": 10
+      "alarm_count": 10,
+      "stddev": 36.58,
+      "cv_pct": 25.39,
+      "overnight_avg": 148.59,
+      "morning_avg": 127.25,
+      "afternoon_avg": 165.26,
+      "evening_avg": 134.94,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 2.78,
+      "evening_high_pct": 22.22
     },
     {
       "local_date": "2026-06-02",
@@ -1151,7 +1668,16 @@
       "bolus_sum": 15.45,
       "carbs_sum": 150.0,
       "bolus_count": 7,
-      "alarm_count": 3
+      "alarm_count": 3,
+      "stddev": 73.71,
+      "cv_pct": 39.24,
+      "overnight_avg": 170.1,
+      "morning_avg": 290.67,
+      "afternoon_avg": 139.08,
+      "evening_avg": 151.5,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 100.0,
+      "evening_high_pct": 16.67
     },
     {
       "local_date": "2026-06-03",
@@ -1170,7 +1696,16 @@
       "bolus_sum": 15.25,
       "carbs_sum": 185.0,
       "bolus_count": 6,
-      "alarm_count": 4
+      "alarm_count": 4,
+      "stddev": 23.84,
+      "cv_pct": 17.54,
+      "overnight_avg": 139.11,
+      "morning_avg": 136.44,
+      "afternoon_avg": 134.78,
+      "evening_avg": 133.57,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 11.11
     },
     {
       "local_date": "2026-06-04",
@@ -1189,7 +1724,16 @@
       "bolus_sum": 25.25,
       "carbs_sum": 195.0,
       "bolus_count": 9,
-      "alarm_count": 8
+      "alarm_count": 8,
+      "stddev": 36.57,
+      "cv_pct": 22.57,
+      "overnight_avg": 161.94,
+      "morning_avg": 177.92,
+      "afternoon_avg": 155.74,
+      "evening_avg": 152.49,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 52.78,
+      "evening_high_pct": 29.17
     },
     {
       "local_date": "2026-06-05",
@@ -1208,7 +1752,16 @@
       "bolus_sum": 17.95,
       "carbs_sum": 140.0,
       "bolus_count": 6,
-      "alarm_count": 6
+      "alarm_count": 6,
+      "stddev": 41.47,
+      "cv_pct": 25.27,
+      "overnight_avg": 209.26,
+      "morning_avg": 142.31,
+      "afternoon_avg": 172.93,
+      "evening_avg": 133.17,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 9.72
     },
     {
       "local_date": "2026-06-06",
@@ -1227,7 +1780,16 @@
       "bolus_sum": 14.7,
       "carbs_sum": 85.0,
       "bolus_count": 7,
-      "alarm_count": 2
+      "alarm_count": 2,
+      "stddev": 37.92,
+      "cv_pct": 25.57,
+      "overnight_avg": 146.53,
+      "morning_avg": 123.61,
+      "afternoon_avg": 142.78,
+      "evening_avg": 182.72,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 46.27
     },
     {
       "local_date": "2026-06-07",
@@ -1246,7 +1808,16 @@
       "bolus_sum": 16.9,
       "carbs_sum": 90.0,
       "bolus_count": 7,
-      "alarm_count": 11
+      "alarm_count": 11,
+      "stddev": 36.9,
+      "cv_pct": 24.04,
+      "overnight_avg": 156.2,
+      "morning_avg": 147.9,
+      "afternoon_avg": 163.83,
+      "evening_avg": 145.51,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 24.64,
+      "evening_high_pct": 21.43
     },
     {
       "local_date": "2026-06-08",
@@ -1265,7 +1836,16 @@
       "bolus_sum": 24.3,
       "carbs_sum": 185.0,
       "bolus_count": 14,
-      "alarm_count": 10
+      "alarm_count": 10,
+      "stddev": 41.3,
+      "cv_pct": 26.17,
+      "overnight_avg": 152.14,
+      "morning_avg": 144.83,
+      "afternoon_avg": 166.47,
+      "evening_avg": 167.61,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 10.14,
+      "evening_high_pct": 39.34
     },
     {
       "local_date": "2026-06-09",
@@ -1284,7 +1864,16 @@
       "bolus_sum": 19.9,
       "carbs_sum": 171.0,
       "bolus_count": 7,
-      "alarm_count": 9
+      "alarm_count": 9,
+      "stddev": 60.02,
+      "cv_pct": 38.06,
+      "overnight_avg": 156.62,
+      "morning_avg": 154.21,
+      "afternoon_avg": 198.93,
+      "evening_avg": 119.5,
+      "overnight_low_pct": 27.08,
+      "morning_high_pct": 16.42,
+      "evening_high_pct": 2.94
     },
     {
       "local_date": "2026-06-10",
@@ -1303,7 +1892,16 @@
       "bolus_sum": 15.9,
       "carbs_sum": 160.0,
       "bolus_count": 5,
-      "alarm_count": 5
+      "alarm_count": 5,
+      "stddev": 33.22,
+      "cv_pct": 24.6,
+      "overnight_avg": 144.53,
+      "morning_avg": 143.97,
+      "afternoon_avg": 141.5,
+      "evening_avg": 109.19,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 13.24,
+      "evening_high_pct": 4.69
     },
     {
       "local_date": "2026-06-11",
@@ -1322,7 +1920,16 @@
       "bolus_sum": 17.2,
       "carbs_sum": 165.0,
       "bolus_count": 7,
-      "alarm_count": 9
+      "alarm_count": 9,
+      "stddev": 41.78,
+      "cv_pct": 27.42,
+      "overnight_avg": 178.2,
+      "morning_avg": 166.41,
+      "afternoon_avg": 135.9,
+      "evening_avg": 142.96,
+      "overnight_low_pct": 2.22,
+      "morning_high_pct": 33.33,
+      "evening_high_pct": 28.77
     },
     {
       "local_date": "2026-06-12",
@@ -1341,7 +1948,16 @@
       "bolus_sum": 20.05,
       "carbs_sum": 145.0,
       "bolus_count": 10,
-      "alarm_count": 1
+      "alarm_count": 1,
+      "stddev": 62.41,
+      "cv_pct": 36.53,
+      "overnight_avg": 191.08,
+      "morning_avg": 215.42,
+      "afternoon_avg": 140.69,
+      "evening_avg": 136.22,
+      "overnight_low_pct": 2.78,
+      "morning_high_pct": 77.78,
+      "evening_high_pct": 5.48
     },
     {
       "local_date": "2026-06-13",
@@ -1360,7 +1976,16 @@
       "bolus_sum": 13.15,
       "carbs_sum": 110.0,
       "bolus_count": 3,
-      "alarm_count": 2
+      "alarm_count": 2,
+      "stddev": 37.39,
+      "cv_pct": 24.11,
+      "overnight_avg": 179.25,
+      "morning_avg": 134.93,
+      "afternoon_avg": 150.72,
+      "evening_avg": 155.17,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 16.9,
+      "evening_high_pct": 23.61
     },
     {
       "local_date": "2026-06-14",
@@ -1379,7 +2004,16 @@
       "bolus_sum": 10.2,
       "carbs_sum": 60.0,
       "bolus_count": 5,
-      "alarm_count": 2
+      "alarm_count": 2,
+      "stddev": 51.48,
+      "cv_pct": 27.83,
+      "overnight_avg": 245.29,
+      "morning_avg": 160.11,
+      "afternoon_avg": 190.54,
+      "evening_avg": 143.97,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 29.17,
+      "evening_high_pct": 0.0
     },
     {
       "local_date": "2026-06-15",
@@ -1398,7 +2032,16 @@
       "bolus_sum": 30.45,
       "carbs_sum": 225.0,
       "bolus_count": 12,
-      "alarm_count": 5
+      "alarm_count": 5,
+      "stddev": 46.38,
+      "cv_pct": 27.57,
+      "overnight_avg": 185.28,
+      "morning_avg": 190.65,
+      "afternoon_avg": 149.54,
+      "evening_avg": 147.49,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 52.78,
+      "evening_high_pct": 22.22
     },
     {
       "local_date": "2026-06-16",
@@ -1417,7 +2060,16 @@
       "bolus_sum": 24.15,
       "carbs_sum": 165.0,
       "bolus_count": 12,
-      "alarm_count": 6
+      "alarm_count": 6,
+      "stddev": 45.05,
+      "cv_pct": 29.38,
+      "overnight_avg": 155.68,
+      "morning_avg": 150.76,
+      "afternoon_avg": 160.9,
+      "evening_avg": 146.0,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 19.44,
+      "evening_high_pct": 27.78
     },
     {
       "local_date": "2026-06-17",
@@ -1436,7 +2088,16 @@
       "bolus_sum": 25.15,
       "carbs_sum": 165.0,
       "bolus_count": 9,
-      "alarm_count": 1
+      "alarm_count": 1,
+      "stddev": 45.85,
+      "cv_pct": 27.14,
+      "overnight_avg": 154.29,
+      "morning_avg": 159.81,
+      "afternoon_avg": 201.04,
+      "evening_avg": 160.44,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 20.83,
+      "evening_high_pct": 26.39
     },
     {
       "local_date": "2026-06-18",
@@ -1455,7 +2116,16 @@
       "bolus_sum": 36.9,
       "carbs_sum": 190.0,
       "bolus_count": 19,
-      "alarm_count": 11
+      "alarm_count": 11,
+      "stddev": 59.27,
+      "cv_pct": 34.17,
+      "overnight_avg": 189.42,
+      "morning_avg": 158.74,
+      "afternoon_avg": 177.39,
+      "evening_avg": 168.35,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 20.83,
+      "evening_high_pct": 32.39
     },
     {
       "local_date": "2026-06-19",
@@ -1474,7 +2144,16 @@
       "bolus_sum": 15.05,
       "carbs_sum": 105.0,
       "bolus_count": 6,
-      "alarm_count": 6
+      "alarm_count": 6,
+      "stddev": 40.44,
+      "cv_pct": 29.8,
+      "overnight_avg": 148.18,
+      "morning_avg": 116.21,
+      "afternoon_avg": 146.19,
+      "evening_avg": 132.21,
+      "overnight_low_pct": 13.89,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 0.0
     },
     {
       "local_date": "2026-06-20",
@@ -1493,7 +2172,16 @@
       "bolus_sum": 14.1,
       "carbs_sum": 130.0,
       "bolus_count": 5,
-      "alarm_count": 0
+      "alarm_count": 0,
+      "stddev": 25.67,
+      "cv_pct": 17.08,
+      "overnight_avg": 148.96,
+      "morning_avg": 138.19,
+      "afternoon_avg": 165.18,
+      "evening_avg": 148.75,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 2.78,
+      "evening_high_pct": 0.0
     },
     {
       "local_date": "2026-06-21",
@@ -1512,7 +2200,16 @@
       "bolus_sum": 23.4,
       "carbs_sum": 190.0,
       "bolus_count": 7,
-      "alarm_count": 6
+      "alarm_count": 6,
+      "stddev": 45.14,
+      "cv_pct": 26.85,
+      "overnight_avg": 160.18,
+      "morning_avg": 152.54,
+      "afternoon_avg": 186.9,
+      "evening_avg": 173.1,
+      "overnight_low_pct": 2.82,
+      "morning_high_pct": 11.11,
+      "evening_high_pct": 44.12
     },
     {
       "local_date": "2026-06-22",
@@ -1531,7 +2228,16 @@
       "bolus_sum": 17.45,
       "carbs_sum": 150.0,
       "bolus_count": 6,
-      "alarm_count": 2
+      "alarm_count": 2,
+      "stddev": 29.52,
+      "cv_pct": 19.11,
+      "overnight_avg": 155.93,
+      "morning_avg": 152.44,
+      "afternoon_avg": 165.68,
+      "evening_avg": 143.71,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 15.28,
+      "evening_high_pct": 5.56
     },
     {
       "local_date": "2026-06-23",
@@ -1550,7 +2256,16 @@
       "bolus_sum": 16.85,
       "carbs_sum": 150.0,
       "bolus_count": 6,
-      "alarm_count": 3
+      "alarm_count": 3,
+      "stddev": 26.77,
+      "cv_pct": 19.27,
+      "overnight_avg": 135.06,
+      "morning_avg": 140.9,
+      "afternoon_avg": 138.07,
+      "evening_avg": 141.54,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 9.72,
+      "evening_high_pct": 11.11
     },
     {
       "local_date": "2026-06-24",
@@ -1569,7 +2284,16 @@
       "bolus_sum": 22.25,
       "carbs_sum": 220.0,
       "bolus_count": 7,
-      "alarm_count": 5
+      "alarm_count": 5,
+      "stddev": 31.5,
+      "cv_pct": 23.32,
+      "overnight_avg": 143.12,
+      "morning_avg": 126.19,
+      "afternoon_avg": 158.17,
+      "evening_avg": 113.92,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 0.0
     },
     {
       "local_date": "2026-06-25",
@@ -1588,7 +2312,16 @@
       "bolus_sum": 19.0,
       "carbs_sum": 155.0,
       "bolus_count": 6,
-      "alarm_count": 11
+      "alarm_count": 11,
+      "stddev": 52.97,
+      "cv_pct": 35.89,
+      "overnight_avg": 165.29,
+      "morning_avg": 115.58,
+      "afternoon_avg": 157.15,
+      "evening_avg": 152.4,
+      "overnight_low_pct": 1.39,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 25.0
     },
     {
       "local_date": "2026-06-26",
@@ -1607,7 +2340,16 @@
       "bolus_sum": 22.2,
       "carbs_sum": 145.0,
       "bolus_count": 8,
-      "alarm_count": 6
+      "alarm_count": 6,
+      "stddev": 444.27,
+      "cv_pct": 145.02,
+      "overnight_avg": 339.8,
+      "morning_avg": 488.28,
+      "afternoon_avg": 201.03,
+      "evening_avg": 199.26,
+      "overnight_low_pct": 22.54,
+      "morning_high_pct": 43.66,
+      "evening_high_pct": 59.72
     },
     {
       "local_date": "2026-06-27",
@@ -1626,7 +2368,16 @@
       "bolus_sum": 11.55,
       "carbs_sum": 80.0,
       "bolus_count": 5,
-      "alarm_count": 7
+      "alarm_count": 7,
+      "stddev": 47.52,
+      "cv_pct": 28.18,
+      "overnight_avg": 213.56,
+      "morning_avg": 148.11,
+      "afternoon_avg": 166.59,
+      "evening_avg": 142.97,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 13.89,
+      "evening_high_pct": 23.81
     },
     {
       "local_date": "2026-06-28",
@@ -1645,7 +2396,16 @@
       "bolus_sum": 19.45,
       "carbs_sum": 120.0,
       "bolus_count": 10,
-      "alarm_count": 6
+      "alarm_count": 6,
+      "stddev": 58.29,
+      "cv_pct": 32.73,
+      "overnight_avg": 194.99,
+      "morning_avg": 180.57,
+      "afternoon_avg": 198.69,
+      "evening_avg": 138.69,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 54.17,
+      "evening_high_pct": 15.28
     },
     {
       "local_date": "2026-06-29",
@@ -1664,7 +2424,16 @@
       "bolus_sum": 31.45,
       "carbs_sum": 215.0,
       "bolus_count": 11,
-      "alarm_count": 1
+      "alarm_count": 1,
+      "stddev": 58.48,
+      "cv_pct": 33.45,
+      "overnight_avg": 147.32,
+      "morning_avg": 171.75,
+      "afternoon_avg": 227.74,
+      "evening_avg": 152.39,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 27.78,
+      "evening_high_pct": 12.5
     },
     {
       "local_date": "2026-06-30",
@@ -1683,7 +2452,16 @@
       "bolus_sum": 20.85,
       "carbs_sum": 170.0,
       "bolus_count": 8,
-      "alarm_count": 2
+      "alarm_count": 2,
+      "stddev": 44.41,
+      "cv_pct": 26.81,
+      "overnight_avg": 158.42,
+      "morning_avg": 188.9,
+      "afternoon_avg": 173.38,
+      "evening_avg": 141.85,
+      "overnight_low_pct": 4.17,
+      "morning_high_pct": 56.94,
+      "evening_high_pct": 8.33
     },
     {
       "local_date": "2026-07-01",
@@ -1702,7 +2480,16 @@
       "bolus_sum": 22.9,
       "carbs_sum": 220.0,
       "bolus_count": 9,
-      "alarm_count": 4
+      "alarm_count": 4,
+      "stddev": 28.07,
+      "cv_pct": 18.7,
+      "overnight_avg": 139.5,
+      "morning_avg": 139.35,
+      "afternoon_avg": 157.72,
+      "evening_avg": 163.92,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 31.94
     },
     {
       "local_date": "2026-07-02",
@@ -1721,7 +2508,16 @@
       "bolus_sum": 16.6,
       "carbs_sum": 120.0,
       "bolus_count": 5,
-      "alarm_count": 4
+      "alarm_count": 4,
+      "stddev": 37.64,
+      "cv_pct": 27.48,
+      "overnight_avg": 136.71,
+      "morning_avg": 137.82,
+      "afternoon_avg": 151.1,
+      "evening_avg": 122.32,
+      "overnight_low_pct": 9.72,
+      "morning_high_pct": 5.56,
+      "evening_high_pct": 15.28
     },
     {
       "local_date": "2026-07-03",
@@ -1740,7 +2536,16 @@
       "bolus_sum": 8.6,
       "carbs_sum": 40.0,
       "bolus_count": 3,
-      "alarm_count": 0
+      "alarm_count": 0,
+      "stddev": 35.96,
+      "cv_pct": 21.73,
+      "overnight_avg": 162.15,
+      "morning_avg": 173.01,
+      "afternoon_avg": 157.95,
+      "evening_avg": null,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 33.33,
+      "evening_high_pct": null
     }
   ],
   "joined30": [
@@ -1755,7 +2560,16 @@
       "avg_glucose": 162.02,
       "tir_70_180": 70.83,
       "total_insulin": 45.25,
-      "carbs_sum": 195.0
+      "carbs_sum": 195.0,
+      "stddev": 36.57,
+      "cv_pct": 22.57,
+      "overnight_avg": 161.94,
+      "morning_avg": 177.92,
+      "afternoon_avg": 155.74,
+      "evening_avg": 152.49,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 52.78,
+      "evening_high_pct": 29.17
     },
     {
       "local_date": "2026-06-05",
@@ -1768,7 +2582,16 @@
       "avg_glucose": 164.1,
       "tir_70_180": 67.13,
       "total_insulin": 43.15,
-      "carbs_sum": 140.0
+      "carbs_sum": 140.0,
+      "stddev": 41.47,
+      "cv_pct": 25.27,
+      "overnight_avg": 209.26,
+      "morning_avg": 142.31,
+      "afternoon_avg": 172.93,
+      "evening_avg": 133.17,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 9.72
     },
     {
       "local_date": "2026-06-06",
@@ -1781,7 +2604,16 @@
       "avg_glucose": 148.31,
       "tir_70_180": 85.16,
       "total_insulin": 37.0,
-      "carbs_sum": 85.0
+      "carbs_sum": 85.0,
+      "stddev": 37.92,
+      "cv_pct": 25.57,
+      "overnight_avg": 146.53,
+      "morning_avg": 123.61,
+      "afternoon_avg": 142.78,
+      "evening_avg": 182.72,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 46.27
     },
     {
       "local_date": "2026-06-07",
@@ -1794,7 +2626,16 @@
       "avg_glucose": 153.46,
       "tir_70_180": 76.95,
       "total_insulin": 37.35,
-      "carbs_sum": 90.0
+      "carbs_sum": 90.0,
+      "stddev": 36.9,
+      "cv_pct": 24.04,
+      "overnight_avg": 156.2,
+      "morning_avg": 147.9,
+      "afternoon_avg": 163.83,
+      "evening_avg": 145.51,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 24.64,
+      "evening_high_pct": 21.43
     },
     {
       "local_date": "2026-06-08",
@@ -1807,7 +2648,16 @@
       "avg_glucose": 157.8,
       "tir_70_180": 71.15,
       "total_insulin": 46.4,
-      "carbs_sum": 185.0
+      "carbs_sum": 185.0,
+      "stddev": 41.3,
+      "cv_pct": 26.17,
+      "overnight_avg": 152.14,
+      "morning_avg": 144.83,
+      "afternoon_avg": 166.47,
+      "evening_avg": 167.61,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 10.14,
+      "evening_high_pct": 39.34
     },
     {
       "local_date": "2026-06-09",
@@ -1820,7 +2670,16 @@
       "avg_glucose": 157.71,
       "tir_70_180": 62.45,
       "total_insulin": 40.3,
-      "carbs_sum": 171.0
+      "carbs_sum": 171.0,
+      "stddev": 60.02,
+      "cv_pct": 38.06,
+      "overnight_avg": 156.62,
+      "morning_avg": 154.21,
+      "afternoon_avg": 198.93,
+      "evening_avg": 119.5,
+      "overnight_low_pct": 27.08,
+      "morning_high_pct": 16.42,
+      "evening_high_pct": 2.94
     },
     {
       "local_date": "2026-06-10",
@@ -1833,7 +2692,16 @@
       "avg_glucose": 135.02,
       "tir_70_180": 92.42,
       "total_insulin": 31.65,
-      "carbs_sum": 160.0
+      "carbs_sum": 160.0,
+      "stddev": 33.22,
+      "cv_pct": 24.6,
+      "overnight_avg": 144.53,
+      "morning_avg": 143.97,
+      "afternoon_avg": 141.5,
+      "evening_avg": 109.19,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 13.24,
+      "evening_high_pct": 4.69
     },
     {
       "local_date": "2026-06-11",
@@ -1846,7 +2714,16 @@
       "avg_glucose": 152.39,
       "tir_70_180": 71.78,
       "total_insulin": 35.45,
-      "carbs_sum": 165.0
+      "carbs_sum": 165.0,
+      "stddev": 41.78,
+      "cv_pct": 27.42,
+      "overnight_avg": 178.2,
+      "morning_avg": 166.41,
+      "afternoon_avg": 135.9,
+      "evening_avg": 142.96,
+      "overnight_low_pct": 2.22,
+      "morning_high_pct": 33.33,
+      "evening_high_pct": 28.77
     },
     {
       "local_date": "2026-06-12",
@@ -1859,7 +2736,16 @@
       "avg_glucose": 170.84,
       "tir_70_180": 60.07,
       "total_insulin": 38.55,
-      "carbs_sum": 145.0
+      "carbs_sum": 145.0,
+      "stddev": 62.41,
+      "cv_pct": 36.53,
+      "overnight_avg": 191.08,
+      "morning_avg": 215.42,
+      "afternoon_avg": 140.69,
+      "evening_avg": 136.22,
+      "overnight_low_pct": 2.78,
+      "morning_high_pct": 77.78,
+      "evening_high_pct": 5.48
     },
     {
       "local_date": "2026-06-13",
@@ -1872,7 +2758,16 @@
       "avg_glucose": 155.09,
       "tir_70_180": 76.31,
       "total_insulin": 32.05,
-      "carbs_sum": 110.0
+      "carbs_sum": 110.0,
+      "stddev": 37.39,
+      "cv_pct": 24.11,
+      "overnight_avg": 179.25,
+      "morning_avg": 134.93,
+      "afternoon_avg": 150.72,
+      "evening_avg": 155.17,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 16.9,
+      "evening_high_pct": 23.61
     },
     {
       "local_date": "2026-06-14",
@@ -1885,7 +2780,16 @@
       "avg_glucose": 184.98,
       "tir_70_180": 49.65,
       "total_insulin": 35.6,
-      "carbs_sum": 60.0
+      "carbs_sum": 60.0,
+      "stddev": 51.48,
+      "cv_pct": 27.83,
+      "overnight_avg": 245.29,
+      "morning_avg": 160.11,
+      "afternoon_avg": 190.54,
+      "evening_avg": 143.97,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 29.17,
+      "evening_high_pct": 0.0
     },
     {
       "local_date": "2026-06-15",
@@ -1898,7 +2802,16 @@
       "avg_glucose": 168.24,
       "tir_70_180": 57.99,
       "total_insulin": 49.25,
-      "carbs_sum": 225.0
+      "carbs_sum": 225.0,
+      "stddev": 46.38,
+      "cv_pct": 27.57,
+      "overnight_avg": 185.28,
+      "morning_avg": 190.65,
+      "afternoon_avg": 149.54,
+      "evening_avg": 147.49,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 52.78,
+      "evening_high_pct": 22.22
     },
     {
       "local_date": "2026-06-16",
@@ -1911,7 +2824,16 @@
       "avg_glucose": 153.34,
       "tir_70_180": 76.74,
       "total_insulin": 43.7,
-      "carbs_sum": 165.0
+      "carbs_sum": 165.0,
+      "stddev": 45.05,
+      "cv_pct": 29.38,
+      "overnight_avg": 155.68,
+      "morning_avg": 150.76,
+      "afternoon_avg": 160.9,
+      "evening_avg": 146.0,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 19.44,
+      "evening_high_pct": 27.78
     },
     {
       "local_date": "2026-06-17",
@@ -1924,7 +2846,16 @@
       "avg_glucose": 168.9,
       "tir_70_180": 64.93,
       "total_insulin": 48.35,
-      "carbs_sum": 165.0
+      "carbs_sum": 165.0,
+      "stddev": 45.85,
+      "cv_pct": 27.14,
+      "overnight_avg": 154.29,
+      "morning_avg": 159.81,
+      "afternoon_avg": 201.04,
+      "evening_avg": 160.44,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 20.83,
+      "evening_high_pct": 26.39
     },
     {
       "local_date": "2026-06-18",
@@ -1937,7 +2868,16 @@
       "avg_glucose": 173.45,
       "tir_70_180": 52.11,
       "total_insulin": 60.15,
-      "carbs_sum": 190.0
+      "carbs_sum": 190.0,
+      "stddev": 59.27,
+      "cv_pct": 34.17,
+      "overnight_avg": 189.42,
+      "morning_avg": 158.74,
+      "afternoon_avg": 177.39,
+      "evening_avg": 168.35,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 20.83,
+      "evening_high_pct": 32.39
     },
     {
       "local_date": "2026-06-19",
@@ -1950,7 +2890,16 @@
       "avg_glucose": 135.7,
       "tir_70_180": 82.29,
       "total_insulin": 35.85,
-      "carbs_sum": 105.0
+      "carbs_sum": 105.0,
+      "stddev": 40.44,
+      "cv_pct": 29.8,
+      "overnight_avg": 148.18,
+      "morning_avg": 116.21,
+      "afternoon_avg": 146.19,
+      "evening_avg": 132.21,
+      "overnight_low_pct": 13.89,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 0.0
     },
     {
       "local_date": "2026-06-20",
@@ -1963,7 +2912,16 @@
       "avg_glucose": 150.28,
       "tir_70_180": 88.85,
       "total_insulin": 37.2,
-      "carbs_sum": 130.0
+      "carbs_sum": 130.0,
+      "stddev": 25.67,
+      "cv_pct": 17.08,
+      "overnight_avg": 148.96,
+      "morning_avg": 138.19,
+      "afternoon_avg": 165.18,
+      "evening_avg": 148.75,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 2.78,
+      "evening_high_pct": 0.0
     },
     {
       "local_date": "2026-06-21",
@@ -1976,7 +2934,16 @@
       "avg_glucose": 168.14,
       "tir_70_180": 59.01,
       "total_insulin": 48.35,
-      "carbs_sum": 190.0
+      "carbs_sum": 190.0,
+      "stddev": 45.14,
+      "cv_pct": 26.85,
+      "overnight_avg": 160.18,
+      "morning_avg": 152.54,
+      "afternoon_avg": 186.9,
+      "evening_avg": 173.1,
+      "overnight_low_pct": 2.82,
+      "morning_high_pct": 11.11,
+      "evening_high_pct": 44.12
     },
     {
       "local_date": "2026-06-22",
@@ -1989,7 +2956,16 @@
       "avg_glucose": 154.44,
       "tir_70_180": 83.68,
       "total_insulin": 39.75,
-      "carbs_sum": 150.0
+      "carbs_sum": 150.0,
+      "stddev": 29.52,
+      "cv_pct": 19.11,
+      "overnight_avg": 155.93,
+      "morning_avg": 152.44,
+      "afternoon_avg": 165.68,
+      "evening_avg": 143.71,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 15.28,
+      "evening_high_pct": 5.56
     },
     {
       "local_date": "2026-06-23",
@@ -2002,7 +2978,16 @@
       "avg_glucose": 138.89,
       "tir_70_180": 94.79,
       "total_insulin": 37.45,
-      "carbs_sum": 150.0
+      "carbs_sum": 150.0,
+      "stddev": 26.77,
+      "cv_pct": 19.27,
+      "overnight_avg": 135.06,
+      "morning_avg": 140.9,
+      "afternoon_avg": 138.07,
+      "evening_avg": 141.54,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 9.72,
+      "evening_high_pct": 11.11
     },
     {
       "local_date": "2026-06-24",
@@ -2015,7 +3000,16 @@
       "avg_glucose": 135.11,
       "tir_70_180": 90.53,
       "total_insulin": 41.9,
-      "carbs_sum": 220.0
+      "carbs_sum": 220.0,
+      "stddev": 31.5,
+      "cv_pct": 23.32,
+      "overnight_avg": 143.12,
+      "morning_avg": 126.19,
+      "afternoon_avg": 158.17,
+      "evening_avg": 113.92,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 0.0
     },
     {
       "local_date": "2026-06-25",
@@ -2028,7 +3022,16 @@
       "avg_glucose": 147.61,
       "tir_70_180": 67.36,
       "total_insulin": 41.6,
-      "carbs_sum": 155.0
+      "carbs_sum": 155.0,
+      "stddev": 52.97,
+      "cv_pct": 35.89,
+      "overnight_avg": 165.29,
+      "morning_avg": 115.58,
+      "afternoon_avg": 157.15,
+      "evening_avg": 152.4,
+      "overnight_low_pct": 1.39,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 25.0
     },
     {
       "local_date": "2026-06-26",
@@ -2041,7 +3044,16 @@
       "avg_glucose": 306.35,
       "tir_70_180": 38.11,
       "total_insulin": 50.7,
-      "carbs_sum": 145.0
+      "carbs_sum": 145.0,
+      "stddev": 444.27,
+      "cv_pct": 145.02,
+      "overnight_avg": 339.8,
+      "morning_avg": 488.28,
+      "afternoon_avg": 201.03,
+      "evening_avg": 199.26,
+      "overnight_low_pct": 22.54,
+      "morning_high_pct": 43.66,
+      "evening_high_pct": 59.72
     },
     {
       "local_date": "2026-06-27",
@@ -2054,7 +3066,16 @@
       "avg_glucose": 168.62,
       "tir_70_180": 47.12,
       "total_insulin": 41.3,
-      "carbs_sum": 80.0
+      "carbs_sum": 80.0,
+      "stddev": 47.52,
+      "cv_pct": 28.18,
+      "overnight_avg": 213.56,
+      "morning_avg": 148.11,
+      "afternoon_avg": 166.59,
+      "evening_avg": 142.97,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 13.89,
+      "evening_high_pct": 23.81
     },
     {
       "local_date": "2026-06-28",
@@ -2067,7 +3088,16 @@
       "avg_glucose": 178.12,
       "tir_70_180": 47.2,
       "total_insulin": 46.45,
-      "carbs_sum": 120.0
+      "carbs_sum": 120.0,
+      "stddev": 58.29,
+      "cv_pct": 32.73,
+      "overnight_avg": 194.99,
+      "morning_avg": 180.57,
+      "afternoon_avg": 198.69,
+      "evening_avg": 138.69,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 54.17,
+      "evening_high_pct": 15.28
     },
     {
       "local_date": "2026-06-29",
@@ -2080,7 +3110,16 @@
       "avg_glucose": 174.8,
       "tir_70_180": 73.61,
       "total_insulin": 54.3,
-      "carbs_sum": 215.0
+      "carbs_sum": 215.0,
+      "stddev": 58.48,
+      "cv_pct": 33.45,
+      "overnight_avg": 147.32,
+      "morning_avg": 171.75,
+      "afternoon_avg": 227.74,
+      "evening_avg": 152.39,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 27.78,
+      "evening_high_pct": 12.5
     },
     {
       "local_date": "2026-06-30",
@@ -2093,7 +3132,16 @@
       "avg_glucose": 165.64,
       "tir_70_180": 57.99,
       "total_insulin": 45.75,
-      "carbs_sum": 170.0
+      "carbs_sum": 170.0,
+      "stddev": 44.41,
+      "cv_pct": 26.81,
+      "overnight_avg": 158.42,
+      "morning_avg": 188.9,
+      "afternoon_avg": 173.38,
+      "evening_avg": 141.85,
+      "overnight_low_pct": 4.17,
+      "morning_high_pct": 56.94,
+      "evening_high_pct": 8.33
     },
     {
       "local_date": "2026-07-01",
@@ -2106,7 +3154,16 @@
       "avg_glucose": 150.12,
       "tir_70_180": 82.29,
       "total_insulin": 45.45,
-      "carbs_sum": 220.0
+      "carbs_sum": 220.0,
+      "stddev": 28.07,
+      "cv_pct": 18.7,
+      "overnight_avg": 139.5,
+      "morning_avg": 139.35,
+      "afternoon_avg": 157.72,
+      "evening_avg": 163.92,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
+      "evening_high_pct": 31.94
     },
     {
       "local_date": "2026-07-02",
@@ -2119,7 +3176,16 @@
       "avg_glucose": 136.99,
       "tir_70_180": 86.46,
       "total_insulin": 40.6,
-      "carbs_sum": 120.0
+      "carbs_sum": 120.0,
+      "stddev": 37.64,
+      "cv_pct": 27.48,
+      "overnight_avg": 136.71,
+      "morning_avg": 137.82,
+      "afternoon_avg": 151.1,
+      "evening_avg": 122.32,
+      "overnight_low_pct": 9.72,
+      "morning_high_pct": 5.56,
+      "evening_high_pct": 15.28
     },
     {
       "local_date": "2026-07-03",
@@ -2132,7 +3198,16 @@
       "avg_glucose": 165.45,
       "tir_70_180": 75.68,
       "total_insulin": 23.1,
-      "carbs_sum": 40.0
+      "carbs_sum": 40.0,
+      "stddev": 35.96,
+      "cv_pct": 21.73,
+      "overnight_avg": 162.15,
+      "morning_avg": 173.01,
+      "afternoon_avg": 157.95,
+      "evening_avg": null,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 33.33,
+      "evening_high_pct": null
     }
   ],
   "workouts30": [
@@ -2489,10 +3564,1328 @@
       "zone5_min": 0.0
     }
   ],
+  "hourly_glucose": [
+    {
+      "hour": 0,
+      "avg_glucose": 153.29,
+      "readings": 1049
+    },
+    {
+      "hour": 1,
+      "avg_glucose": 160.7,
+      "readings": 1037
+    },
+    {
+      "hour": 2,
+      "avg_glucose": 172.31,
+      "readings": 1034
+    },
+    {
+      "hour": 3,
+      "avg_glucose": 179.29,
+      "readings": 1029
+    },
+    {
+      "hour": 4,
+      "avg_glucose": 181.1,
+      "readings": 1037
+    },
+    {
+      "hour": 5,
+      "avg_glucose": 184.22,
+      "readings": 1047
+    },
+    {
+      "hour": 6,
+      "avg_glucose": 183.59,
+      "readings": 1035
+    },
+    {
+      "hour": 7,
+      "avg_glucose": 156.92,
+      "readings": 1029
+    },
+    {
+      "hour": 8,
+      "avg_glucose": 147.78,
+      "readings": 1041
+    },
+    {
+      "hour": 9,
+      "avg_glucose": 162.29,
+      "readings": 1040
+    },
+    {
+      "hour": 10,
+      "avg_glucose": 154.29,
+      "readings": 1053
+    },
+    {
+      "hour": 11,
+      "avg_glucose": 150.29,
+      "readings": 1044
+    },
+    {
+      "hour": 12,
+      "avg_glucose": 157.31,
+      "readings": 1054
+    },
+    {
+      "hour": 13,
+      "avg_glucose": 163.38,
+      "readings": 1047
+    },
+    {
+      "hour": 14,
+      "avg_glucose": 169.12,
+      "readings": 1058
+    },
+    {
+      "hour": 15,
+      "avg_glucose": 171.64,
+      "readings": 1047
+    },
+    {
+      "hour": 16,
+      "avg_glucose": 164.51,
+      "readings": 1034
+    },
+    {
+      "hour": 17,
+      "avg_glucose": 153.64,
+      "readings": 1036
+    },
+    {
+      "hour": 18,
+      "avg_glucose": 159.45,
+      "readings": 1039
+    },
+    {
+      "hour": 19,
+      "avg_glucose": 152.91,
+      "readings": 1028
+    },
+    {
+      "hour": 20,
+      "avg_glucose": 149.1,
+      "readings": 1037
+    },
+    {
+      "hour": 21,
+      "avg_glucose": 147.73,
+      "readings": 1040
+    },
+    {
+      "hour": 22,
+      "avg_glucose": 159.04,
+      "readings": 1052
+    },
+    {
+      "hour": 23,
+      "avg_glucose": 156.49,
+      "readings": 1029
+    }
+  ],
+  "analytics": {
+    "periods": {
+      "last7": {
+        "days": 7,
+        "avg_glucose": 162.82,
+        "tir_70_180": 67.19,
+        "high_pct": 27.58,
+        "very_high_pct": 4.17,
+        "low_pct": 1.01,
+        "very_low_pct": 0.05,
+        "gmi": 7.2,
+        "avg_total_insulin": 42.42,
+        "avg_basal": 23.65,
+        "avg_bolus": 18.77,
+        "avg_carbs": 137.86,
+        "avg_cv_pct": 27.01,
+        "overnight_low_pct": 1.98,
+        "evening_avg": 143.69
+      },
+      "last14": {
+        "days": 14,
+        "avg_glucose": 167.18,
+        "tir_70_180": 70.91,
+        "high_pct": 24.13,
+        "very_high_pct": 3.66,
+        "low_pct": 0.93,
+        "very_low_pct": 0.38,
+        "gmi": 7.31,
+        "avg_total_insulin": 42.42,
+        "avg_basal": 23.38,
+        "avg_bolus": 19.05,
+        "avg_carbs": 150.36,
+        "avg_cv_pct": 33.97,
+        "overnight_low_pct": 2.9,
+        "evening_avg": 148.83
+      },
+      "last30": {
+        "days": 30,
+        "avg_glucose": 162.73,
+        "tir_70_180": 70.35,
+        "high_pct": 24.1,
+        "very_high_pct": 4.06,
+        "low_pct": 1.1,
+        "very_low_pct": 0.39,
+        "gmi": 7.2,
+        "avg_total_insulin": 41.8,
+        "avg_basal": 22.0,
+        "avg_bolus": 19.79,
+        "avg_carbs": 148.7,
+        "avg_cv_pct": 30.86,
+        "overnight_low_pct": 2.89,
+        "evening_avg": 147.51
+      },
+      "last90": {
+        "days": 90,
+        "avg_glucose": 162.13,
+        "tir_70_180": 69.37,
+        "high_pct": 25.79,
+        "very_high_pct": 3.77,
+        "low_pct": 0.87,
+        "very_low_pct": 0.2,
+        "gmi": 7.19,
+        "avg_total_insulin": 40.26,
+        "avg_basal": 21.4,
+        "avg_bolus": 18.86,
+        "avg_carbs": 145.06,
+        "avg_cv_pct": 27.9,
+        "overnight_low_pct": 1.12,
+        "evening_avg": 154.64
+      },
+      "previous30": {
+        "days": 30,
+        "avg_glucose": 164.65,
+        "tir_70_180": 65.8,
+        "high_pct": 30.11,
+        "very_high_pct": 3.45,
+        "low_pct": 0.46,
+        "very_low_pct": 0.19,
+        "gmi": 7.25,
+        "avg_total_insulin": 40.35,
+        "avg_basal": 22.06,
+        "avg_bolus": 18.29,
+        "avg_carbs": 143.67,
+        "avg_cv_pct": 23.19,
+        "overnight_low_pct": 0.0,
+        "evening_avg": 161.15
+      }
+    },
+    "deltas": {
+      "tir_70_180": 4.55,
+      "avg_glucose": -1.92,
+      "gmi": -0.05,
+      "avg_cv_pct": 7.67,
+      "avg_total_insulin": 1.45,
+      "avg_carbs": 5.03
+    },
+    "weekdays": [
+      {
+        "weekday": "Mon",
+        "days": 13,
+        "avg_glucose": 159.43,
+        "tir_70_180": 72.18,
+        "high_pct": 23.21,
+        "very_high_pct": 3.73,
+        "low_pct": 0.78,
+        "very_low_pct": 0.11,
+        "gmi": 7.12,
+        "avg_total_insulin": 41.21,
+        "avg_basal": 20.84,
+        "avg_bolus": 20.37,
+        "avg_carbs": 156.15,
+        "avg_cv_pct": 25.82,
+        "overnight_low_pct": 0.21,
+        "evening_avg": 155.02
+      },
+      {
+        "weekday": "Tue",
+        "days": 13,
+        "avg_glucose": 156.37,
+        "tir_70_180": 75.17,
+        "high_pct": 20.98,
+        "very_high_pct": 2.71,
+        "low_pct": 0.87,
+        "very_low_pct": 0.27,
+        "gmi": 7.05,
+        "avg_total_insulin": 40.02,
+        "avg_basal": 21.22,
+        "avg_bolus": 18.8,
+        "avg_carbs": 168.15,
+        "avg_cv_pct": 24.66,
+        "overnight_low_pct": 2.4,
+        "evening_avg": 150.62
+      },
+      {
+        "weekday": "Wed",
+        "days": 13,
+        "avg_glucose": 158.21,
+        "tir_70_180": 70.96,
+        "high_pct": 26.71,
+        "very_high_pct": 1.46,
+        "low_pct": 0.74,
+        "very_low_pct": 0.13,
+        "gmi": 7.09,
+        "avg_total_insulin": 41.31,
+        "avg_basal": 21.37,
+        "avg_bolus": 19.94,
+        "avg_carbs": 168.85,
+        "avg_cv_pct": 22.47,
+        "overnight_low_pct": 0.0,
+        "evening_avg": 153.28
+      },
+      {
+        "weekday": "Thu",
+        "days": 13,
+        "avg_glucose": 164.7,
+        "tir_70_180": 64.33,
+        "high_pct": 29.95,
+        "very_high_pct": 3.99,
+        "low_pct": 1.41,
+        "very_low_pct": 0.32,
+        "gmi": 7.25,
+        "avg_total_insulin": 43.6,
+        "avg_basal": 21.4,
+        "avg_bolus": 22.2,
+        "avg_carbs": 170.31,
+        "avg_cv_pct": 35.15,
+        "overnight_low_pct": 1.73,
+        "evening_avg": 163.06
+      },
+      {
+        "weekday": "Fri",
+        "days": 13,
+        "avg_glucose": 181.61,
+        "tir_70_180": 59.34,
+        "high_pct": 29.79,
+        "very_high_pct": 9.94,
+        "low_pct": 0.54,
+        "very_low_pct": 0.4,
+        "gmi": 7.65,
+        "avg_total_insulin": 39.87,
+        "avg_basal": 21.98,
+        "avg_bolus": 17.89,
+        "avg_carbs": 126.15,
+        "avg_cv_pct": 37.0,
+        "overnight_low_pct": 3.02,
+        "evening_avg": 161.6
+      },
+      {
+        "weekday": "Sat",
+        "days": 12,
+        "avg_glucose": 152.4,
+        "tir_70_180": 74.71,
+        "high_pct": 23.21,
+        "very_high_pct": 1.09,
+        "low_pct": 0.96,
+        "very_low_pct": 0.03,
+        "gmi": 6.95,
+        "avg_total_insulin": 36.5,
+        "avg_basal": 21.08,
+        "avg_bolus": 15.42,
+        "avg_carbs": 108.75,
+        "avg_cv_pct": 25.61,
+        "overnight_low_pct": 0.0,
+        "evening_avg": 147.7
+      },
+      {
+        "weekday": "Sun",
+        "days": 13,
+        "avg_glucose": 160.69,
+        "tir_70_180": 69.75,
+        "high_pct": 26.26,
+        "very_high_pct": 3.04,
+        "low_pct": 0.81,
+        "very_low_pct": 0.13,
+        "gmi": 7.16,
+        "avg_total_insulin": 39.03,
+        "avg_basal": 21.91,
+        "avg_bolus": 17.12,
+        "avg_carbs": 114.23,
+        "avg_cv_pct": 24.27,
+        "overnight_low_pct": 0.23,
+        "evening_avg": 150.63
+      }
+    ],
+    "best_days": [
+      {
+        "local_date": "2026-04-20",
+        "cgm_count": 288,
+        "avg_glucose": 131.83,
+        "median_glucose": 135.0,
+        "gmi": 6.46,
+        "tir_70_180": 99.31,
+        "very_high_pct": 0.0,
+        "high_pct": 0.0,
+        "low_pct": 0.69,
+        "very_low_pct": 0.0,
+        "total_insulin": 29.35,
+        "total_basal": 17.8,
+        "total_bolus": 11.55,
+        "bolus_sum": 11.55,
+        "carbs_sum": 115.0,
+        "bolus_count": 3,
+        "alarm_count": 1,
+        "stddev": 21.88,
+        "cv_pct": 16.59,
+        "overnight_avg": 132.15,
+        "morning_avg": 140.19,
+        "afternoon_avg": 123.32,
+        "evening_avg": 131.67,
+        "overnight_low_pct": 2.78,
+        "morning_high_pct": 0.0,
+        "evening_high_pct": 0.0
+      },
+      {
+        "local_date": "2026-04-07",
+        "cgm_count": 288,
+        "avg_glucose": 140.07,
+        "median_glucose": 144.5,
+        "gmi": 6.66,
+        "tir_70_180": 98.61,
+        "very_high_pct": 0.0,
+        "high_pct": 0.69,
+        "low_pct": 0.69,
+        "very_low_pct": 0.0,
+        "total_insulin": 35.95,
+        "total_basal": 17.35,
+        "total_bolus": 18.6,
+        "bolus_sum": 18.6,
+        "carbs_sum": 170.0,
+        "bolus_count": 5,
+        "alarm_count": 4,
+        "stddev": 26.51,
+        "cv_pct": 18.93,
+        "overnight_avg": 136.43,
+        "morning_avg": 154.78,
+        "afternoon_avg": 144.5,
+        "evening_avg": 124.57,
+        "overnight_low_pct": 0.0,
+        "morning_high_pct": 0.0,
+        "evening_high_pct": 0.0
+      },
+      {
+        "local_date": "2026-06-03",
+        "cgm_count": 288,
+        "avg_glucose": 135.98,
+        "median_glucose": 138.0,
+        "gmi": 6.56,
+        "tir_70_180": 96.88,
+        "very_high_pct": 0.0,
+        "high_pct": 2.78,
+        "low_pct": 0.35,
+        "very_low_pct": 0.0,
+        "total_insulin": 35.95,
+        "total_basal": 20.7,
+        "total_bolus": 15.25,
+        "bolus_sum": 15.25,
+        "carbs_sum": 185.0,
+        "bolus_count": 6,
+        "alarm_count": 4,
+        "stddev": 23.84,
+        "cv_pct": 17.54,
+        "overnight_avg": 139.11,
+        "morning_avg": 136.44,
+        "afternoon_avg": 134.78,
+        "evening_avg": 133.57,
+        "overnight_low_pct": 0.0,
+        "morning_high_pct": 0.0,
+        "evening_high_pct": 11.11
+      },
+      {
+        "local_date": "2026-06-23",
+        "cgm_count": 288,
+        "avg_glucose": 138.89,
+        "median_glucose": 140.5,
+        "gmi": 6.63,
+        "tir_70_180": 94.79,
+        "very_high_pct": 0.0,
+        "high_pct": 5.21,
+        "low_pct": 0.0,
+        "very_low_pct": 0.0,
+        "total_insulin": 37.45,
+        "total_basal": 20.6,
+        "total_bolus": 16.85,
+        "bolus_sum": 16.85,
+        "carbs_sum": 150.0,
+        "bolus_count": 6,
+        "alarm_count": 3,
+        "stddev": 26.77,
+        "cv_pct": 19.27,
+        "overnight_avg": 135.06,
+        "morning_avg": 140.9,
+        "afternoon_avg": 138.07,
+        "evening_avg": 141.54,
+        "overnight_low_pct": 0.0,
+        "morning_high_pct": 9.72,
+        "evening_high_pct": 11.11
+      },
+      {
+        "local_date": "2026-05-13",
+        "cgm_count": 288,
+        "avg_glucose": 138.0,
+        "median_glucose": 144.0,
+        "gmi": 6.61,
+        "tir_70_180": 93.75,
+        "very_high_pct": 0.0,
+        "high_pct": 4.86,
+        "low_pct": 1.39,
+        "very_low_pct": 0.0,
+        "total_insulin": 36.6,
+        "total_basal": 17.7,
+        "total_bolus": 18.9,
+        "bolus_sum": 18.9,
+        "carbs_sum": 210.0,
+        "bolus_count": 6,
+        "alarm_count": 5,
+        "stddev": 27.26,
+        "cv_pct": 19.75,
+        "overnight_avg": 146.47,
+        "morning_avg": 153.56,
+        "afternoon_avg": 123.0,
+        "evening_avg": 128.97,
+        "overnight_low_pct": 0.0,
+        "morning_high_pct": 6.94,
+        "evening_high_pct": 12.5
+      }
+    ],
+    "toughest_days": [
+      {
+        "local_date": "2026-05-29",
+        "cgm_count": 274,
+        "avg_glucose": 239.13,
+        "median_glucose": 226.0,
+        "gmi": 9.03,
+        "tir_70_180": 6.93,
+        "very_high_pct": 27.74,
+        "high_pct": 65.33,
+        "low_pct": 0.0,
+        "very_low_pct": 0.0,
+        "total_insulin": 57.05,
+        "total_basal": 26.0,
+        "total_bolus": 31.05,
+        "bolus_sum": 31.05,
+        "carbs_sum": 75.0,
+        "bolus_count": 18,
+        "alarm_count": 4,
+        "stddev": 55.28,
+        "cv_pct": 23.12,
+        "overnight_avg": 201.39,
+        "morning_avg": 212.08,
+        "afternoon_avg": 238.83,
+        "evening_avg": 319.93,
+        "overnight_low_pct": 0.0,
+        "morning_high_pct": 77.78,
+        "evening_high_pct": 98.28
+      },
+      {
+        "local_date": "2026-05-28",
+        "cgm_count": 276,
+        "avg_glucose": 213.25,
+        "median_glucose": 218.0,
+        "gmi": 8.41,
+        "tir_70_180": 20.29,
+        "very_high_pct": 12.32,
+        "high_pct": 67.39,
+        "low_pct": 0.0,
+        "very_low_pct": 0.0,
+        "total_insulin": 52.2,
+        "total_basal": 25.25,
+        "total_bolus": 26.95,
+        "bolus_sum": 26.95,
+        "carbs_sum": 165.0,
+        "bolus_count": 19,
+        "alarm_count": 0,
+        "stddev": 45.2,
+        "cv_pct": 21.2,
+        "overnight_avg": 205.49,
+        "morning_avg": 193.87,
+        "afternoon_avg": 226.69,
+        "evening_avg": 225.07,
+        "overnight_low_pct": 0.0,
+        "morning_high_pct": 66.67,
+        "evening_high_pct": 100.0
+      },
+      {
+        "local_date": "2026-05-06",
+        "cgm_count": 287,
+        "avg_glucose": 193.55,
+        "median_glucose": 192.0,
+        "gmi": 7.94,
+        "tir_70_180": 28.22,
+        "very_high_pct": 2.79,
+        "high_pct": 68.99,
+        "low_pct": 0.0,
+        "very_low_pct": 0.0,
+        "total_insulin": 48.0,
+        "total_basal": 28.45,
+        "total_bolus": 19.55,
+        "bolus_sum": 19.55,
+        "carbs_sum": 165.0,
+        "bolus_count": 6,
+        "alarm_count": 0,
+        "stddev": 30.91,
+        "cv_pct": 15.97,
+        "overnight_avg": 210.62,
+        "morning_avg": 177.23,
+        "afternoon_avg": 181.47,
+        "evening_avg": 204.64,
+        "overnight_low_pct": 0.0,
+        "morning_high_pct": 61.97,
+        "evening_high_pct": 90.28
+      },
+      {
+        "local_date": "2026-06-26",
+        "cgm_count": 286,
+        "avg_glucose": 306.35,
+        "median_glucose": 194.5,
+        "gmi": 10.64,
+        "tir_70_180": 38.11,
+        "very_high_pct": 18.18,
+        "high_pct": 38.11,
+        "low_pct": 2.1,
+        "very_low_pct": 3.5,
+        "total_insulin": 50.7,
+        "total_basal": 28.5,
+        "total_bolus": 22.2,
+        "bolus_sum": 22.2,
+        "carbs_sum": 145.0,
+        "bolus_count": 8,
+        "alarm_count": 6,
+        "stddev": 444.27,
+        "cv_pct": 145.02,
+        "overnight_avg": 339.8,
+        "morning_avg": 488.28,
+        "afternoon_avg": 201.03,
+        "evening_avg": 199.26,
+        "overnight_low_pct": 22.54,
+        "morning_high_pct": 43.66,
+        "evening_high_pct": 59.72
+      },
+      {
+        "local_date": "2026-05-08",
+        "cgm_count": 285,
+        "avg_glucose": 189.48,
+        "median_glucose": 182.0,
+        "gmi": 7.84,
+        "tir_70_180": 45.96,
+        "very_high_pct": 10.53,
+        "high_pct": 43.51,
+        "low_pct": 0.0,
+        "very_low_pct": 0.0,
+        "total_insulin": 46.65,
+        "total_basal": 26.65,
+        "total_bolus": 20.0,
+        "bolus_sum": 20.0,
+        "carbs_sum": 120.0,
+        "bolus_count": 13,
+        "alarm_count": 3,
+        "stddev": 46.75,
+        "cv_pct": 24.67,
+        "overnight_avg": 192.24,
+        "morning_avg": 218.01,
+        "afternoon_avg": 202.72,
+        "evening_avg": 145.56,
+        "overnight_low_pct": 0.0,
+        "morning_high_pct": 78.87,
+        "evening_high_pct": 16.67
+      }
+    ],
+    "high_days": [
+      {
+        "local_date": "2026-06-26",
+        "cgm_count": 286,
+        "avg_glucose": 306.35,
+        "median_glucose": 194.5,
+        "gmi": 10.64,
+        "tir_70_180": 38.11,
+        "very_high_pct": 18.18,
+        "high_pct": 38.11,
+        "low_pct": 2.1,
+        "very_low_pct": 3.5,
+        "total_insulin": 50.7,
+        "total_basal": 28.5,
+        "total_bolus": 22.2,
+        "bolus_sum": 22.2,
+        "carbs_sum": 145.0,
+        "bolus_count": 8,
+        "alarm_count": 6,
+        "stddev": 444.27,
+        "cv_pct": 145.02,
+        "overnight_avg": 339.8,
+        "morning_avg": 488.28,
+        "afternoon_avg": 201.03,
+        "evening_avg": 199.26,
+        "overnight_low_pct": 22.54,
+        "morning_high_pct": 43.66,
+        "evening_high_pct": 59.72
+      },
+      {
+        "local_date": "2026-05-29",
+        "cgm_count": 274,
+        "avg_glucose": 239.13,
+        "median_glucose": 226.0,
+        "gmi": 9.03,
+        "tir_70_180": 6.93,
+        "very_high_pct": 27.74,
+        "high_pct": 65.33,
+        "low_pct": 0.0,
+        "very_low_pct": 0.0,
+        "total_insulin": 57.05,
+        "total_basal": 26.0,
+        "total_bolus": 31.05,
+        "bolus_sum": 31.05,
+        "carbs_sum": 75.0,
+        "bolus_count": 18,
+        "alarm_count": 4,
+        "stddev": 55.28,
+        "cv_pct": 23.12,
+        "overnight_avg": 201.39,
+        "morning_avg": 212.08,
+        "afternoon_avg": 238.83,
+        "evening_avg": 319.93,
+        "overnight_low_pct": 0.0,
+        "morning_high_pct": 77.78,
+        "evening_high_pct": 98.28
+      },
+      {
+        "local_date": "2026-05-28",
+        "cgm_count": 276,
+        "avg_glucose": 213.25,
+        "median_glucose": 218.0,
+        "gmi": 8.41,
+        "tir_70_180": 20.29,
+        "very_high_pct": 12.32,
+        "high_pct": 67.39,
+        "low_pct": 0.0,
+        "very_low_pct": 0.0,
+        "total_insulin": 52.2,
+        "total_basal": 25.25,
+        "total_bolus": 26.95,
+        "bolus_sum": 26.95,
+        "carbs_sum": 165.0,
+        "bolus_count": 19,
+        "alarm_count": 0,
+        "stddev": 45.2,
+        "cv_pct": 21.2,
+        "overnight_avg": 205.49,
+        "morning_avg": 193.87,
+        "afternoon_avg": 226.69,
+        "evening_avg": 225.07,
+        "overnight_low_pct": 0.0,
+        "morning_high_pct": 66.67,
+        "evening_high_pct": 100.0
+      },
+      {
+        "local_date": "2026-04-16",
+        "cgm_count": 288,
+        "avg_glucose": 210.9,
+        "median_glucose": 175.0,
+        "gmi": 8.35,
+        "tir_70_180": 57.99,
+        "very_high_pct": 12.15,
+        "high_pct": 29.86,
+        "low_pct": 0.0,
+        "very_low_pct": 0.0,
+        "total_insulin": 50.95,
+        "total_basal": 21.4,
+        "total_bolus": 29.55,
+        "bolus_sum": 29.55,
+        "carbs_sum": 102.0,
+        "bolus_count": 9,
+        "alarm_count": 4,
+        "stddev": 247.27,
+        "cv_pct": 117.25,
+        "overnight_avg": 159.56,
+        "morning_avg": 376.94,
+        "afternoon_avg": 157.71,
+        "evening_avg": 149.39,
+        "overnight_low_pct": 0.0,
+        "morning_high_pct": 73.61,
+        "evening_high_pct": 19.44
+      },
+      {
+        "local_date": "2026-05-06",
+        "cgm_count": 287,
+        "avg_glucose": 193.55,
+        "median_glucose": 192.0,
+        "gmi": 7.94,
+        "tir_70_180": 28.22,
+        "very_high_pct": 2.79,
+        "high_pct": 68.99,
+        "low_pct": 0.0,
+        "very_low_pct": 0.0,
+        "total_insulin": 48.0,
+        "total_basal": 28.45,
+        "total_bolus": 19.55,
+        "bolus_sum": 19.55,
+        "carbs_sum": 165.0,
+        "bolus_count": 6,
+        "alarm_count": 0,
+        "stddev": 30.91,
+        "cv_pct": 15.97,
+        "overnight_avg": 210.62,
+        "morning_avg": 177.23,
+        "afternoon_avg": 181.47,
+        "evening_avg": 204.64,
+        "overnight_low_pct": 0.0,
+        "morning_high_pct": 61.97,
+        "evening_high_pct": 90.28
+      }
+    ],
+    "low_risk_days": [
+      {
+        "local_date": "2026-06-26",
+        "cgm_count": 286,
+        "avg_glucose": 306.35,
+        "median_glucose": 194.5,
+        "gmi": 10.64,
+        "tir_70_180": 38.11,
+        "very_high_pct": 18.18,
+        "high_pct": 38.11,
+        "low_pct": 2.1,
+        "very_low_pct": 3.5,
+        "total_insulin": 50.7,
+        "total_basal": 28.5,
+        "total_bolus": 22.2,
+        "bolus_sum": 22.2,
+        "carbs_sum": 145.0,
+        "bolus_count": 8,
+        "alarm_count": 6,
+        "stddev": 444.27,
+        "cv_pct": 145.02,
+        "overnight_avg": 339.8,
+        "morning_avg": 488.28,
+        "afternoon_avg": 201.03,
+        "evening_avg": 199.26,
+        "overnight_low_pct": 22.54,
+        "morning_high_pct": 43.66,
+        "evening_high_pct": 59.72
+      },
+      {
+        "local_date": "2026-06-09",
+        "cgm_count": 253,
+        "avg_glucose": 157.71,
+        "median_glucose": 160.0,
+        "gmi": 7.08,
+        "tir_70_180": 62.45,
+        "very_high_pct": 6.72,
+        "high_pct": 25.69,
+        "low_pct": 1.58,
+        "very_low_pct": 3.56,
+        "total_insulin": 40.3,
+        "total_basal": 20.4,
+        "total_bolus": 19.9,
+        "bolus_sum": 19.9,
+        "carbs_sum": 171.0,
+        "bolus_count": 7,
+        "alarm_count": 9,
+        "stddev": 60.02,
+        "cv_pct": 38.06,
+        "overnight_avg": 156.62,
+        "morning_avg": 154.21,
+        "afternoon_avg": 198.93,
+        "evening_avg": 119.5,
+        "overnight_low_pct": 27.08,
+        "morning_high_pct": 16.42,
+        "evening_high_pct": 2.94
+      },
+      {
+        "local_date": "2026-04-28",
+        "cgm_count": 287,
+        "avg_glucose": 142.75,
+        "median_glucose": 147.0,
+        "gmi": 6.72,
+        "tir_70_180": 82.23,
+        "very_high_pct": 0.0,
+        "high_pct": 13.94,
+        "low_pct": 3.83,
+        "very_low_pct": 0.0,
+        "total_insulin": 33.55,
+        "total_basal": 18.3,
+        "total_bolus": 15.25,
+        "bolus_sum": 15.25,
+        "carbs_sum": 160.0,
+        "bolus_count": 5,
+        "alarm_count": 13,
+        "stddev": 35.84,
+        "cv_pct": 25.11,
+        "overnight_avg": 136.43,
+        "morning_avg": 141.38,
+        "afternoon_avg": 136.14,
+        "evening_avg": 157.27,
+        "overnight_low_pct": 0.0,
+        "morning_high_pct": 1.39,
+        "evening_high_pct": 30.99
+      },
+      {
+        "local_date": "2026-04-23",
+        "cgm_count": 288,
+        "avg_glucose": 139.85,
+        "median_glucose": 131.0,
+        "gmi": 6.66,
+        "tir_70_180": 77.08,
+        "very_high_pct": 0.69,
+        "high_pct": 18.4,
+        "low_pct": 3.47,
+        "very_low_pct": 0.35,
+        "total_insulin": 37.9,
+        "total_basal": 17.45,
+        "total_bolus": 20.45,
+        "bolus_sum": 20.45,
+        "carbs_sum": 210.0,
+        "bolus_count": 10,
+        "alarm_count": 6,
+        "stddev": 42.82,
+        "cv_pct": 30.62,
+        "overnight_avg": 121.32,
+        "morning_avg": 125.85,
+        "afternoon_avg": 116.69,
+        "evening_avg": 195.54,
+        "overnight_low_pct": 4.17,
+        "morning_high_pct": 0.0,
+        "evening_high_pct": 76.39
+      },
+      {
+        "local_date": "2026-05-21",
+        "cgm_count": 288,
+        "avg_glucose": 147.52,
+        "median_glucose": 149.0,
+        "gmi": 6.84,
+        "tir_70_180": 75.69,
+        "very_high_pct": 0.0,
+        "high_pct": 20.49,
+        "low_pct": 1.39,
+        "very_low_pct": 2.43,
+        "total_insulin": 35.25,
+        "total_basal": 20.1,
+        "total_bolus": 15.15,
+        "bolus_sum": 15.15,
+        "carbs_sum": 160.0,
+        "bolus_count": 4,
+        "alarm_count": 6,
+        "stddev": 40.9,
+        "cv_pct": 27.73,
+        "overnight_avg": 171.46,
+        "morning_avg": 136.38,
+        "afternoon_avg": 160.89,
+        "evening_avg": 121.36,
+        "overnight_low_pct": 0.0,
+        "morning_high_pct": 1.39,
+        "evening_high_pct": 2.78
+      }
+    ],
+    "correlations": [
+      {
+        "label": "Glucose variability vs TIR",
+        "x": "cv_pct",
+        "y": "tir_70_180",
+        "r": -0.52,
+        "n": 30,
+        "note": "Variability is usually a major TIR lever.",
+        "strength": 0.52
+      },
+      {
+        "label": "Total insulin vs same-day avg glucose",
+        "x": "total_insulin",
+        "y": "avg_glucose",
+        "r": 0.38,
+        "n": 30,
+        "note": "Total daily insulin vs average glucose.",
+        "strength": 0.38
+      },
+      {
+        "label": "Sleep hours vs same-day avg glucose",
+        "x": "asleep_hours",
+        "y": "avg_glucose",
+        "r": -0.18,
+        "n": 24,
+        "note": "More sleep vs average glucose.",
+        "strength": 0.18
+      },
+      {
+        "label": "RHR vs same-day avg glucose",
+        "x": "rhr",
+        "y": "avg_glucose",
+        "r": 0.11,
+        "n": 25,
+        "note": "Resting HR and average glucose relationship.",
+        "strength": 0.11
+      },
+      {
+        "label": "HRV vs same-day avg glucose",
+        "x": "hrv",
+        "y": "avg_glucose",
+        "r": -0.09,
+        "n": 25,
+        "note": "HRV and average glucose relationship.",
+        "strength": 0.09
+      },
+      {
+        "label": "Recovery vs same-day TIR",
+        "x": "recovery_score",
+        "y": "tir_70_180",
+        "r": 0.06,
+        "n": 25,
+        "note": "WHOOP recovery and glucose control moved together.",
+        "strength": 0.06
+      },
+      {
+        "label": "Carbs logged vs same-day avg glucose",
+        "x": "carbs_sum",
+        "y": "avg_glucose",
+        "r": -0.04,
+        "n": 30,
+        "note": "Carb load vs average glucose.",
+        "strength": 0.04
+      },
+      {
+        "label": "Sleep performance vs same-day TIR",
+        "x": "sleep_performance",
+        "y": "tir_70_180",
+        "r": -0.03,
+        "n": 24,
+        "note": "Higher sleep performance days tended to align with TIR.",
+        "strength": 0.03
+      }
+    ],
+    "workout_days": [
+      {
+        "local_date": "2026-06-04",
+        "workouts": 1,
+        "strain": 9.47,
+        "z3_5_min": 6.15,
+        "z2_min": 14.8,
+        "avg_hr": 123.0,
+        "same_day_tir": 70.83,
+        "same_day_avg_glucose": 162.02,
+        "next_day_tir": 67.13,
+        "next_day_avg_glucose": 164.1
+      },
+      {
+        "local_date": "2026-06-07",
+        "workouts": 1,
+        "strain": 4.08,
+        "z3_5_min": 0.0,
+        "z2_min": 0.0,
+        "avg_hr": 90.0,
+        "same_day_tir": 76.95,
+        "same_day_avg_glucose": 153.46,
+        "next_day_tir": 71.15,
+        "next_day_avg_glucose": 157.8
+      },
+      {
+        "local_date": "2026-06-08",
+        "workouts": 1,
+        "strain": 13.24,
+        "z3_5_min": 9.63,
+        "z2_min": 13.07,
+        "avg_hr": 133.0,
+        "same_day_tir": 71.15,
+        "same_day_avg_glucose": 157.8,
+        "next_day_tir": 62.45,
+        "next_day_avg_glucose": 157.71
+      },
+      {
+        "local_date": "2026-06-10",
+        "workouts": 1,
+        "strain": 14.31,
+        "z3_5_min": 8.77,
+        "z2_min": 16.18,
+        "avg_hr": 134.0,
+        "same_day_tir": 92.42,
+        "same_day_avg_glucose": 135.02,
+        "next_day_tir": 71.78,
+        "next_day_avg_glucose": 152.39
+      },
+      {
+        "local_date": "2026-06-11",
+        "workouts": 1,
+        "strain": 12.9,
+        "z3_5_min": 0.97,
+        "z2_min": 10.82,
+        "avg_hr": 118.0,
+        "same_day_tir": 71.78,
+        "same_day_avg_glucose": 152.39,
+        "next_day_tir": 60.07,
+        "next_day_avg_glucose": 170.84
+      },
+      {
+        "local_date": "2026-06-13",
+        "workouts": 3,
+        "strain": 23.81,
+        "z3_5_min": 33.44,
+        "z2_min": 17.86,
+        "avg_hr": 120.67,
+        "same_day_tir": 76.31,
+        "same_day_avg_glucose": 155.09,
+        "next_day_tir": 49.65,
+        "next_day_avg_glucose": 184.98
+      },
+      {
+        "local_date": "2026-06-15",
+        "workouts": 1,
+        "strain": 14.12,
+        "z3_5_min": 13.65,
+        "z2_min": 14.07,
+        "avg_hr": 133.0,
+        "same_day_tir": 57.99,
+        "same_day_avg_glucose": 168.24,
+        "next_day_tir": 76.74,
+        "next_day_avg_glucose": 153.34
+      },
+      {
+        "local_date": "2026-06-16",
+        "workouts": 1,
+        "strain": 14.02,
+        "z3_5_min": 11.76,
+        "z2_min": 8.82,
+        "avg_hr": 128.0,
+        "same_day_tir": 76.74,
+        "same_day_avg_glucose": 153.34,
+        "next_day_tir": 64.93,
+        "next_day_avg_glucose": 168.9
+      },
+      {
+        "local_date": "2026-06-18",
+        "workouts": 1,
+        "strain": 13.67,
+        "z3_5_min": 11.33,
+        "z2_min": 4.78,
+        "avg_hr": 128.0,
+        "same_day_tir": 52.11,
+        "same_day_avg_glucose": 173.45,
+        "next_day_tir": 82.29,
+        "next_day_avg_glucose": 135.7
+      },
+      {
+        "local_date": "2026-06-20",
+        "workouts": 1,
+        "strain": 12.89,
+        "z3_5_min": 6.97,
+        "z2_min": 8.78,
+        "avg_hr": 116.0,
+        "same_day_tir": 88.85,
+        "same_day_avg_glucose": 150.28,
+        "next_day_tir": 59.01,
+        "next_day_avg_glucose": 168.14
+      },
+      {
+        "local_date": "2026-06-22",
+        "workouts": 1,
+        "strain": 14.09,
+        "z3_5_min": 10.65,
+        "z2_min": 6.92,
+        "avg_hr": 122.0,
+        "same_day_tir": 83.68,
+        "same_day_avg_glucose": 154.44,
+        "next_day_tir": 94.79,
+        "next_day_avg_glucose": 138.89
+      },
+      {
+        "local_date": "2026-06-23",
+        "workouts": 1,
+        "strain": 13.43,
+        "z3_5_min": 7.77,
+        "z2_min": 10.78,
+        "avg_hr": 125.0,
+        "same_day_tir": 94.79,
+        "same_day_avg_glucose": 138.89,
+        "next_day_tir": 90.53,
+        "next_day_avg_glucose": 135.11
+      },
+      {
+        "local_date": "2026-06-24",
+        "workouts": 1,
+        "strain": 14.34,
+        "z3_5_min": 13.3,
+        "z2_min": 5.82,
+        "avg_hr": 123.0,
+        "same_day_tir": 90.53,
+        "same_day_avg_glucose": 135.11,
+        "next_day_tir": 67.36,
+        "next_day_avg_glucose": 147.61
+      },
+      {
+        "local_date": "2026-06-25",
+        "workouts": 1,
+        "strain": 13.61,
+        "z3_5_min": 8.76,
+        "z2_min": 9.38,
+        "avg_hr": 125.0,
+        "same_day_tir": 67.36,
+        "same_day_avg_glucose": 147.61,
+        "next_day_tir": 38.11,
+        "next_day_avg_glucose": 306.35
+      },
+      {
+        "local_date": "2026-06-26",
+        "workouts": 1,
+        "strain": 8.22,
+        "z3_5_min": 0.0,
+        "z2_min": 0.1,
+        "avg_hr": 100.0,
+        "same_day_tir": 38.11,
+        "same_day_avg_glucose": 306.35,
+        "next_day_tir": 47.12,
+        "next_day_avg_glucose": 168.62
+      },
+      {
+        "local_date": "2026-06-28",
+        "workouts": 1,
+        "strain": 4.65,
+        "z3_5_min": 0.0,
+        "z2_min": 0.0,
+        "avg_hr": 109.0,
+        "same_day_tir": 47.2,
+        "same_day_avg_glucose": 178.12,
+        "next_day_tir": 73.61,
+        "next_day_avg_glucose": 174.8
+      },
+      {
+        "local_date": "2026-06-29",
+        "workouts": 1,
+        "strain": 13.74,
+        "z3_5_min": 24.25,
+        "z2_min": 24.68,
+        "avg_hr": 137.0,
+        "same_day_tir": 73.61,
+        "same_day_avg_glucose": 174.8,
+        "next_day_tir": 57.99,
+        "next_day_avg_glucose": 165.64
+      },
+      {
+        "local_date": "2026-06-30",
+        "workouts": 1,
+        "strain": 14.35,
+        "z3_5_min": 12.8,
+        "z2_min": 16.57,
+        "avg_hr": 131.0,
+        "same_day_tir": 57.99,
+        "same_day_avg_glucose": 165.64,
+        "next_day_tir": 82.29,
+        "next_day_avg_glucose": 150.12
+      },
+      {
+        "local_date": "2026-07-01",
+        "workouts": 1,
+        "strain": 13.33,
+        "z3_5_min": 10.7,
+        "z2_min": 5.45,
+        "avg_hr": 121.0,
+        "same_day_tir": 82.29,
+        "same_day_avg_glucose": 150.12,
+        "next_day_tir": 86.46,
+        "next_day_avg_glucose": 136.99
+      },
+      {
+        "local_date": "2026-07-03",
+        "workouts": 1,
+        "strain": 11.18,
+        "z3_5_min": 13.1,
+        "z2_min": 14.77,
+        "avg_hr": 139.0,
+        "same_day_tir": 75.68,
+        "same_day_avg_glucose": 165.45,
+        "next_day_tir": null,
+        "next_day_avg_glucose": null
+      }
+    ],
+    "workout_correlations": [
+      {
+        "label": "Workout Z3-5 min vs same-day TIR",
+        "r": 0.23,
+        "n": 20
+      },
+      {
+        "label": "Workout strain vs next-day avg glucose",
+        "r": 0.05,
+        "n": 19
+      },
+      {
+        "label": "Zone 2 min vs same-day avg glucose",
+        "r": -0.31,
+        "n": 20
+      }
+    ],
+    "insights": [
+      {
+        "kind": "focus",
+        "title": "Glucose control baseline",
+        "text": "Last 30 days: 70.35% time-in-range with average glucose 162.73 mg/dL and GMI about 7.2%.",
+        "stat": "70.35% TIR"
+      },
+      {
+        "kind": "watch",
+        "title": "Recent direction",
+        "text": "The last 7 days are 3.2 percentage points below your 30-day TIR baseline.",
+        "stat": "-3.2 pts"
+      },
+      {
+        "kind": "win",
+        "title": "Stability / variability",
+        "text": "Average glucose variability is 30.86% CV over the last 30 days. Lower variability usually makes gym sessions, work focus, and parenting energy more predictable.",
+        "stat": "CV 30.86%"
+      },
+      {
+        "kind": "watch",
+        "title": "Overnight lows",
+        "text": "Overnight readings below 70 averaged 2.89%. This is worth reviewing in source apps/with your clinician; the dashboard will only flag trends, not dosing changes.",
+        "stat": "2.89%"
+      },
+      {
+        "kind": "pattern",
+        "title": "Glucose variability vs TIR",
+        "text": "Observed negative correlation r=-0.52 across 30 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=-0.52"
+      },
+      {
+        "kind": "pattern",
+        "title": "Total insulin vs same-day avg glucose",
+        "text": "Observed positive correlation r=0.38 across 30 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.38"
+      },
+      {
+        "kind": "pattern",
+        "title": "Sleep hours vs same-day avg glucose",
+        "text": "Observed negative correlation r=-0.18 across 24 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=-0.18"
+      },
+      {
+        "kind": "pattern",
+        "title": "RHR vs same-day avg glucose",
+        "text": "Observed positive correlation r=0.11 across 25 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.11"
+      },
+      {
+        "kind": "performance",
+        "title": "Training load snapshot",
+        "text": "Across logged workouts in the last 30 days you accumulated about 204 minutes in HR Zones 3-5. The dashboard now compares hard-training days against same/next-day glucose patterns.",
+        "stat": "204m Z3-5"
+      }
+    ],
+    "coach_plan": [
+      {
+        "title": "Daily readiness check",
+        "text": "Use recovery + sleep + overnight glucose stability together. Green-light days are good candidates for harder gym work; yellow/red days are better for technique, zone 2, mobility, or simply protecting energy for twins/work."
+      },
+      {
+        "title": "Performance lever to watch",
+        "text": "Prioritize predictable evenings and overnight stability. A smoother night tends to make the next day\u2019s training, focus, and parenting patience easier."
+      },
+      {
+        "title": "Weekly experiment mindset",
+        "text": "Pick one hypothesis at a time \u2014 timing of dinner, evening walk, workout intensity, bedtime consistency, or hydration \u2014 then watch the 7-day vs 30-day cards. Do not use this dashboard to change insulin dosing without your clinical plan."
+      }
+    ]
+  },
   "whoop_errors": {
     "recovery_error": null,
     "sleep_error": null,
     "workout_error": null
   },
-  "safety_note": "Trend summary only \u2014 not dosing or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP source apps before making decisions."
+  "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP source apps and your clinical plan before making medical decisions."
 }
