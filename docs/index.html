@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>David Health Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--bg:#0b1020;--card:#141b2d;--muted:#8ea0c1;--text:#f5f7fb;--accent:#70e1b2;--warn:#ffd166;--bad:#ff6b6b;--blue:#7bb7ff;--purple:#c69cff;}
+*{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#0b1020,#10172a);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;color:var(--text);} 
+.wrap{max-width:1080px;margin:0 auto;padding:18px 14px 60px}.hero{padding:18px 4px 12px}.hero h1{font-size:28px;margin:0 0 6px}.sub{color:var(--muted);line-height:1.35}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{background:rgba(20,27,45,.92);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:14px;box-shadow:0 8px 30px rgba(0,0,0,.18)}.metric{font-size:27px;font-weight:750;letter-spacing:-.02em}.label{color:var(--muted);font-size:13px}.good{color:var(--accent)}.warn{color:var(--warn)}.bad{color:var(--bad)}.blue{color:var(--blue)}h2{font-size:19px;margin:6px 0 12px}.wide{grid-column:1/-1}canvas{width:100%;max-height:340px}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.08);color:var(--muted);font-size:12px;margin:2px 4px 2px 0}.table{width:100%;border-collapse:collapse;font-size:13px}.table th,.table td{padding:8px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}.table th{color:var(--muted);font-weight:600}.note{font-size:12px;color:var(--muted);line-height:1.4}.zonebar{display:grid;grid-template-columns:72px 1fr 56px;gap:8px;align-items:center;margin:8px 0}.bar{height:10px;border-radius:10px;background:rgba(255,255,255,.08);overflow:hidden}.fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--blue),var(--purple))}@media(max-width:720px){.grid{grid-template-columns:1fr}.metric{font-size:24px}.wrap{padding:14px 10px 48px}.hero h1{font-size:25px}.card{border-radius:16px;padding:12px}}
+</style></head><body><div class="wrap">
+<section class="hero"><h1>Health Dashboard</h1><div class="sub" id="subtitle"></div><div class="note" id="safety"></div></section>
+<section class="grid" id="metrics"></section>
+<section class="grid">
+  <div class="card wide"><h2>Glucose + WHOOP — last 90 days</h2><canvas id="trend"></canvas></div>
+  <div class="card"><h2>Time in glucose ranges — 30 days</h2><canvas id="tir"></canvas></div>
+  <div class="card"><h2>Insulin + carbs — last 90 days</h2><canvas id="insulin"></canvas></div>
+  <div class="card"><h2>WHOOP recovery / sleep — 30 days</h2><canvas id="whoop"></canvas></div>
+  <div class="card"><h2>Workout HR zones — 30 days</h2><div id="zones"></div></div>
+  <div class="card wide"><h2>Recent workouts</h2><div id="workouts"></div></div>
+</section></div>
+<script>
+async function main(){
+ const data=await fetch('./data.json').then(r=>r.json());
+ const s=data.summary30, days=data.daily90, joined=data.joined30;
+ document.getElementById('subtitle').textContent=`Generated ${new Date(data.generated_at).toLocaleString()} · Glooko range ${data.date_range.start} → ${data.date_range.end}`;
+ document.getElementById('safety').textContent=data.safety_note;
+ const metric=(label,val,cls='',suffix='')=>`<div class="card"><div class="label">${label}</div><div class="metric ${cls}">${val??'—'}${val==null?'':suffix}</div></div>`;
+ document.getElementById('metrics').innerHTML=[
+  metric('30d time in range', s.tir_70_180, s.tir_70_180>=70?'good':s.tir_70_180>=60?'warn':'bad','%'),
+  metric('30d avg glucose', s.avg_glucose, '', ' mg/dL'),
+  metric('30d GMI', s.gmi, '', '%'),
+  metric('Avg total insulin/day', s.avg_total_insulin, 'blue', ' U'),
+  metric('Avg recovery', s.avg_recovery, s.avg_recovery>=67?'good':s.avg_recovery>=34?'warn':'bad',''),
+  metric('Avg sleep performance', s.avg_sleep_performance, '', '%'),
+ ].join('');
+ const labels=days.map(d=>d.local_date.slice(5));
+ new Chart(document.getElementById('trend'),{type:'line',data:{labels,datasets:[
+  {label:'Avg glucose',data:days.map(d=>d.avg_glucose),borderColor:'#7bb7ff',backgroundColor:'#7bb7ff33',yAxisID:'y'},
+  {label:'Time in range %',data:days.map(d=>d.tir_70_180),borderColor:'#70e1b2',backgroundColor:'#70e1b233',yAxisID:'y1'},
+  {label:'Recovery',data:days.map(d=>{let j=joined.find(x=>x.local_date===d.local_date);return j&&j.recovery_score}),borderColor:'#ffd166',backgroundColor:'#ffd16633',yAxisID:'y1'}
+ ]},options:{responsive:true,interaction:{mode:'index',intersect:false},scales:{y:{title:{display:true,text:'mg/dL'},grid:{color:'#ffffff12'}},y1:{position:'right',min:0,max:100,grid:{drawOnChartArea:false}}},plugins:{legend:{labels:{color:'#f5f7fb'}}}}});
+ new Chart(document.getElementById('tir'),{type:'doughnut',data:{labels:['Very high','High','Target','Low','Very low'],datasets:[{data:[s.very_high_pct,s.high_pct,s.tir_70_180,s.low_pct,s.very_low_pct],backgroundColor:['#ff6b6b','#ffd166','#70e1b2','#7bb7ff','#c69cff']}]} ,options:{plugins:{legend:{labels:{color:'#f5f7fb'}}}}});
+ new Chart(document.getElementById('insulin'),{type:'bar',data:{labels,datasets:[
+  {label:'Basal U',data:days.map(d=>d.total_basal),backgroundColor:'#7bb7ff99',stack:'i'},
+  {label:'Bolus U',data:days.map(d=>d.total_bolus),backgroundColor:'#c69cff99',stack:'i'},
+  {label:'Carbs g',data:days.map(d=>d.carbs_sum),type:'line',borderColor:'#ffd166',yAxisID:'y1'}
+ ]},options:{scales:{x:{stacked:true},y:{stacked:true,title:{display:true,text:'Insulin U'}},y1:{position:'right',grid:{drawOnChartArea:false},title:{display:true,text:'Carbs g'}}},plugins:{legend:{labels:{color:'#f5f7fb'}}}}});
+ new Chart(document.getElementById('whoop'),{type:'line',data:{labels:joined.map(d=>d.local_date.slice(5)),datasets:[
+  {label:'Recovery',data:joined.map(d=>d.recovery_score),borderColor:'#ffd166'},
+  {label:'Sleep perf',data:joined.map(d=>d.sleep_performance),borderColor:'#70e1b2'},
+  {label:'HRV',data:joined.map(d=>d.hrv),borderColor:'#c69cff'}
+ ]},options:{scales:{y:{min:0,max:100}},plugins:{legend:{labels:{color:'#f5f7fb'}}}}});
+ const z=s.hr_zones; const max=Math.max(...Object.values(z),1); document.getElementById('zones').innerHTML=Object.entries(z).map(([k,v],i)=>`<div class="zonebar"><div class="label">Zone ${i}</div><div class="bar"><div class="fill" style="width:${100*v/max}%"></div></div><div>${Math.round(v)}m</div></div>`).join('');
+ document.getElementById('workouts').innerHTML=`<table class="table"><thead><tr><th>Date</th><th>Sport</th><th>Strain</th><th>Avg/Max HR</th><th>Z3-5</th></tr></thead><tbody>${data.workouts30.slice(0,20).map(w=>`<tr><td>${w.local_date}</td><td>${w.sport_name||''}</td><td>${w.strain??''}</td><td>${w.avg_hr??''}/${w.max_hr??''}</td><td>${Math.round((w.zone3_min||0)+(w.zone4_min||0)+(w.zone5_min||0))}m</td></tr>`).join('')}</tbody></table>`;
+}
+main();
+</script></body></html>
