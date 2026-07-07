@@ -28,6 +28,7 @@ DATA = ROOT / 'data'
 DOCS = ROOT / 'docs'
 SQLITE = DATA / 'health.sqlite'
 JSON_OUT = DATA / 'dashboard_data.json'
+DEXA_JSON = Path('/root/health-data/dexa/dexa_measurements.json')
 TZ = ZoneInfo('America/Los_Angeles')
 
 
@@ -426,6 +427,52 @@ def build_analytics(conn, daily90, joined30, workouts30, start_30):
     return {'periods': {'last7': summary7, 'last14': summary14, 'last30': summary30, 'last90': summary90, 'previous30': previous30}, 'deltas': {k: clean_float(summary30.get(k)-previous30.get(k)) if summary30.get(k) is not None and previous30.get(k) is not None else None for k in ['tir_70_180','avg_glucose','gmi','avg_cv_pct','avg_total_insulin','avg_carbs']}, 'weekdays': weekdays, 'best_days': [round_dict(x) for x in best_tir], 'toughest_days': [round_dict(x) for x in toughest], 'high_days': [round_dict(x) for x in high_days], 'low_risk_days': [round_dict(x) for x in low_risk], 'correlations': correlations, 'workout_days': workout_days, 'workout_correlations': workout_corr, 'insights': insights, 'coach_plan': coach_plan}
 
 
+def load_dexa_data():
+    if not DEXA_JSON.exists():
+        return {'scans': [], 'latest': None, 'summary': None}
+    try:
+        scans = json.loads(DEXA_JSON.read_text())
+    except Exception:
+        return {'scans': [], 'latest': None, 'summary': None}
+    scans = sorted(scans, key=lambda r: r.get('date',''))
+    if not scans:
+        return {'scans': [], 'latest': None, 'summary': None}
+    latest = scans[-1]
+    prev = scans[-2] if len(scans) >= 2 else None
+    base = scans[0]
+    peak_fat = max(scans, key=lambda r: r.get('fat_tissue_lb') or 0)
+    def delta(a,b,k, nd=1):
+        if not a or not b or a.get(k) is None or b.get(k) is None:
+            return None
+        return round(a[k]-b[k], nd)
+    summary = {
+        'scan_count': len(scans),
+        'latest_date': latest.get('date'),
+        'previous_date': prev.get('date') if prev else None,
+        'baseline_date': base.get('date'),
+        'peak_fat_date': peak_fat.get('date'),
+        'latest_vs_previous': {
+            'body_fat_pct_points': delta(latest, prev, 'body_fat_pct') if prev else None,
+            'fat_tissue_lb': delta(latest, prev, 'fat_tissue_lb') if prev else None,
+            'lean_tissue_lb': delta(latest, prev, 'lean_tissue_lb') if prev else None,
+            'total_mass_lb': delta(latest, prev, 'total_mass_lb') if prev else None,
+        },
+        'latest_vs_baseline': {
+            'body_fat_pct_points': delta(latest, base, 'body_fat_pct'),
+            'fat_tissue_lb': delta(latest, base, 'fat_tissue_lb'),
+            'lean_tissue_lb': delta(latest, base, 'lean_tissue_lb'),
+            'total_mass_lb': delta(latest, base, 'total_mass_lb'),
+        },
+        'latest_vs_peak_fat': {
+            'body_fat_pct_points': delta(latest, peak_fat, 'body_fat_pct'),
+            'fat_tissue_lb': delta(latest, peak_fat, 'fat_tissue_lb'),
+            'lean_tissue_lb': delta(latest, peak_fat, 'lean_tissue_lb'),
+            'total_mass_lb': delta(latest, peak_fat, 'total_mass_lb'),
+        }
+    }
+    return {'scans': scans, 'latest': latest, 'summary': summary}
+
+
 def build_json(conn: sqlite3.Connection, whoop_errors):
     latest = conn.execute('SELECT MAX(local_date), MIN(local_date), COUNT(*) FROM daily_summary').fetchone()
     max_date = latest[0]
@@ -453,7 +500,16 @@ def build_json(conn: sqlite3.Connection, whoop_errors):
         return round(statistics.mean(vals),2) if vals else None
     summary30.update({'avg_recovery': avg_key(whoop30,'recovery_score'), 'avg_hrv': avg_key(whoop30,'hrv'), 'avg_rhr': avg_key(whoop30,'rhr'), 'avg_sleep_performance': avg_key(whoop30,'sleep_performance'), 'workout_count': len(workouts30), 'hr_zones': hr_zones})
     analytics=build_analytics(conn, daily90, whoop30, workouts30, start_30)
-    return {'generated_at': datetime.now(TZ).isoformat(), 'date_range': {'start': latest[1], 'end': latest[0], 'days': latest[2]}, 'summary30': summary30, 'daily90': daily90, 'joined30': whoop30, 'workouts30': workouts30[:50], 'hourly_glucose': hourly, 'analytics': analytics, 'whoop_errors': whoop_errors, 'safety_note': 'Trend summary and coaching context only — not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP source apps and your clinical plan before making medical decisions.'}
+    dexa = load_dexa_data()
+    if dexa.get('latest') and dexa.get('summary'):
+        dl = dexa['latest']; ds = dexa['summary']
+        analytics['insights'].insert(1, {
+            'kind': 'performance',
+            'title': 'Body composition momentum',
+            'text': f"Latest DEXA ({dl.get('date')}): {dl.get('body_fat_pct')}% body fat, {dl.get('lean_tissue_lb')} lb lean tissue, {dl.get('fat_tissue_lb')} lb fat mass. Since peak recorded fat mass, fat is {ds['latest_vs_peak_fat'].get('fat_tissue_lb')} lb and lean tissue is {ds['latest_vs_peak_fat'].get('lean_tissue_lb')} lb.",
+            'stat': f"{dl.get('body_fat_pct')}% BF"
+        })
+    return {'generated_at': datetime.now(TZ).isoformat(), 'date_range': {'start': latest[1], 'end': latest[0], 'days': latest[2]}, 'summary30': summary30, 'daily90': daily90, 'joined30': whoop30, 'workouts30': workouts30[:50], 'hourly_glucose': hourly, 'analytics': analytics, 'dexa': dexa, 'whoop_errors': whoop_errors, 'safety_note': 'Trend summary and coaching context only — not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP source apps and your clinical plan before making medical decisions.'}
 
 
 def generate_html(data: dict):
@@ -468,9 +524,11 @@ def generate_html(data: dict):
 :root{--bg:#f6f8fb;--surface:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--brand:#4f46e5;--brand2:#06b6d4;--good:#10b981;--warn:#f59e0b;--bad:#ef4444;--purple:#8b5cf6;--shadow:0 18px 50px rgba(15,23,42,.08)}
 *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 10% -10%,#dbeafe 0,#f8fafc 28%,#f6f8fb 100%);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--ink)}
 .app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.side{padding:24px 18px;border-right:1px solid var(--line);background:rgba(255,255,255,.72);backdrop-filter:blur(18px);position:sticky;top:0;height:100vh}.logo{display:flex;gap:10px;align-items:center;font-weight:850;font-size:19px;letter-spacing:-.03em}.mark{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand2));box-shadow:0 10px 24px #4f46e544}.nav{margin-top:28px;display:grid;gap:8px}.nav a{color:var(--muted);text-decoration:none;padding:10px 12px;border-radius:12px;font-weight:650;font-size:14px}.nav a:hover,.nav a.active{background:#eef2ff;color:var(--brand)}.main{padding:28px;max-width:1280px;width:100%;margin:0 auto;min-width:0}.hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:18px;margin-bottom:18px;min-width:0}.heroCard{border-radius:28px;padding:28px;background:linear-gradient(135deg,#111827,#312e81 60%,#0e7490);color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden}.heroCard:after{content:"";position:absolute;right:-80px;top:-80px;width:260px;height:260px;background:rgba(255,255,255,.12);border-radius:999px}.eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:#bfdbfe;font-weight:800}.hero h1{font-size:42px;line-height:1.02;margin:10px 0 12px;letter-spacing:-.05em}.hero p{color:#dbeafe;line-height:1.55;max-width:680px}.coach{background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:28px;padding:22px;box-shadow:var(--shadow)}.coach h2,.section h2{margin:0 0 12px;font-size:20px;letter-spacing:-.02em}.grid{display:grid;gap:16px}.metrics{grid-template-columns:repeat(4,minmax(0,1fr));margin:18px 0}.card{min-width:0;overflow:hidden;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow)}.metricLabel{font-size:13px;color:var(--muted);font-weight:700}.metricVal{font-size:30px;font-weight:850;letter-spacing:-.04em;margin-top:6px}.metricDelta{font-size:12px;margin-top:5px;color:var(--muted)}.good{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}.brand{color:var(--brand)}.charts{grid-template-columns:1.4fr .8fr}.two{grid-template-columns:1fr 1fr}.section{margin-top:18px}.insight{display:flex;gap:12px;padding:13px;border:1px solid var(--line);border-radius:16px;margin:10px 0;background:#fff}.dot{width:10px;height:10px;border-radius:99px;margin-top:7px;flex:0 0 auto}.dot.win{background:var(--good)}.dot.focus{background:var(--brand)}.dot.watch{background:var(--warn)}.dot.pattern{background:var(--purple)}.dot.performance{background:var(--brand2)}.insight h3{font-size:14px;margin:0 0 4px}.insight p{font-size:13px;line-height:1.45;margin:0;color:var(--muted)}.pill{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#f1f5f9;color:#475569;font-weight:750;font-size:12px;margin:3px}.heroCard .pill{background:rgba(255,255,255,.14);color:#fff}.table{width:100%;border-collapse:collapse;font-size:13px}.table th,.table td{padding:10px;border-bottom:1px solid var(--line);text-align:left}.table th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}.zonebar{display:grid;grid-template-columns:70px 1fr 54px;gap:8px;align-items:center;margin:10px 0}.bar{height:11px;background:#eef2f7;border-radius:99px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));border-radius:99px}canvas{width:100%;max-height:360px}.note{font-size:12px;color:#64748b;line-height:1.45}.footer{margin-top:22px;color:var(--muted);font-size:12px}@media(max-width:980px){.app{grid-template-columns:1fr}.side{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line)}.nav{display:flex;overflow:auto;margin-top:16px}.hero,.charts,.two{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.main{padding:16px}.hero h1{font-size:34px}}@media(max-width:620px){.metrics{grid-template-columns:1fr}.heroCard,.coach,.card{border-radius:18px;padding:16px}.hero h1{font-size:30px}.side{padding:16px}.main{padding:12px}}
-</style></head><body><div class="app"><aside class="side"><div class="logo"><div class="mark"></div><span>David Health OS</span></div><nav class="nav"><a class="active" href="#overview">Overview</a><a href="#coach">Coach</a><a href="#patterns">Patterns</a><a href="#training">Training</a><a href="#glucose">Glucose</a></nav><div class="footer" id="meta"></div></aside><main class="main">
+</style></head><body><div class="app"><aside class="side"><div class="logo"><div class="mark"></div><span>David Health OS</span></div><nav class="nav"><a class="active" href="#overview">Overview</a><a href="#coach">Coach</a><a href="#patterns">Patterns</a><a href="#bodycomp">Body comp</a><a href="#training">Training</a><a href="#glucose">Glucose</a></nav><div class="footer" id="meta"></div></aside><main class="main">
 <section class="hero" id="overview"><div class="heroCard"><div class="eyebrow">Performance dashboard</div><h1>Train hard. Work clearly. Parent with energy.</h1><p id="heroCopy">Loading...</p><div id="heroPills"></div></div><div class="coach" id="coach"><h2>Coach commentary</h2><div id="coachPlan"></div></div></section>
 <section class="grid metrics" id="metrics"></section>
+<section class="grid charts section" id="bodycomp"><div class="card"><h2>DEXA body composition trend</h2><canvas id="dexaChart"></canvas></div><div class="card"><h2>Latest DEXA snapshot</h2><div id="dexaSummary"></div></div></section>
+<section class="section card"><h2>DEXA scan history</h2><div id="dexaTable"></div></section>
 <section class="grid charts section"><div class="card"><h2>90-day control + readiness trend</h2><canvas id="trend"></canvas></div><div class="card"><h2>30-day glucose range mix</h2><canvas id="tir"></canvas><div class="note" id="rangeNote"></div></div></section>
 <section class="grid two section" id="patterns"><div class="card"><h2>Patterns Scout found</h2><div id="insights"></div></div><div class="card"><h2>Correlations to test</h2><div id="corrs"></div></div></section>
 <section class="grid two section"><div class="card"><h2>Average glucose by hour</h2><canvas id="hourly"></canvas></div><div class="card"><h2>Weekday rhythm</h2><canvas id="weekday"></canvas></div></section>
@@ -483,17 +541,23 @@ const fmt=(v,d=1)=>v==null?'—':Number(v).toFixed(d).replace(/\.0$/,'');
 function chartDefaults(){Chart.defaults.color='#64748b'; Chart.defaults.font.family='Inter, system-ui, sans-serif'; Chart.defaults.plugins.legend.labels.usePointStyle=true;}
 function metric(label,val,suffix='',cls='',delta=''){return `<div class="card"><div class="metricLabel">${label}</div><div class="metricVal ${cls}">${val==null?'—':val}${val==null?'':suffix}</div><div class="metricDelta">${delta||'Last 30 days'}</div></div>`}
 function insightHtml(i){return `<div class="insight"><div class="dot ${i.kind||'focus'}"></div><div><h3>${i.title} ${i.stat?`<span class="pill">${i.stat}</span>`:''}</h3><p>${i.text}</p></div></div>`}
-async function main(){chartDefaults(); const data=await fetch('./data.json').then(r=>r.json()); const s=data.summary30, a=data.analytics, days=data.daily90, joined=data.joined30;
+async function main(){chartDefaults(); const data=await fetch('./data.json').then(r=>r.json()); const s=data.summary30, a=data.analytics, days=data.daily90, joined=data.joined30, dexa=data.dexa||{}, scans=(data.dexa&&data.dexa.scans)||[], latestDexa=(data.dexa&&data.dexa.latest)||{};
  document.getElementById('meta').innerHTML=`Generated<br>${new Date(data.generated_at).toLocaleString()}<br><br>Data: ${data.date_range.start} → ${data.date_range.end}`;
  document.getElementById('safety').textContent=data.safety_note;
  document.getElementById('heroCopy').textContent=`Current baseline: ${fmt(s.tir_70_180)}% time-in-range, ${fmt(s.avg_glucose)} mg/dL average glucose, ${fmt(s.avg_recovery)} average WHOOP recovery. The aim is practical visibility: what helps you show up strong in the gym, at work, and at home with the twins.`;
- document.getElementById('heroPills').innerHTML=[`GMI ${fmt(s.gmi)}%`,`CV ${fmt(s.avg_cv_pct)}%`,`${s.workout_count} workouts`,`Sleep ${fmt(s.avg_sleep_performance)}%`].map(x=>`<span class="pill">${x}</span>`).join('');
+ document.getElementById('heroPills').innerHTML=[`GMI ${fmt(s.gmi)}%`,`CV ${fmt(s.avg_cv_pct)}%`,`${s.workout_count} workouts`,`Sleep ${fmt(s.avg_sleep_performance)}%`, latestDexa.body_fat_pct!=null?`DEXA ${fmt(latestDexa.body_fat_pct)}% BF`:null].filter(Boolean).map(x=>`<span class="pill">${x}</span>`).join('');
  document.getElementById('coachPlan').innerHTML=a.coach_plan.map(x=>`<div class="insight"><div class="dot focus"></div><div><h3>${x.title}</h3><p>${x.text}</p></div></div>`).join('');
- document.getElementById('metrics').innerHTML=[metric('Time in range',fmt(s.tir_70_180),'%',s.tir_70_180>=70?'good':s.tir_70_180>=60?'warn':'bad',`vs prior 30: ${fmt(a.deltas.tir_70_180)} pts`),metric('Avg glucose',fmt(s.avg_glucose),' mg/dL','brand',`vs prior 30: ${fmt(a.deltas.avg_glucose)} mg/dL`),metric('Glucose variability',fmt(s.avg_cv_pct),'% CV',s.avg_cv_pct<=36?'good':'warn','Lower = more predictable days'),metric('Avg recovery',fmt(s.avg_recovery),'',s.avg_recovery>=67?'good':s.avg_recovery>=34?'warn':'bad','WHOOP 30-day avg'),metric('Sleep performance',fmt(s.avg_sleep_performance),'%','','WHOOP 30-day avg'),metric('Total insulin/day',fmt(s.avg_total_insulin),' U','brand',`basal ${fmt(s.avg_basal)} / bolus ${fmt(s.avg_bolus)}`),metric('Carbs logged/day',fmt(s.avg_carbs),' g','','30-day avg'),metric('Workouts',s.workout_count,'','','Last 30 days')].join('');
+ document.getElementById('metrics').innerHTML=[metric('Time in range',fmt(s.tir_70_180),'%',s.tir_70_180>=70?'good':s.tir_70_180>=60?'warn':'bad',`vs prior 30: ${fmt(a.deltas.tir_70_180)} pts`),metric('Avg glucose',fmt(s.avg_glucose),' mg/dL','brand',`vs prior 30: ${fmt(a.deltas.avg_glucose)} mg/dL`),metric('Glucose variability',fmt(s.avg_cv_pct),'% CV',s.avg_cv_pct<=36?'good':'warn','Lower = more predictable days'),metric('Avg recovery',fmt(s.avg_recovery),'',s.avg_recovery>=67?'good':s.avg_recovery>=34?'warn':'bad','WHOOP 30-day avg'),metric('DEXA body fat',fmt(latestDexa.body_fat_pct),'%','good',latestDexa.date?`latest ${latestDexa.date}`:'BodySpec'),metric('DEXA lean mass',fmt(latestDexa.lean_tissue_lb),' lb','brand',dexa.summary?`vs prior: ${fmt(dexa.summary.latest_vs_previous.lean_tissue_lb)} lb`:''),metric('Sleep performance',fmt(s.avg_sleep_performance),'%','','WHOOP 30-day avg'),metric('Total insulin/day',fmt(s.avg_total_insulin),' U','brand',`basal ${fmt(s.avg_basal)} / bolus ${fmt(s.avg_bolus)}`),metric('Carbs logged/day',fmt(s.avg_carbs),' g','','30-day avg'),metric('Workouts',s.workout_count,'','','Last 30 days')].join('');
  document.getElementById('rangeNote').textContent=`High/very-high together: ${fmt((s.high_pct||0)+(s.very_high_pct||0))}%. Low/very-low together: ${fmt((s.low_pct||0)+(s.very_low_pct||0))}%.`;
  document.getElementById('insights').innerHTML=a.insights.map(insightHtml).join('');
  document.getElementById('corrs').innerHTML=(a.correlations.length?a.correlations:[]).slice(0,8).map(c=>`<div class="insight"><div class="dot pattern"></div><div><h3>${c.label} <span class="pill">r=${c.r}, n=${c.n}</span></h3><p>${c.note} Correlation is observational; use it to choose experiments, not as proof.</p></div></div>`).join('') || '<p class="note">Not enough paired WHOOP + glucose data yet for stable correlations.</p>';
  const labels=days.map(d=>d.local_date.slice(5));
+ if(scans.length){
+  const ds=dexa.summary||{};
+  new Chart(dexaChart,{type:'line',data:{labels:scans.map(x=>x.date),datasets:[{label:'Body fat %',data:scans.map(x=>x.body_fat_pct),borderColor:'#ef4444',backgroundColor:'#ef444422',yAxisID:'y1',tension:.25},{label:'Fat mass lb',data:scans.map(x=>x.fat_tissue_lb),borderColor:'#f59e0b',backgroundColor:'#f59e0b22',tension:.25},{label:'Lean tissue lb',data:scans.map(x=>x.lean_tissue_lb),borderColor:'#10b981',backgroundColor:'#10b98122',tension:.25},{label:'Total mass lb',data:scans.map(x=>x.total_mass_lb),borderColor:'#4f46e5',backgroundColor:'#4f46e522',tension:.25}]},options:{responsive:true,interaction:{mode:'index',intersect:false},scales:{y:{title:{display:true,text:'lb'}},y1:{position:'right',title:{display:true,text:'body fat %'},grid:{drawOnChartArea:false}}}}});
+  document.getElementById('dexaSummary').innerHTML=`<div class="insight"><div class="dot performance"></div><div><h3>${latestDexa.date} <span class="pill">${fmt(latestDexa.body_fat_pct)}% BF</span></h3><p>${fmt(latestDexa.lean_tissue_lb)} lb lean tissue, ${fmt(latestDexa.fat_tissue_lb)} lb fat mass, ${fmt(latestDexa.total_mass_lb)} lb total mass. RMR estimate ${fmt(latestDexa.rmr_cal_day,0)} cal/day. VAT ${fmt(latestDexa.vat_mass_lb)} lb.</p></div></div><div class="insight"><div class="dot win"></div><div><h3>Recomposition trend</h3><p>Since peak recorded fat mass (${ds.peak_fat_date}), fat mass is ${fmt(ds.latest_vs_peak_fat&&ds.latest_vs_peak_fat.fat_tissue_lb)} lb and lean tissue is ${fmt(ds.latest_vs_peak_fat&&ds.latest_vs_peak_fat.lean_tissue_lb)} lb. Since baseline (${ds.baseline_date}), lean tissue is ${fmt(ds.latest_vs_baseline&&ds.latest_vs_baseline.lean_tissue_lb)} lb.</p></div></div>`;
+  document.getElementById('dexaTable').innerHTML=`<table class="table"><thead><tr><th>Date</th><th>BF%</th><th>Total</th><th>Fat</th><th>Lean</th><th>RMR</th><th>VAT</th><th>Source</th></tr></thead><tbody>${scans.map(x=>`<tr><td>${x.date}</td><td>${fmt(x.body_fat_pct)}%</td><td>${fmt(x.total_mass_lb)} lb</td><td>${fmt(x.fat_tissue_lb)} lb</td><td>${fmt(x.lean_tissue_lb)} lb</td><td>${fmt(x.rmr_cal_day,0)}</td><td>${fmt(x.vat_mass_lb)} lb</td><td>${x.drive_link?`<a href="${x.drive_link}" target="_blank" rel="noopener">PDF</a>`:''}</td></tr>`).join('')}</tbody></table>`;
+ } else { document.getElementById('dexaSummary').innerHTML='<p class="note">No DEXA data loaded yet.</p>'; document.getElementById('dexaTable').innerHTML=''; }
  new Chart(trend,{type:'line',data:{labels,datasets:[{label:'Avg glucose',data:days.map(d=>d.avg_glucose),borderColor:'#4f46e5',backgroundColor:'#4f46e522',yAxisID:'y',tension:.28},{label:'TIR %',data:days.map(d=>d.tir_70_180),borderColor:'#10b981',backgroundColor:'#10b98122',yAxisID:'y1',tension:.28},{label:'Recovery',data:days.map(d=>{let j=joined.find(x=>x.local_date===d.local_date);return j&&j.recovery_score}),borderColor:'#f59e0b',backgroundColor:'#f59e0b22',yAxisID:'y1',tension:.28},{label:'CV %',data:days.map(d=>d.cv_pct),borderColor:'#8b5cf6',backgroundColor:'#8b5cf622',yAxisID:'y1',tension:.28}]},options:{responsive:true,interaction:{mode:'index',intersect:false},scales:{y:{title:{display:true,text:'mg/dL'},grid:{color:'#e2e8f0'}},y1:{position:'right',min:0,max:100,grid:{drawOnChartArea:false}}}}});
  new Chart(tir,{type:'doughnut',data:{labels:['Very high','High','Target','Low','Very low'],datasets:[{data:[s.very_high_pct,s.high_pct,s.tir_70_180,s.low_pct,s.very_low_pct],backgroundColor:['#ef4444','#f59e0b','#10b981','#06b6d4','#8b5cf6'],borderWidth:0}]},options:{cutout:'68%'}});
  new Chart(hourly,{type:'bar',data:{labels:data.hourly_glucose.map(h=>`${h.hour}:00`),datasets:[{label:'Avg glucose',data:data.hourly_glucose.map(h=>h.avg_glucose),backgroundColor:'#4f46e599',borderRadius:7}]},options:{scales:{y:{title:{display:true,text:'mg/dL'}}}}});

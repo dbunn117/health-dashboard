@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-03T23:43:03.630487-07:00",
+  "generated_at": "2026-07-06T23:31:42.718258-07:00",
   "date_range": {
     "start": "2024-01-23",
     "end": "2026-07-03",
@@ -21,17 +21,17 @@
     "avg_cv_pct": 30.86,
     "overnight_low_pct": 2.89,
     "evening_avg": 147.51,
-    "avg_recovery": 62.6,
-    "avg_hrv": 53.05,
-    "avg_rhr": 51.24,
-    "avg_sleep_performance": 85.71,
-    "workout_count": 22,
+    "avg_recovery": 63.86,
+    "avg_hrv": 53.82,
+    "avg_rhr": 50.91,
+    "avg_sleep_performance": 85.81,
+    "workout_count": 23,
     "hr_zones": {
-      "zone0_min": 163.4,
-      "zone1_min": 476.7,
-      "zone2_min": 203.7,
-      "zone3_min": 159.5,
-      "zone4_min": 44.0,
+      "zone0_min": 167.0,
+      "zone1_min": 507.5,
+      "zone2_min": 215.9,
+      "zone3_min": 167.3,
+      "zone4_min": 47.5,
       "zone5_min": 0.5
     }
   },
@@ -2661,9 +2661,9 @@
     },
     {
       "local_date": "2026-06-09",
-      "recovery_score": 51.0,
-      "hrv": 46.35,
-      "rhr": 53.0,
+      "recovery_score": null,
+      "hrv": null,
+      "rhr": null,
       "sleep_performance": null,
       "sleep_efficiency": null,
       "asleep_hours": null,
@@ -2683,12 +2683,12 @@
     },
     {
       "local_date": "2026-06-10",
-      "recovery_score": 64.0,
-      "hrv": 51.16,
-      "rhr": 53.0,
-      "sleep_performance": 90.0,
-      "sleep_efficiency": 96.27,
-      "asleep_hours": 9.03,
+      "recovery_score": null,
+      "hrv": null,
+      "rhr": null,
+      "sleep_performance": null,
+      "sleep_efficiency": null,
+      "asleep_hours": null,
       "avg_glucose": 135.02,
       "tir_70_180": 92.42,
       "total_insulin": 31.65,
@@ -2705,12 +2705,12 @@
     },
     {
       "local_date": "2026-06-11",
-      "recovery_score": 45.0,
-      "hrv": 44.66,
-      "rhr": 55.0,
-      "sleep_performance": 85.0,
-      "sleep_efficiency": 93.83,
-      "asleep_hours": 6.59,
+      "recovery_score": null,
+      "hrv": null,
+      "rhr": null,
+      "sleep_performance": null,
+      "sleep_efficiency": null,
+      "asleep_hours": null,
       "avg_glucose": 152.39,
       "tir_70_180": 71.78,
       "total_insulin": 35.45,
@@ -2730,9 +2730,9 @@
       "recovery_score": 35.0,
       "hrv": 38.86,
       "rhr": 57.0,
-      "sleep_performance": 80.0,
-      "sleep_efficiency": 88.57,
-      "asleep_hours": 5.88,
+      "sleep_performance": null,
+      "sleep_efficiency": null,
+      "asleep_hours": null,
       "avg_glucose": 170.84,
       "tir_70_180": 60.07,
       "total_insulin": 38.55,
@@ -3211,6 +3211,22 @@
     }
   ],
   "workouts30": [
+    {
+      "id": "9165b020-d36c-4a9e-9f9a-28d293d5320d",
+      "local_date": "2026-07-06",
+      "sport_name": "hiit",
+      "start": "2026-07-06T23:14:00.330Z",
+      "end": "2026-07-07T00:11:59.290Z",
+      "strain": 14.14,
+      "avg_hr": 129.0,
+      "max_hr": 178.0,
+      "zone0_min": 3.65,
+      "zone1_min": 30.78,
+      "zone2_min": 12.23,
+      "zone3_min": 7.8,
+      "zone4_min": 3.52,
+      "zone5_min": 0.0
+    },
     {
       "id": "6136b931-a1d4-43b0-9414-883e215bfb5f",
       "local_date": "2026-07-03",
@@ -4498,38 +4514,47 @@
         "strength": 0.38
       },
       {
-        "label": "Sleep hours vs same-day avg glucose",
-        "x": "asleep_hours",
-        "y": "avg_glucose",
-        "r": -0.18,
-        "n": 24,
-        "note": "More sleep vs average glucose.",
-        "strength": 0.18
-      },
-      {
         "label": "RHR vs same-day avg glucose",
         "x": "rhr",
         "y": "avg_glucose",
-        "r": 0.11,
-        "n": 25,
+        "r": 0.17,
+        "n": 22,
         "note": "Resting HR and average glucose relationship.",
-        "strength": 0.11
+        "strength": 0.17
+      },
+      {
+        "label": "Sleep hours vs same-day avg glucose",
+        "x": "asleep_hours",
+        "y": "avg_glucose",
+        "r": -0.13,
+        "n": 21,
+        "note": "More sleep vs average glucose.",
+        "strength": 0.13
       },
       {
         "label": "HRV vs same-day avg glucose",
         "x": "hrv",
         "y": "avg_glucose",
-        "r": -0.09,
-        "n": 25,
+        "r": -0.13,
+        "n": 22,
         "note": "HRV and average glucose relationship.",
-        "strength": 0.09
+        "strength": 0.13
+      },
+      {
+        "label": "Sleep performance vs same-day TIR",
+        "x": "sleep_performance",
+        "y": "tir_70_180",
+        "r": -0.11,
+        "n": 21,
+        "note": "Higher sleep performance days tended to align with TIR.",
+        "strength": 0.11
       },
       {
         "label": "Recovery vs same-day TIR",
         "x": "recovery_score",
         "y": "tir_70_180",
         "r": 0.06,
-        "n": 25,
+        "n": 22,
         "note": "WHOOP recovery and glucose control moved together.",
         "strength": 0.06
       },
@@ -4541,15 +4566,6 @@
         "n": 30,
         "note": "Carb load vs average glucose.",
         "strength": 0.04
-      },
-      {
-        "label": "Sleep performance vs same-day TIR",
-        "x": "sleep_performance",
-        "y": "tir_70_180",
-        "r": -0.03,
-        "n": 24,
-        "note": "Higher sleep performance days tended to align with TIR.",
-        "strength": 0.03
       }
     ],
     "workout_days": [
@@ -4792,6 +4808,18 @@
         "same_day_avg_glucose": 165.45,
         "next_day_tir": null,
         "next_day_avg_glucose": null
+      },
+      {
+        "local_date": "2026-07-06",
+        "workouts": 1,
+        "strain": 14.14,
+        "z3_5_min": 11.32,
+        "z2_min": 12.23,
+        "avg_hr": 129.0,
+        "same_day_tir": null,
+        "same_day_avg_glucose": null,
+        "next_day_tir": null,
+        "next_day_avg_glucose": null
       }
     ],
     "workout_correlations": [
@@ -4817,6 +4845,12 @@
         "title": "Glucose control baseline",
         "text": "Last 30 days: 70.35% time-in-range with average glucose 162.73 mg/dL and GMI about 7.2%.",
         "stat": "70.35% TIR"
+      },
+      {
+        "kind": "performance",
+        "title": "Body composition momentum",
+        "text": "Latest DEXA (2026-06-12): 11.9% body fat, 164.6 lb lean tissue, 23.4 lb fat mass. Since peak recorded fat mass, fat is -19.4 lb and lean tissue is 12.1 lb.",
+        "stat": "11.9% BF"
       },
       {
         "kind": "watch",
@@ -4850,21 +4884,21 @@
       },
       {
         "kind": "pattern",
-        "title": "Sleep hours vs same-day avg glucose",
-        "text": "Observed negative correlation r=-0.18 across 24 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=-0.18"
+        "title": "RHR vs same-day avg glucose",
+        "text": "Observed positive correlation r=0.17 across 22 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.17"
       },
       {
         "kind": "pattern",
-        "title": "RHR vs same-day avg glucose",
-        "text": "Observed positive correlation r=0.11 across 25 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=0.11"
+        "title": "Sleep hours vs same-day avg glucose",
+        "text": "Observed negative correlation r=-0.13 across 21 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=-0.13"
       },
       {
         "kind": "performance",
         "title": "Training load snapshot",
-        "text": "Across logged workouts in the last 30 days you accumulated about 204 minutes in HR Zones 3-5. The dashboard now compares hard-training days against same/next-day glucose patterns.",
-        "stat": "204m Z3-5"
+        "text": "Across logged workouts in the last 30 days you accumulated about 215 minutes in HR Zones 3-5. The dashboard now compares hard-training days against same/next-day glucose patterns.",
+        "stat": "215m Z3-5"
       }
     ],
     "coach_plan": [
@@ -4881,6 +4915,473 @@
         "text": "Pick one hypothesis at a time \u2014 timing of dinner, evening walk, workout intensity, bedtime consistency, or hydration \u2014 then watch the 7-day vs 30-day cards. Do not use this dashboard to change insulin dosing without your clinical plan."
       }
     ]
+  },
+  "dexa": {
+    "scans": [
+      {
+        "date": "2024-07-10",
+        "source_text": "/root/health-data/dexa/text/bodyspec-results _2_.txt",
+        "source_pdf": "/root/health-data/dexa/raw/bodyspec-results _2_.pdf",
+        "body_fat_pct": 15.4,
+        "total_mass_lb": 187.7,
+        "fat_tissue_lb": 29.0,
+        "lean_tissue_lb": 150.5,
+        "bmc_lb": 8.2,
+        "regions": {
+          "arms": {
+            "fat_pct": 11.1,
+            "total_mass_lb": 25.3,
+            "fat_tissue_lb": 2.8,
+            "lean_tissue_lb": 21.2,
+            "bmc_lb": 1.3
+          },
+          "legs": {
+            "fat_pct": 17.1,
+            "total_mass_lb": 69.3,
+            "fat_tissue_lb": 11.8,
+            "lean_tissue_lb": 54.2,
+            "bmc_lb": 3.2
+          },
+          "trunk": {
+            "fat_pct": 15.0,
+            "total_mass_lb": 82.9,
+            "fat_tissue_lb": 12.5,
+            "lean_tissue_lb": 68.0,
+            "bmc_lb": 2.4
+          },
+          "android": {
+            "fat_pct": 13.5,
+            "total_mass_lb": 13.8,
+            "fat_tissue_lb": 1.8,
+            "lean_tissue_lb": 11.8,
+            "bmc_lb": 0.2
+          },
+          "gynoid": {
+            "fat_pct": 19.2,
+            "total_mass_lb": 32.5,
+            "fat_tissue_lb": 6.1,
+            "lean_tissue_lb": 25.4,
+            "bmc_lb": 1.0
+          },
+          "total": {
+            "fat_pct": 15.4,
+            "total_mass_lb": 187.7,
+            "fat_tissue_lb": 29.0,
+            "lean_tissue_lb": 150.5,
+            "bmc_lb": 8.2
+          }
+        },
+        "rmr_cal_day": 1831,
+        "android_fat_pct": 13.5,
+        "gynoid_fat_pct": 19.2,
+        "a_g_ratio": 0.7,
+        "vat_mass_lb": 1.24,
+        "vat_volume_in3": 36.24,
+        "bone_total_bmd_g_cm2": 1.422,
+        "bone_total_t_score": 2.2,
+        "bone_total_z_score": 2.2,
+        "drive_file_id": "1k9S7Vzhs2t5wnkjF21wMpWCvFeQ0eoJn",
+        "drive_link": "https://drive.google.com/file/d/1k9S7Vzhs2t5wnkjF21wMpWCvFeQ0eoJn/view?usp=drivesdk",
+        "drive_modified": "2026-01-17T21:45:49.000Z"
+      },
+      {
+        "date": "2025-05-28",
+        "source_text": "/root/health-data/dexa/text/bodyspec-results _1_.txt",
+        "source_pdf": "/root/health-data/dexa/raw/bodyspec-results _1_.pdf",
+        "body_fat_pct": 21.0,
+        "total_mass_lb": 203.5,
+        "fat_tissue_lb": 42.8,
+        "lean_tissue_lb": 152.5,
+        "bmc_lb": 8.2,
+        "regions": {
+          "arms": {
+            "fat_pct": 17.2,
+            "total_mass_lb": 25.6,
+            "fat_tissue_lb": 4.4,
+            "lean_tissue_lb": 19.9,
+            "bmc_lb": 1.2
+          },
+          "legs": {
+            "fat_pct": 23.0,
+            "total_mass_lb": 76.0,
+            "fat_tissue_lb": 17.5,
+            "lean_tissue_lb": 55.3,
+            "bmc_lb": 3.2
+          },
+          "trunk": {
+            "fat_pct": 20.7,
+            "total_mass_lb": 90.8,
+            "fat_tissue_lb": 18.8,
+            "lean_tissue_lb": 69.5,
+            "bmc_lb": 2.4
+          },
+          "android": {
+            "fat_pct": 19.9,
+            "total_mass_lb": 14.8,
+            "fat_tissue_lb": 2.9,
+            "lean_tissue_lb": 11.7,
+            "bmc_lb": 0.2
+          },
+          "gynoid": {
+            "fat_pct": 26.1,
+            "total_mass_lb": 34.5,
+            "fat_tissue_lb": 8.8,
+            "lean_tissue_lb": 24.8,
+            "bmc_lb": 1.0
+          },
+          "total": {
+            "fat_pct": 21.0,
+            "total_mass_lb": 203.5,
+            "fat_tissue_lb": 42.8,
+            "lean_tissue_lb": 152.5,
+            "bmc_lb": 8.2
+          }
+        },
+        "rmr_cal_day": 1849,
+        "android_fat_pct": 19.9,
+        "gynoid_fat_pct": 26.1,
+        "a_g_ratio": 0.76,
+        "vat_mass_lb": 0.92,
+        "vat_volume_in3": 26.96,
+        "bone_total_bmd_g_cm2": 1.419,
+        "bone_total_t_score": 2.2,
+        "bone_total_z_score": 2.2,
+        "drive_file_id": "1QRvk6cxRTbBdx16NA6aezl5e7dhDuO-N",
+        "drive_link": "https://drive.google.com/file/d/1QRvk6cxRTbBdx16NA6aezl5e7dhDuO-N/view?usp=drivesdk",
+        "drive_modified": "2026-01-17T21:45:47.000Z",
+        "change_vs_previous": {
+          "body_fat_pct_points": 5.6,
+          "total_mass_lb": 15.8,
+          "fat_tissue_lb": 13.8,
+          "lean_tissue_lb": 2.0
+        }
+      },
+      {
+        "date": "2025-11-28",
+        "source_text": "/root/health-data/dexa/text/bodyspec-results.txt",
+        "source_pdf": "/root/health-data/dexa/raw/bodyspec-results.pdf",
+        "body_fat_pct": 15.9,
+        "total_mass_lb": 194.0,
+        "fat_tissue_lb": 30.8,
+        "lean_tissue_lb": 155.1,
+        "bmc_lb": 8.1,
+        "regions": {
+          "arms": {
+            "fat_pct": 13.5,
+            "total_mass_lb": 22.8,
+            "fat_tissue_lb": 3.1,
+            "lean_tissue_lb": 18.6,
+            "bmc_lb": 1.2
+          },
+          "legs": {
+            "fat_pct": 18.7,
+            "total_mass_lb": 68.5,
+            "fat_tissue_lb": 12.8,
+            "lean_tissue_lb": 52.5,
+            "bmc_lb": 3.1
+          },
+          "trunk": {
+            "fat_pct": 14.1,
+            "total_mass_lb": 92.3,
+            "fat_tissue_lb": 13.0,
+            "lean_tissue_lb": 76.9,
+            "bmc_lb": 2.5
+          },
+          "android": {
+            "fat_pct": 11.9,
+            "total_mass_lb": 14.4,
+            "fat_tissue_lb": 1.7,
+            "lean_tissue_lb": 12.6,
+            "bmc_lb": 0.2
+          },
+          "gynoid": {
+            "fat_pct": 19.0,
+            "total_mass_lb": 33.2,
+            "fat_tissue_lb": 6.1,
+            "lean_tissue_lb": 26.1,
+            "bmc_lb": 1.0
+          },
+          "total": {
+            "fat_pct": 15.9,
+            "total_mass_lb": 194.0,
+            "fat_tissue_lb": 30.8,
+            "lean_tissue_lb": 155.1,
+            "bmc_lb": 8.1
+          }
+        },
+        "rmr_cal_day": 1871,
+        "android_fat_pct": 11.9,
+        "gynoid_fat_pct": 19.0,
+        "a_g_ratio": 0.62,
+        "vat_mass_lb": 0.92,
+        "vat_volume_in3": 26.86,
+        "bone_total_bmd_g_cm2": 1.421,
+        "bone_total_t_score": 2.2,
+        "bone_total_z_score": 2.2,
+        "drive_file_id": "1BSUno0r0rJ0LpQHRoVQIHEcE3D5idfLp",
+        "drive_link": "https://drive.google.com/file/d/1BSUno0r0rJ0LpQHRoVQIHEcE3D5idfLp/view?usp=drivesdk",
+        "drive_modified": "2026-01-17T21:45:37.000Z",
+        "change_vs_previous": {
+          "body_fat_pct_points": -5.1,
+          "total_mass_lb": -9.5,
+          "fat_tissue_lb": -12.0,
+          "lean_tissue_lb": 2.6
+        }
+      },
+      {
+        "date": "2026-02-27",
+        "source_text": "/root/health-data/dexa/text/bodyspec-results _3_.txt",
+        "source_pdf": "/root/health-data/dexa/raw/bodyspec-results _3_.pdf",
+        "body_fat_pct": 14.7,
+        "total_mass_lb": 193.8,
+        "fat_tissue_lb": 28.5,
+        "lean_tissue_lb": 157.1,
+        "bmc_lb": 8.2,
+        "regions": {
+          "arms": {
+            "fat_pct": 11.6,
+            "total_mass_lb": 25.0,
+            "fat_tissue_lb": 2.9,
+            "lean_tissue_lb": 20.9,
+            "bmc_lb": 1.2
+          },
+          "legs": {
+            "fat_pct": 17.4,
+            "total_mass_lb": 70.8,
+            "fat_tissue_lb": 12.3,
+            "lean_tissue_lb": 55.2,
+            "bmc_lb": 3.2
+          },
+          "trunk": {
+            "fat_pct": 12.9,
+            "total_mass_lb": 87.5,
+            "fat_tissue_lb": 11.3,
+            "lean_tissue_lb": 73.7,
+            "bmc_lb": 2.5
+          },
+          "android": {
+            "fat_pct": 10.4,
+            "total_mass_lb": 14.2,
+            "fat_tissue_lb": 1.4,
+            "lean_tissue_lb": 12.6,
+            "bmc_lb": 0.2
+          },
+          "gynoid": {
+            "fat_pct": 17.4,
+            "total_mass_lb": 32.5,
+            "fat_tissue_lb": 5.5,
+            "lean_tissue_lb": 26.0,
+            "bmc_lb": 1.0
+          },
+          "total": {
+            "fat_pct": 14.7,
+            "total_mass_lb": 193.8,
+            "fat_tissue_lb": 28.5,
+            "lean_tissue_lb": 157.1,
+            "bmc_lb": 8.2
+          }
+        },
+        "rmr_cal_day": 1890,
+        "android_fat_pct": 10.4,
+        "gynoid_fat_pct": 17.4,
+        "a_g_ratio": 0.59,
+        "vat_mass_lb": 0.89,
+        "vat_volume_in3": 26.01,
+        "bone_total_bmd_g_cm2": 1.415,
+        "bone_total_t_score": 2.1,
+        "bone_total_z_score": 2.1,
+        "drive_file_id": "18c3OurQj4EIEPwThGtoea_pj4oPSeRFA",
+        "drive_link": "https://drive.google.com/file/d/18c3OurQj4EIEPwThGtoea_pj4oPSeRFA/view?usp=drivesdk",
+        "drive_modified": "2026-02-28T21:38:01.000Z",
+        "change_vs_previous": {
+          "body_fat_pct_points": -1.2,
+          "total_mass_lb": -0.2,
+          "fat_tissue_lb": -2.3,
+          "lean_tissue_lb": 2.0
+        }
+      },
+      {
+        "date": "2026-06-12",
+        "source_text": "/root/health-data/dexa/text/bodyspec-results_06122026.txt",
+        "source_pdf": "/root/health-data/dexa/raw/bodyspec-results_06122026.pdf",
+        "body_fat_pct": 11.9,
+        "total_mass_lb": 196.1,
+        "fat_tissue_lb": 23.4,
+        "lean_tissue_lb": 164.6,
+        "bmc_lb": 8.2,
+        "regions": {
+          "arms": {
+            "fat_pct": 8.5,
+            "total_mass_lb": 24.5,
+            "fat_tissue_lb": 2.1,
+            "lean_tissue_lb": 21.3,
+            "bmc_lb": 1.2
+          },
+          "legs": {
+            "fat_pct": 14.5,
+            "total_mass_lb": 71.1,
+            "fat_tissue_lb": 10.3,
+            "lean_tissue_lb": 57.6,
+            "bmc_lb": 3.2
+          },
+          "trunk": {
+            "fat_pct": 10.1,
+            "total_mass_lb": 90.1,
+            "fat_tissue_lb": 9.1,
+            "lean_tissue_lb": 78.6,
+            "bmc_lb": 2.4
+          },
+          "android": {
+            "fat_pct": 7.1,
+            "total_mass_lb": 14.5,
+            "fat_tissue_lb": 1.0,
+            "lean_tissue_lb": 13.3,
+            "bmc_lb": 0.2
+          },
+          "gynoid": {
+            "fat_pct": 13.4,
+            "total_mass_lb": 32.9,
+            "fat_tissue_lb": 4.3,
+            "lean_tissue_lb": 27.7,
+            "bmc_lb": 1.0
+          },
+          "total": {
+            "fat_pct": 11.9,
+            "total_mass_lb": 196.1,
+            "fat_tissue_lb": 23.4,
+            "lean_tissue_lb": 164.6,
+            "bmc_lb": 8.2
+          }
+        },
+        "rmr_cal_day": 1957,
+        "android_fat_pct": 7.1,
+        "gynoid_fat_pct": 13.4,
+        "a_g_ratio": 0.53,
+        "vat_mass_lb": 0.6,
+        "vat_volume_in3": 17.53,
+        "bone_total_bmd_g_cm2": 1.398,
+        "bone_total_t_score": 2.0,
+        "bone_total_z_score": 2.0,
+        "drive_file_id": "1mAslHYV1REQ68M92NlFzkqevTOoN8fYu",
+        "drive_link": "https://drive.google.com/file/d/1mAslHYV1REQ68M92NlFzkqevTOoN8fYu/view?usp=drivesdk",
+        "drive_modified": "2026-06-16T22:33:32.000Z",
+        "change_vs_previous": {
+          "body_fat_pct_points": -2.8,
+          "total_mass_lb": 2.3,
+          "fat_tissue_lb": -5.1,
+          "lean_tissue_lb": 7.5
+        },
+        "change_vs_baseline": {
+          "body_fat_pct_points": -3.5,
+          "total_mass_lb": 8.4,
+          "fat_tissue_lb": -5.6,
+          "lean_tissue_lb": 14.1
+        }
+      }
+    ],
+    "latest": {
+      "date": "2026-06-12",
+      "source_text": "/root/health-data/dexa/text/bodyspec-results_06122026.txt",
+      "source_pdf": "/root/health-data/dexa/raw/bodyspec-results_06122026.pdf",
+      "body_fat_pct": 11.9,
+      "total_mass_lb": 196.1,
+      "fat_tissue_lb": 23.4,
+      "lean_tissue_lb": 164.6,
+      "bmc_lb": 8.2,
+      "regions": {
+        "arms": {
+          "fat_pct": 8.5,
+          "total_mass_lb": 24.5,
+          "fat_tissue_lb": 2.1,
+          "lean_tissue_lb": 21.3,
+          "bmc_lb": 1.2
+        },
+        "legs": {
+          "fat_pct": 14.5,
+          "total_mass_lb": 71.1,
+          "fat_tissue_lb": 10.3,
+          "lean_tissue_lb": 57.6,
+          "bmc_lb": 3.2
+        },
+        "trunk": {
+          "fat_pct": 10.1,
+          "total_mass_lb": 90.1,
+          "fat_tissue_lb": 9.1,
+          "lean_tissue_lb": 78.6,
+          "bmc_lb": 2.4
+        },
+        "android": {
+          "fat_pct": 7.1,
+          "total_mass_lb": 14.5,
+          "fat_tissue_lb": 1.0,
+          "lean_tissue_lb": 13.3,
+          "bmc_lb": 0.2
+        },
+        "gynoid": {
+          "fat_pct": 13.4,
+          "total_mass_lb": 32.9,
+          "fat_tissue_lb": 4.3,
+          "lean_tissue_lb": 27.7,
+          "bmc_lb": 1.0
+        },
+        "total": {
+          "fat_pct": 11.9,
+          "total_mass_lb": 196.1,
+          "fat_tissue_lb": 23.4,
+          "lean_tissue_lb": 164.6,
+          "bmc_lb": 8.2
+        }
+      },
+      "rmr_cal_day": 1957,
+      "android_fat_pct": 7.1,
+      "gynoid_fat_pct": 13.4,
+      "a_g_ratio": 0.53,
+      "vat_mass_lb": 0.6,
+      "vat_volume_in3": 17.53,
+      "bone_total_bmd_g_cm2": 1.398,
+      "bone_total_t_score": 2.0,
+      "bone_total_z_score": 2.0,
+      "drive_file_id": "1mAslHYV1REQ68M92NlFzkqevTOoN8fYu",
+      "drive_link": "https://drive.google.com/file/d/1mAslHYV1REQ68M92NlFzkqevTOoN8fYu/view?usp=drivesdk",
+      "drive_modified": "2026-06-16T22:33:32.000Z",
+      "change_vs_previous": {
+        "body_fat_pct_points": -2.8,
+        "total_mass_lb": 2.3,
+        "fat_tissue_lb": -5.1,
+        "lean_tissue_lb": 7.5
+      },
+      "change_vs_baseline": {
+        "body_fat_pct_points": -3.5,
+        "total_mass_lb": 8.4,
+        "fat_tissue_lb": -5.6,
+        "lean_tissue_lb": 14.1
+      }
+    },
+    "summary": {
+      "scan_count": 5,
+      "latest_date": "2026-06-12",
+      "previous_date": "2026-02-27",
+      "baseline_date": "2024-07-10",
+      "peak_fat_date": "2025-05-28",
+      "latest_vs_previous": {
+        "body_fat_pct_points": -2.8,
+        "fat_tissue_lb": -5.1,
+        "lean_tissue_lb": 7.5,
+        "total_mass_lb": 2.3
+      },
+      "latest_vs_baseline": {
+        "body_fat_pct_points": -3.5,
+        "fat_tissue_lb": -5.6,
+        "lean_tissue_lb": 14.1,
+        "total_mass_lb": 8.4
+      },
+      "latest_vs_peak_fat": {
+        "body_fat_pct_points": -9.1,
+        "fat_tissue_lb": -19.4,
+        "lean_tissue_lb": 12.1,
+        "total_mass_lb": -7.4
+      }
+    }
   },
   "whoop_errors": {
     "recovery_error": null,
