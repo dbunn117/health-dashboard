@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-06T23:31:42.718258-07:00",
+  "generated_at": "2026-07-07T20:33:30.711179-07:00",
   "date_range": {
     "start": "2024-01-23",
     "end": "2026-07-03",
@@ -21,17 +21,17 @@
     "avg_cv_pct": 30.86,
     "overnight_low_pct": 2.89,
     "evening_avg": 147.51,
-    "avg_recovery": 63.86,
-    "avg_hrv": 53.82,
-    "avg_rhr": 50.91,
-    "avg_sleep_performance": 85.81,
-    "workout_count": 23,
+    "avg_recovery": 65.24,
+    "avg_hrv": 54.53,
+    "avg_rhr": 50.62,
+    "avg_sleep_performance": 85.9,
+    "workout_count": 24,
     "hr_zones": {
-      "zone0_min": 167.0,
-      "zone1_min": 507.5,
-      "zone2_min": 215.9,
-      "zone3_min": 167.3,
-      "zone4_min": 47.5,
+      "zone0_min": 176.7,
+      "zone1_min": 541.7,
+      "zone2_min": 225.3,
+      "zone3_min": 177.5,
+      "zone4_min": 48.9,
       "zone5_min": 0.5
     }
   },
@@ -2727,9 +2727,9 @@
     },
     {
       "local_date": "2026-06-12",
-      "recovery_score": 35.0,
-      "hrv": 38.86,
-      "rhr": 57.0,
+      "recovery_score": null,
+      "hrv": null,
+      "rhr": null,
       "sleep_performance": null,
       "sleep_efficiency": null,
       "asleep_hours": null,
@@ -2752,9 +2752,9 @@
       "recovery_score": 80.0,
       "hrv": 60.56,
       "rhr": 51.0,
-      "sleep_performance": 84.0,
-      "sleep_efficiency": 88.65,
-      "asleep_hours": 7.82,
+      "sleep_performance": null,
+      "sleep_efficiency": null,
+      "asleep_hours": null,
       "avg_glucose": 155.09,
       "tir_70_180": 76.31,
       "total_insulin": 32.05,
@@ -3211,6 +3211,22 @@
     }
   ],
   "workouts30": [
+    {
+      "id": "73c909fe-f954-4627-a1bd-8ff017761828",
+      "local_date": "2026-07-07",
+      "sport_name": "hiit",
+      "start": "2026-07-07T23:03:00.710Z",
+      "end": "2026-07-08T00:07:59.660Z",
+      "strain": 14.0,
+      "avg_hr": 123.0,
+      "max_hr": 172.0,
+      "zone0_min": 9.67,
+      "zone1_min": 34.28,
+      "zone2_min": 9.43,
+      "zone3_min": 10.18,
+      "zone4_min": 1.42,
+      "zone5_min": 0.0
+    },
     {
       "id": "9165b020-d36c-4a9e-9f9a-28d293d5320d",
       "local_date": "2026-07-06",
@@ -4518,45 +4534,36 @@
         "x": "rhr",
         "y": "avg_glucose",
         "r": 0.17,
-        "n": 22,
+        "n": 21,
         "note": "Resting HR and average glucose relationship.",
         "strength": 0.17
-      },
-      {
-        "label": "Sleep hours vs same-day avg glucose",
-        "x": "asleep_hours",
-        "y": "avg_glucose",
-        "r": -0.13,
-        "n": 21,
-        "note": "More sleep vs average glucose.",
-        "strength": 0.13
       },
       {
         "label": "HRV vs same-day avg glucose",
         "x": "hrv",
         "y": "avg_glucose",
         "r": -0.13,
-        "n": 22,
+        "n": 21,
         "note": "HRV and average glucose relationship.",
         "strength": 0.13
+      },
+      {
+        "label": "Sleep hours vs same-day avg glucose",
+        "x": "asleep_hours",
+        "y": "avg_glucose",
+        "r": -0.12,
+        "n": 20,
+        "note": "More sleep vs average glucose.",
+        "strength": 0.12
       },
       {
         "label": "Sleep performance vs same-day TIR",
         "x": "sleep_performance",
         "y": "tir_70_180",
         "r": -0.11,
-        "n": 21,
+        "n": 20,
         "note": "Higher sleep performance days tended to align with TIR.",
         "strength": 0.11
-      },
-      {
-        "label": "Recovery vs same-day TIR",
-        "x": "recovery_score",
-        "y": "tir_70_180",
-        "r": 0.06,
-        "n": 22,
-        "note": "WHOOP recovery and glucose control moved together.",
-        "strength": 0.06
       },
       {
         "label": "Carbs logged vs same-day avg glucose",
@@ -4566,6 +4573,15 @@
         "n": 30,
         "note": "Carb load vs average glucose.",
         "strength": 0.04
+      },
+      {
+        "label": "Recovery vs same-day TIR",
+        "x": "recovery_score",
+        "y": "tir_70_180",
+        "r": 0.03,
+        "n": 21,
+        "note": "WHOOP recovery and glucose control moved together.",
+        "strength": 0.03
       }
     ],
     "workout_days": [
@@ -4820,6 +4836,18 @@
         "same_day_avg_glucose": null,
         "next_day_tir": null,
         "next_day_avg_glucose": null
+      },
+      {
+        "local_date": "2026-07-07",
+        "workouts": 1,
+        "strain": 14.0,
+        "z3_5_min": 11.6,
+        "z2_min": 9.43,
+        "avg_hr": 123.0,
+        "same_day_tir": null,
+        "same_day_avg_glucose": null,
+        "next_day_tir": null,
+        "next_day_avg_glucose": null
       }
     ],
     "workout_correlations": [
@@ -4840,6 +4868,12 @@
       }
     ],
     "insights": [
+      {
+        "kind": "pattern",
+        "title": "Diabetes supply cadence",
+        "text": "Dexcom G7 sensors: last collected 2026-07-07 from CVS. Next fill is preordered for 2026-07-30 (23 days from dashboard generation) and current supply is estimated through 2026-08-05. This is logistics tracking only; ordering stays David-confirmed.",
+        "stat": "On track"
+      },
       {
         "kind": "focus",
         "title": "Glucose control baseline",
@@ -4885,20 +4919,20 @@
       {
         "kind": "pattern",
         "title": "RHR vs same-day avg glucose",
-        "text": "Observed positive correlation r=0.17 across 22 paired days. Treat as a pattern to test, not proof of cause.",
+        "text": "Observed positive correlation r=0.17 across 21 paired days. Treat as a pattern to test, not proof of cause.",
         "stat": "r=0.17"
       },
       {
         "kind": "pattern",
-        "title": "Sleep hours vs same-day avg glucose",
+        "title": "HRV vs same-day avg glucose",
         "text": "Observed negative correlation r=-0.13 across 21 paired days. Treat as a pattern to test, not proof of cause.",
         "stat": "r=-0.13"
       },
       {
         "kind": "performance",
         "title": "Training load snapshot",
-        "text": "Across logged workouts in the last 30 days you accumulated about 215 minutes in HR Zones 3-5. The dashboard now compares hard-training days against same/next-day glucose patterns.",
-        "stat": "215m Z3-5"
+        "text": "Across logged workouts in the last 30 days you accumulated about 227 minutes in HR Zones 3-5. The dashboard now compares hard-training days against same/next-day glucose patterns.",
+        "stat": "227m Z3-5"
       }
     ],
     "coach_plan": [
@@ -5382,6 +5416,51 @@
         "total_mass_lb": -7.4
       }
     }
+  },
+  "supplies": {
+    "updated_at": "2026-07-07T20:28:44-07:00",
+    "supplies": [
+      {
+        "item": "Dexcom G7 sensors",
+        "supplier": "CVS",
+        "quantity_description": "30-day supply",
+        "last_collected_date": "2026-07-07",
+        "preordered_next_fill_ready_date": "2026-07-30",
+        "estimated_supply_runs_through": "2026-08-05",
+        "cadence_days": 30,
+        "days_until_next_fill_ready_from_collection": 23,
+        "buffer_days_at_next_fill_ready": 7,
+        "status": "preordered",
+        "notes": "David collected a 30-day supply from CVS on 2026-07-07 and preordered the next fill to be ready on 2026-07-30. Track refill cadence for eventual supply-ordering workflow. No autonomous ordering without David confirmation.",
+        "days_until_ready": 23,
+        "days_until_supply_runs_out": 29,
+        "days_since_last_collection": 0,
+        "urgency": "ok",
+        "urgency_label": "On track"
+      }
+    ],
+    "summary": {
+      "tracked_count": 1,
+      "next_item": {
+        "item": "Dexcom G7 sensors",
+        "supplier": "CVS",
+        "quantity_description": "30-day supply",
+        "last_collected_date": "2026-07-07",
+        "preordered_next_fill_ready_date": "2026-07-30",
+        "estimated_supply_runs_through": "2026-08-05",
+        "cadence_days": 30,
+        "days_until_next_fill_ready_from_collection": 23,
+        "buffer_days_at_next_fill_ready": 7,
+        "status": "preordered",
+        "notes": "David collected a 30-day supply from CVS on 2026-07-07 and preordered the next fill to be ready on 2026-07-30. Track refill cadence for eventual supply-ordering workflow. No autonomous ordering without David confirmation.",
+        "days_until_ready": 23,
+        "days_until_supply_runs_out": 29,
+        "days_since_last_collection": 0,
+        "urgency": "ok",
+        "urgency_label": "On track"
+      }
+    },
+    "safety_note": "Supply tracking and reminders only. Do not change diabetes treatment, dosing, pump settings, or supplier/pharmacy actions without David confirmation."
   },
   "whoop_errors": {
     "recovery_error": null,
