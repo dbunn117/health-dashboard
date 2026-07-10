@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-07T20:33:30.711179-07:00",
+  "generated_at": "2026-07-09T20:55:36.596228-07:00",
   "date_range": {
     "start": "2024-01-23",
     "end": "2026-07-03",
@@ -21,17 +21,17 @@
     "avg_cv_pct": 30.86,
     "overnight_low_pct": 2.89,
     "evening_avg": 147.51,
-    "avg_recovery": 65.24,
-    "avg_hrv": 54.53,
-    "avg_rhr": 50.62,
-    "avg_sleep_performance": 85.9,
-    "workout_count": 24,
+    "avg_recovery": 65.05,
+    "avg_hrv": 54.65,
+    "avg_rhr": 50.37,
+    "avg_sleep_performance": 85.17,
+    "workout_count": 25,
     "hr_zones": {
-      "zone0_min": 176.7,
-      "zone1_min": 541.7,
-      "zone2_min": 225.3,
-      "zone3_min": 177.5,
-      "zone4_min": 48.9,
+      "zone0_min": 165.8,
+      "zone1_min": 590.5,
+      "zone2_min": 228.7,
+      "zone3_min": 188.5,
+      "zone4_min": 58.6,
       "zone5_min": 0.5
     }
   },
@@ -2749,9 +2749,9 @@
     },
     {
       "local_date": "2026-06-13",
-      "recovery_score": 80.0,
-      "hrv": 60.56,
-      "rhr": 51.0,
+      "recovery_score": null,
+      "hrv": null,
+      "rhr": null,
       "sleep_performance": null,
       "sleep_efficiency": null,
       "asleep_hours": null,
@@ -2771,12 +2771,12 @@
     },
     {
       "local_date": "2026-06-14",
-      "recovery_score": 54.0,
-      "hrv": 46.14,
-      "rhr": 55.0,
-      "sleep_performance": 90.0,
-      "sleep_efficiency": 94.71,
-      "asleep_hours": 8.07,
+      "recovery_score": null,
+      "hrv": null,
+      "rhr": null,
+      "sleep_performance": null,
+      "sleep_efficiency": null,
+      "asleep_hours": null,
       "avg_glucose": 184.98,
       "tir_70_180": 49.65,
       "total_insulin": 35.6,
@@ -2796,9 +2796,9 @@
       "recovery_score": 84.0,
       "hrv": 60.07,
       "rhr": 50.0,
-      "sleep_performance": 95.0,
-      "sleep_efficiency": 93.41,
-      "asleep_hours": 7.56,
+      "sleep_performance": null,
+      "sleep_efficiency": null,
+      "asleep_hours": null,
       "avg_glucose": 168.24,
       "tir_70_180": 57.99,
       "total_insulin": 49.25,
@@ -3212,6 +3212,54 @@
   ],
   "workouts30": [
     {
+      "id": "20801992-29a1-4882-9619-f469a05645ae",
+      "local_date": "2026-07-09",
+      "sport_name": "walking",
+      "start": "2026-07-10T01:19:00.220Z",
+      "end": "2026-07-10T01:33:59.210Z",
+      "strain": 4.9,
+      "avg_hr": 115.0,
+      "max_hr": 134.0,
+      "zone0_min": 2.13,
+      "zone1_min": 12.85,
+      "zone2_min": 0.0,
+      "zone3_min": 0.0,
+      "zone4_min": 0.0,
+      "zone5_min": 0.0
+    },
+    {
+      "id": "23cfd979-313a-4a47-beda-06904699b1ae",
+      "local_date": "2026-07-09",
+      "sport_name": "hiit",
+      "start": "2026-07-09T21:38:00.590Z",
+      "end": "2026-07-09T22:34:59.350Z",
+      "strain": 14.31,
+      "avg_hr": 132.0,
+      "max_hr": 178.0,
+      "zone0_min": 0.53,
+      "zone1_min": 36.35,
+      "zone2_min": 5.35,
+      "zone3_min": 9.72,
+      "zone4_min": 5.03,
+      "zone5_min": 0.0
+    },
+    {
+      "id": "b4a904a8-f93a-4c34-9000-716c9ef0a2cc",
+      "local_date": "2026-07-08",
+      "sport_name": "hiit",
+      "start": "2026-07-08T23:12:00.860Z",
+      "end": "2026-07-09T00:08:59.460Z",
+      "strain": 14.25,
+      "avg_hr": 130.0,
+      "max_hr": 180.0,
+      "zone0_min": 4.57,
+      "zone1_min": 27.48,
+      "zone2_min": 12.88,
+      "zone3_min": 7.42,
+      "zone4_min": 4.63,
+      "zone5_min": 0.0
+    },
+    {
       "id": "73c909fe-f954-4627-a1bd-8ff017761828",
       "local_date": "2026-07-07",
       "sport_name": "hiit",
@@ -3561,38 +3609,6 @@
       "zone2_min": 13.07,
       "zone3_min": 7.38,
       "zone4_min": 2.25,
-      "zone5_min": 0.0
-    },
-    {
-      "id": "fe1299dd-6d7e-4906-aa69-b6087bda1ff1",
-      "local_date": "2026-06-07",
-      "sport_name": "activity",
-      "start": "2026-06-07T17:38:00.380Z",
-      "end": "2026-06-07T17:50:59.370Z",
-      "strain": 4.08,
-      "avg_hr": 90.0,
-      "max_hr": 125.0,
-      "zone0_min": 10.52,
-      "zone1_min": 2.47,
-      "zone2_min": 0.0,
-      "zone3_min": 0.0,
-      "zone4_min": 0.0,
-      "zone5_min": 0.0
-    },
-    {
-      "id": "bb3892c7-7d35-432e-ba99-ea664c8be757",
-      "local_date": "2026-06-04",
-      "sport_name": "activity",
-      "start": "2026-06-04T23:10:00.110Z",
-      "end": "2026-06-05T00:03:59.070Z",
-      "strain": 9.47,
-      "avg_hr": 123.0,
-      "max_hr": 161.0,
-      "zone0_min": 7.57,
-      "zone1_min": 25.47,
-      "zone2_min": 14.8,
-      "zone3_min": 6.15,
-      "zone4_min": 0.0,
       "zone5_min": 0.0
     }
   ],
@@ -4530,40 +4546,31 @@
         "strength": 0.38
       },
       {
+        "label": "Sleep hours vs same-day avg glucose",
+        "x": "asleep_hours",
+        "y": "avg_glucose",
+        "r": -0.15,
+        "n": 18,
+        "note": "More sleep vs average glucose.",
+        "strength": 0.15
+      },
+      {
         "label": "RHR vs same-day avg glucose",
         "x": "rhr",
         "y": "avg_glucose",
-        "r": 0.17,
-        "n": 21,
+        "r": 0.14,
+        "n": 19,
         "note": "Resting HR and average glucose relationship.",
-        "strength": 0.17
+        "strength": 0.14
       },
       {
         "label": "HRV vs same-day avg glucose",
         "x": "hrv",
         "y": "avg_glucose",
-        "r": -0.13,
-        "n": 21,
+        "r": -0.1,
+        "n": 19,
         "note": "HRV and average glucose relationship.",
-        "strength": 0.13
-      },
-      {
-        "label": "Sleep hours vs same-day avg glucose",
-        "x": "asleep_hours",
-        "y": "avg_glucose",
-        "r": -0.12,
-        "n": 20,
-        "note": "More sleep vs average glucose.",
-        "strength": 0.12
-      },
-      {
-        "label": "Sleep performance vs same-day TIR",
-        "x": "sleep_performance",
-        "y": "tir_70_180",
-        "r": -0.11,
-        "n": 20,
-        "note": "Higher sleep performance days tended to align with TIR.",
-        "strength": 0.11
+        "strength": 0.1
       },
       {
         "label": "Carbs logged vs same-day avg glucose",
@@ -4578,37 +4585,22 @@
         "label": "Recovery vs same-day TIR",
         "x": "recovery_score",
         "y": "tir_70_180",
-        "r": 0.03,
-        "n": 21,
+        "r": -0.03,
+        "n": 19,
         "note": "WHOOP recovery and glucose control moved together.",
         "strength": 0.03
+      },
+      {
+        "label": "Sleep performance vs same-day TIR",
+        "x": "sleep_performance",
+        "y": "tir_70_180",
+        "r": 0.0,
+        "n": 18,
+        "note": "Higher sleep performance days tended to align with TIR.",
+        "strength": 0.0
       }
     ],
     "workout_days": [
-      {
-        "local_date": "2026-06-04",
-        "workouts": 1,
-        "strain": 9.47,
-        "z3_5_min": 6.15,
-        "z2_min": 14.8,
-        "avg_hr": 123.0,
-        "same_day_tir": 70.83,
-        "same_day_avg_glucose": 162.02,
-        "next_day_tir": 67.13,
-        "next_day_avg_glucose": 164.1
-      },
-      {
-        "local_date": "2026-06-07",
-        "workouts": 1,
-        "strain": 4.08,
-        "z3_5_min": 0.0,
-        "z2_min": 0.0,
-        "avg_hr": 90.0,
-        "same_day_tir": 76.95,
-        "same_day_avg_glucose": 153.46,
-        "next_day_tir": 71.15,
-        "next_day_avg_glucose": 157.8
-      },
       {
         "local_date": "2026-06-08",
         "workouts": 1,
@@ -4848,30 +4840,54 @@
         "same_day_avg_glucose": null,
         "next_day_tir": null,
         "next_day_avg_glucose": null
+      },
+      {
+        "local_date": "2026-07-08",
+        "workouts": 1,
+        "strain": 14.25,
+        "z3_5_min": 12.05,
+        "z2_min": 12.88,
+        "avg_hr": 130.0,
+        "same_day_tir": null,
+        "same_day_avg_glucose": null,
+        "next_day_tir": null,
+        "next_day_avg_glucose": null
+      },
+      {
+        "local_date": "2026-07-09",
+        "workouts": 2,
+        "strain": 19.21,
+        "z3_5_min": 14.75,
+        "z2_min": 5.35,
+        "avg_hr": 123.5,
+        "same_day_tir": null,
+        "same_day_avg_glucose": null,
+        "next_day_tir": null,
+        "next_day_avg_glucose": null
       }
     ],
     "workout_correlations": [
       {
         "label": "Workout Z3-5 min vs same-day TIR",
-        "r": 0.23,
-        "n": 20
+        "r": 0.26,
+        "n": 18
       },
       {
         "label": "Workout strain vs next-day avg glucose",
-        "r": 0.05,
-        "n": 19
+        "r": 0.02,
+        "n": 17
       },
       {
         "label": "Zone 2 min vs same-day avg glucose",
-        "r": -0.31,
-        "n": 20
+        "r": -0.36,
+        "n": 18
       }
     ],
     "insights": [
       {
         "kind": "pattern",
         "title": "Diabetes supply cadence",
-        "text": "Dexcom G7 sensors: last collected 2026-07-07 from CVS. Next fill is preordered for 2026-07-30 (23 days from dashboard generation) and current supply is estimated through 2026-08-05. This is logistics tracking only; ordering stays David-confirmed.",
+        "text": "Dexcom G7 sensors: last collected 2026-07-07 from CVS. Next fill is preordered for 2026-07-30 (21 days from dashboard generation) and current supply is estimated through 2026-08-05. This is logistics tracking only; ordering stays David-confirmed.",
         "stat": "On track"
       },
       {
@@ -4918,21 +4934,21 @@
       },
       {
         "kind": "pattern",
-        "title": "RHR vs same-day avg glucose",
-        "text": "Observed positive correlation r=0.17 across 21 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=0.17"
+        "title": "Sleep hours vs same-day avg glucose",
+        "text": "Observed negative correlation r=-0.15 across 18 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=-0.15"
       },
       {
         "kind": "pattern",
-        "title": "HRV vs same-day avg glucose",
-        "text": "Observed negative correlation r=-0.13 across 21 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=-0.13"
+        "title": "RHR vs same-day avg glucose",
+        "text": "Observed positive correlation r=0.14 across 19 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.14"
       },
       {
         "kind": "performance",
         "title": "Training load snapshot",
-        "text": "Across logged workouts in the last 30 days you accumulated about 227 minutes in HR Zones 3-5. The dashboard now compares hard-training days against same/next-day glucose patterns.",
-        "stat": "227m Z3-5"
+        "text": "Across logged workouts in the last 30 days you accumulated about 248 minutes in HR Zones 3-5. The dashboard now compares hard-training days against same/next-day glucose patterns.",
+        "stat": "248m Z3-5"
       }
     ],
     "coach_plan": [
@@ -5432,9 +5448,9 @@
         "buffer_days_at_next_fill_ready": 7,
         "status": "preordered",
         "notes": "David collected a 30-day supply from CVS on 2026-07-07 and preordered the next fill to be ready on 2026-07-30. Track refill cadence for eventual supply-ordering workflow. No autonomous ordering without David confirmation.",
-        "days_until_ready": 23,
-        "days_until_supply_runs_out": 29,
-        "days_since_last_collection": 0,
+        "days_until_ready": 21,
+        "days_until_supply_runs_out": 27,
+        "days_since_last_collection": 2,
         "urgency": "ok",
         "urgency_label": "On track"
       }
@@ -5453,9 +5469,9 @@
         "buffer_days_at_next_fill_ready": 7,
         "status": "preordered",
         "notes": "David collected a 30-day supply from CVS on 2026-07-07 and preordered the next fill to be ready on 2026-07-30. Track refill cadence for eventual supply-ordering workflow. No autonomous ordering without David confirmation.",
-        "days_until_ready": 23,
-        "days_until_supply_runs_out": 29,
-        "days_since_last_collection": 0,
+        "days_until_ready": 21,
+        "days_until_supply_runs_out": 27,
+        "days_since_last_collection": 2,
         "urgency": "ok",
         "urgency_label": "On track"
       }
