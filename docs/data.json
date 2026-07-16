@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-09T20:55:36.596228-07:00",
+  "generated_at": "2026-07-15T22:31:12.598994-07:00",
   "date_range": {
     "start": "2024-01-23",
     "end": "2026-07-03",
@@ -21,17 +21,17 @@
     "avg_cv_pct": 30.86,
     "overnight_low_pct": 2.89,
     "evening_avg": 147.51,
-    "avg_recovery": 65.05,
-    "avg_hrv": 54.65,
-    "avg_rhr": 50.37,
-    "avg_sleep_performance": 85.17,
+    "avg_recovery": 61.69,
+    "avg_hrv": 53.59,
+    "avg_rhr": 50.46,
+    "avg_sleep_performance": 84.0,
     "workout_count": 25,
     "hr_zones": {
-      "zone0_min": 165.8,
-      "zone1_min": 590.5,
-      "zone2_min": 228.7,
-      "zone3_min": 188.5,
-      "zone4_min": 58.6,
+      "zone0_min": 211.4,
+      "zone1_min": 556.0,
+      "zone2_min": 203.7,
+      "zone3_min": 160.5,
+      "zone4_min": 49.5,
       "zone5_min": 0.5
     }
   },
@@ -2793,9 +2793,9 @@
     },
     {
       "local_date": "2026-06-15",
-      "recovery_score": 84.0,
-      "hrv": 60.07,
-      "rhr": 50.0,
+      "recovery_score": null,
+      "hrv": null,
+      "rhr": null,
       "sleep_performance": null,
       "sleep_efficiency": null,
       "asleep_hours": null,
@@ -2815,12 +2815,12 @@
     },
     {
       "local_date": "2026-06-16",
-      "recovery_score": 84.0,
-      "hrv": 59.93,
-      "rhr": 50.0,
-      "sleep_performance": 95.0,
-      "sleep_efficiency": 92.79,
-      "asleep_hours": 8.58,
+      "recovery_score": null,
+      "hrv": null,
+      "rhr": null,
+      "sleep_performance": null,
+      "sleep_efficiency": null,
+      "asleep_hours": null,
       "avg_glucose": 153.34,
       "tir_70_180": 76.74,
       "total_insulin": 43.7,
@@ -2837,12 +2837,12 @@
     },
     {
       "local_date": "2026-06-17",
-      "recovery_score": 64.0,
-      "hrv": 53.22,
-      "rhr": 50.0,
-      "sleep_performance": 85.0,
-      "sleep_efficiency": 96.52,
-      "asleep_hours": 6.72,
+      "recovery_score": null,
+      "hrv": null,
+      "rhr": null,
+      "sleep_performance": null,
+      "sleep_efficiency": null,
+      "asleep_hours": null,
       "avg_glucose": 168.9,
       "tir_70_180": 64.93,
       "total_insulin": 48.35,
@@ -2859,12 +2859,12 @@
     },
     {
       "local_date": "2026-06-18",
-      "recovery_score": 92.0,
-      "hrv": 68.13,
-      "rhr": 47.0,
-      "sleep_performance": 93.0,
-      "sleep_efficiency": 93.89,
-      "asleep_hours": 7.55,
+      "recovery_score": null,
+      "hrv": null,
+      "rhr": null,
+      "sleep_performance": null,
+      "sleep_efficiency": null,
+      "asleep_hours": null,
       "avg_glucose": 173.45,
       "tir_70_180": 52.11,
       "total_insulin": 60.15,
@@ -2881,12 +2881,12 @@
     },
     {
       "local_date": "2026-06-19",
-      "recovery_score": 29.0,
-      "hrv": 36.36,
-      "rhr": 58.0,
-      "sleep_performance": 80.0,
-      "sleep_efficiency": 86.3,
-      "asleep_hours": 6.04,
+      "recovery_score": null,
+      "hrv": null,
+      "rhr": null,
+      "sleep_performance": null,
+      "sleep_efficiency": null,
+      "asleep_hours": null,
       "avg_glucose": 135.7,
       "tir_70_180": 82.29,
       "total_insulin": 35.85,
@@ -2903,12 +2903,12 @@
     },
     {
       "local_date": "2026-06-20",
-      "recovery_score": 81.0,
-      "hrv": 64.05,
-      "rhr": 46.0,
-      "sleep_performance": 86.0,
-      "sleep_efficiency": 95.25,
-      "asleep_hours": 8.36,
+      "recovery_score": null,
+      "hrv": null,
+      "rhr": null,
+      "sleep_performance": null,
+      "sleep_efficiency": null,
+      "asleep_hours": null,
       "avg_glucose": 150.28,
       "tir_70_180": 88.85,
       "total_insulin": 37.2,
@@ -2928,9 +2928,9 @@
       "recovery_score": 77.0,
       "hrv": 63.31,
       "rhr": 48.0,
-      "sleep_performance": 86.0,
-      "sleep_efficiency": 90.55,
-      "asleep_hours": 6.88,
+      "sleep_performance": null,
+      "sleep_efficiency": null,
+      "asleep_hours": null,
       "avg_glucose": 168.14,
       "tir_70_180": 59.01,
       "total_insulin": 48.35,
@@ -3211,6 +3211,118 @@
     }
   ],
   "workouts30": [
+    {
+      "id": "38242fd9-6900-476f-96e8-61b0dc1dbcf2",
+      "local_date": "2026-07-15",
+      "sport_name": "hiit",
+      "start": "2026-07-15T23:16:00.420Z",
+      "end": "2026-07-16T00:14:59.370Z",
+      "strain": 13.41,
+      "avg_hr": 120.0,
+      "max_hr": 176.0,
+      "zone0_min": 8.7,
+      "zone1_min": 36.52,
+      "zone2_min": 8.38,
+      "zone3_min": 4.42,
+      "zone4_min": 0.97,
+      "zone5_min": 0.0
+    },
+    {
+      "id": "964efd6d-1fe0-4e1f-80c2-91fb73cc1991",
+      "local_date": "2026-07-15",
+      "sport_name": "walking",
+      "start": "2026-07-15T18:44:00.630Z",
+      "end": "2026-07-15T19:01:59.620Z",
+      "strain": 4.1,
+      "avg_hr": 89.0,
+      "max_hr": 109.0,
+      "zone0_min": 17.93,
+      "zone1_min": 0.05,
+      "zone2_min": 0.0,
+      "zone3_min": 0.0,
+      "zone4_min": 0.0,
+      "zone5_min": 0.0
+    },
+    {
+      "id": "61da7f16-ad0c-47ec-abaf-8f603dfc4f41",
+      "local_date": "2026-07-14",
+      "sport_name": "swimming",
+      "start": "2026-07-14T23:14:00.290Z",
+      "end": "2026-07-15T00:03:59.250Z",
+      "strain": 8.74,
+      "avg_hr": 120.0,
+      "max_hr": 158.0,
+      "zone0_min": 11.83,
+      "zone1_min": 21.52,
+      "zone2_min": 15.15,
+      "zone3_min": 1.48,
+      "zone4_min": 0.0,
+      "zone5_min": 0.0
+    },
+    {
+      "id": "b7ec3f40-78f3-42c4-acde-6c0576ade524",
+      "local_date": "2026-07-13",
+      "sport_name": "hiit",
+      "start": "2026-07-13T23:35:00.570Z",
+      "end": "2026-07-14T00:29:59.530Z",
+      "strain": 13.71,
+      "avg_hr": 127.0,
+      "max_hr": 176.0,
+      "zone0_min": 4.68,
+      "zone1_min": 30.08,
+      "zone2_min": 9.4,
+      "zone3_min": 7.98,
+      "zone4_min": 2.83,
+      "zone5_min": 0.0
+    },
+    {
+      "id": "5105d59e-af5f-4209-a119-479739eaf417",
+      "local_date": "2026-07-12",
+      "sport_name": "activity",
+      "start": "2026-07-13T00:55:00.350Z",
+      "end": "2026-07-13T01:14:59.340Z",
+      "strain": 4.05,
+      "avg_hr": 85.0,
+      "max_hr": 128.0,
+      "zone0_min": 18.72,
+      "zone1_min": 1.27,
+      "zone2_min": 0.0,
+      "zone3_min": 0.0,
+      "zone4_min": 0.0,
+      "zone5_min": 0.0
+    },
+    {
+      "id": "965a7ef8-4ef1-48de-b602-10eb739c229e",
+      "local_date": "2026-07-11",
+      "sport_name": "activity",
+      "start": "2026-07-11T18:55:00.660Z",
+      "end": "2026-07-11T19:16:59.640Z",
+      "strain": 4.27,
+      "avg_hr": 92.0,
+      "max_hr": 122.0,
+      "zone0_min": 18.83,
+      "zone1_min": 3.15,
+      "zone2_min": 0.0,
+      "zone3_min": 0.0,
+      "zone4_min": 0.0,
+      "zone5_min": 0.0
+    },
+    {
+      "id": "f90667b5-fbf7-49cd-ada4-a976852a1ec2",
+      "local_date": "2026-07-10",
+      "sport_name": "running",
+      "start": "2026-07-10T23:22:00.170Z",
+      "end": "2026-07-10T23:51:59.150Z",
+      "strain": 9.95,
+      "avg_hr": 141.0,
+      "max_hr": 180.0,
+      "zone0_min": 1.17,
+      "zone1_min": 3.1,
+      "zone2_min": 14.05,
+      "zone3_min": 10.67,
+      "zone4_min": 1.0,
+      "zone5_min": 0.0
+    },
     {
       "id": "20801992-29a1-4882-9619-f469a05645ae",
       "local_date": "2026-07-09",
@@ -3498,118 +3610,6 @@
       "zone3_min": 6.97,
       "zone4_min": 4.67,
       "zone5_min": 0.12
-    },
-    {
-      "id": "affa1bfd-ecb8-451e-879f-944a2ac7597d",
-      "local_date": "2026-06-15",
-      "sport_name": "hiit",
-      "start": "2026-06-15T23:11:00.910Z",
-      "end": "2026-06-16T00:05:59.870Z",
-      "strain": 14.12,
-      "avg_hr": 133.0,
-      "max_hr": 178.0,
-      "zone0_min": 2.77,
-      "zone1_min": 24.5,
-      "zone2_min": 14.07,
-      "zone3_min": 11.22,
-      "zone4_min": 2.43,
-      "zone5_min": 0.0
-    },
-    {
-      "id": "231a37e2-f023-4ce1-8842-cf99668e98a4",
-      "local_date": "2026-06-13",
-      "sport_name": "hiit",
-      "start": "2026-06-14T01:05:00.130Z",
-      "end": "2026-06-14T01:22:59.120Z",
-      "strain": 5.34,
-      "avg_hr": 108.0,
-      "max_hr": 144.0,
-      "zone0_min": 7.07,
-      "zone1_min": 10.63,
-      "zone2_min": 0.28,
-      "zone3_min": 0.0,
-      "zone4_min": 0.0,
-      "zone5_min": 0.0
-    },
-    {
-      "id": "b72e7bab-a04f-4b32-9e7d-2f03c271ccfe",
-      "local_date": "2026-06-13",
-      "sport_name": "golf",
-      "start": "2026-06-14T00:32:00.150Z",
-      "end": "2026-06-14T00:49:59.140Z",
-      "strain": 4.51,
-      "avg_hr": 102.0,
-      "max_hr": 137.0,
-      "zone0_min": 11.08,
-      "zone1_min": 6.9,
-      "zone2_min": 0.0,
-      "zone3_min": 0.0,
-      "zone4_min": 0.0,
-      "zone5_min": 0.0
-    },
-    {
-      "id": "8d6c2a6e-4e0c-47ca-b3ec-29b224027c2b",
-      "local_date": "2026-06-13",
-      "sport_name": "running",
-      "start": "2026-06-13T20:01:00.370Z",
-      "end": "2026-06-13T20:53:59.330Z",
-      "strain": 13.96,
-      "avg_hr": 152.0,
-      "max_hr": 178.0,
-      "zone0_min": 0.17,
-      "zone1_min": 1.8,
-      "zone2_min": 17.58,
-      "zone3_min": 27.32,
-      "zone4_min": 6.12,
-      "zone5_min": 0.0
-    },
-    {
-      "id": "e534a617-103f-464e-830d-35ce68d3ff7f",
-      "local_date": "2026-06-11",
-      "sport_name": "hiit",
-      "start": "2026-06-11T23:10:00.340Z",
-      "end": "2026-06-12T00:06:59.290Z",
-      "strain": 12.9,
-      "avg_hr": 118.0,
-      "max_hr": 156.0,
-      "zone0_min": 11.83,
-      "zone1_min": 33.37,
-      "zone2_min": 10.82,
-      "zone3_min": 0.97,
-      "zone4_min": 0.0,
-      "zone5_min": 0.0
-    },
-    {
-      "id": "f038341c-7a2b-4381-b288-b86c9cebbf92",
-      "local_date": "2026-06-10",
-      "sport_name": "hiit",
-      "start": "2026-06-10T23:07:00.010Z",
-      "end": "2026-06-11T00:04:59.960Z",
-      "strain": 14.31,
-      "avg_hr": 134.0,
-      "max_hr": 181.0,
-      "zone0_min": 2.4,
-      "zone1_min": 30.65,
-      "zone2_min": 16.18,
-      "zone3_min": 5.67,
-      "zone4_min": 3.08,
-      "zone5_min": 0.02
-    },
-    {
-      "id": "92f28964-8d8a-49fd-8d1c-ff90aeb46078",
-      "local_date": "2026-06-08",
-      "sport_name": "hiit",
-      "start": "2026-06-08T23:32:00.130Z",
-      "end": "2026-06-09T00:17:59.700Z",
-      "strain": 13.24,
-      "avg_hr": 133.0,
-      "max_hr": 174.0,
-      "zone0_min": 0.95,
-      "zone1_min": 22.34,
-      "zone2_min": 13.07,
-      "zone3_min": 7.38,
-      "zone4_min": 2.25,
-      "zone5_min": 0.0
     }
   ],
   "hourly_glucose": [
@@ -4546,31 +4546,49 @@
         "strength": 0.38
       },
       {
-        "label": "Sleep hours vs same-day avg glucose",
-        "x": "asleep_hours",
-        "y": "avg_glucose",
-        "r": -0.15,
-        "n": 18,
-        "note": "More sleep vs average glucose.",
-        "strength": 0.15
-      },
-      {
         "label": "RHR vs same-day avg glucose",
         "x": "rhr",
         "y": "avg_glucose",
-        "r": 0.14,
-        "n": 19,
+        "r": 0.31,
+        "n": 13,
         "note": "Resting HR and average glucose relationship.",
-        "strength": 0.14
+        "strength": 0.31
       },
       {
         "label": "HRV vs same-day avg glucose",
         "x": "hrv",
         "y": "avg_glucose",
-        "r": -0.1,
-        "n": 19,
+        "r": -0.24,
+        "n": 13,
         "note": "HRV and average glucose relationship.",
-        "strength": 0.1
+        "strength": 0.24
+      },
+      {
+        "label": "Sleep hours vs same-day avg glucose",
+        "x": "asleep_hours",
+        "y": "avg_glucose",
+        "r": -0.18,
+        "n": 12,
+        "note": "More sleep vs average glucose.",
+        "strength": 0.18
+      },
+      {
+        "label": "Sleep performance vs same-day TIR",
+        "x": "sleep_performance",
+        "y": "tir_70_180",
+        "r": 0.13,
+        "n": 12,
+        "note": "Higher sleep performance days tended to align with TIR.",
+        "strength": 0.13
+      },
+      {
+        "label": "Recovery vs same-day TIR",
+        "x": "recovery_score",
+        "y": "tir_70_180",
+        "r": 0.13,
+        "n": 13,
+        "note": "WHOOP recovery and glucose control moved together.",
+        "strength": 0.13
       },
       {
         "label": "Carbs logged vs same-day avg glucose",
@@ -4580,87 +4598,9 @@
         "n": 30,
         "note": "Carb load vs average glucose.",
         "strength": 0.04
-      },
-      {
-        "label": "Recovery vs same-day TIR",
-        "x": "recovery_score",
-        "y": "tir_70_180",
-        "r": -0.03,
-        "n": 19,
-        "note": "WHOOP recovery and glucose control moved together.",
-        "strength": 0.03
-      },
-      {
-        "label": "Sleep performance vs same-day TIR",
-        "x": "sleep_performance",
-        "y": "tir_70_180",
-        "r": 0.0,
-        "n": 18,
-        "note": "Higher sleep performance days tended to align with TIR.",
-        "strength": 0.0
       }
     ],
     "workout_days": [
-      {
-        "local_date": "2026-06-08",
-        "workouts": 1,
-        "strain": 13.24,
-        "z3_5_min": 9.63,
-        "z2_min": 13.07,
-        "avg_hr": 133.0,
-        "same_day_tir": 71.15,
-        "same_day_avg_glucose": 157.8,
-        "next_day_tir": 62.45,
-        "next_day_avg_glucose": 157.71
-      },
-      {
-        "local_date": "2026-06-10",
-        "workouts": 1,
-        "strain": 14.31,
-        "z3_5_min": 8.77,
-        "z2_min": 16.18,
-        "avg_hr": 134.0,
-        "same_day_tir": 92.42,
-        "same_day_avg_glucose": 135.02,
-        "next_day_tir": 71.78,
-        "next_day_avg_glucose": 152.39
-      },
-      {
-        "local_date": "2026-06-11",
-        "workouts": 1,
-        "strain": 12.9,
-        "z3_5_min": 0.97,
-        "z2_min": 10.82,
-        "avg_hr": 118.0,
-        "same_day_tir": 71.78,
-        "same_day_avg_glucose": 152.39,
-        "next_day_tir": 60.07,
-        "next_day_avg_glucose": 170.84
-      },
-      {
-        "local_date": "2026-06-13",
-        "workouts": 3,
-        "strain": 23.81,
-        "z3_5_min": 33.44,
-        "z2_min": 17.86,
-        "avg_hr": 120.67,
-        "same_day_tir": 76.31,
-        "same_day_avg_glucose": 155.09,
-        "next_day_tir": 49.65,
-        "next_day_avg_glucose": 184.98
-      },
-      {
-        "local_date": "2026-06-15",
-        "workouts": 1,
-        "strain": 14.12,
-        "z3_5_min": 13.65,
-        "z2_min": 14.07,
-        "avg_hr": 133.0,
-        "same_day_tir": 57.99,
-        "same_day_avg_glucose": 168.24,
-        "next_day_tir": 76.74,
-        "next_day_avg_glucose": 153.34
-      },
       {
         "local_date": "2026-06-16",
         "workouts": 1,
@@ -4864,43 +4804,121 @@
         "same_day_avg_glucose": null,
         "next_day_tir": null,
         "next_day_avg_glucose": null
+      },
+      {
+        "local_date": "2026-07-10",
+        "workouts": 1,
+        "strain": 9.95,
+        "z3_5_min": 11.67,
+        "z2_min": 14.05,
+        "avg_hr": 141.0,
+        "same_day_tir": null,
+        "same_day_avg_glucose": null,
+        "next_day_tir": null,
+        "next_day_avg_glucose": null
+      },
+      {
+        "local_date": "2026-07-11",
+        "workouts": 1,
+        "strain": 4.27,
+        "z3_5_min": 0.0,
+        "z2_min": 0.0,
+        "avg_hr": 92.0,
+        "same_day_tir": null,
+        "same_day_avg_glucose": null,
+        "next_day_tir": null,
+        "next_day_avg_glucose": null
+      },
+      {
+        "local_date": "2026-07-12",
+        "workouts": 1,
+        "strain": 4.05,
+        "z3_5_min": 0.0,
+        "z2_min": 0.0,
+        "avg_hr": 85.0,
+        "same_day_tir": null,
+        "same_day_avg_glucose": null,
+        "next_day_tir": null,
+        "next_day_avg_glucose": null
+      },
+      {
+        "local_date": "2026-07-13",
+        "workouts": 1,
+        "strain": 13.71,
+        "z3_5_min": 10.81,
+        "z2_min": 9.4,
+        "avg_hr": 127.0,
+        "same_day_tir": null,
+        "same_day_avg_glucose": null,
+        "next_day_tir": null,
+        "next_day_avg_glucose": null
+      },
+      {
+        "local_date": "2026-07-14",
+        "workouts": 1,
+        "strain": 8.74,
+        "z3_5_min": 1.48,
+        "z2_min": 15.15,
+        "avg_hr": 120.0,
+        "same_day_tir": null,
+        "same_day_avg_glucose": null,
+        "next_day_tir": null,
+        "next_day_avg_glucose": null
+      },
+      {
+        "local_date": "2026-07-15",
+        "workouts": 2,
+        "strain": 17.51,
+        "z3_5_min": 5.39,
+        "z2_min": 8.38,
+        "avg_hr": 104.5,
+        "same_day_tir": null,
+        "same_day_avg_glucose": null,
+        "next_day_tir": null,
+        "next_day_avg_glucose": null
       }
     ],
     "workout_correlations": [
       {
         "label": "Workout Z3-5 min vs same-day TIR",
-        "r": 0.26,
-        "n": 18
+        "r": 0.42,
+        "n": 13
       },
       {
         "label": "Workout strain vs next-day avg glucose",
-        "r": 0.02,
-        "n": 17
+        "r": -0.08,
+        "n": 12
       },
       {
         "label": "Zone 2 min vs same-day avg glucose",
-        "r": -0.36,
-        "n": 18
+        "r": -0.32,
+        "n": 13
       }
     ],
     "insights": [
       {
         "kind": "pattern",
         "title": "Diabetes supply cadence",
-        "text": "Dexcom G7 sensors: last collected 2026-07-07 from CVS. Next fill is preordered for 2026-07-30 (21 days from dashboard generation) and current supply is estimated through 2026-08-05. This is logistics tracking only; ordering stays David-confirmed.",
+        "text": "Dexcom G7 sensors: last collected 2026-07-07 from CVS. Next fill is preordered for 2026-07-30 (15 days from dashboard generation) and current supply is estimated through 2026-08-05. This is logistics tracking only; ordering stays David-confirmed.",
         "stat": "On track"
       },
       {
-        "kind": "focus",
-        "title": "Glucose control baseline",
-        "text": "Last 30 days: 70.35% time-in-range with average glucose 162.73 mg/dL and GMI about 7.2%.",
-        "stat": "70.35% TIR"
+        "kind": "pattern",
+        "title": "Sutter clinical context loaded",
+        "text": "Sutter export is now wired into the dashboard as sanitized clinical context: A1c 6.5 (H) (10/24/2025), eGFR 95, LDL 125. Use this for clinician questions and trend context, not dosing decisions.",
+        "stat": "Sutter linked"
       },
       {
         "kind": "performance",
         "title": "Body composition momentum",
         "text": "Latest DEXA (2026-06-12): 11.9% body fat, 164.6 lb lean tissue, 23.4 lb fat mass. Since peak recorded fat mass, fat is -19.4 lb and lean tissue is 12.1 lb.",
         "stat": "11.9% BF"
+      },
+      {
+        "kind": "focus",
+        "title": "Glucose control baseline",
+        "text": "Last 30 days: 70.35% time-in-range with average glucose 162.73 mg/dL and GMI about 7.2%.",
+        "stat": "70.35% TIR"
       },
       {
         "kind": "watch",
@@ -4934,21 +4952,21 @@
       },
       {
         "kind": "pattern",
-        "title": "Sleep hours vs same-day avg glucose",
-        "text": "Observed negative correlation r=-0.15 across 18 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=-0.15"
+        "title": "RHR vs same-day avg glucose",
+        "text": "Observed positive correlation r=0.31 across 13 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.31"
       },
       {
         "kind": "pattern",
-        "title": "RHR vs same-day avg glucose",
-        "text": "Observed positive correlation r=0.14 across 19 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=0.14"
+        "title": "HRV vs same-day avg glucose",
+        "text": "Observed negative correlation r=-0.24 across 13 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=-0.24"
       },
       {
         "kind": "performance",
         "title": "Training load snapshot",
-        "text": "Across logged workouts in the last 30 days you accumulated about 248 minutes in HR Zones 3-5. The dashboard now compares hard-training days against same/next-day glucose patterns.",
-        "stat": "248m Z3-5"
+        "text": "Across logged workouts in the last 30 days you accumulated about 210 minutes in HR Zones 3-5. The dashboard now compares hard-training days against same/next-day glucose patterns.",
+        "stat": "210m Z3-5"
       }
     ],
     "coach_plan": [
@@ -5448,9 +5466,9 @@
         "buffer_days_at_next_fill_ready": 7,
         "status": "preordered",
         "notes": "David collected a 30-day supply from CVS on 2026-07-07 and preordered the next fill to be ready on 2026-07-30. Track refill cadence for eventual supply-ordering workflow. No autonomous ordering without David confirmation.",
-        "days_until_ready": 21,
-        "days_until_supply_runs_out": 27,
-        "days_since_last_collection": 2,
+        "days_until_ready": 15,
+        "days_until_supply_runs_out": 21,
+        "days_since_last_collection": 8,
         "urgency": "ok",
         "urgency_label": "On track"
       }
@@ -5469,19 +5487,199 @@
         "buffer_days_at_next_fill_ready": 7,
         "status": "preordered",
         "notes": "David collected a 30-day supply from CVS on 2026-07-07 and preordered the next fill to be ready on 2026-07-30. Track refill cadence for eventual supply-ordering workflow. No autonomous ordering without David confirmation.",
-        "days_until_ready": 21,
-        "days_until_supply_runs_out": 27,
-        "days_since_last_collection": 2,
+        "days_until_ready": 15,
+        "days_until_supply_runs_out": 21,
+        "days_since_last_collection": 8,
         "urgency": "ok",
         "urgency_label": "On track"
       }
     },
     "safety_note": "Supply tracking and reminders only. Do not change diabetes treatment, dosing, pump settings, or supplier/pharmacy actions without David confirmation."
   },
+  "sutter": {
+    "source": "Sutter My Health Online all visit records export",
+    "export_date": "2026-07-15",
+    "parsed_at": "2026-07-15",
+    "latest_metrics": {
+      "a1c_percent": {
+        "date": "10/24/2025",
+        "value": 6.5,
+        "raw_value": "6.5 (H)",
+        "reference": "3.5 - 5.6 %"
+      },
+      "estimated_avg_glucose_mg_dl": {
+        "date": "10/24/2025",
+        "value": 140.0,
+        "raw_value": "140",
+        "reference": "mg/dL"
+      },
+      "tsh_uiu_ml": {
+        "date": "10/24/2025",
+        "value": 1.77,
+        "raw_value": "1.77",
+        "reference": "0.34 - 4.82 uIU/mL"
+      },
+      "total_cholesterol_mg_dl": {
+        "date": "10/24/2025",
+        "value": 194.0,
+        "raw_value": "194",
+        "reference": "<200 mg/dL"
+      },
+      "triglycerides_mg_dl": {
+        "date": "10/24/2025",
+        "value": 40.0,
+        "raw_value": "40",
+        "reference": "<150 mg/dL"
+      },
+      "hdl_mg_dl": {
+        "date": "10/24/2025",
+        "value": 61.0,
+        "raw_value": "61",
+        "reference": ">40 mg/dL"
+      },
+      "ldl_calculated_mg_dl": {
+        "date": "10/24/2025",
+        "value": 125.0,
+        "raw_value": "125",
+        "reference": "<130 mg/dL"
+      },
+      "creatinine_mg_dl": {
+        "date": "10/24/2025",
+        "value": 1.06,
+        "raw_value": "1.06",
+        "reference": "0.50 - 1.30 mg/dL"
+      },
+      "egfr": {
+        "date": "10/24/2025",
+        "value": 95.0,
+        "raw_value": "95",
+        "reference": ">60 See Cmnt"
+      },
+      "albumin_creatinine_ratio": {
+        "date": "10/24/2025",
+        "value": null,
+        "raw_value": "Not calculated",
+        "reference": "<30 mg/g creat"
+      },
+      "microalbumin_urine_mg_l": {
+        "date": "10/24/2025",
+        "value": null,
+        "raw_value": "<5",
+        "reference": "mg/L",
+        "threshold_value": 5.0,
+        "comparator": "<"
+      }
+    },
+    "a1c_history": [
+      {
+        "date": "10/24/2025",
+        "value": 6.5,
+        "raw_value": "6.5 (H)",
+        "source": "(ABNORMAL) GLYCOHEMOGLOBIN A1C (3 MONTH AVERAGE SUGAR) (HEMOGLOBIN A1C)"
+      },
+      {
+        "date": "04/03/2024",
+        "value": 6.4,
+        "raw_value": "6.4 (H)",
+        "source": "(ABNORMAL) GLYCOHEMOGLOBIN A1C (3 MONTH AVERAGE SUGAR) (HEMOGLOBIN A1C)"
+      },
+      {
+        "date": "03/14/2023",
+        "value": 6.6,
+        "raw_value": "6.6 (A)",
+        "source": "(ABNORMAL) Glycosylated hemoglobin test (PR GLYCOSYLATED HEMOGLOBIN TEST)"
+      },
+      {
+        "date": "07/07/2021",
+        "value": 6.9,
+        "raw_value": "6.9 (A)",
+        "source": "(ABNORMAL) Glycosylated hemoglobin test (PR GLYCOSYLATED HEMOGLOBIN TEST)"
+      },
+      {
+        "date": "04/21/2021",
+        "value": 7.0,
+        "raw_value": "7.0 (H)",
+        "source": "(ABNORMAL) GLYCOHEMOGLOBIN A1C (3 MONTH AVERAGE SUGAR) (HEMOGLOBIN A1C)"
+      },
+      {
+        "date": "11/06/2019",
+        "value": 7.2,
+        "raw_value": "7.2 (A)",
+        "source": "(ABNORMAL) Glycosylated hemoglobin test (PR GLYCOSYLATED HEMOGLOBIN TEST)"
+      },
+      {
+        "date": "05/23/2019",
+        "value": 9.0,
+        "raw_value": "9.0 (A)",
+        "source": "(ABNORMAL) Glycosylated hemoglobin test (PR GLYCOSYLATED HEMOGLOBIN TEST)"
+      }
+    ],
+    "latest_vitals": [
+      {
+        "Vital Sign": "Blood Pressure",
+        "Reading": "116/66",
+        "Time Taken": "02/25/2026 7:31 AM PST",
+        "Comments": ""
+      },
+      {
+        "Vital Sign": "Pulse",
+        "Reading": "69",
+        "Time Taken": "02/25/2026 7:31 AM PST",
+        "Comments": ""
+      },
+      {
+        "Vital Sign": "Temperature",
+        "Reading": "36.7 \u00b0C (98.1 \u00b0F)",
+        "Time Taken": "07/25/2023 2:10 PM PDT",
+        "Comments": ""
+      },
+      {
+        "Vital Sign": "Respiratory Rate",
+        "Reading": "16",
+        "Time Taken": "07/25/2023 2:10 PM PDT",
+        "Comments": ""
+      },
+      {
+        "Vital Sign": "Oxygen Saturation",
+        "Reading": "99%",
+        "Time Taken": "07/25/2023 2:10 PM PDT",
+        "Comments": ""
+      },
+      {
+        "Vital Sign": "Inhaled Oxygen Concentration",
+        "Reading": "-",
+        "Time Taken": "-",
+        "Comments": ""
+      },
+      {
+        "Vital Sign": "Weight",
+        "Reading": "89.6 kg (197 lb 9.6 oz)",
+        "Time Taken": "02/25/2026 7:31 AM PST",
+        "Comments": ""
+      },
+      {
+        "Vital Sign": "Height",
+        "Reading": "185.4 cm (6' 1\")",
+        "Time Taken": "04/18/2024 10:37 AM PDT",
+        "Comments": ""
+      },
+      {
+        "Vital Sign": "Body Mass Index",
+        "Reading": "26.07",
+        "Time Taken": "04/18/2024 10:37 AM PDT",
+        "Comments": ""
+      }
+    ],
+    "active_problem_count": 2,
+    "current_medication_count": 6,
+    "notes": "Clinical record data only; not dosing guidance or medical advice.",
+    "available": true,
+    "source_note": "Sanitized metrics from Sutter/My Health Online export; raw records stay private/local."
+  },
   "whoop_errors": {
     "recovery_error": null,
     "sleep_error": null,
     "workout_error": null
   },
-  "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP source apps and your clinical plan before making medical decisions."
+  "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions."
 }
