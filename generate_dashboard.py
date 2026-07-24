@@ -681,6 +681,9 @@ async function main(){chartDefaults(); const data=await fetch('./data.json?v=202
 }
 main();
 </script></body></html>'''
+    # Cache-bust the published data file whenever the dashboard is regenerated.
+    version = datetime.now(TZ).strftime('%Y%m%d%H%M%S')
+    html = html.replace('./data.json?v=20260715-sutter', f'./data.json?v={version}')
     (DOCS/'index.html').write_text(html, encoding='utf-8')
 
 def main():
