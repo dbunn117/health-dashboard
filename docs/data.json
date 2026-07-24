@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-24T15:37:00.998937-07:00",
+  "generated_at": "2026-07-24T16:17:45.941911-07:00",
   "date_range": {
     "start": "2024-01-23",
     "end": "2026-07-24",
@@ -7,18 +7,18 @@
   },
   "summary30": {
     "days": 30,
-    "avg_glucose": 163.01,
-    "tir_70_180": 68.75,
-    "high_pct": 25.07,
-    "very_high_pct": 4.69,
+    "avg_glucose": 162.85,
+    "tir_70_180": 68.83,
+    "high_pct": 24.98,
+    "very_high_pct": 4.68,
     "low_pct": 1.23,
     "very_low_pct": 0.27,
     "gmi": 7.21,
-    "avg_total_insulin": 41.29,
-    "avg_basal": 22.66,
+    "avg_total_insulin": 41.3,
+    "avg_basal": 22.67,
     "avg_bolus": 18.63,
     "avg_carbs": 186.1,
-    "avg_cv_pct": 32.76,
+    "avg_cv_pct": 32.84,
     "overnight_low_pct": 2.05,
     "evening_avg": 144.38,
     "avg_recovery": 58.88,
@@ -2521,27 +2521,27 @@
     },
     {
       "local_date": "2026-07-24",
-      "cgm_count": 176,
-      "avg_glucose": 173.06,
-      "median_glucose": 171.0,
-      "gmi": 7.45,
-      "tir_70_180": 59.09,
-      "very_high_pct": 1.7,
-      "high_pct": 39.2,
+      "cgm_count": 188,
+      "avg_glucose": 168.29,
+      "median_glucose": 168.0,
+      "gmi": 7.34,
+      "tir_70_180": 61.7,
+      "very_high_pct": 1.6,
+      "high_pct": 36.7,
       "low_pct": 0.0,
       "very_low_pct": 0.0,
-      "total_insulin": 27.7,
-      "total_basal": 17.7,
+      "total_insulin": 28.15,
+      "total_basal": 18.15,
       "total_bolus": 10.0,
       "bolus_sum": 10.0,
       "carbs_sum": 100.0,
       "bolus_count": 3,
       "alarm_count": 0,
-      "stddev": 35.41,
-      "cv_pct": 20.46,
+      "stddev": 38.92,
+      "cv_pct": 23.13,
       "overnight_avg": 203.0,
       "morning_avg": 157.81,
-      "afternoon_avg": 140.0,
+      "afternoon_avg": 128.64,
       "evening_avg": null,
       "overnight_low_pct": 0.0,
       "morning_high_pct": 16.67,
@@ -3195,15 +3195,15 @@
       "sleep_performance": 71.0,
       "sleep_efficiency": 84.89,
       "asleep_hours": 5.53,
-      "avg_glucose": 173.06,
-      "tir_70_180": 59.09,
-      "total_insulin": 27.7,
+      "avg_glucose": 168.29,
+      "tir_70_180": 61.7,
+      "total_insulin": 28.15,
       "carbs_sum": 100.0,
-      "stddev": 35.41,
-      "cv_pct": 20.46,
+      "stddev": 38.92,
+      "cv_pct": 23.13,
       "overnight_avg": 203.0,
       "morning_avg": 157.81,
-      "afternoon_avg": 140.0,
+      "afternoon_avg": 128.64,
       "evening_avg": null,
       "overnight_low_pct": 0.0,
       "morning_high_pct": 16.67,
@@ -3685,13 +3685,13 @@
     },
     {
       "hour": 14,
-      "avg_glucose": 181.2,
-      "readings": 1053
+      "avg_glucose": 180.86,
+      "readings": 1057
     },
     {
       "hour": 15,
-      "avg_glucose": 174.37,
-      "readings": 1042
+      "avg_glucose": 173.82,
+      "readings": 1050
     },
     {
       "hour": 16,
@@ -3738,61 +3738,61 @@
     "periods": {
       "last7": {
         "days": 7,
-        "avg_glucose": 162.12,
-        "tir_70_180": 64.16,
-        "high_pct": 31.28,
-        "very_high_pct": 3.57,
+        "avg_glucose": 161.44,
+        "tir_70_180": 64.53,
+        "high_pct": 30.92,
+        "very_high_pct": 3.55,
         "low_pct": 0.69,
         "very_low_pct": 0.3,
-        "gmi": 7.19,
-        "avg_total_insulin": 37.91,
-        "avg_basal": 21.01,
+        "gmi": 7.17,
+        "avg_total_insulin": 37.98,
+        "avg_basal": 21.08,
         "avg_bolus": 16.9,
         "avg_carbs": 131.86,
-        "avg_cv_pct": 25.73,
+        "avg_cv_pct": 26.12,
         "overnight_low_pct": 1.59,
         "evening_avg": 154.04
       },
       "last14": {
         "days": 14,
-        "avg_glucose": 160.8,
-        "tir_70_180": 67.66,
-        "high_pct": 25.1,
-        "very_high_pct": 5.76,
+        "avg_glucose": 160.46,
+        "tir_70_180": 67.84,
+        "high_pct": 24.92,
+        "very_high_pct": 5.75,
         "low_pct": 1.27,
         "very_low_pct": 0.22,
-        "gmi": 7.16,
-        "avg_total_insulin": 38.75,
-        "avg_basal": 21.15,
+        "gmi": 7.15,
+        "avg_total_insulin": 38.79,
+        "avg_basal": 21.19,
         "avg_bolus": 17.6,
         "avg_carbs": 134.86,
-        "avg_cv_pct": 29.47,
+        "avg_cv_pct": 29.66,
         "overnight_low_pct": 1.39,
         "evening_avg": 144.75
       },
       "last30": {
         "days": 30,
-        "avg_glucose": 163.01,
-        "tir_70_180": 68.75,
-        "high_pct": 25.07,
-        "very_high_pct": 4.69,
+        "avg_glucose": 162.85,
+        "tir_70_180": 68.83,
+        "high_pct": 24.98,
+        "very_high_pct": 4.68,
         "low_pct": 1.23,
         "very_low_pct": 0.27,
         "gmi": 7.21,
-        "avg_total_insulin": 41.29,
-        "avg_basal": 22.66,
+        "avg_total_insulin": 41.3,
+        "avg_basal": 22.67,
         "avg_bolus": 18.63,
         "avg_carbs": 186.1,
-        "avg_cv_pct": 32.76,
+        "avg_cv_pct": 32.84,
         "overnight_low_pct": 2.05,
         "evening_avg": 144.38
       },
       "last90": {
         "days": 90,
-        "avg_glucose": 161.04,
-        "tir_70_180": 69.5,
-        "high_pct": 25.59,
-        "very_high_pct": 3.73,
+        "avg_glucose": 160.98,
+        "tir_70_180": 69.53,
+        "high_pct": 25.56,
+        "very_high_pct": 3.72,
         "low_pct": 0.95,
         "very_low_pct": 0.23,
         "gmi": 7.16,
@@ -3800,7 +3800,7 @@
         "avg_basal": 21.84,
         "avg_bolus": 18.74,
         "avg_carbs": 159.49,
-        "avg_cv_pct": 27.42,
+        "avg_cv_pct": 27.45,
         "overnight_low_pct": 1.25,
         "evening_avg": 151.14
       },
@@ -3823,11 +3823,11 @@
       }
     },
     "deltas": {
-      "tir_70_180": -0.63,
-      "avg_glucose": 1.68,
+      "tir_70_180": -0.55,
+      "avg_glucose": 1.52,
       "gmi": 0.04,
-      "avg_cv_pct": 7.02,
-      "avg_total_insulin": -1.21,
+      "avg_cv_pct": 7.1,
+      "avg_total_insulin": -1.2,
       "avg_carbs": 40.47
     },
     "weekdays": [
@@ -3906,18 +3906,18 @@
       {
         "weekday": "Fri",
         "days": 13,
-        "avg_glucose": 179.27,
-        "tir_70_180": 60.27,
-        "high_pct": 31.16,
+        "avg_glucose": 178.91,
+        "tir_70_180": 60.47,
+        "high_pct": 30.97,
         "very_high_pct": 7.25,
         "low_pct": 0.91,
         "very_low_pct": 0.4,
-        "gmi": 7.6,
-        "avg_total_insulin": 41.09,
-        "avg_basal": 22.96,
+        "gmi": 7.59,
+        "avg_total_insulin": 41.13,
+        "avg_basal": 22.99,
         "avg_bolus": 18.13,
         "avg_carbs": 142.31,
-        "avg_cv_pct": 35.65,
+        "avg_cv_pct": 35.86,
         "overnight_low_pct": 3.34,
         "evening_avg": 163.84
       },
@@ -4528,6 +4528,15 @@
     ],
     "correlations": [
       {
+        "label": "Total insulin vs same-day avg glucose",
+        "x": "total_insulin",
+        "y": "avg_glucose",
+        "r": 0.43,
+        "n": 30,
+        "note": "Total daily insulin vs average glucose.",
+        "strength": 0.43
+      },
+      {
         "label": "Glucose variability vs TIR",
         "x": "cv_pct",
         "y": "tir_70_180",
@@ -4537,67 +4546,58 @@
         "strength": 0.42
       },
       {
-        "label": "Total insulin vs same-day avg glucose",
-        "x": "total_insulin",
-        "y": "avg_glucose",
-        "r": 0.41,
-        "n": 30,
-        "note": "Total daily insulin vs average glucose.",
-        "strength": 0.41
-      },
-      {
         "label": "Recovery vs same-day TIR",
         "x": "recovery_score",
         "y": "tir_70_180",
-        "r": 0.36,
+        "r": 0.35,
         "n": 25,
         "note": "WHOOP recovery and glucose control moved together.",
-        "strength": 0.36
+        "strength": 0.35
       },
       {
         "label": "Sleep performance vs same-day TIR",
         "x": "sleep_performance",
         "y": "tir_70_180",
-        "r": 0.32,
+        "r": 0.3,
         "n": 24,
         "note": "Higher sleep performance days tended to align with TIR.",
-        "strength": 0.32
+        "strength": 0.3
       },
       {
         "label": "RHR vs same-day avg glucose",
         "x": "rhr",
         "y": "avg_glucose",
-        "r": 0.2,
+        "r": 0.18,
         "n": 25,
         "note": "Resting HR and average glucose relationship.",
-        "strength": 0.2
+        "strength": 0.18
       },
       {
         "label": "Carbs logged vs same-day avg glucose",
         "x": "carbs_sum",
         "y": "avg_glucose",
-        "r": 0.16,
+        "r": 0.17,
         "n": 30,
         "note": "Carb load vs average glucose.",
-        "strength": 0.16
+        "strength": 0.17
       },
       {
         "label": "Sleep hours vs same-day avg glucose",
         "x": "asleep_hours",
         "y": "avg_glucose",
-        "r": 0.05,
+        "r": 0.07,
         "n": 24,
         "note": "More sleep vs average glucose.",
-        "strength": 0.05
+        "strength": 0.07
       },
       {
         "label": "HRV vs same-day avg glucose",
         "x": "hrv",
         "y": "avg_glucose",
-        "r": -0.05,
+        "r": -0.03,
         "n": 25,
         "note": "HRV and average glucose relationship.",
-        "strength": 0.05
+        "strength": 0.03
       }
     ],
     "workout_days": [
@@ -4874,8 +4874,8 @@
         "avg_hr": 121.0,
         "same_day_tir": 54.86,
         "same_day_avg_glucose": 170.97,
-        "next_day_tir": 59.09,
-        "next_day_avg_glucose": 173.06
+        "next_day_tir": 61.7,
+        "next_day_avg_glucose": 168.29
       }
     ],
     "workout_correlations": [
@@ -4917,20 +4917,20 @@
       {
         "kind": "focus",
         "title": "Glucose control baseline",
-        "text": "Last 30 days: 68.75% time-in-range with average glucose 163.01 mg/dL and GMI about 7.21%.",
-        "stat": "68.75% TIR"
+        "text": "Last 30 days: 68.83% time-in-range with average glucose 162.85 mg/dL and GMI about 7.21%.",
+        "stat": "68.83% TIR"
       },
       {
         "kind": "watch",
         "title": "Recent direction",
-        "text": "The last 7 days are 4.6 percentage points below your 30-day TIR baseline.",
-        "stat": "-4.6 pts"
+        "text": "The last 7 days are 4.3 percentage points below your 30-day TIR baseline.",
+        "stat": "-4.3 pts"
       },
       {
         "kind": "win",
         "title": "Stability / variability",
-        "text": "Average glucose variability is 32.76% CV over the last 30 days. Lower variability usually makes gym sessions, work focus, and parenting energy more predictable.",
-        "stat": "CV 32.76%"
+        "text": "Average glucose variability is 32.84% CV over the last 30 days. Lower variability usually makes gym sessions, work focus, and parenting energy more predictable.",
+        "stat": "CV 32.84%"
       },
       {
         "kind": "watch",
@@ -4940,27 +4940,27 @@
       },
       {
         "kind": "pattern",
+        "title": "Total insulin vs same-day avg glucose",
+        "text": "Observed positive correlation r=0.43 across 30 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.43"
+      },
+      {
+        "kind": "pattern",
         "title": "Glucose variability vs TIR",
         "text": "Observed negative correlation r=-0.42 across 30 paired days. Treat as a pattern to test, not proof of cause.",
         "stat": "r=-0.42"
       },
       {
         "kind": "pattern",
-        "title": "Total insulin vs same-day avg glucose",
-        "text": "Observed positive correlation r=0.41 across 30 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=0.41"
-      },
-      {
-        "kind": "pattern",
         "title": "Recovery vs same-day TIR",
-        "text": "Observed positive correlation r=0.36 across 25 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=0.36"
+        "text": "Observed positive correlation r=0.35 across 25 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.35"
       },
       {
         "kind": "pattern",
         "title": "Sleep performance vs same-day TIR",
-        "text": "Observed positive correlation r=0.32 across 24 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=0.32"
+        "text": "Observed positive correlation r=0.3 across 24 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.3"
       },
       {
         "kind": "performance",
