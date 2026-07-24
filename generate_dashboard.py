@@ -204,7 +204,7 @@ def compute_daily(conn: sqlite3.Connection):
 
 
 def run_whoop(cmd: list[str]) -> dict:
-    env_path = '/root/.local/bin:/root/.hermes/profiles/personal/home/.local/bin'
+    env_path = '/root/.local/bin:/root/.hermes/profiles/heath/home/.local/bin:/root/.hermes/profiles/personal/home/.local/bin'
     full = ['bash', '-lc', 'export PATH="%s:$PATH"; %s' % (env_path, ' '.join(cmd))]
     cp = subprocess.run(full, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=90)
     if cp.returncode != 0:
