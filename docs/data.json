@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-28T07:03:50.865192-07:00",
+  "generated_at": "2026-07-28T23:22:37.749694-07:00",
   "date_range": {
     "start": "2024-01-23",
     "end": "2026-07-28",
@@ -21,17 +21,17 @@
     "avg_cv_pct": 27.57,
     "overnight_low_pct": 1.25,
     "evening_avg": 142.59,
-    "avg_recovery": 62.36,
-    "avg_hrv": 51.4,
-    "avg_rhr": 50.44,
-    "avg_sleep_performance": 85.08,
-    "workout_count": 24,
+    "avg_recovery": 62.92,
+    "avg_hrv": 51.71,
+    "avg_rhr": 50.32,
+    "avg_sleep_performance": 85.38,
+    "workout_count": 25,
     "hr_zones": {
-      "zone0_min": 213.1,
-      "zone1_min": 505.6,
-      "zone2_min": 261.0,
-      "zone3_min": 142.7,
-      "zone4_min": 31.9,
+      "zone0_min": 240.2,
+      "zone1_min": 517.4,
+      "zone2_min": 267.6,
+      "zone3_min": 151.8,
+      "zone4_min": 32.4,
       "zone5_min": 0.2
     }
   },
@@ -2639,9 +2639,9 @@
     },
     {
       "local_date": "2026-07-03",
-      "recovery_score": 79.0,
-      "hrv": 57.55,
-      "rhr": 49.0,
+      "recovery_score": null,
+      "hrv": null,
+      "rhr": null,
       "sleep_performance": null,
       "sleep_efficiency": null,
       "asleep_hours": null,
@@ -2664,9 +2664,9 @@
       "recovery_score": 34.0,
       "hrv": 39.39,
       "rhr": 56.0,
-      "sleep_performance": 85.0,
-      "sleep_efficiency": 96.56,
-      "asleep_hours": 7.27,
+      "sleep_performance": null,
+      "sleep_efficiency": null,
+      "asleep_hours": null,
       "avg_glucose": 170.67,
       "tir_70_180": 57.99,
       "total_insulin": 47.1,
@@ -3189,12 +3189,12 @@
     },
     {
       "local_date": "2026-07-28",
-      "recovery_score": null,
-      "hrv": null,
-      "rhr": null,
-      "sleep_performance": null,
-      "sleep_efficiency": null,
-      "asleep_hours": null,
+      "recovery_score": 93.0,
+      "hrv": 65.21,
+      "rhr": 46.0,
+      "sleep_performance": 92.0,
+      "sleep_efficiency": 91.55,
+      "asleep_hours": 7.87,
       "avg_glucose": 169.52,
       "tir_70_180": 64.52,
       "total_insulin": 3.35,
@@ -3211,6 +3211,22 @@
     }
   ],
   "workouts30": [
+    {
+      "id": "95a772ef-5308-4781-abfd-297b76c86a06",
+      "local_date": "2026-07-28",
+      "sport_name": "activity",
+      "start": "2026-07-28T23:09:00.470Z",
+      "end": "2026-07-29T00:03:59.430Z",
+      "strain": 9.6,
+      "avg_hr": 115.0,
+      "max_hr": 167.0,
+      "zone0_min": 27.1,
+      "zone1_min": 11.72,
+      "zone2_min": 6.6,
+      "zone3_min": 9.08,
+      "zone4_min": 0.48,
+      "zone5_min": 0.0
+    },
     {
       "id": "e718a56d-9003-412d-97df-078ff3aad90a",
       "local_date": "2026-07-27",
@@ -4515,28 +4531,19 @@
         "label": "Recovery vs same-day TIR",
         "x": "recovery_score",
         "y": "tir_70_180",
-        "r": 0.43,
+        "r": 0.37,
         "n": 25,
         "note": "WHOOP recovery and glucose control moved together.",
-        "strength": 0.43
+        "strength": 0.37
       },
       {
         "label": "Sleep performance vs same-day TIR",
         "x": "sleep_performance",
         "y": "tir_70_180",
-        "r": 0.34,
+        "r": 0.3,
         "n": 24,
         "note": "Higher sleep performance days tended to align with TIR.",
-        "strength": 0.34
-      },
-      {
-        "label": "RHR vs same-day avg glucose",
-        "x": "rhr",
-        "y": "avg_glucose",
-        "r": 0.24,
-        "n": 25,
-        "note": "Resting HR and average glucose relationship.",
-        "strength": 0.24
+        "strength": 0.3
       },
       {
         "label": "Glucose variability vs TIR",
@@ -4546,6 +4553,15 @@
         "n": 30,
         "note": "Variability is usually a major TIR lever.",
         "strength": 0.19
+      },
+      {
+        "label": "RHR vs same-day avg glucose",
+        "x": "rhr",
+        "y": "avg_glucose",
+        "r": 0.17,
+        "n": 25,
+        "note": "Resting HR and average glucose relationship.",
+        "strength": 0.17
       },
       {
         "label": "Total insulin vs same-day avg glucose",
@@ -4566,22 +4582,22 @@
         "strength": 0.06
       },
       {
-        "label": "HRV vs same-day avg glucose",
-        "x": "hrv",
-        "y": "avg_glucose",
-        "r": -0.05,
-        "n": 25,
-        "note": "HRV and average glucose relationship.",
-        "strength": 0.05
-      },
-      {
         "label": "Sleep hours vs same-day avg glucose",
         "x": "asleep_hours",
         "y": "avg_glucose",
-        "r": -0.0,
+        "r": 0.02,
         "n": 24,
         "note": "More sleep vs average glucose.",
-        "strength": 0.0
+        "strength": 0.02
+      },
+      {
+        "label": "HRV vs same-day avg glucose",
+        "x": "hrv",
+        "y": "avg_glucose",
+        "r": 0.01,
+        "n": 25,
+        "note": "HRV and average glucose relationship.",
+        "strength": 0.01
       }
     ],
     "workout_days": [
@@ -4848,13 +4864,25 @@
         "same_day_avg_glucose": 155.82,
         "next_day_tir": 64.52,
         "next_day_avg_glucose": 169.52
+      },
+      {
+        "local_date": "2026-07-28",
+        "workouts": 1,
+        "strain": 9.6,
+        "z3_5_min": 9.56,
+        "z2_min": 6.6,
+        "avg_hr": 115.0,
+        "same_day_tir": 64.52,
+        "same_day_avg_glucose": 169.52,
+        "next_day_tir": null,
+        "next_day_avg_glucose": null
       }
     ],
     "workout_correlations": [
       {
         "label": "Workout Z3-5 min vs same-day TIR",
-        "r": 0.17,
-        "n": 22
+        "r": 0.16,
+        "n": 23
       },
       {
         "label": "Workout strain vs next-day avg glucose",
@@ -4863,8 +4891,8 @@
       },
       {
         "label": "Zone 2 min vs same-day avg glucose",
-        "r": 0.15,
-        "n": 22
+        "r": 0.11,
+        "n": 23
       }
     ],
     "insights": [
@@ -4913,20 +4941,14 @@
       {
         "kind": "pattern",
         "title": "Recovery vs same-day TIR",
-        "text": "Observed positive correlation r=0.43 across 25 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=0.43"
+        "text": "Observed positive correlation r=0.37 across 25 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.37"
       },
       {
         "kind": "pattern",
         "title": "Sleep performance vs same-day TIR",
-        "text": "Observed positive correlation r=0.34 across 24 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=0.34"
-      },
-      {
-        "kind": "pattern",
-        "title": "RHR vs same-day avg glucose",
-        "text": "Observed positive correlation r=0.24 across 25 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=0.24"
+        "text": "Observed positive correlation r=0.3 across 24 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.3"
       },
       {
         "kind": "pattern",
@@ -4935,10 +4957,16 @@
         "stat": "r=-0.19"
       },
       {
+        "kind": "pattern",
+        "title": "RHR vs same-day avg glucose",
+        "text": "Observed positive correlation r=0.17 across 25 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.17"
+      },
+      {
         "kind": "performance",
         "title": "Training load snapshot",
-        "text": "Across logged workouts in the last 30 days you accumulated about 175 minutes in HR Zones 3-5. The dashboard now compares hard-training days against same/next-day glucose patterns.",
-        "stat": "175m Z3-5"
+        "text": "Across logged workouts in the last 30 days you accumulated about 184 minutes in HR Zones 3-5. The dashboard now compares hard-training days against same/next-day glucose patterns.",
+        "stat": "184m Z3-5"
       }
     ],
     "coach_plan": [
