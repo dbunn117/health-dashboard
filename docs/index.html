@@ -92,5 +92,9 @@ async function main(){chartDefaults(); const data=await fetch('./data.json?v=202
  document.getElementById('daysTable').innerHTML=rows('Best TIR days',a.best_days)+rows('Toughest TIR days',a.toughest_days);
  document.getElementById('workouts').innerHTML=`<table class="table"><thead><tr><th>Date</th><th>Sport</th><th>Strain</th><th>Avg/Max HR</th><th>Z2</th><th>Z3-5</th></tr></thead><tbody>${data.workouts30.slice(0,24).map(w=>`<tr><td>${w.local_date}</td><td>${w.sport_name||''}</td><td>${fmt(w.strain)}</td><td>${fmt(w.avg_hr,0)}/${fmt(w.max_hr,0)}</td><td>${fmt(w.zone2_min,0)}m</td><td>${fmt((w.zone3_min||0)+(w.zone4_min||0)+(w.zone5_min||0),0)}m</td></tr>`).join('')}</tbody></table>`;
 }
-main();
+main().then(()=>{
+  // Chart.js can occasionally initialize before final responsive layout settles on GitHub Pages.
+  // Force a post-layout draw so canvases are visible on first load, desktop and mobile.
+  setTimeout(()=>Object.values(Chart.instances||{}).forEach(ch=>{ch.resize(); ch.update('none');}), 120);
+});
 </script></body></html>
