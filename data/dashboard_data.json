@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-31T07:03:44.933805-07:00",
+  "generated_at": "2026-07-31T21:47:47.317779-07:00",
   "date_range": {
     "start": "2024-01-23",
     "end": "2026-07-31",
@@ -21,10 +21,10 @@
     "avg_cv_pct": 28.53,
     "overnight_low_pct": 2.38,
     "evening_avg": 144.66,
-    "avg_recovery": 63.36,
-    "avg_hrv": 51.72,
-    "avg_rhr": 50.12,
-    "avg_sleep_performance": 85.04,
+    "avg_recovery": 61.52,
+    "avg_hrv": 50.92,
+    "avg_rhr": 50.44,
+    "avg_sleep_performance": 84.71,
     "workout_count": 24,
     "hr_zones": {
       "zone0_min": 240.4,
@@ -2639,9 +2639,9 @@
     },
     {
       "local_date": "2026-07-06",
-      "recovery_score": 83.0,
-      "hrv": 59.57,
-      "rhr": 46.0,
+      "recovery_score": null,
+      "hrv": null,
+      "rhr": null,
       "sleep_performance": null,
       "sleep_efficiency": null,
       "asleep_hours": null,
@@ -2664,9 +2664,9 @@
       "recovery_score": 75.0,
       "hrv": 56.01,
       "rhr": 48.0,
-      "sleep_performance": 90.0,
-      "sleep_efficiency": 93.01,
-      "asleep_hours": 7.11,
+      "sleep_performance": null,
+      "sleep_efficiency": null,
+      "asleep_hours": null,
       "avg_glucose": 144.09,
       "tir_70_180": 78.67,
       "total_insulin": 43.1,
@@ -3189,12 +3189,12 @@
     },
     {
       "local_date": "2026-07-31",
-      "recovery_score": null,
-      "hrv": null,
-      "rhr": null,
-      "sleep_performance": null,
-      "sleep_efficiency": null,
-      "asleep_hours": null,
+      "recovery_score": 37.0,
+      "hrv": 39.56,
+      "rhr": 54.0,
+      "sleep_performance": 82.0,
+      "sleep_efficiency": 93.6,
+      "asleep_hours": 6.22,
       "avg_glucose": 111.11,
       "tir_70_180": 70.27,
       "total_insulin": 3.05,
@@ -4533,10 +4533,10 @@
         "label": "Recovery vs same-day TIR",
         "x": "recovery_score",
         "y": "tir_70_180",
-        "r": 0.32,
+        "r": 0.28,
         "n": 25,
         "note": "WHOOP recovery and glucose control moved together.",
-        "strength": 0.32
+        "strength": 0.28
       },
       {
         "label": "Glucose variability vs TIR",
@@ -4548,40 +4548,40 @@
         "strength": 0.21
       },
       {
-        "label": "Sleep performance vs same-day TIR",
-        "x": "sleep_performance",
-        "y": "tir_70_180",
-        "r": 0.13,
-        "n": 24,
-        "note": "Higher sleep performance days tended to align with TIR.",
-        "strength": 0.13
-      },
-      {
-        "label": "RHR vs same-day avg glucose",
-        "x": "rhr",
+        "label": "Sleep hours vs same-day avg glucose",
+        "x": "asleep_hours",
         "y": "avg_glucose",
-        "r": 0.11,
-        "n": 25,
-        "note": "Resting HR and average glucose relationship.",
-        "strength": 0.11
+        "r": 0.12,
+        "n": 24,
+        "note": "More sleep vs average glucose.",
+        "strength": 0.12
       },
       {
         "label": "HRV vs same-day avg glucose",
         "x": "hrv",
         "y": "avg_glucose",
-        "r": -0.04,
+        "r": 0.11,
         "n": 25,
         "note": "HRV and average glucose relationship.",
-        "strength": 0.04
+        "strength": 0.11
       },
       {
-        "label": "Sleep hours vs same-day avg glucose",
-        "x": "asleep_hours",
-        "y": "avg_glucose",
-        "r": 0.01,
+        "label": "Sleep performance vs same-day TIR",
+        "x": "sleep_performance",
+        "y": "tir_70_180",
+        "r": 0.1,
         "n": 24,
-        "note": "More sleep vs average glucose.",
-        "strength": 0.01
+        "note": "Higher sleep performance days tended to align with TIR.",
+        "strength": 0.1
+      },
+      {
+        "label": "RHR vs same-day avg glucose",
+        "x": "rhr",
+        "y": "avg_glucose",
+        "r": -0.06,
+        "n": 25,
+        "note": "Resting HR and average glucose relationship.",
+        "strength": 0.06
       }
     ],
     "workout_days": [
@@ -4887,6 +4887,12 @@
         "stat": "11.9% BF"
       },
       {
+        "kind": "pattern",
+        "title": "2026 pharmacy out-of-pocket",
+        "text": "Sanitized CVS prescription-record summary: $335 patient-paid across 9 2026 fills. Raw pharmacy records remain private/local; use this as health-admin spend tracking only.",
+        "stat": "$335 YTD"
+      },
+      {
         "kind": "focus",
         "title": "Glucose control baseline",
         "text": "Last 30 days: 70.84% time-in-range with average glucose 156.31 mg/dL and GMI about 7.09%.",
@@ -4925,8 +4931,8 @@
       {
         "kind": "pattern",
         "title": "Recovery vs same-day TIR",
-        "text": "Observed positive correlation r=0.32 across 25 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=0.32"
+        "text": "Observed positive correlation r=0.28 across 25 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.28"
       },
       {
         "kind": "pattern",
@@ -5467,6 +5473,34 @@
       }
     },
     "safety_note": "Supply tracking and reminders only. Do not change diabetes treatment, dosing, pump settings, or supplier/pharmacy actions without David confirmation."
+  },
+  "pharmacy_spend": {
+    "available": true,
+    "updated_at": "2026-07-31",
+    "source_note": "Sanitized manual summary from CVS prescription record screenshot. Raw pharmacy record image is not published.",
+    "years": {
+      "2026": {
+        "total_patient_paid_usd": 335.0,
+        "fill_count": 9,
+        "breakdown": [
+          {
+            "category": "CGM sensors",
+            "fill_count": 7,
+            "patient_paid_usd": 210.0
+          },
+          {
+            "category": "Rapid-acting insulin",
+            "fill_count": 1,
+            "patient_paid_usd": 75.0
+          },
+          {
+            "category": "Basal insulin",
+            "fill_count": 1,
+            "patient_paid_usd": 50.0
+          }
+        ]
+      }
+    }
   },
   "sutter": {
     "source": "Sutter My Health Online all visit records export",

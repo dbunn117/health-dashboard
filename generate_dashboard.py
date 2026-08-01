@@ -31,6 +31,7 @@ JSON_OUT = DATA / 'dashboard_data.json'
 DEXA_JSON = Path('/root/health-data/dexa/dexa_measurements.json')
 SUPPLIES_JSON = Path('/root/health-data/supplies/diabetes_supplies.json')
 SUTTER_METRICS_JSON = Path('/root/health-data/sutter/parsed/sutter_dashboard_metrics_2026-07-15.json')
+PHARMACY_SPEND_JSON = Path('/root/health-data/pharmacy/pharmacy_out_of_pocket.json')
 TZ = ZoneInfo('America/Los_Angeles')
 
 
@@ -492,6 +493,26 @@ def load_sutter_data():
     return data
 
 
+def load_pharmacy_spend_data():
+    """Load sanitized pharmacy out-of-pocket summary.
+
+    Keep raw pharmacy records private/local; publish only year-level totals and broad categories.
+    """
+    if not PHARMACY_SPEND_JSON.exists():
+        return {'available': False, 'years': {}}
+    try:
+        data = json.loads(PHARMACY_SPEND_JSON.read_text())
+    except Exception as e:
+        return {'available': False, 'years': {}, 'error': str(e)}
+    years = data.get('years') if isinstance(data, dict) else {}
+    return {
+        'available': bool(years),
+        'updated_at': data.get('updated_at') if isinstance(data, dict) else None,
+        'source_note': data.get('source_note') if isinstance(data, dict) else 'Sanitized pharmacy spend summary; raw records stay private/local.',
+        'years': years or {}
+    }
+
+
 def load_supply_data():
     if not SUPPLIES_JSON.exists():
         return {'supplies': [], 'summary': None}
@@ -570,6 +591,18 @@ def build_json(conn: sqlite3.Connection, whoop_errors):
     dexa = load_dexa_data()
     supplies = load_supply_data()
     sutter = load_sutter_data()
+    pharmacy_spend = load_pharmacy_spend_data()
+    if pharmacy_spend.get('available'):
+        y2026 = pharmacy_spend.get('years', {}).get('2026', {})
+        total = y2026.get('total_patient_paid_usd')
+        fills = y2026.get('fill_count')
+        if total is not None:
+            analytics['insights'].insert(0, {
+                'kind': 'pattern',
+                'title': '2026 pharmacy out-of-pocket',
+                'text': f"Sanitized CVS prescription-record summary: ${total:,.0f} patient-paid across {fills or 'tracked'} 2026 fills. Raw pharmacy records remain private/local; use this as health-admin spend tracking only.",
+                'stat': f"${total:,.0f} YTD"
+            })
     if sutter.get('available'):
         latest_metrics = sutter.get('latest_metrics') or {}
         a1c = latest_metrics.get('a1c_percent') or {}
@@ -608,7 +641,7 @@ def build_json(conn: sqlite3.Connection, whoop_errors):
             'text': f"{item}: last collected {si.get('last_collected_date')} from {si.get('supplier')}. Next fill is preordered for {ready} ({days_ready} days from dashboard generation) and current supply is estimated through {through}. This is logistics tracking only; ordering stays David-confirmed.",
             'stat': si.get('urgency_label')
         })
-    return {'generated_at': datetime.now(TZ).isoformat(), 'date_range': {'start': latest[1], 'end': latest[0], 'days': latest[2]}, 'summary30': summary30, 'daily90': daily90, 'joined30': whoop30, 'workouts30': workouts30[:50], 'hourly_glucose': hourly, 'analytics': analytics, 'dexa': dexa, 'supplies': supplies, 'sutter': sutter, 'whoop_errors': whoop_errors, 'safety_note': 'Trend summary and coaching context only — not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.'}
+    return {'generated_at': datetime.now(TZ).isoformat(), 'date_range': {'start': latest[1], 'end': latest[0], 'days': latest[2]}, 'summary30': summary30, 'daily90': daily90, 'joined30': whoop30, 'workouts30': workouts30[:50], 'hourly_glucose': hourly, 'analytics': analytics, 'dexa': dexa, 'supplies': supplies, 'pharmacy_spend': pharmacy_spend, 'sutter': sutter, 'whoop_errors': whoop_errors, 'safety_note': 'Trend summary and coaching context only — not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.'}
 
 
 def generate_html(data: dict):
@@ -679,7 +712,7 @@ a{color:inherit}.app{min-height:100vh}.side{position:fixed;inset:0 auto 0 0;widt
     <section class="grid charts" id="training"><div class="card"><div class="cardTitle"><h2>Training load and glucose</h2><span>WHOOP</span></div><div class="chart" id="trainingChart"></div></div><div class="card"><div class="cardTitle"><h2>Workout HR zones</h2><span>30d</span></div><div id="zones"></div></div></section>
     <section class="grid two" id="clinical"><div class="card"><div class="cardTitle"><h2>Sutter clinical context</h2><span>Sanitized</span></div><div id="sutterSummary"></div></div><div class="card"><div class="cardTitle"><h2>A1c history</h2><span>Labs</span></div><div class="chart sm" id="a1cChart"></div><p class="note">Clinical lab history from Sutter export. Review trends with clinician; not dosing guidance.</p></div></section>
     <section class="grid charts"><div class="card"><div class="cardTitle"><h2>Insulin + carbs</h2><span>90d</span></div><div class="chart" id="insulinChart"></div></div><div class="card"><div class="cardTitle"><h2>Best and toughest days</h2><span>TIR</span></div><div id="daysTable"></div></div></section>
-    <section class="grid" id="supplies"><div class="card"><div class="cardTitle"><h2>Diabetes supply cadence</h2><span>Admin</span></div><div id="suppliesTable"></div></div><div class="card"><div class="cardTitle"><h2>DEXA scan history</h2><span>Records</span></div><div id="dexaTable"></div></div><div class="card"><div class="cardTitle"><h2>Recent workouts</h2><span>WHOOP</span></div><div id="workouts"></div></div></section>
+    <section class="grid" id="supplies"><div class="card"><div class="cardTitle"><h2>Diabetes supply cadence</h2><span>Admin</span></div><div id="suppliesTable"></div></div><div class="card"><div class="cardTitle"><h2>2026 pharmacy out-of-pocket</h2><span>Admin</span></div><div id="pharmacySpend"></div></div><div class="card"><div class="cardTitle"><h2>DEXA scan history</h2><span>Records</span></div><div id="dexaTable"></div></div><div class="card"><div class="cardTitle"><h2>Recent workouts</h2><span>WHOOP</span></div><div id="workouts"></div></div></section>
     <div class="safety" id="safety"></div>
   </div></main>
 </div>
@@ -701,10 +734,10 @@ function insightHtml(i){return `<div class="insight"><div class="statusDot ${esc
 function table(headers,rows){return `<div class="tableWrap"><table class="table"><thead><tr>${headers.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`}
 async function main(){
  const data=await fetch('./data.json?v=__DATA_VERSION__',{cache:'no-store'}).then(r=>r.json());
- const s=data.summary30, a=data.analytics, days=data.daily90, joined=data.joined30, dexa=data.dexa||{}, scans=(dexa&&dexa.scans)||[], latestDexa=dexa.latest||{}, supplyList=(data.supplies&&data.supplies.supplies)||[], nextSupply=(data.supplies&&data.supplies.summary&&data.supplies.summary.next_item)||null, sutter=data.sutter||{}, sm=sutter.latest_metrics||{};
+ const s=data.summary30, a=data.analytics, days=data.daily90, joined=data.joined30, dexa=data.dexa||{}, scans=(dexa&&dexa.scans)||[], latestDexa=dexa.latest||{}, supplyList=(data.supplies&&data.supplies.supplies)||[], nextSupply=(data.supplies&&data.supplies.summary&&data.supplies.summary.next_item)||null, pharmacy=data.pharmacy_spend||{}, pharmacy2026=(pharmacy.years&&pharmacy.years['2026'])||null, sutter=data.sutter||{}, sm=sutter.latest_metrics||{};
  const gen=new Date(data.generated_at).toLocaleString(); $('meta').innerHTML=`<strong>Generated</strong>${gen}<br><br><strong>Data window</strong>${data.date_range.start} → ${data.date_range.end}`; $('generatedChip').textContent=`Generated ${gen}`; $('mobileDate').textContent=data.date_range.end; $('safety').textContent=data.safety_note;
  $('heroCopy').textContent=`Current baseline: ${fmt(s.tir_70_180)}% TIR, ${fmt(s.avg_glucose)} mg/dL average glucose, ${fmt(s.avg_recovery)} WHOOP recovery, ${s.workout_count} logged workouts. This is a monitoring surface: fast signal, cleaner alignment, premium charts, and conservative health context.`;
- $('heroPills').innerHTML=[`GMI ${fmt(s.gmi)}%`,`CV ${fmt(s.avg_cv_pct)}%`,sm.a1c_percent?`Sutter A1c ${sm.a1c_percent.raw_value}`:null,`${s.workout_count} workouts`,`Sleep ${fmt(s.avg_sleep_performance)}%`,latestDexa.body_fat_pct!=null?`DEXA ${fmt(latestDexa.body_fat_pct)}% BF`:null,nextSupply?`${nextSupply.item}: ${nextSupply.urgency_label}`:null].filter(Boolean).map(x=>`<span class="pill">${esc(x)}</span>`).join('');
+ $('heroPills').innerHTML=[`GMI ${fmt(s.gmi)}%`,`CV ${fmt(s.avg_cv_pct)}%`,sm.a1c_percent?`Sutter A1c ${sm.a1c_percent.raw_value}`:null,`${s.workout_count} workouts`,`Sleep ${fmt(s.avg_sleep_performance)}%`,latestDexa.body_fat_pct!=null?`DEXA ${fmt(latestDexa.body_fat_pct)}% BF`:null,nextSupply?`${nextSupply.item}: ${nextSupply.urgency_label}`:null,pharmacy2026?`2026 pharmacy OOP $${fmt(pharmacy2026.total_patient_paid_usd,0)}`:null].filter(Boolean).map(x=>`<span class="pill">${esc(x)}</span>`).join('');
  $('coachPlan').innerHTML=a.coach_plan.map(x=>`<div class="insight"><div class="statusDot win"></div><div><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p></div></div>`).join('');
  $('metrics').innerHTML=[metric('Time in range',fmt(s.tir_70_180),'%',s.tir_70_180>=70?'good':s.tir_70_180>=60?'warn':'bad',`vs prior 30: ${fmt(a.deltas.tir_70_180)} pts`),metric('Avg glucose',fmt(s.avg_glucose),' mg/dL','brand',`vs prior 30: ${fmt(a.deltas.avg_glucose)} mg/dL`),metric('Glucose variability',fmt(s.avg_cv_pct),'% CV',s.avg_cv_pct<=36?'good':'warn','Lower = steadier days'),metric('Avg recovery',fmt(s.avg_recovery),'',s.avg_recovery>=67?'good':s.avg_recovery>=34?'warn':'bad','WHOOP 30-day avg'),metric('DEXA body fat',fmt(latestDexa.body_fat_pct),'%','good',latestDexa.date?`latest ${latestDexa.date}`:'BodySpec'),metric('DEXA lean mass',fmt(latestDexa.lean_tissue_lb),' lb','brand',dexa.summary?`vs prior: ${fmt(dexa.summary.latest_vs_previous.lean_tissue_lb)} lb`:''),metric('Sleep performance',fmt(s.avg_sleep_performance),'%','','WHOOP 30-day avg'),metric('Total insulin/day',fmt(s.avg_total_insulin),' U','brand',`basal ${fmt(s.avg_basal)} / bolus ${fmt(s.avg_bolus)}`),metric('Carbs logged/day',fmt(s.avg_carbs),' g','','30-day avg'),metric('Next Dexcom fill',nextSupply&&nextSupply.days_until_ready,' days',nextSupply&&nextSupply.days_until_ready<=7?'warn':'brand',nextSupply?`${nextSupply.preordered_next_fill_ready_date||nextSupply.next_fill_ready_date} at ${nextSupply.supplier}`:'Not tracked'),metric('Supply buffer',nextSupply&&nextSupply.days_until_supply_runs_out,' days',nextSupply&&nextSupply.days_until_supply_runs_out<=5?'bad':'good',nextSupply?`through ${nextSupply.estimated_supply_runs_through}`:'Not tracked'),metric('Workouts',s.workout_count,'','','Last 30 days')].join('');
  $('rangeNote').textContent=`High/very-high together: ${fmt((s.high_pct||0)+(s.very_high_pct||0))}%. Low/very-low together: ${fmt((s.low_pct||0)+(s.very_low_pct||0))}%.`;
@@ -722,6 +755,7 @@ async function main(){
  const z=s.hr_zones||{}, max=Math.max(...Object.values(z),1); $('zones').innerHTML=Object.entries(z).map(([k,v],i)=>`<div class="zonebar"><div class="kicker">Zone ${i}</div><div class="bar"><div class="fill" style="width:${100*v/max}%"></div></div><div>${Math.round(v)}m</div></div>`).join('');
  const rowGroup=(title,arr)=>`<div class="stack"><h3 style="font-size:13px;margin:0 0 8px;font-weight:650;letter-spacing:-.02em">${esc(title)}</h3></div>`+table(['Date','TIR','Avg glucose','CV'],arr.slice(0,5).map(d=>`<tr><td>${esc(d.local_date)}</td><td>${fmt(d.tir_70_180)}%</td><td>${fmt(d.avg_glucose)} mg/dL</td><td>${fmt(d.cv_pct)}%</td></tr>`)); $('daysTable').innerHTML=rowGroup('Best TIR days',a.best_days)+rowGroup('Toughest TIR days',a.toughest_days);
  $('suppliesTable').innerHTML=supplyList.length?table(['Item','Supplier','Last collected','Next ready','Supply through','Status'],supplyList.map(x=>`<tr><td>${esc(x.item)}</td><td>${esc(x.supplier||'')}</td><td>${esc(x.last_collected_date||'')}</td><td>${esc(x.preordered_next_fill_ready_date||x.next_fill_ready_date||'')} (${esc(x.days_until_ready)} days)</td><td>${esc(x.estimated_supply_runs_through||'')} (${esc(x.days_until_supply_runs_out)} days)</td><td><span class="pill">${esc(x.urgency_label||x.status||'')}</span></td></tr>`))+`<p class="note">Supply/admin tracking only. Ordering, pharmacy actions, and medical decisions remain David-confirmed.</p>`:'<p class="note">No diabetes supplies tracked yet.</p>';
+ if(pharmacy2026){const rows=(pharmacy2026.breakdown||[]).map(x=>`<tr><td>${esc(x.category)}</td><td>${esc(x.fill_count)}</td><td>$${fmt(x.patient_paid_usd,0)}</td></tr>`); $('pharmacySpend').innerHTML=`<div class="metric brand" style="margin-bottom:12px"><div class="metricLabel">2026 patient-paid total</div><div class="metricVal">$${fmt(pharmacy2026.total_patient_paid_usd,0)}</div><div class="metricDelta">${esc(pharmacy2026.fill_count)} tracked fills from CVS record</div></div>`+table(['Category','Fills','Patient paid'],rows)+`<p class="note">Sanitized health-admin summary only. Raw prescription records stay private/local.</p>`;}else{$('pharmacySpend').innerHTML='<p class="note">No pharmacy spend summary loaded yet.</p>';}
  $('workouts').innerHTML=table(['Date','Sport','Strain','Avg/Max HR','Z2','Z3-5'],data.workouts30.slice(0,24).map(w=>`<tr><td>${esc(w.local_date)}</td><td>${esc(w.sport_name||'')}</td><td>${fmt(w.strain)}</td><td>${fmt(w.avg_hr,0)}/${fmt(w.max_hr,0)}</td><td>${fmt(w.zone2_min,0)}m</td><td>${fmt((w.zone3_min||0)+(w.zone4_min||0)+(w.zone5_min||0),0)}m</td></tr>`));
  setTimeout(()=>charts.forEach(c=>c.resize()),150);
 }
