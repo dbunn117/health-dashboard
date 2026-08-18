@@ -5840,12 +5840,12 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 9,
+    "workouts": 10,
     "total_reps": 1091,
     "total_volume_lb": 59200.0,
     "date_range": {
       "start": "2026-08-04",
-      "end": "2026-08-15"
+      "end": "2026-08-18"
     },
     "exercises": [
       "Arm Circles (forward)",
@@ -5862,6 +5862,7 @@
       "Cat Cow Floating Knees",
       "Chest Fly",
       "Commando To 4 Shoulder Taps",
+      "Core Toaster Hollow Body Rock",
       "Dead Bug (alternating)",
       "Deep Roots Rooted Balance",
       "Flutter Kick",
@@ -5881,6 +5882,7 @@
       "Purpose Complete Superhuman",
       "Push Plank To Plank Jack",
       "Rear Delt Row",
+      "Reload Plank Test Forearm Plank",
       "Rest + Digest Superhuman",
       "Reverse Crunch Hollow Hold",
       "Romanian Deadlift",
@@ -5895,12 +5897,13 @@
       "Swan",
       "Swing",
       "Tempo Power Mode Pushup (eccentric)",
+      "Time Under Pushup (eccentric)",
       "Tricep Kickback",
       "Tricep Pushup",
       "Upright Row",
       "Zottman Curl"
     ],
-    "exercise_count": 51,
+    "exercise_count": 54,
     "by_exercise": {
       "Arm Circles (forward)": [
         {
@@ -6047,6 +6050,22 @@
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
+        },
+        {
+          "date": "2026-08-18",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Core Toaster Hollow Body Rock": [
+        {
+          "date": "2026-08-18",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
         }
       ],
       "Dead Bug (alternating)": [
@@ -6101,6 +6120,13 @@
           "weight_lb": null,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-18",
+          "sets": 3,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Goblet March": [
@@ -6118,6 +6144,13 @@
           "sets": null,
           "weight_lb": 110,
           "reps": 10,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-18",
+          "sets": 3,
+          "weight_lb": 120,
+          "reps": null,
           "bodyweight": false
         }
       ],
@@ -6155,6 +6188,13 @@
           "weight_lb": 30,
           "reps": 12,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-18",
+          "sets": 3,
+          "weight_lb": 40,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Lateral Raise": [
@@ -6163,6 +6203,13 @@
           "sets": null,
           "weight_lb": 30,
           "reps": 12,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-18",
+          "sets": 3,
+          "weight_lb": 40,
+          "reps": null,
           "bodyweight": false
         }
       ],
@@ -6220,6 +6267,15 @@
           "bodyweight": false
         }
       ],
+      "Reload Plank Test Forearm Plank": [
+        {
+          "date": "2026-08-18",
+          "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
       "Rest + Digest Superhuman": [
         {
           "date": "2026-08-06",
@@ -6252,6 +6308,13 @@
           "date": "2026-08-10",
           "sets": null,
           "weight_lb": null,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-18",
+          "sets": null,
+          "weight_lb": 25,
           "reps": null,
           "bodyweight": false
         }
@@ -6348,6 +6411,15 @@
         {
           "date": "2026-08-10",
           "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Time Under Pushup (eccentric)": [
+        {
+          "date": "2026-08-18",
+          "sets": 3,
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
@@ -6852,6 +6924,78 @@
           {
             "name": "Purpose Complete Superhuman",
             "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-08-18",
+        "title": "Coach Brian (Week 3, Day 1 \u2014 Legs + Full Body) \"Earth Power\"",
+        "volume_reps": null,
+        "volume_lb": null,
+        "exercise_count": 9,
+        "exercises": [
+          {
+            "name": "Goblet Squat",
+            "sets": 3,
+            "weight_lb": 120,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Lateral Raise",
+            "sets": 3,
+            "weight_lb": 40,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Hammer Curl (Alternating)",
+            "sets": 3,
+            "weight_lb": 40,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Time Under Pushup (eccentric)",
+            "sets": 3,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Glute Bridge",
+            "sets": 3,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Core Toaster Hollow Body Rock",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Russian Twist",
+            "sets": null,
+            "weight_lb": 25,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Commando To 4 Shoulder Taps",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Reload Plank Test Forearm Plank",
+            "sets": 1,
             "weight_lb": null,
             "reps": null,
             "bodyweight": true
