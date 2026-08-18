@@ -97,7 +97,7 @@ def init_db(conn: sqlite3.Connection):
       tir_70_180 REAL, very_high_pct REAL, high_pct REAL, low_pct REAL, very_low_pct REAL,
       total_insulin REAL, total_basal REAL, total_bolus REAL, bolus_sum REAL, carbs_sum REAL, bolus_count INTEGER, alarm_count INTEGER);
     CREATE TABLE whoop_recovery(local_date TEXT PRIMARY KEY, recovery_score REAL, hrv REAL, rhr REAL, spo2 REAL, skin_temp_c REAL);
-    CREATE TABLE whoop_sleep(local_date TEXT PRIMARY KEY, sleep_performance REAL, sleep_efficiency REAL, sleep_consistency REAL, asleep_hours REAL, in_bed_hours REAL, disturbances INTEGER);
+    CREATE TABLE whoop_sleep(local_date TEXT PRIMARY KEY, sleep_performance REAL, sleep_efficiency REAL, sleep_consistency REAL, asleep_hours REAL, in_bed_hours REAL, disturbances INTEGER, respiratory_rate REAL, awake_hours REAL, light_sleep_hours REAL, deep_sleep_hours REAL, rem_sleep_hours REAL, sleep_cycle_count INTEGER, sleep_needed_hours REAL);
     CREATE TABLE whoop_workouts(id TEXT PRIMARY KEY, local_date TEXT, sport_name TEXT, start TEXT, end TEXT, strain REAL, avg_hr REAL, max_hr REAL,
       zone0_min REAL, zone1_min REAL, zone2_min REAL, zone3_min REAL, zone4_min REAL, zone5_min REAL);
     ''')
@@ -244,9 +244,20 @@ def ingest_whoop(conn: sqlite3.Connection, days=120):
         st = s.get('stage_summary') or {}
         asleep_ms = (st.get('total_light_sleep_time_milli') or 0) + (st.get('total_rem_sleep_time_milli') or 0) + (st.get('total_slow_wave_sleep_time_milli') or 0)
         in_bed_ms = st.get('total_in_bed_time_milli') or 0
-        cur.execute('INSERT OR REPLACE INTO whoop_sleep VALUES (?,?,?,?,?,?,?)', (
+        awake_ms = st.get('total_awake_time_milli') or 0
+        light_ms = st.get('total_light_sleep_time_milli') or 0
+        deep_ms = st.get('total_slow_wave_sleep_time_milli') or 0
+        rem_ms = st.get('total_rem_sleep_time_milli') or 0
+        sd = s.get('sleep_needed') or {}
+        sleep_needed_ms = sd.get('baseline_milli') or 0
+        cur.execute('INSERT OR REPLACE INTO whoop_sleep VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (
             enddt.date().isoformat(), s.get('sleep_performance_percentage'), s.get('sleep_efficiency_percentage'), s.get('sleep_consistency_percentage'),
-            asleep_ms/3600000 if asleep_ms else None, in_bed_ms/3600000 if in_bed_ms else None, st.get('disturbance_count')
+            asleep_ms/3600000 if asleep_ms else None, in_bed_ms/3600000 if in_bed_ms else None, st.get('disturbance_count'),
+            s.get('respiratory_rate'),
+            awake_ms/3600000 if awake_ms else None, light_ms/3600000 if light_ms else None,
+            deep_ms/3600000 if deep_ms else None, rem_ms/3600000 if rem_ms else None,
+            st.get('sleep_cycle_count'),
+            sleep_needed_ms/3600000 if sleep_needed_ms else None
         ))
     workouts = run_whoop(['whoop-pp-cli','activity','get-workout-collection','--agent','--start',start_s,'--end',end_s,'--limit','25','--timeout','60s'])
     for r in workouts.get('records', []) or []:
@@ -573,6 +584,7 @@ def build_json(conn: sqlite3.Connection, whoop_errors):
         rr=round_dict(r); rr.update(feature_by_day.get(rr['local_date'], {})); daily90.append(rr)
     daily30 = [r for r in daily90 if r['local_date'] >= start_30]
     whoop30 = [round_dict(r) for r in rows(conn, '''SELECT ds.local_date, wr.recovery_score, wr.hrv, wr.rhr, ws.sleep_performance, ws.sleep_efficiency, ws.asleep_hours,
+        ws.respiratory_rate, ws.awake_hours, ws.light_sleep_hours, ws.deep_sleep_hours, ws.rem_sleep_hours, ws.sleep_cycle_count, ws.disturbances,
         ds.avg_glucose, ds.tir_70_180, ds.total_insulin, ds.carbs_sum
         FROM daily_summary ds LEFT JOIN whoop_recovery wr USING(local_date) LEFT JOIN whoop_sleep ws USING(local_date)
         WHERE ds.local_date>=? ORDER BY ds.local_date''', (start_30,))]
@@ -586,7 +598,7 @@ def build_json(conn: sqlite3.Connection, whoop_errors):
     def avg_key(items,k):
         vals=[x[k] for x in items if x.get(k) is not None]
         return round(statistics.mean(vals),2) if vals else None
-    summary30.update({'avg_recovery': avg_key(whoop30,'recovery_score'), 'avg_hrv': avg_key(whoop30,'hrv'), 'avg_rhr': avg_key(whoop30,'rhr'), 'avg_sleep_performance': avg_key(whoop30,'sleep_performance'), 'workout_count': len(workouts30), 'hr_zones': hr_zones})
+    summary30.update({'avg_recovery': avg_key(whoop30,'recovery_score'), 'avg_hrv': avg_key(whoop30,'hrv'), 'avg_rhr': avg_key(whoop30,'rhr'), 'avg_sleep_performance': avg_key(whoop30,'sleep_performance'), 'avg_respiratory_rate': avg_key(whoop30,'respiratory_rate'), 'workout_count': len(workouts30), 'hr_zones': hr_zones})
     analytics=build_analytics(conn, daily90, whoop30, workouts30, start_30)
     dexa = load_dexa_data()
     supplies = load_supply_data()
@@ -778,6 +790,15 @@ def main():
     data = build_json(conn, whoop_errors)
     JSON_OUT.write_text(json.dumps(data, indent=2), encoding='utf-8')
     generate_html(data)
+
+    # Step 2: Augment with Ladder exercise data from Obsidian
+    try:
+        import subprocess
+        subprocess.run(['python3', str(ROOT / 'extract_exercises.py')],
+                       capture_output=True, timeout=30, check=True)
+    except Exception as e:
+        print(f"Ladder exercise extraction skipped: {e}")
+
     print(json.dumps({
         'sqlite': str(SQLITE),
         'json': str(JSON_OUT),
