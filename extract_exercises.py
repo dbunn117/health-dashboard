@@ -193,7 +193,7 @@ def parse_single_workout(section):
     }
     
     # Extract volume info
-    vol_m = re.search(r'\*\*Volume:\*\*\s*([\d,]+)\s*reps\s*[·•]\s*([\d.]+)K\s*lb', section)
+    vol_m = re.search(r'\*\*Volume:\*\*\s*([\d,]+)\s*reps\s*[·•]\s*\*{0,2}([\d.]+)K\s*lb\*{0,2}', section)
     if vol_m:
         workout['volume_reps'] = int(vol_m.group(1).replace(',', ''))
         workout['volume_lb'] = float(vol_m.group(2)) * 1000

@@ -5857,8 +5857,8 @@
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
     "workouts": 11,
-    "total_reps": 1091,
-    "total_volume_lb": 59200.0,
+    "total_reps": 1522,
+    "total_volume_lb": 77900.0,
     "date_range": {
       "start": "2026-08-04",
       "end": "2026-08-19"
@@ -7018,8 +7018,8 @@
       {
         "date": "2026-08-18",
         "title": "Coach Brian (Week 3, Day 1 \u2014 Legs + Full Body) \"Earth Power\"",
-        "volume_reps": null,
-        "volume_lb": null,
+        "volume_reps": 254,
+        "volume_lb": 11000.0,
         "exercise_count": 9,
         "exercises": [
           {
@@ -7090,8 +7090,8 @@
       {
         "date": "2026-08-19",
         "title": "Coach Brian (Week 3, Day 2 \u2014 Upper Body Push) \"New Benchmark\"",
-        "volume_reps": null,
-        "volume_lb": null,
+        "volume_reps": 177,
+        "volume_lb": 7700.0,
         "exercise_count": 9,
         "exercises": [
           {
