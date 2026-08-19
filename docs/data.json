@@ -5854,5 +5854,1311 @@
     "sleep_error": null,
     "workout_error": null
   },
-  "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions."
+  "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
+  "ladder_exercises": {
+    "workouts": 11,
+    "total_reps": 1091,
+    "total_volume_lb": 59200.0,
+    "date_range": {
+      "start": "2026-08-04",
+      "end": "2026-08-19"
+    },
+    "exercises": [
+      "Arm Circles (forward)",
+      "Bear Hold Pull Through",
+      "Beat The Heat Halo (kneeling, Alt.)",
+      "Bench Press",
+      "Bent Over Reverse Fly",
+      "Bent Over Row",
+      "Bent Over Row 1.5 (L)",
+      "Bent Over Row 1.5 (R)",
+      "Bent Over Row, Knee Supported (L)",
+      "Bicep Curl",
+      "Bulgarian Split Squat (L)",
+      "Bulgarian Split Squat (R)",
+      "Cat Cow Floating Knees",
+      "Chest Fly",
+      "Commando To 4 Shoulder Taps",
+      "Core Toaster Hollow Body Rock",
+      "Dead Bug (alternating)",
+      "Deep Roots Rooted Balance",
+      "Flutter Kick",
+      "Forward Shoulder Roll",
+      "Front Raise",
+      "Glute Bridge",
+      "Goblet March",
+      "Goblet Squat",
+      "Gorilla Row (Alt.)",
+      "Halo (Kneeling Alt.)",
+      "Hammer Curl",
+      "Hammer Curl (Alternating)",
+      "Lateral Raise",
+      "Lift Over",
+      "Move And Groove Cobra",
+      "Outta Control (10 Mt Climbers, 10 Plank Jacks)",
+      "Pit Stop Cobra",
+      "Purpose Complete Superhuman",
+      "Push Plank To Plank Jack",
+      "Rear Delt Row",
+      "Reload Plank Test Forearm Plank",
+      "Rest + Digest Superhuman",
+      "Reverse Crunch Hollow Hold",
+      "Romanian Deadlift",
+      "Russian Twist",
+      "Save + Recharge",
+      "Shoulder Press (Seated)",
+      "Side Plank Reach (L)",
+      "Side Plank Reach (R)",
+      "Stablize Control Plank Isometric Hold (alt.)",
+      "Standing Curl Press",
+      "Sumo Deadlift",
+      "Swan",
+      "Swing",
+      "Tempo Power Mode Pushup (eccentric)",
+      "Time Under Pushup (eccentric)",
+      "Tricep Kickback",
+      "Tricep Pushup",
+      "Upright Row",
+      "Zottman Curl"
+    ],
+    "exercise_count": 56,
+    "by_exercise": {
+      "Arm Circles (forward)": [
+        {
+          "date": "2026-08-06",
+          "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Bear Hold Pull Through": [
+        {
+          "date": "2026-08-10",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        },
+        {
+          "date": "2026-08-13",
+          "sets": null,
+          "weight_lb": 35,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-19",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Beat The Heat Halo (kneeling, Alt.)": [
+        {
+          "date": "2026-08-19",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Bench Press": [
+        {
+          "date": "2026-08-11",
+          "sets": null,
+          "weight_lb": 60,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-19",
+          "sets": null,
+          "weight_lb": 85,
+          "reps": 10,
+          "bodyweight": false
+        }
+      ],
+      "Bent Over Reverse Fly": [
+        {
+          "date": "2026-08-13",
+          "sets": null,
+          "weight_lb": 35,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Bent Over Row": [
+        {
+          "date": "2026-08-10",
+          "sets": null,
+          "weight_lb": 130,
+          "reps": 10,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-13",
+          "sets": null,
+          "weight_lb": 80,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Bent Over Row 1.5 (L)": [
+        {
+          "date": "2026-08-06",
+          "sets": null,
+          "weight_lb": 70,
+          "reps": 10,
+          "bodyweight": false
+        }
+      ],
+      "Bent Over Row 1.5 (R)": [
+        {
+          "date": "2026-08-06",
+          "sets": null,
+          "weight_lb": 70,
+          "reps": 10,
+          "bodyweight": false
+        }
+      ],
+      "Bent Over Row, Knee Supported (L)": [
+        {
+          "date": "2026-08-13",
+          "sets": null,
+          "weight_lb": 80,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Bicep Curl": [
+        {
+          "date": "2026-08-06",
+          "sets": null,
+          "weight_lb": 40,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-08",
+          "sets": null,
+          "weight_lb": 25,
+          "reps": 10,
+          "bodyweight": false
+        }
+      ],
+      "Bulgarian Split Squat (L)": [
+        {
+          "date": "2026-08-12",
+          "sets": null,
+          "weight_lb": 120,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Bulgarian Split Squat (R)": [
+        {
+          "date": "2026-08-12",
+          "sets": null,
+          "weight_lb": 120,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Cat Cow Floating Knees": [
+        {
+          "date": "2026-08-06",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Chest Fly": [
+        {
+          "date": "2026-08-11",
+          "sets": null,
+          "weight_lb": 55,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-19",
+          "sets": null,
+          "weight_lb": 55,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Commando To 4 Shoulder Taps": [
+        {
+          "date": "2026-08-10",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        },
+        {
+          "date": "2026-08-18",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Core Toaster Hollow Body Rock": [
+        {
+          "date": "2026-08-18",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Dead Bug (alternating)": [
+        {
+          "date": "2026-08-08",
+          "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Deep Roots Rooted Balance": [
+        {
+          "date": "2026-08-06",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Flutter Kick": [
+        {
+          "date": "2026-08-11",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        },
+        {
+          "date": "2026-08-19",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Forward Shoulder Roll": [
+        {
+          "date": "2026-08-06",
+          "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Front Raise": [
+        {
+          "date": "2026-08-11",
+          "sets": null,
+          "weight_lb": 30,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Glute Bridge": [
+        {
+          "date": "2026-08-10",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-18",
+          "sets": 3,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Goblet March": [
+        {
+          "date": "2026-08-12",
+          "sets": null,
+          "weight_lb": 70,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Goblet Squat": [
+        {
+          "date": "2026-08-10",
+          "sets": null,
+          "weight_lb": 110,
+          "reps": 10,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-18",
+          "sets": 3,
+          "weight_lb": 120,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Gorilla Row (Alt.)": [
+        {
+          "date": "2026-08-13",
+          "sets": null,
+          "weight_lb": 80,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Halo (Kneeling Alt.)": [
+        {
+          "date": "2026-08-11",
+          "sets": null,
+          "weight_lb": 35,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Hammer Curl": [
+        {
+          "date": "2026-08-06",
+          "sets": null,
+          "weight_lb": 40,
+          "reps": 12,
+          "bodyweight": false
+        }
+      ],
+      "Hammer Curl (Alternating)": [
+        {
+          "date": "2026-08-10",
+          "sets": null,
+          "weight_lb": 30,
+          "reps": 12,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-18",
+          "sets": 3,
+          "weight_lb": 40,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Lateral Raise": [
+        {
+          "date": "2026-08-10",
+          "sets": null,
+          "weight_lb": 30,
+          "reps": 12,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-18",
+          "sets": 3,
+          "weight_lb": 40,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-19",
+          "sets": 3,
+          "weight_lb": 35,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Lift Over": [
+        {
+          "date": "2026-08-06",
+          "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Move And Groove Cobra": [
+        {
+          "date": "2026-08-19",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Outta Control (10 Mt Climbers, 10 Plank Jacks)": [
+        {
+          "date": "2026-08-06",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Pit Stop Cobra": [
+        {
+          "date": "2026-08-08",
+          "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Purpose Complete Superhuman": [
+        {
+          "date": "2026-08-13",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Push Plank To Plank Jack": [
+        {
+          "date": "2026-08-11",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Rear Delt Row": [
+        {
+          "date": "2026-08-06",
+          "sets": null,
+          "weight_lb": 60,
+          "reps": 10,
+          "bodyweight": false
+        }
+      ],
+      "Reload Plank Test Forearm Plank": [
+        {
+          "date": "2026-08-18",
+          "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Rest + Digest Superhuman": [
+        {
+          "date": "2026-08-06",
+          "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Reverse Crunch Hollow Hold": [
+        {
+          "date": "2026-08-06",
+          "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Romanian Deadlift": [
+        {
+          "date": "2026-08-12",
+          "sets": null,
+          "weight_lb": 150,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Russian Twist": [
+        {
+          "date": "2026-08-10",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-18",
+          "sets": null,
+          "weight_lb": 25,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Save + Recharge": [
+        {
+          "date": "2026-08-10",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Shoulder Press (Seated)": [
+        {
+          "date": "2026-08-11",
+          "sets": null,
+          "weight_lb": 30,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-19",
+          "sets": 3,
+          "weight_lb": 35,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Side Plank Reach (L)": [
+        {
+          "date": "2026-08-08",
+          "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Side Plank Reach (R)": [
+        {
+          "date": "2026-08-08",
+          "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Stablize Control Plank Isometric Hold (alt.)": [
+        {
+          "date": "2026-08-08",
+          "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Standing Curl Press": [
+        {
+          "date": "2026-08-08",
+          "sets": null,
+          "weight_lb": 25,
+          "reps": 10,
+          "bodyweight": false
+        }
+      ],
+      "Sumo Deadlift": [
+        {
+          "date": "2026-08-12",
+          "sets": null,
+          "weight_lb": 150,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Swan": [
+        {
+          "date": "2026-08-08",
+          "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Swing": [
+        {
+          "date": "2026-08-12",
+          "sets": null,
+          "weight_lb": 70,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-13",
+          "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Tempo Power Mode Pushup (eccentric)": [
+        {
+          "date": "2026-08-10",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Time Under Pushup (eccentric)": [
+        {
+          "date": "2026-08-18",
+          "sets": 3,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Tricep Kickback": [
+        {
+          "date": "2026-08-08",
+          "sets": null,
+          "weight_lb": 60,
+          "reps": 12,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-11",
+          "sets": null,
+          "weight_lb": 65,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-19",
+          "sets": null,
+          "weight_lb": 70,
+          "reps": 10,
+          "bodyweight": false
+        }
+      ],
+      "Tricep Pushup": [
+        {
+          "date": "2026-08-08",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Upright Row": [
+        {
+          "date": "2026-08-06",
+          "sets": null,
+          "weight_lb": 40,
+          "reps": 12,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-13",
+          "sets": null,
+          "weight_lb": 40,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Zottman Curl": [
+        {
+          "date": "2026-08-13",
+          "sets": null,
+          "weight_lb": 35,
+          "reps": null,
+          "bodyweight": false
+        }
+      ]
+    },
+    "workout_details": [
+      {
+        "date": "2026-08-06",
+        "title": "Coach Brian (Day 3/4 \u2014 Upper Body Pull + Arms + Core) \"Superhuman\"",
+        "volume_reps": 178,
+        "volume_lb": 9400.0,
+        "exercise_count": 14,
+        "exercises": [
+          {
+            "name": "Arm Circles (forward)",
+            "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Forward Shoulder Roll",
+            "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Deep Roots Rooted Balance",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Bent Over Row 1.5 (R)",
+            "sets": null,
+            "weight_lb": 70,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Bent Over Row 1.5 (L)",
+            "sets": null,
+            "weight_lb": 70,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Hammer Curl",
+            "sets": null,
+            "weight_lb": 40,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Rear Delt Row",
+            "sets": null,
+            "weight_lb": 60,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Bicep Curl",
+            "sets": null,
+            "weight_lb": 40,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Upright Row",
+            "sets": null,
+            "weight_lb": 40,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Outta Control (10 Mt Climbers, 10 Plank Jacks)",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Lift Over",
+            "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Reverse Crunch Hollow Hold",
+            "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Rest + Digest Superhuman",
+            "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Cat Cow Floating Knees",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-08-08",
+        "title": "Coach Brian (Saturday \u2014 Arms + Core) \"Horse Power\"",
+        "volume_reps": 114,
+        "volume_lb": 3200.0,
+        "exercise_count": 10,
+        "exercises": [
+          {
+            "name": "Standing Curl Press",
+            "sets": null,
+            "weight_lb": 25,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Tricep Kickback",
+            "sets": null,
+            "weight_lb": 60,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Tricep Pushup",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Bicep Curl",
+            "sets": null,
+            "weight_lb": 25,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Stablize Control Plank Isometric Hold (alt.)",
+            "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Side Plank Reach (R)",
+            "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Side Plank Reach (L)",
+            "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Dead Bug (alternating)",
+            "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Pit Stop Cobra",
+            "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Swan",
+            "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-08-10",
+        "title": "Coach Brian (Week 2, Day 1 \u2014 Leg Day + Core) \"Leg Level Up\"",
+        "volume_reps": 248,
+        "volume_lb": 9400.0,
+        "exercise_count": 10,
+        "exercises": [
+          {
+            "name": "Bent Over Row",
+            "sets": null,
+            "weight_lb": 130,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Goblet Squat",
+            "sets": null,
+            "weight_lb": 110,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Lateral Raise",
+            "sets": null,
+            "weight_lb": 30,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Hammer Curl (Alternating)",
+            "sets": null,
+            "weight_lb": 30,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Tempo Power Mode Pushup (eccentric)",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Glute Bridge",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bear Hold Pull Through",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Russian Twist",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Commando To 4 Shoulder Taps",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Save + Recharge",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-08-11",
+        "title": "Coach Brian (Week 2, Day 2 \u2014 Upper Body Push + Core) \"Bear to Downward Dog\"",
+        "volume_reps": 215,
+        "volume_lb": 9300.0,
+        "exercise_count": 8,
+        "exercises": [
+          {
+            "name": "Bench Press",
+            "sets": null,
+            "weight_lb": 60,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Shoulder Press (Seated)",
+            "sets": null,
+            "weight_lb": 30,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Chest Fly",
+            "sets": null,
+            "weight_lb": 55,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Tricep Kickback",
+            "sets": null,
+            "weight_lb": 65,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Front Raise",
+            "sets": null,
+            "weight_lb": 30,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Halo (Kneeling Alt.)",
+            "sets": null,
+            "weight_lb": 35,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Push Plank To Plank Jack",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Flutter Kick",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-08-12",
+        "title": "Coach Brian (Week 2, Day 3 \u2014 Lower Body) \"Hinge HQ\"",
+        "volume_reps": 164,
+        "volume_lb": 18000.0,
+        "exercise_count": 6,
+        "exercises": [
+          {
+            "name": "Romanian Deadlift",
+            "sets": null,
+            "weight_lb": 150,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bulgarian Split Squat (R)",
+            "sets": null,
+            "weight_lb": 120,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bulgarian Split Squat (L)",
+            "sets": null,
+            "weight_lb": 120,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Sumo Deadlift",
+            "sets": null,
+            "weight_lb": 150,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Swing",
+            "sets": null,
+            "weight_lb": 70,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Goblet March",
+            "sets": null,
+            "weight_lb": 70,
+            "reps": null,
+            "bodyweight": false
+          }
+        ]
+      },
+      {
+        "date": "2026-08-13",
+        "title": "Coach Brian (Week 2, Day 4 \u2014 Upper Body Pull) \"Back Boosted\"",
+        "volume_reps": 172,
+        "volume_lb": 9900.0,
+        "exercise_count": 9,
+        "exercises": [
+          {
+            "name": "Swing",
+            "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Bent Over Row",
+            "sets": null,
+            "weight_lb": 80,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bent Over Row, Knee Supported (L)",
+            "sets": null,
+            "weight_lb": 80,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bent Over Reverse Fly",
+            "sets": null,
+            "weight_lb": 35,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Zottman Curl",
+            "sets": null,
+            "weight_lb": 35,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Gorilla Row (Alt.)",
+            "sets": null,
+            "weight_lb": 80,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Upright Row",
+            "sets": null,
+            "weight_lb": 40,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bear Hold Pull Through",
+            "sets": null,
+            "weight_lb": 35,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Purpose Complete Superhuman",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-08-18",
+        "title": "Coach Brian (Week 3, Day 1 \u2014 Legs + Full Body) \"Earth Power\"",
+        "volume_reps": null,
+        "volume_lb": null,
+        "exercise_count": 9,
+        "exercises": [
+          {
+            "name": "Goblet Squat",
+            "sets": 3,
+            "weight_lb": 120,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Lateral Raise",
+            "sets": 3,
+            "weight_lb": 40,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Hammer Curl (Alternating)",
+            "sets": 3,
+            "weight_lb": 40,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Time Under Pushup (eccentric)",
+            "sets": 3,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Glute Bridge",
+            "sets": 3,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Core Toaster Hollow Body Rock",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Russian Twist",
+            "sets": null,
+            "weight_lb": 25,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Commando To 4 Shoulder Taps",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Reload Plank Test Forearm Plank",
+            "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-08-19",
+        "title": "Coach Brian (Week 3, Day 2 \u2014 Upper Body Push) \"New Benchmark\"",
+        "volume_reps": null,
+        "volume_lb": null,
+        "exercise_count": 9,
+        "exercises": [
+          {
+            "name": "Bench Press",
+            "sets": null,
+            "weight_lb": 85,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Shoulder Press (Seated)",
+            "sets": 3,
+            "weight_lb": 35,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Chest Fly",
+            "sets": null,
+            "weight_lb": 55,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Tricep Kickback",
+            "sets": null,
+            "weight_lb": 70,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Lateral Raise",
+            "sets": 3,
+            "weight_lb": 35,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Beat The Heat Halo (kneeling, Alt.)",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bear Hold Pull Through",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Flutter Kick",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Move And Groove Cobra",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
+      }
+    ]
+  }
 }

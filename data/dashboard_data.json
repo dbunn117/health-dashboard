@@ -5856,16 +5856,17 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 10,
+    "workouts": 11,
     "total_reps": 1091,
     "total_volume_lb": 59200.0,
     "date_range": {
       "start": "2026-08-04",
-      "end": "2026-08-18"
+      "end": "2026-08-19"
     },
     "exercises": [
       "Arm Circles (forward)",
       "Bear Hold Pull Through",
+      "Beat The Heat Halo (kneeling, Alt.)",
       "Bench Press",
       "Bent Over Reverse Fly",
       "Bent Over Row",
@@ -5893,6 +5894,7 @@
       "Hammer Curl (Alternating)",
       "Lateral Raise",
       "Lift Over",
+      "Move And Groove Cobra",
       "Outta Control (10 Mt Climbers, 10 Plank Jacks)",
       "Pit Stop Cobra",
       "Purpose Complete Superhuman",
@@ -5919,7 +5921,7 @@
       "Upright Row",
       "Zottman Curl"
     ],
-    "exercise_count": 54,
+    "exercise_count": 56,
     "by_exercise": {
       "Arm Circles (forward)": [
         {
@@ -5944,6 +5946,22 @@
           "weight_lb": 35,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-19",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Beat The Heat Halo (kneeling, Alt.)": [
+        {
+          "date": "2026-08-19",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Bench Press": [
@@ -5952,6 +5970,13 @@
           "sets": null,
           "weight_lb": 60,
           "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-19",
+          "sets": null,
+          "weight_lb": 85,
+          "reps": 10,
           "bodyweight": false
         }
       ],
@@ -6057,6 +6082,13 @@
           "weight_lb": 55,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-19",
+          "sets": null,
+          "weight_lb": 55,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Commando To 4 Shoulder Taps": [
@@ -6105,6 +6137,13 @@
       "Flutter Kick": [
         {
           "date": "2026-08-11",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        },
+        {
+          "date": "2026-08-19",
           "sets": null,
           "weight_lb": null,
           "reps": null,
@@ -6227,12 +6266,28 @@
           "weight_lb": 40,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-19",
+          "sets": 3,
+          "weight_lb": 35,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Lift Over": [
         {
           "date": "2026-08-06",
           "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Move And Groove Cobra": [
+        {
+          "date": "2026-08-19",
+          "sets": null,
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
@@ -6351,6 +6406,13 @@
           "weight_lb": 30,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-19",
+          "sets": 3,
+          "weight_lb": 35,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Side Plank Reach (L)": [
@@ -6454,6 +6516,13 @@
           "sets": null,
           "weight_lb": 65,
           "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-19",
+          "sets": null,
+          "weight_lb": 70,
+          "reps": 10,
           "bodyweight": false
         }
       ],
@@ -7012,6 +7081,78 @@
           {
             "name": "Reload Plank Test Forearm Plank",
             "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-08-19",
+        "title": "Coach Brian (Week 3, Day 2 \u2014 Upper Body Push) \"New Benchmark\"",
+        "volume_reps": null,
+        "volume_lb": null,
+        "exercise_count": 9,
+        "exercises": [
+          {
+            "name": "Bench Press",
+            "sets": null,
+            "weight_lb": 85,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Shoulder Press (Seated)",
+            "sets": 3,
+            "weight_lb": 35,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Chest Fly",
+            "sets": null,
+            "weight_lb": 55,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Tricep Kickback",
+            "sets": null,
+            "weight_lb": 70,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Lateral Raise",
+            "sets": 3,
+            "weight_lb": 35,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Beat The Heat Halo (kneeling, Alt.)",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bear Hold Pull Through",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Flutter Kick",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Move And Groove Cobra",
+            "sets": null,
             "weight_lb": null,
             "reps": null,
             "bodyweight": true
