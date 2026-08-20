@@ -5856,12 +5856,12 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 11,
-    "total_reps": 1522,
-    "total_volume_lb": 77900.0,
+    "workouts": 12,
+    "total_reps": 1696,
+    "total_volume_lb": 97900.0,
     "date_range": {
       "start": "2026-08-04",
-      "end": "2026-08-19"
+      "end": "2026-08-20"
     },
     "exercises": [
       "Arm Circles (forward)",
@@ -5892,6 +5892,7 @@
       "Halo (Kneeling Alt.)",
       "Hammer Curl",
       "Hammer Curl (Alternating)",
+      "Holy Moly Sumo Squat (front Rack)",
       "Lateral Raise",
       "Lift Over",
       "Move And Groove Cobra",
@@ -5921,7 +5922,7 @@
       "Upright Row",
       "Zottman Curl"
     ],
-    "exercise_count": 56,
+    "exercise_count": 57,
     "by_exercise": {
       "Arm Circles (forward)": [
         {
@@ -6055,6 +6056,13 @@
           "weight_lb": 120,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-20",
+          "sets": null,
+          "weight_lb": 150,
+          "reps": 8,
+          "bodyweight": false
         }
       ],
       "Bulgarian Split Squat (R)": [
@@ -6063,6 +6071,13 @@
           "sets": null,
           "weight_lb": 120,
           "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-20",
+          "sets": null,
+          "weight_lb": 160,
+          "reps": 10,
           "bodyweight": false
         }
       ],
@@ -6191,6 +6206,13 @@
           "weight_lb": 70,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-20",
+          "sets": 2,
+          "weight_lb": 70,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Goblet Squat": [
@@ -6249,6 +6271,15 @@
           "sets": 3,
           "weight_lb": 40,
           "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Holy Moly Sumo Squat (front Rack)": [
+        {
+          "date": "2026-08-20",
+          "sets": null,
+          "weight_lb": 110,
+          "reps": 8,
           "bodyweight": false
         }
       ],
@@ -6483,6 +6514,13 @@
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
+        },
+        {
+          "date": "2026-08-20",
+          "sets": null,
+          "weight_lb": 70,
+          "reps": 14,
+          "bodyweight": false
         }
       ],
       "Tempo Power Mode Pushup (eccentric)": [
@@ -7156,6 +7194,50 @@
             "weight_lb": null,
             "reps": null,
             "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-08-20",
+        "title": "Coach Brian (Week 3, Day 3 \u2014 Lower Body) \"Solo Yolo\"",
+        "volume_reps": 174,
+        "volume_lb": 20000.0,
+        "exercise_count": 5,
+        "exercises": [
+          {
+            "name": "Bulgarian Split Squat (R)",
+            "sets": null,
+            "weight_lb": 160,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Bulgarian Split Squat (L)",
+            "sets": null,
+            "weight_lb": 150,
+            "reps": 8,
+            "bodyweight": false
+          },
+          {
+            "name": "Holy Moly Sumo Squat (front Rack)",
+            "sets": null,
+            "weight_lb": 110,
+            "reps": 8,
+            "bodyweight": false
+          },
+          {
+            "name": "Swing",
+            "sets": null,
+            "weight_lb": 70,
+            "reps": 14,
+            "bodyweight": false
+          },
+          {
+            "name": "Goblet March",
+            "sets": 2,
+            "weight_lb": 70,
+            "reps": null,
+            "bodyweight": false
           }
         ]
       }
