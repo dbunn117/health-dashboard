@@ -5828,12 +5828,12 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 12,
-    "total_reps": 1696,
-    "total_volume_lb": 97900.0,
+    "workouts": 13,
+    "total_reps": 1874,
+    "total_volume_lb": 107900.0,
     "date_range": {
       "start": "2026-08-04",
-      "end": "2026-08-20"
+      "end": "2026-08-21"
     },
     "exercises": [
       "Arm Circles (forward)",
@@ -5854,6 +5854,7 @@
       "Core Toaster Hollow Body Rock",
       "Dead Bug (alternating)",
       "Deep Roots Rooted Balance",
+      "Fast Break Cat Cow (floating Knees)",
       "Flutter Kick",
       "Forward Shoulder Roll",
       "Front Raise",
@@ -5870,6 +5871,7 @@
       "Move And Groove Cobra",
       "Outta Control (10 Mt Climbers, 10 Plank Jacks)",
       "Pit Stop Cobra",
+      "Primal Pull Gorilla Row (alternating)",
       "Purpose Complete Superhuman",
       "Push Plank To Plank Jack",
       "Rear Delt Row",
@@ -5894,7 +5896,7 @@
       "Upright Row",
       "Zottman Curl"
     ],
-    "exercise_count": 57,
+    "exercise_count": 59,
     "by_exercise": {
       "Arm Circles (forward)": [
         {
@@ -5926,6 +5928,13 @@
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
+        },
+        {
+          "date": "2026-08-21",
+          "sets": 2,
+          "weight_lb": 35,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Beat The Heat Halo (kneeling, Alt.)": [
@@ -5960,6 +5969,13 @@
           "weight_lb": 35,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-21",
+          "sets": 3,
+          "weight_lb": 35,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Bent Over Row": [
@@ -5974,6 +5990,20 @@
           "date": "2026-08-13",
           "sets": null,
           "weight_lb": 80,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-21",
+          "sets": 3,
+          "weight_lb": 90,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-21",
+          "sets": 3,
+          "weight_lb": 90,
           "reps": null,
           "bodyweight": false
         }
@@ -6115,6 +6145,15 @@
       "Deep Roots Rooted Balance": [
         {
           "date": "2026-08-06",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Fast Break Cat Cow (floating Knees)": [
+        {
+          "date": "2026-08-21",
           "sets": null,
           "weight_lb": null,
           "reps": null,
@@ -6312,6 +6351,15 @@
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
+        }
+      ],
+      "Primal Pull Gorilla Row (alternating)": [
+        {
+          "date": "2026-08-21",
+          "sets": null,
+          "weight_lb": 100,
+          "reps": 12,
+          "bodyweight": false
         }
       ],
       "Purpose Complete Superhuman": [
@@ -6559,6 +6607,13 @@
           "weight_lb": 40,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-21",
+          "sets": 3,
+          "weight_lb": 40,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Zottman Curl": [
@@ -6567,6 +6622,13 @@
           "sets": null,
           "weight_lb": 35,
           "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-21",
+          "sets": null,
+          "weight_lb": 35,
+          "reps": 10,
           "bodyweight": false
         }
       ]
@@ -7210,6 +7272,71 @@
             "weight_lb": 70,
             "reps": null,
             "bodyweight": false
+          }
+        ]
+      },
+      {
+        "date": "2026-08-21",
+        "title": "Coach Brian (Week 3, Day 4 \u2014 Upper Body Pull) \"Raw Power\"",
+        "volume_reps": 178,
+        "volume_lb": 10000.0,
+        "exercise_count": 8,
+        "exercises": [
+          {
+            "name": "Bent Over Row",
+            "sets": 3,
+            "weight_lb": 90,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bent Over Row",
+            "sets": 3,
+            "weight_lb": 90,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bent Over Reverse Fly",
+            "sets": 3,
+            "weight_lb": 35,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Zottman Curl",
+            "sets": null,
+            "weight_lb": 35,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Primal Pull Gorilla Row (alternating)",
+            "sets": null,
+            "weight_lb": 100,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Upright Row",
+            "sets": 3,
+            "weight_lb": 40,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bear Hold Pull Through",
+            "sets": 2,
+            "weight_lb": 35,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Fast Break Cat Cow (floating Knees)",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
           }
         ]
       }
