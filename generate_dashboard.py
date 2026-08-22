@@ -91,7 +91,7 @@ def init_db(conn: sqlite3.Connection):
     CREATE TABLE cgm_readings(ts TEXT PRIMARY KEY, local_date TEXT, glucose REAL, source_file TEXT);
     CREATE TABLE bg_readings(ts TEXT, local_date TEXT, glucose REAL, manual_reading TEXT, source_file TEXT);
     CREATE TABLE insulin_daily(ts TEXT, local_date TEXT, total_bolus REAL, total_insulin REAL, total_basal REAL, source_file TEXT);
-    CREATE TABLE boluses(ts TEXT, local_date TEXT, insulin_type TEXT, bg_input REAL, carbs REAL, carb_ratio REAL, insulin_delivered REAL, source_file TEXT);
+    CREATE TABLE boluses(ts TEXT PRIMARY KEY, local_date TEXT, insulin_type TEXT, bg_input REAL, carbs REAL, carb_ratio REAL, insulin_delivered REAL, source_file TEXT);
     CREATE TABLE alarms(ts TEXT, local_date TEXT, event TEXT, source_file TEXT);
     CREATE TABLE daily_summary(local_date TEXT PRIMARY KEY, cgm_count INTEGER, avg_glucose REAL, median_glucose REAL, gmi REAL,
       tir_70_180 REAL, very_high_pct REAL, high_pct REAL, low_pct REAL, very_low_pct REAL,
@@ -156,7 +156,7 @@ def ingest_glooko(conn: sqlite3.Connection):
                 def val(name):
                     j = idx.get(name, -1)
                     return r[j] if 0 <= j < len(r) else None
-                cur.execute('INSERT INTO boluses VALUES (?,?,?,?,?,?,?,?)', (
+                cur.execute('INSERT OR REPLACE INTO boluses VALUES (?,?,?,?,?,?,?,?)', (
                     ts.isoformat(), ts.date().isoformat(), val('Insulin Type'), fnum(val('Blood Glucose Input (mg/dl)')),
                     fnum(val('Carbs Input (g)')), fnum(val('Carbs Ratio')), fnum(val('Insulin Delivered (U)')), str(p)
                 ))
