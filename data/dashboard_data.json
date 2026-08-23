@@ -5861,7 +5861,7 @@
     "total_volume_lb": 107900.0,
     "date_range": {
       "start": "2026-08-04",
-      "end": "2026-08-21"
+      "end": "2026-08-22"
     },
     "exercises": [
       "Arm Circles (forward)",
@@ -5958,7 +5958,7 @@
           "bodyweight": true
         },
         {
-          "date": "2026-08-21",
+          "date": "2026-08-22",
           "sets": 2,
           "weight_lb": 35,
           "reps": null,
@@ -5999,7 +5999,7 @@
           "bodyweight": false
         },
         {
-          "date": "2026-08-21",
+          "date": "2026-08-22",
           "sets": 3,
           "weight_lb": 35,
           "reps": null,
@@ -6022,14 +6022,14 @@
           "bodyweight": false
         },
         {
-          "date": "2026-08-21",
+          "date": "2026-08-22",
           "sets": 3,
           "weight_lb": 90,
           "reps": null,
           "bodyweight": false
         },
         {
-          "date": "2026-08-21",
+          "date": "2026-08-22",
           "sets": 3,
           "weight_lb": 90,
           "reps": null,
@@ -6181,7 +6181,7 @@
       ],
       "Fast Break Cat Cow (floating Knees)": [
         {
-          "date": "2026-08-21",
+          "date": "2026-08-22",
           "sets": null,
           "weight_lb": null,
           "reps": null,
@@ -6383,7 +6383,7 @@
       ],
       "Primal Pull Gorilla Row (alternating)": [
         {
-          "date": "2026-08-21",
+          "date": "2026-08-22",
           "sets": null,
           "weight_lb": 100,
           "reps": 12,
@@ -6637,7 +6637,7 @@
           "bodyweight": false
         },
         {
-          "date": "2026-08-21",
+          "date": "2026-08-22",
           "sets": 3,
           "weight_lb": 40,
           "reps": null,
@@ -6653,7 +6653,7 @@
           "bodyweight": false
         },
         {
-          "date": "2026-08-21",
+          "date": "2026-08-22",
           "sets": null,
           "weight_lb": 35,
           "reps": 10,
@@ -7304,8 +7304,8 @@
         ]
       },
       {
-        "date": "2026-08-21",
-        "title": "Coach Brian (Week 3, Day 4 \u2014 Upper Body Pull) \"Raw Power\"",
+        "date": "2026-08-22",
+        "title": "Coach Brian (Week 3, Day 5 \u2014 Upper Body Pull) \"Raw Power\"",
         "volume_reps": 178,
         "volume_lb": 10000.0,
         "exercise_count": 8,
