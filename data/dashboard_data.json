@@ -5856,12 +5856,12 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 13,
-    "total_reps": 1874,
-    "total_volume_lb": 107900.0,
+    "workouts": 14,
+    "total_reps": 2126,
+    "total_volume_lb": 119900.0,
     "date_range": {
       "start": "2026-08-04",
-      "end": "2026-08-22"
+      "end": "2026-08-24"
     },
     "exercises": [
       "Arm Circles (forward)",
@@ -5874,6 +5874,7 @@
       "Bent Over Row 1.5 (R)",
       "Bent Over Row, Knee Supported (L)",
       "Bicep Curl",
+      "Bicycle Crunch",
       "Bulgarian Split Squat (L)",
       "Bulgarian Split Squat (R)",
       "Cat Cow Floating Knees",
@@ -5902,6 +5903,7 @@
       "Primal Pull Gorilla Row (alternating)",
       "Purpose Complete Superhuman",
       "Push Plank To Plank Jack",
+      "Pushup",
       "Rear Delt Row",
       "Reload Plank Test Forearm Plank",
       "Rest + Digest Superhuman",
@@ -5924,7 +5926,7 @@
       "Upright Row",
       "Zottman Curl"
     ],
-    "exercise_count": 59,
+    "exercise_count": 61,
     "by_exercise": {
       "Arm Circles (forward)": [
         {
@@ -5960,6 +5962,13 @@
         {
           "date": "2026-08-22",
           "sets": 2,
+          "weight_lb": 35,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-24",
+          "sets": null,
           "weight_lb": 35,
           "reps": null,
           "bodyweight": false
@@ -6034,6 +6043,13 @@
           "weight_lb": 90,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-24",
+          "sets": null,
+          "weight_lb": 140,
+          "reps": 12,
+          "bodyweight": false
         }
       ],
       "Bent Over Row 1.5 (L)": [
@@ -6077,6 +6093,15 @@
           "weight_lb": 25,
           "reps": 10,
           "bodyweight": false
+        }
+      ],
+      "Bicycle Crunch": [
+        {
+          "date": "2026-08-24",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
         }
       ],
       "Bulgarian Split Squat (L)": [
@@ -6252,6 +6277,13 @@
           "weight_lb": 70,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-24",
+          "sets": null,
+          "weight_lb": 70,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Goblet Squat": [
@@ -6267,6 +6299,13 @@
           "sets": 3,
           "weight_lb": 120,
           "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-24",
+          "sets": null,
+          "weight_lb": 100,
+          "reps": 12,
           "bodyweight": false
         }
       ],
@@ -6311,6 +6350,13 @@
           "weight_lb": 40,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-24",
+          "sets": 3,
+          "weight_lb": 35,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Holy Moly Sumo Squat (front Rack)": [
@@ -6339,6 +6385,13 @@
         },
         {
           "date": "2026-08-19",
+          "sets": 3,
+          "weight_lb": 35,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-24",
           "sets": 3,
           "weight_lb": 35,
           "reps": null,
@@ -6408,6 +6461,15 @@
           "bodyweight": true
         }
       ],
+      "Pushup": [
+        {
+          "date": "2026-08-24",
+          "sets": 3,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
       "Rear Delt Row": [
         {
           "date": "2026-08-06",
@@ -6415,6 +6477,13 @@
           "weight_lb": 60,
           "reps": 10,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-24",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
         }
       ],
       "Reload Plank Test Forearm Plank": [
@@ -7361,6 +7430,78 @@
           },
           {
             "name": "Fast Break Cat Cow (floating Knees)",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-08-24",
+        "title": "Coach Brian (Week 4, Day 1 \u2014 Full Body) \"Arm Pump\"",
+        "volume_reps": 252,
+        "volume_lb": 12000.0,
+        "exercise_count": 9,
+        "exercises": [
+          {
+            "name": "Hammer Curl (Alternating)",
+            "sets": 3,
+            "weight_lb": 35,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Pushup",
+            "sets": 3,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Goblet Squat",
+            "sets": null,
+            "weight_lb": 100,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Bent Over Row",
+            "sets": null,
+            "weight_lb": 140,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Rear Delt Row",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Lateral Raise",
+            "sets": 3,
+            "weight_lb": 35,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Goblet March",
+            "sets": null,
+            "weight_lb": 70,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bear Hold Pull Through",
+            "sets": null,
+            "weight_lb": 35,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bicycle Crunch",
             "sets": null,
             "weight_lb": null,
             "reps": null,
