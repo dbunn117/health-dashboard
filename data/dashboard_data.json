@@ -5856,14 +5856,15 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 14,
-    "total_reps": 2126,
-    "total_volume_lb": 119900.0,
+    "workouts": 15,
+    "total_reps": 2266,
+    "total_volume_lb": 124500.0,
     "date_range": {
       "start": "2026-08-04",
-      "end": "2026-08-24"
+      "end": "2026-08-25"
     },
     "exercises": [
+      "(exercise @ 70 Lb)",
       "Arm Circles (forward)",
       "Bear Hold Pull Through",
       "Beat The Heat Halo (kneeling, Alt.)",
@@ -5885,6 +5886,7 @@
       "Deep Roots Rooted Balance",
       "Fast Break Cat Cow (floating Knees)",
       "Flutter Kick",
+      "Forearm Plank",
       "Forward Shoulder Roll",
       "Front Raise",
       "Glute Bridge",
@@ -5906,6 +5908,7 @@
       "Pushup",
       "Rear Delt Row",
       "Reload Plank Test Forearm Plank",
+      "Resetting Cobra",
       "Rest + Digest Superhuman",
       "Reverse Crunch Hollow Hold",
       "Romanian Deadlift",
@@ -5921,13 +5924,24 @@
       "Swing",
       "Tempo Power Mode Pushup (eccentric)",
       "Time Under Pushup (eccentric)",
+      "Tricep Dip (Elevated)",
       "Tricep Kickback",
       "Tricep Pushup",
+      "Unlock Core Pause Pushup",
       "Upright Row",
       "Zottman Curl"
     ],
-    "exercise_count": 61,
+    "exercise_count": 66,
     "by_exercise": {
+      "(exercise @ 70 Lb)": [
+        {
+          "date": "2026-08-25",
+          "sets": null,
+          "weight_lb": 70,
+          "reps": 12,
+          "bodyweight": false
+        }
+      ],
       "Arm Circles (forward)": [
         {
           "date": "2026-08-06",
@@ -6159,6 +6173,13 @@
           "weight_lb": 55,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-25",
+          "sets": null,
+          "weight_lb": 50,
+          "reps": 12,
+          "bodyweight": false
         }
       ],
       "Commando To 4 Shoulder Taps": [
@@ -6223,6 +6244,22 @@
         },
         {
           "date": "2026-08-19",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        },
+        {
+          "date": "2026-08-25",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Forearm Plank": [
+        {
+          "date": "2026-08-25",
           "sets": null,
           "weight_lb": null,
           "reps": null,
@@ -6495,6 +6532,15 @@
           "bodyweight": true
         }
       ],
+      "Resetting Cobra": [
+        {
+          "date": "2026-08-25",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
       "Rest + Digest Superhuman": [
         {
           "date": "2026-08-06",
@@ -6658,6 +6704,15 @@
           "bodyweight": true
         }
       ],
+      "Tricep Dip (Elevated)": [
+        {
+          "date": "2026-08-25",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
       "Tricep Kickback": [
         {
           "date": "2026-08-08",
@@ -6684,6 +6739,15 @@
       "Tricep Pushup": [
         {
           "date": "2026-08-08",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Unlock Core Pause Pushup": [
+        {
+          "date": "2026-08-25",
           "sets": null,
           "weight_lb": null,
           "reps": null,
@@ -7502,6 +7566,64 @@
           },
           {
             "name": "Bicycle Crunch",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-08-25",
+        "title": "Coach Brian (Week 4, Day 2 \u2014 Upper Body Push)",
+        "volume_reps": 140,
+        "volume_lb": 4600.0,
+        "exercise_count": 7,
+        "exercises": [
+          {
+            "name": "(exercise @ 70 Lb)",
+            "sets": null,
+            "weight_lb": 70,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Chest Fly",
+            "sets": null,
+            "weight_lb": 50,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Tricep Dip (Elevated)",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Unlock Core Pause Pushup",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Forearm Plank",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Flutter Kick",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Resetting Cobra",
             "sets": null,
             "weight_lb": null,
             "reps": null,
