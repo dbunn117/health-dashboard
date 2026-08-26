@@ -5864,7 +5864,6 @@
       "end": "2026-08-25"
     },
     "exercises": [
-      "(exercise @ 70 Lb)",
       "Arm Circles (forward)",
       "Bear Hold Pull Through",
       "Beat The Heat Halo (kneeling, Alt.)",
@@ -5931,17 +5930,8 @@
       "Upright Row",
       "Zottman Curl"
     ],
-    "exercise_count": 66,
+    "exercise_count": 65,
     "by_exercise": {
-      "(exercise @ 70 Lb)": [
-        {
-          "date": "2026-08-25",
-          "sets": null,
-          "weight_lb": 70,
-          "reps": 12,
-          "bodyweight": false
-        }
-      ],
       "Arm Circles (forward)": [
         {
           "date": "2026-08-06",
@@ -6010,6 +6000,13 @@
           "sets": null,
           "weight_lb": 85,
           "reps": 10,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-25",
+          "sets": null,
+          "weight_lb": 70,
+          "reps": 12,
           "bodyweight": false
         }
       ],
@@ -7581,7 +7578,7 @@
         "exercise_count": 7,
         "exercises": [
           {
-            "name": "(exercise @ 70 Lb)",
+            "name": "Bench Press",
             "sets": null,
             "weight_lb": 70,
             "reps": 12,
