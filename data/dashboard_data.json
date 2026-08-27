@@ -5856,12 +5856,12 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 15,
-    "total_reps": 2266,
-    "total_volume_lb": 124500.0,
+    "workouts": 16,
+    "total_reps": 2438,
+    "total_volume_lb": 140500.0,
     "date_range": {
       "start": "2026-08-04",
-      "end": "2026-08-25"
+      "end": "2026-08-26"
     },
     "exercises": [
       "Arm Circles (forward)",
@@ -6129,6 +6129,13 @@
           "weight_lb": 150,
           "reps": 8,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-26",
+          "sets": 3,
+          "weight_lb": 100,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Bulgarian Split Squat (R)": [
@@ -6144,6 +6151,13 @@
           "sets": null,
           "weight_lb": 160,
           "reps": 10,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-26",
+          "sets": 3,
+          "weight_lb": 100,
+          "reps": null,
           "bodyweight": false
         }
       ],
@@ -6318,6 +6332,13 @@
           "weight_lb": 70,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-26",
+          "sets": 2,
+          "weight_lb": 75,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Goblet Squat": [
@@ -6340,6 +6361,13 @@
           "sets": null,
           "weight_lb": 100,
           "reps": 12,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-26",
+          "sets": 3,
+          "weight_lb": 65,
+          "reps": null,
           "bodyweight": false
         }
       ],
@@ -6563,6 +6591,13 @@
           "weight_lb": 150,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-08-26",
+          "sets": null,
+          "weight_lb": 130,
+          "reps": 12,
+          "bodyweight": false
         }
       ],
       "Russian Twist": [
@@ -6680,6 +6715,13 @@
           "sets": null,
           "weight_lb": 70,
           "reps": 14,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-08-26",
+          "sets": 2,
+          "weight_lb": 75,
+          "reps": null,
           "bodyweight": false
         }
       ],
@@ -7625,6 +7667,57 @@
             "weight_lb": null,
             "reps": null,
             "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-08-26",
+        "title": "Coach Brian (Week 4, Day 3 \u2014 Lower Body)",
+        "volume_reps": 172,
+        "volume_lb": 16000.0,
+        "exercise_count": 6,
+        "exercises": [
+          {
+            "name": "Swing",
+            "sets": 2,
+            "weight_lb": 75,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Goblet March",
+            "sets": 2,
+            "weight_lb": 75,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bulgarian Split Squat (R)",
+            "sets": 3,
+            "weight_lb": 100,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bulgarian Split Squat (L)",
+            "sets": 3,
+            "weight_lb": 100,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Romanian Deadlift",
+            "sets": null,
+            "weight_lb": 130,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Goblet Squat",
+            "sets": 3,
+            "weight_lb": 65,
+            "reps": null,
+            "bodyweight": false
           }
         ]
       }
