@@ -5859,12 +5859,12 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 17,
+    "workouts": 18,
     "total_reps": 2730,
     "total_volume_lb": 143200.0,
     "date_range": {
       "start": "2026-08-04",
-      "end": "2026-08-28"
+      "end": "2026-08-29"
     },
     "exercises": [
       "Arm Circles (forward)",
