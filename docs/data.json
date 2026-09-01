@@ -1,70 +1,42 @@
 {
-  "generated_at": "2026-08-31T08:03:07.636412-07:00",
+  "generated_at": "2026-09-01T08:03:00.565085-07:00",
   "date_range": {
     "start": "2024-01-23",
-    "end": "2026-08-31",
-    "days": 952
+    "end": "2026-09-01",
+    "days": 953
   },
   "summary30": {
     "days": 30,
-    "avg_glucose": 153.75,
-    "tir_70_180": 75.39,
-    "high_pct": 20.09,
+    "avg_glucose": 154.88,
+    "tir_70_180": 74.28,
+    "high_pct": 21.27,
     "very_high_pct": 3.23,
-    "low_pct": 1.1,
+    "low_pct": 1.05,
     "very_low_pct": 0.18,
-    "gmi": 6.99,
-    "avg_total_insulin": 40.21,
-    "avg_basal": 20.96,
-    "avg_bolus": 19.24,
-    "avg_carbs": 181.52,
-    "avg_cv_pct": 27.37,
+    "gmi": 7.01,
+    "avg_total_insulin": 40.23,
+    "avg_basal": 20.83,
+    "avg_bolus": 19.4,
+    "avg_carbs": 184.24,
+    "avg_cv_pct": 27.23,
     "overnight_low_pct": 0.84,
-    "evening_avg": 139.37,
-    "avg_recovery": 65.64,
-    "avg_hrv": 54.57,
-    "avg_rhr": 49.44,
-    "avg_sleep_performance": 86.64,
-    "avg_respiratory_rate": 13.54,
-    "workout_count": 21,
+    "evening_avg": 140.09,
+    "avg_recovery": 65.56,
+    "avg_hrv": 54.69,
+    "avg_rhr": 49.32,
+    "avg_sleep_performance": 86.76,
+    "avg_respiratory_rate": 13.52,
+    "workout_count": 22,
     "hr_zones": {
-      "zone0_min": 373.6,
-      "zone1_min": 343.9,
-      "zone2_min": 111.9,
-      "zone3_min": 158.7,
-      "zone4_min": 46.7,
+      "zone0_min": 396.2,
+      "zone1_min": 363.4,
+      "zone2_min": 116.1,
+      "zone3_min": 171.1,
+      "zone4_min": 47.0,
       "zone5_min": 2.4
     }
   },
   "daily90": [
-    {
-      "local_date": "2026-06-03",
-      "cgm_count": 288,
-      "avg_glucose": 135.98,
-      "median_glucose": 138.0,
-      "gmi": 6.56,
-      "tir_70_180": 96.88,
-      "very_high_pct": 0.0,
-      "high_pct": 2.78,
-      "low_pct": 0.35,
-      "very_low_pct": 0.0,
-      "total_insulin": 35.95,
-      "total_basal": 20.7,
-      "total_bolus": 15.25,
-      "bolus_sum": 14.0,
-      "carbs_sum": 170.0,
-      "bolus_count": 5,
-      "alarm_count": 4,
-      "stddev": 23.84,
-      "cv_pct": 17.54,
-      "overnight_avg": 139.11,
-      "morning_avg": 136.44,
-      "afternoon_avg": 134.78,
-      "evening_avg": 133.57,
-      "overnight_low_pct": 0.0,
-      "morning_high_pct": 0.0,
-      "evening_high_pct": 11.11
-    },
     {
       "local_date": "2026-06-04",
       "cgm_count": 288,
@@ -1706,7 +1678,7 @@
       "bolus_sum": 12.6,
       "carbs_sum": 120.0,
       "bolus_count": 4,
-      "alarm_count": 540,
+      "alarm_count": 550,
       "stddev": 37.59,
       "cv_pct": 25.85,
       "overnight_avg": 157.88,
@@ -1734,7 +1706,7 @@
       "bolus_sum": 17.45,
       "carbs_sum": 125.0,
       "bolus_count": 6,
-      "alarm_count": 378,
+      "alarm_count": 385,
       "stddev": 43.44,
       "cv_pct": 29.06,
       "overnight_avg": 177.93,
@@ -1762,7 +1734,7 @@
       "bolus_sum": 18.2,
       "carbs_sum": 200.0,
       "bolus_count": 6,
-      "alarm_count": 265,
+      "alarm_count": 275,
       "stddev": 33.48,
       "cv_pct": 22.54,
       "overnight_avg": 174.45,
@@ -1790,7 +1762,7 @@
       "bolus_sum": 20.25,
       "carbs_sum": 215.0,
       "bolus_count": 6,
-      "alarm_count": 52,
+      "alarm_count": 54,
       "stddev": 31.12,
       "cv_pct": 22.86,
       "overnight_avg": 139.17,
@@ -1818,7 +1790,7 @@
       "bolus_sum": 17.3,
       "carbs_sum": 205.0,
       "bolus_count": 5,
-      "alarm_count": 257,
+      "alarm_count": 267,
       "stddev": 37.96,
       "cv_pct": 25.75,
       "overnight_avg": 153.92,
@@ -1846,7 +1818,7 @@
       "bolus_sum": 24.6,
       "carbs_sum": 227.0,
       "bolus_count": 10,
-      "alarm_count": 199,
+      "alarm_count": 207,
       "stddev": 50.31,
       "cv_pct": 33.56,
       "overnight_avg": 144.18,
@@ -1874,7 +1846,7 @@
       "bolus_sum": 18.5,
       "carbs_sum": 185.0,
       "bolus_count": 7,
-      "alarm_count": 235,
+      "alarm_count": 245,
       "stddev": 46.49,
       "cv_pct": 30.6,
       "overnight_avg": 165.74,
@@ -1902,7 +1874,7 @@
       "bolus_sum": 21.7,
       "carbs_sum": 164.0,
       "bolus_count": 6,
-      "alarm_count": 540,
+      "alarm_count": 564,
       "stddev": 44.28,
       "cv_pct": 29.51,
       "overnight_avg": 160.42,
@@ -1930,7 +1902,7 @@
       "bolus_sum": 20.05,
       "carbs_sum": 130.0,
       "bolus_count": 6,
-      "alarm_count": 257,
+      "alarm_count": 269,
       "stddev": 42.34,
       "cv_pct": 27.29,
       "overnight_avg": 150.75,
@@ -1986,7 +1958,7 @@
       "bolus_sum": 17.3,
       "carbs_sum": 194.0,
       "bolus_count": 5,
-      "alarm_count": 78,
+      "alarm_count": 82,
       "stddev": 34.72,
       "cv_pct": 22.01,
       "overnight_avg": 159.28,
@@ -2014,7 +1986,7 @@
       "bolus_sum": 16.45,
       "carbs_sum": 169.0,
       "bolus_count": 6,
-      "alarm_count": 265,
+      "alarm_count": 279,
       "stddev": 44.26,
       "cv_pct": 27.75,
       "overnight_avg": 174.38,
@@ -2042,7 +2014,7 @@
       "bolus_sum": 20.0,
       "carbs_sum": 200.0,
       "bolus_count": 7,
-      "alarm_count": 245,
+      "alarm_count": 259,
       "stddev": 35.99,
       "cv_pct": 25.61,
       "overnight_avg": 163.54,
@@ -2098,7 +2070,7 @@
       "bolus_sum": 14.25,
       "carbs_sum": 120.0,
       "bolus_count": 6,
-      "alarm_count": 31,
+      "alarm_count": 33,
       "stddev": 50.96,
       "cv_pct": 29.81,
       "overnight_avg": 217.88,
@@ -2126,7 +2098,7 @@
       "bolus_sum": 17.45,
       "carbs_sum": 137.0,
       "bolus_count": 11,
-      "alarm_count": 87,
+      "alarm_count": 93,
       "stddev": 48.01,
       "cv_pct": 28.34,
       "overnight_avg": 149.86,
@@ -2154,7 +2126,7 @@
       "bolus_sum": 29.5,
       "carbs_sum": 230.0,
       "bolus_count": 14,
-      "alarm_count": 189,
+      "alarm_count": 203,
       "stddev": 68.04,
       "cv_pct": 39.61,
       "overnight_avg": 146.33,
@@ -2182,7 +2154,7 @@
       "bolus_sum": 18.4,
       "carbs_sum": 170.0,
       "bolus_count": 7,
-      "alarm_count": 125,
+      "alarm_count": 135,
       "stddev": 43.52,
       "cv_pct": 25.1,
       "overnight_avg": 196.83,
@@ -2210,7 +2182,7 @@
       "bolus_sum": 15.9,
       "carbs_sum": 200.0,
       "bolus_count": 6,
-      "alarm_count": 46,
+      "alarm_count": 50,
       "stddev": 42.11,
       "cv_pct": 27.56,
       "overnight_avg": 182.86,
@@ -2238,7 +2210,7 @@
       "bolus_sum": 19.7,
       "carbs_sum": 190.0,
       "bolus_count": 7,
-      "alarm_count": 168,
+      "alarm_count": 184,
       "stddev": 32.87,
       "cv_pct": 23.42,
       "overnight_avg": 150.58,
@@ -2266,7 +2238,7 @@
       "bolus_sum": 18.8,
       "carbs_sum": 199.0,
       "bolus_count": 7,
-      "alarm_count": 114,
+      "alarm_count": 126,
       "stddev": 36.64,
       "cv_pct": 25.76,
       "overnight_avg": 175.07,
@@ -2294,7 +2266,7 @@
       "bolus_sum": 19.4,
       "carbs_sum": 160.0,
       "bolus_count": 9,
-      "alarm_count": 17,
+      "alarm_count": 19,
       "stddev": 47.53,
       "cv_pct": 31.15,
       "overnight_avg": 153.24,
@@ -2322,7 +2294,7 @@
       "bolus_sum": 16.55,
       "carbs_sum": 180.0,
       "bolus_count": 5,
-      "alarm_count": 42,
+      "alarm_count": 48,
       "stddev": 40.15,
       "cv_pct": 26.41,
       "overnight_avg": 188.22,
@@ -2350,7 +2322,7 @@
       "bolus_sum": 22.15,
       "carbs_sum": 199.0,
       "bolus_count": 11,
-      "alarm_count": 40,
+      "alarm_count": 46,
       "stddev": 45.71,
       "cv_pct": 27.63,
       "overnight_avg": 171.72,
@@ -2406,7 +2378,7 @@
       "bolus_sum": 31.7,
       "carbs_sum": 214.0,
       "bolus_count": 16,
-      "alarm_count": 18,
+      "alarm_count": 22,
       "stddev": 57.9,
       "cv_pct": 36.98,
       "overnight_avg": 139.9,
@@ -2462,7 +2434,7 @@
       "bolus_sum": 20.2,
       "carbs_sum": 230.0,
       "bolus_count": 7,
-      "alarm_count": 14,
+      "alarm_count": 18,
       "stddev": 30.93,
       "cv_pct": 23.46,
       "overnight_avg": 117.85,
@@ -2490,7 +2462,7 @@
       "bolus_sum": 12.05,
       "carbs_sum": 95.0,
       "bolus_count": 8,
-      "alarm_count": 9,
+      "alarm_count": 15,
       "stddev": 46.24,
       "cv_pct": 29.92,
       "overnight_avg": 170.5,
@@ -2518,7 +2490,7 @@
       "bolus_sum": 14.75,
       "carbs_sum": 140.0,
       "bolus_count": 5,
-      "alarm_count": 2,
+      "alarm_count": 6,
       "stddev": 33.82,
       "cv_pct": 23.45,
       "overnight_avg": 136.6,
@@ -2531,26 +2503,54 @@
     },
     {
       "local_date": "2026-08-31",
-      "cgm_count": 80,
-      "avg_glucose": 135.43,
-      "median_glucose": 136.0,
-      "gmi": 6.55,
-      "tir_70_180": 100.0,
+      "cgm_count": 287,
+      "avg_glucose": 152.1,
+      "median_glucose": 152.0,
+      "gmi": 6.95,
+      "tir_70_180": 78.75,
       "very_high_pct": 0.0,
-      "high_pct": 0.0,
+      "high_pct": 21.25,
       "low_pct": 0.0,
       "very_low_pct": 0.0,
-      "total_insulin": 6.05,
-      "total_basal": 6.05,
+      "total_insulin": 41.5,
+      "total_basal": 19.35,
+      "total_bolus": 22.15,
+      "bolus_sum": 22.15,
+      "carbs_sum": 204.0,
+      "bolus_count": 10,
+      "alarm_count": 2,
+      "stddev": 34.71,
+      "cv_pct": 22.82,
+      "overnight_avg": 135.81,
+      "morning_avg": 179.97,
+      "afternoon_avg": 136.38,
+      "evening_avg": 156.31,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 48.61,
+      "evening_high_pct": 32.39
+    },
+    {
+      "local_date": "2026-09-01",
+      "cgm_count": 83,
+      "avg_glucose": 166.53,
+      "median_glucose": 175.0,
+      "gmi": 7.29,
+      "tir_70_180": 61.45,
+      "very_high_pct": 0.0,
+      "high_pct": 38.55,
+      "low_pct": 0.0,
+      "very_low_pct": 0.0,
+      "total_insulin": 9.5,
+      "total_basal": 9.5,
       "total_bolus": 0.0,
       "bolus_sum": null,
       "carbs_sum": null,
       "bolus_count": 0,
       "alarm_count": 0,
-      "stddev": 20.02,
-      "cv_pct": 14.78,
-      "overnight_avg": 135.28,
-      "morning_avg": 136.15,
+      "stddev": 27.79,
+      "cv_pct": 16.69,
+      "overnight_avg": 168.19,
+      "morning_avg": 155.64,
       "afternoon_avg": null,
       "evening_avg": null,
       "overnight_low_pct": 0.0,
@@ -2559,35 +2559,6 @@
     }
   ],
   "joined30": [
-    {
-      "local_date": "2026-08-02",
-      "recovery_score": null,
-      "hrv": null,
-      "rhr": null,
-      "sleep_performance": null,
-      "sleep_efficiency": null,
-      "asleep_hours": null,
-      "respiratory_rate": null,
-      "awake_hours": null,
-      "light_sleep_hours": null,
-      "deep_sleep_hours": null,
-      "rem_sleep_hours": null,
-      "sleep_cycle_count": null,
-      "disturbances": null,
-      "avg_glucose": 149.5,
-      "tir_70_180": 73.61,
-      "total_insulin": 44.35,
-      "carbs_sum": 125.0,
-      "stddev": 43.44,
-      "cv_pct": 29.06,
-      "overnight_avg": 177.93,
-      "morning_avg": 133.96,
-      "afternoon_avg": 150.58,
-      "evening_avg": 135.54,
-      "overnight_low_pct": 0.0,
-      "morning_high_pct": 12.5,
-      "evening_high_pct": 19.44
-    },
     {
       "local_date": "2026-08-03",
       "recovery_score": null,
@@ -2706,19 +2677,19 @@
     },
     {
       "local_date": "2026-08-07",
-      "recovery_score": 44.0,
-      "hrv": 43.95,
-      "rhr": 53.0,
-      "sleep_performance": 85.0,
-      "sleep_efficiency": 92.39,
-      "asleep_hours": 7.49,
-      "respiratory_rate": 13.42,
-      "awake_hours": 0.62,
-      "light_sleep_hours": 4.36,
-      "deep_sleep_hours": 1.23,
-      "rem_sleep_hours": 1.9,
-      "sleep_cycle_count": 6,
-      "disturbances": 6,
+      "recovery_score": null,
+      "hrv": null,
+      "rhr": null,
+      "sleep_performance": null,
+      "sleep_efficiency": null,
+      "asleep_hours": null,
+      "respiratory_rate": null,
+      "awake_hours": null,
+      "light_sleep_hours": null,
+      "deep_sleep_hours": null,
+      "rem_sleep_hours": null,
+      "sleep_cycle_count": null,
+      "disturbances": null,
       "avg_glucose": 151.96,
       "tir_70_180": 71.18,
       "total_insulin": 36.4,
@@ -3415,14 +3386,43 @@
       "rem_sleep_hours": 2.41,
       "sleep_cycle_count": 7,
       "disturbances": 13,
-      "avg_glucose": 135.43,
-      "tir_70_180": 100.0,
-      "total_insulin": 6.05,
+      "avg_glucose": 152.1,
+      "tir_70_180": 78.75,
+      "total_insulin": 41.5,
+      "carbs_sum": 204.0,
+      "stddev": 34.71,
+      "cv_pct": 22.82,
+      "overnight_avg": 135.81,
+      "morning_avg": 179.97,
+      "afternoon_avg": 136.38,
+      "evening_avg": 156.31,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 48.61,
+      "evening_high_pct": 32.39
+    },
+    {
+      "local_date": "2026-09-01",
+      "recovery_score": 42.0,
+      "hrv": 47.13,
+      "rhr": 50.0,
+      "sleep_performance": 88.0,
+      "sleep_efficiency": 91.08,
+      "asleep_hours": 7.07,
+      "respiratory_rate": 13.07,
+      "awake_hours": 0.72,
+      "light_sleep_hours": 4.05,
+      "deep_sleep_hours": 1.18,
+      "rem_sleep_hours": 1.84,
+      "sleep_cycle_count": 7,
+      "disturbances": 4,
+      "avg_glucose": 166.53,
+      "tir_70_180": 61.45,
+      "total_insulin": 9.5,
       "carbs_sum": null,
-      "stddev": 20.02,
-      "cv_pct": 14.78,
-      "overnight_avg": 135.28,
-      "morning_avg": 136.15,
+      "stddev": 27.79,
+      "cv_pct": 16.69,
+      "overnight_avg": 168.19,
+      "morning_avg": 155.64,
       "afternoon_avg": null,
       "evening_avg": null,
       "overnight_low_pct": 0.0,
@@ -3431,6 +3431,22 @@
     }
   ],
   "workouts30": [
+    {
+      "id": "fa3cd63b-7ce6-4125-b57e-34c3f79e2045",
+      "local_date": "2026-08-31",
+      "sport_name": "hiit",
+      "start": "2026-08-31T23:12:00.460Z",
+      "end": "2026-09-01T00:10:59.420Z",
+      "strain": 13.63,
+      "avg_hr": 117.0,
+      "max_hr": 167.0,
+      "zone0_min": 22.68,
+      "zone1_min": 19.48,
+      "zone2_min": 4.2,
+      "zone3_min": 12.38,
+      "zone4_min": 0.23,
+      "zone5_min": 0.0
+    },
     {
       "id": "0d2d218b-53ff-419d-9295-67d6727b78f4",
       "local_date": "2026-08-29",
@@ -3771,275 +3787,275 @@
   "hourly_glucose": [
     {
       "hour": 0,
-      "avg_glucose": 138.93,
-      "readings": 1065
+      "avg_glucose": 139.0,
+      "readings": 1070
     },
     {
       "hour": 1,
-      "avg_glucose": 150.98,
+      "avg_glucose": 151.4,
       "readings": 1067
     },
     {
       "hour": 2,
-      "avg_glucose": 167.59,
+      "avg_glucose": 168.15,
       "readings": 1060
     },
     {
       "hour": 3,
-      "avg_glucose": 177.34,
+      "avg_glucose": 177.78,
       "readings": 1055
     },
     {
       "hour": 4,
-      "avg_glucose": 176.51,
+      "avg_glucose": 176.81,
       "readings": 1066
     },
     {
       "hour": 5,
-      "avg_glucose": 179.75,
+      "avg_glucose": 179.96,
       "readings": 1075
     },
     {
       "hour": 6,
-      "avg_glucose": 177.14,
-      "readings": 1068
+      "avg_glucose": 177.16,
+      "readings": 1067
     },
     {
       "hour": 7,
-      "avg_glucose": 148.22,
-      "readings": 1043
+      "avg_glucose": 148.17,
+      "readings": 1042
     },
     {
       "hour": 8,
-      "avg_glucose": 138.52,
+      "avg_glucose": 138.91,
       "readings": 1042
     },
     {
       "hour": 9,
-      "avg_glucose": 148.08,
+      "avg_glucose": 148.95,
       "readings": 1063
     },
     {
       "hour": 10,
-      "avg_glucose": 163.99,
+      "avg_glucose": 165.11,
       "readings": 1060
     },
     {
       "hour": 11,
-      "avg_glucose": 158.11,
+      "avg_glucose": 159.0,
       "readings": 1048
     },
     {
       "hour": 12,
-      "avg_glucose": 159.82,
+      "avg_glucose": 159.92,
       "readings": 1061
     },
     {
       "hour": 13,
-      "avg_glucose": 169.25,
+      "avg_glucose": 169.22,
       "readings": 1066
     },
     {
       "hour": 14,
-      "avg_glucose": 188.24,
+      "avg_glucose": 188.39,
       "readings": 1069
     },
     {
       "hour": 15,
-      "avg_glucose": 179.32,
+      "avg_glucose": 179.18,
       "readings": 1063
     },
     {
       "hour": 16,
-      "avg_glucose": 159.77,
+      "avg_glucose": 159.52,
       "readings": 1056
     },
     {
       "hour": 17,
-      "avg_glucose": 144.04,
+      "avg_glucose": 144.33,
       "readings": 1049
     },
     {
       "hour": 18,
-      "avg_glucose": 142.24,
+      "avg_glucose": 142.17,
       "readings": 1057
     },
     {
       "hour": 19,
-      "avg_glucose": 143.07,
+      "avg_glucose": 143.09,
       "readings": 1056
     },
     {
       "hour": 20,
-      "avg_glucose": 138.4,
+      "avg_glucose": 138.91,
       "readings": 1053
     },
     {
       "hour": 21,
-      "avg_glucose": 139.53,
+      "avg_glucose": 140.42,
       "readings": 1055
     },
     {
       "hour": 22,
-      "avg_glucose": 149.72,
+      "avg_glucose": 150.24,
       "readings": 1050
     },
     {
       "hour": 23,
-      "avg_glucose": 148.97,
-      "readings": 1043
+      "avg_glucose": 148.65,
+      "readings": 1042
     }
   ],
   "analytics": {
     "periods": {
       "last7": {
         "days": 7,
-        "avg_glucose": 150.51,
-        "tir_70_180": 77.16,
-        "high_pct": 18.95,
-        "very_high_pct": 3.13,
+        "avg_glucose": 149.79,
+        "tir_70_180": 76.8,
+        "high_pct": 20.59,
+        "very_high_pct": 1.84,
         "low_pct": 0.77,
         "very_low_pct": 0.0,
-        "gmi": 6.91,
-        "avg_total_insulin": 36.96,
-        "avg_basal": 18.57,
-        "avg_bolus": 18.39,
-        "avg_carbs": 185.17,
-        "avg_cv_pct": 26.24,
+        "gmi": 6.89,
+        "avg_total_insulin": 35.57,
+        "avg_basal": 18.31,
+        "avg_bolus": 17.26,
+        "avg_carbs": 182.17,
+        "avg_cv_pct": 26.1,
         "overnight_low_pct": 1.79,
-        "evening_avg": 153.42
+        "evening_avg": 148.94
       },
       "last14": {
         "days": 14,
-        "avg_glucose": 152.32,
-        "tir_70_180": 75.15,
-        "high_pct": 20.84,
-        "very_high_pct": 2.88,
+        "avg_glucose": 153.02,
+        "tir_70_180": 74.46,
+        "high_pct": 21.61,
+        "very_high_pct": 2.83,
         "low_pct": 1.11,
-        "very_low_pct": 0.03,
-        "gmi": 6.95,
-        "avg_total_insulin": 38.58,
-        "avg_basal": 20.03,
-        "avg_bolus": 18.55,
-        "avg_carbs": 185.31,
-        "avg_cv_pct": 26.48,
+        "very_low_pct": 0.0,
+        "gmi": 6.97,
+        "avg_total_insulin": 38.7,
+        "avg_basal": 19.89,
+        "avg_bolus": 18.81,
+        "avg_carbs": 187.92,
+        "avg_cv_pct": 26.45,
         "overnight_low_pct": 0.89,
-        "evening_avg": 141.39
+        "evening_avg": 141.32
       },
       "last30": {
         "days": 30,
-        "avg_glucose": 153.75,
-        "tir_70_180": 75.39,
-        "high_pct": 20.09,
+        "avg_glucose": 154.88,
+        "tir_70_180": 74.28,
+        "high_pct": 21.27,
         "very_high_pct": 3.23,
-        "low_pct": 1.1,
+        "low_pct": 1.05,
         "very_low_pct": 0.18,
-        "gmi": 6.99,
-        "avg_total_insulin": 40.21,
-        "avg_basal": 20.96,
-        "avg_bolus": 19.24,
-        "avg_carbs": 181.52,
-        "avg_cv_pct": 27.37,
+        "gmi": 7.01,
+        "avg_total_insulin": 40.23,
+        "avg_basal": 20.83,
+        "avg_bolus": 19.4,
+        "avg_carbs": 184.24,
+        "avg_cv_pct": 27.23,
         "overnight_low_pct": 0.84,
-        "evening_avg": 139.37
+        "evening_avg": 140.09
       },
       "last90": {
         "days": 90,
-        "avg_glucose": 157.71,
-        "tir_70_180": 72.4,
-        "high_pct": 22.42,
+        "avg_glucose": 158.23,
+        "tir_70_180": 71.77,
+        "high_pct": 23.06,
         "very_high_pct": 3.78,
-        "low_pct": 1.18,
+        "low_pct": 1.17,
         "very_low_pct": 0.23,
-        "gmi": 7.08,
-        "avg_total_insulin": 41.12,
-        "avg_basal": 21.78,
-        "avg_bolus": 19.34,
-        "avg_carbs": 160.2,
-        "avg_cv_pct": 28.77,
+        "gmi": 7.09,
+        "avg_total_insulin": 41.22,
+        "avg_basal": 21.81,
+        "avg_bolus": 19.41,
+        "avg_carbs": 160.58,
+        "avg_cv_pct": 28.85,
         "overnight_low_pct": 1.8,
-        "evening_avg": 143.67
+        "evening_avg": 143.93
       },
       "previous30": {
         "days": 30,
-        "avg_glucose": 157.62,
-        "tir_70_180": 70.74,
-        "high_pct": 23.67,
-        "very_high_pct": 4.17,
-        "low_pct": 1.31,
+        "avg_glucose": 157.35,
+        "tir_70_180": 70.66,
+        "high_pct": 23.77,
+        "very_high_pct": 4.09,
+        "low_pct": 1.37,
         "very_low_pct": 0.12,
-        "gmi": 7.08,
-        "avg_total_insulin": 40.92,
-        "avg_basal": 22.18,
-        "avg_bolus": 18.75,
-        "avg_carbs": 146.77,
-        "avg_cv_pct": 28.23,
+        "gmi": 7.07,
+        "avg_total_insulin": 41.0,
+        "avg_basal": 22.3,
+        "avg_bolus": 18.7,
+        "avg_carbs": 147.43,
+        "avg_cv_pct": 28.38,
         "overnight_low_pct": 1.67,
-        "evening_avg": 144.45
+        "evening_avg": 144.5
       }
     },
     "deltas": {
-      "tir_70_180": 4.65,
-      "avg_glucose": -3.87,
-      "gmi": -0.09,
-      "avg_cv_pct": -0.86,
-      "avg_total_insulin": -0.71,
-      "avg_carbs": 34.75
+      "tir_70_180": 3.62,
+      "avg_glucose": -2.47,
+      "gmi": -0.06,
+      "avg_cv_pct": -1.15,
+      "avg_total_insulin": -0.77,
+      "avg_carbs": 36.81
     },
     "weekdays": [
       {
         "weekday": "Mon",
         "days": 13,
-        "avg_glucose": 159.58,
-        "tir_70_180": 75.48,
-        "high_pct": 18.65,
+        "avg_glucose": 160.86,
+        "tir_70_180": 73.84,
+        "high_pct": 20.28,
         "very_high_pct": 5.12,
         "low_pct": 0.67,
         "very_low_pct": 0.08,
-        "gmi": 7.13,
-        "avg_total_insulin": 41.06,
-        "avg_basal": 20.43,
-        "avg_bolus": 20.63,
-        "avg_carbs": 185.25,
-        "avg_cv_pct": 26.47,
+        "gmi": 7.16,
+        "avg_total_insulin": 43.78,
+        "avg_basal": 21.45,
+        "avg_bolus": 22.33,
+        "avg_carbs": 186.69,
+        "avg_cv_pct": 27.09,
         "overnight_low_pct": 0.0,
-        "evening_avg": 144.47
+        "evening_avg": 145.38
       },
       {
         "weekday": "Tue",
-        "days": 12,
-        "avg_glucose": 155.67,
-        "tir_70_180": 70.63,
-        "high_pct": 23.99,
-        "very_high_pct": 3.53,
-        "low_pct": 1.41,
-        "very_low_pct": 0.44,
-        "gmi": 7.03,
-        "avg_total_insulin": 43.59,
-        "avg_basal": 21.39,
-        "avg_bolus": 22.2,
+        "days": 13,
+        "avg_glucose": 156.5,
+        "tir_70_180": 69.92,
+        "high_pct": 25.11,
+        "very_high_pct": 3.25,
+        "low_pct": 1.3,
+        "very_low_pct": 0.41,
+        "gmi": 7.05,
+        "avg_total_insulin": 40.97,
+        "avg_basal": 20.47,
+        "avg_bolus": 20.5,
         "avg_carbs": 183.75,
-        "avg_cv_pct": 28.28,
-        "overnight_low_pct": 2.84,
+        "avg_cv_pct": 27.39,
+        "overnight_low_pct": 2.62,
         "evening_avg": 140.18
       },
       {
         "weekday": "Wed",
-        "days": 13,
-        "avg_glucose": 155.06,
-        "tir_70_180": 74.22,
-        "high_pct": 20.47,
-        "very_high_pct": 4.02,
-        "low_pct": 1.03,
-        "very_low_pct": 0.27,
-        "gmi": 7.02,
-        "avg_total_insulin": 41.99,
-        "avg_basal": 21.58,
-        "avg_bolus": 20.41,
-        "avg_carbs": 176.38,
-        "avg_cv_pct": 26.42,
-        "overnight_low_pct": 2.68,
-        "evening_avg": 138.6
+        "days": 12,
+        "avg_glucose": 156.65,
+        "tir_70_180": 72.33,
+        "high_pct": 21.94,
+        "very_high_pct": 4.35,
+        "low_pct": 1.08,
+        "very_low_pct": 0.29,
+        "gmi": 7.06,
+        "avg_total_insulin": 42.5,
+        "avg_basal": 21.65,
+        "avg_bolus": 20.84,
+        "avg_carbs": 176.92,
+        "avg_cv_pct": 27.16,
+        "overnight_low_pct": 2.9,
+        "evening_avg": 139.02
       },
       {
         "weekday": "Thu",
@@ -4116,34 +4132,6 @@
     ],
     "best_days": [
       {
-        "local_date": "2026-06-03",
-        "cgm_count": 288,
-        "avg_glucose": 135.98,
-        "median_glucose": 138.0,
-        "gmi": 6.56,
-        "tir_70_180": 96.88,
-        "very_high_pct": 0.0,
-        "high_pct": 2.78,
-        "low_pct": 0.35,
-        "very_low_pct": 0.0,
-        "total_insulin": 35.95,
-        "total_basal": 20.7,
-        "total_bolus": 15.25,
-        "bolus_sum": 14.0,
-        "carbs_sum": 170.0,
-        "bolus_count": 5,
-        "alarm_count": 4,
-        "stddev": 23.84,
-        "cv_pct": 17.54,
-        "overnight_avg": 139.11,
-        "morning_avg": 136.44,
-        "afternoon_avg": 134.78,
-        "evening_avg": 133.57,
-        "overnight_low_pct": 0.0,
-        "morning_high_pct": 0.0,
-        "evening_high_pct": 11.11
-      },
-      {
         "local_date": "2026-06-23",
         "cgm_count": 288,
         "avg_glucose": 138.89,
@@ -4216,7 +4204,7 @@
         "bolus_sum": 20.2,
         "carbs_sum": 230.0,
         "bolus_count": 7,
-        "alarm_count": 14,
+        "alarm_count": 18,
         "stddev": 30.93,
         "cv_pct": 23.46,
         "overnight_avg": 117.85,
@@ -4244,7 +4232,7 @@
         "bolus_sum": 20.25,
         "carbs_sum": 215.0,
         "bolus_count": 6,
-        "alarm_count": 52,
+        "alarm_count": 54,
         "stddev": 31.12,
         "cv_pct": 22.86,
         "overnight_avg": 139.17,
@@ -4254,6 +4242,34 @@
         "overnight_low_pct": 0.0,
         "morning_high_pct": 0.0,
         "evening_high_pct": 0.0
+      },
+      {
+        "local_date": "2026-07-08",
+        "cgm_count": 276,
+        "avg_glucose": 142.74,
+        "median_glucose": 140.0,
+        "gmi": 6.72,
+        "tir_70_180": 90.94,
+        "very_high_pct": 0.0,
+        "high_pct": 9.06,
+        "low_pct": 0.0,
+        "very_low_pct": 0.0,
+        "total_insulin": 35.35,
+        "total_basal": 20.0,
+        "total_bolus": 15.35,
+        "bolus_sum": 15.35,
+        "carbs_sum": 165.0,
+        "bolus_count": 7,
+        "alarm_count": 0,
+        "stddev": 30.34,
+        "cv_pct": 21.26,
+        "overnight_avg": 150.03,
+        "morning_avg": 164.41,
+        "afternoon_avg": 123.62,
+        "evening_avg": 135.93,
+        "overnight_low_pct": 0.0,
+        "morning_high_pct": 34.43,
+        "evening_high_pct": 5.56
       }
     ],
     "toughest_days": [
@@ -4670,7 +4686,7 @@
         "bolus_sum": 21.7,
         "carbs_sum": 164.0,
         "bolus_count": 6,
-        "alarm_count": 540,
+        "alarm_count": 564,
         "stddev": 44.28,
         "cv_pct": 29.51,
         "overnight_avg": 160.42,
@@ -4687,73 +4703,73 @@
         "label": "Total insulin vs same-day avg glucose",
         "x": "total_insulin",
         "y": "avg_glucose",
-        "r": 0.64,
+        "r": 0.33,
         "n": 30,
         "note": "Total daily insulin vs average glucose.",
-        "strength": 0.64
-      },
-      {
-        "label": "Glucose variability vs TIR",
-        "x": "cv_pct",
-        "y": "tir_70_180",
-        "r": -0.42,
-        "n": 30,
-        "note": "Variability is usually a major TIR lever.",
-        "strength": 0.42
-      },
-      {
-        "label": "RHR vs same-day avg glucose",
-        "x": "rhr",
-        "y": "avg_glucose",
-        "r": -0.19,
-        "n": 25,
-        "note": "Resting HR and average glucose relationship.",
-        "strength": 0.19
-      },
-      {
-        "label": "HRV vs same-day avg glucose",
-        "x": "hrv",
-        "y": "avg_glucose",
-        "r": 0.17,
-        "n": 25,
-        "note": "HRV and average glucose relationship.",
-        "strength": 0.17
+        "strength": 0.33
       },
       {
         "label": "Sleep performance vs same-day TIR",
         "x": "sleep_performance",
         "y": "tir_70_180",
-        "r": -0.16,
+        "r": -0.23,
         "n": 25,
         "note": "Higher sleep performance days tended to align with TIR.",
-        "strength": 0.16
+        "strength": 0.23
+      },
+      {
+        "label": "RHR vs same-day avg glucose",
+        "x": "rhr",
+        "y": "avg_glucose",
+        "r": -0.22,
+        "n": 25,
+        "note": "Resting HR and average glucose relationship.",
+        "strength": 0.22
       },
       {
         "label": "Carbs logged vs same-day avg glucose",
         "x": "carbs_sum",
         "y": "avg_glucose",
-        "r": -0.16,
+        "r": -0.19,
         "n": 29,
         "note": "Carb load vs average glucose.",
-        "strength": 0.16
+        "strength": 0.19
+      },
+      {
+        "label": "Glucose variability vs TIR",
+        "x": "cv_pct",
+        "y": "tir_70_180",
+        "r": -0.17,
+        "n": 30,
+        "note": "Variability is usually a major TIR lever.",
+        "strength": 0.17
       },
       {
         "label": "Sleep hours vs same-day avg glucose",
         "x": "asleep_hours",
         "y": "avg_glucose",
-        "r": 0.12,
+        "r": 0.13,
         "n": 25,
         "note": "More sleep vs average glucose.",
-        "strength": 0.12
+        "strength": 0.13
+      },
+      {
+        "label": "HRV vs same-day avg glucose",
+        "x": "hrv",
+        "y": "avg_glucose",
+        "r": 0.13,
+        "n": 25,
+        "note": "HRV and average glucose relationship.",
+        "strength": 0.13
       },
       {
         "label": "Recovery vs same-day TIR",
         "x": "recovery_score",
         "y": "tir_70_180",
-        "r": 0.06,
+        "r": 0.09,
         "n": 25,
         "note": "WHOOP recovery and glucose control moved together.",
-        "strength": 0.06
+        "strength": 0.09
       }
     ],
     "workout_days": [
@@ -4996,30 +5012,42 @@
         "same_day_avg_glucose": 154.52,
         "next_day_tir": 86.41,
         "next_day_avg_glucose": 144.25
+      },
+      {
+        "local_date": "2026-08-31",
+        "workouts": 1,
+        "strain": 13.63,
+        "z3_5_min": 12.61,
+        "z2_min": 4.2,
+        "avg_hr": 117.0,
+        "same_day_tir": 78.75,
+        "same_day_avg_glucose": 152.1,
+        "next_day_tir": 61.45,
+        "next_day_avg_glucose": 166.53
       }
     ],
     "workout_correlations": [
       {
         "label": "Workout Z3-5 min vs same-day TIR",
-        "r": 0.09,
-        "n": 20
+        "r": 0.1,
+        "n": 21
       },
       {
         "label": "Workout strain vs next-day avg glucose",
-        "r": -0.28,
-        "n": 20
+        "r": -0.26,
+        "n": 21
       },
       {
         "label": "Zone 2 min vs same-day avg glucose",
-        "r": 0.26,
-        "n": 20
+        "r": 0.27,
+        "n": 21
       }
     ],
     "insights": [
       {
         "kind": "watch",
         "title": "Diabetes supply cadence",
-        "text": "Dexcom G7 sensors: last collected 2026-07-07 from CVS. Next fill is preordered for 2026-07-30 (-32 days from dashboard generation) and current supply is estimated through 2026-08-05. This is logistics tracking only; ordering stays David-confirmed.",
+        "text": "Dexcom G7 sensors: last collected 2026-07-07 from CVS. Next fill is preordered for 2026-07-30 (-33 days from dashboard generation) and current supply is estimated through 2026-08-05. This is logistics tracking only; ordering stays David-confirmed.",
         "stat": "Ready for pickup/refill"
       },
       {
@@ -5041,52 +5069,52 @@
         "stat": "$335 YTD"
       },
       {
-        "kind": "win",
+        "kind": "focus",
         "title": "Glucose control baseline",
-        "text": "Last 30 days: 75.39% time-in-range with average glucose 153.75 mg/dL and GMI about 6.99%.",
-        "stat": "75.39% TIR"
+        "text": "Last 30 days: 74.28% time-in-range with average glucose 154.88 mg/dL and GMI about 7.01%.",
+        "stat": "74.28% TIR"
       },
       {
         "kind": "win",
         "title": "Recent direction",
-        "text": "The last 7 days are 1.8 percentage points above your 30-day TIR baseline.",
-        "stat": "+1.8 pts"
+        "text": "The last 7 days are 2.5 percentage points above your 30-day TIR baseline.",
+        "stat": "+2.5 pts"
       },
       {
         "kind": "win",
         "title": "Stability / variability",
-        "text": "Average glucose variability is 27.37% CV over the last 30 days. Lower variability usually makes gym sessions, work focus, and parenting energy more predictable.",
-        "stat": "CV 27.37%"
+        "text": "Average glucose variability is 27.23% CV over the last 30 days. Lower variability usually makes gym sessions, work focus, and parenting energy more predictable.",
+        "stat": "CV 27.23%"
       },
       {
         "kind": "pattern",
         "title": "Total insulin vs same-day avg glucose",
-        "text": "Observed positive correlation r=0.64 across 30 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=0.64"
+        "text": "Observed positive correlation r=0.33 across 30 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.33"
       },
       {
         "kind": "pattern",
-        "title": "Glucose variability vs TIR",
-        "text": "Observed negative correlation r=-0.42 across 30 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=-0.42"
+        "title": "Sleep performance vs same-day TIR",
+        "text": "Observed negative correlation r=-0.23 across 25 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=-0.23"
       },
       {
         "kind": "pattern",
         "title": "RHR vs same-day avg glucose",
-        "text": "Observed negative correlation r=-0.19 across 25 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=-0.19"
+        "text": "Observed negative correlation r=-0.22 across 25 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=-0.22"
       },
       {
         "kind": "pattern",
-        "title": "HRV vs same-day avg glucose",
-        "text": "Observed positive correlation r=0.17 across 25 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=0.17"
+        "title": "Carbs logged vs same-day avg glucose",
+        "text": "Observed negative correlation r=-0.19 across 29 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=-0.19"
       },
       {
         "kind": "performance",
         "title": "Training load snapshot",
-        "text": "Across logged workouts in the last 30 days you accumulated about 208 minutes in HR Zones 3-5. The dashboard now compares hard-training days against same/next-day glucose patterns.",
-        "stat": "208m Z3-5"
+        "text": "Across logged workouts in the last 30 days you accumulated about 220 minutes in HR Zones 3-5. The dashboard now compares hard-training days against same/next-day glucose patterns.",
+        "stat": "220m Z3-5"
       }
     ],
     "coach_plan": [
@@ -5586,9 +5614,9 @@
         "buffer_days_at_next_fill_ready": 7,
         "status": "preordered",
         "notes": "David collected a 30-day supply from CVS on 2026-07-07 and preordered the next fill to be ready on 2026-07-30. Track refill cadence for eventual supply-ordering workflow. No autonomous ordering without David confirmation.",
-        "days_until_ready": -32,
-        "days_until_supply_runs_out": -26,
-        "days_since_last_collection": 55,
+        "days_until_ready": -33,
+        "days_until_supply_runs_out": -27,
+        "days_since_last_collection": 56,
         "urgency": "ready",
         "urgency_label": "Ready for pickup/refill"
       }
@@ -5607,9 +5635,9 @@
         "buffer_days_at_next_fill_ready": 7,
         "status": "preordered",
         "notes": "David collected a 30-day supply from CVS on 2026-07-07 and preordered the next fill to be ready on 2026-07-30. Track refill cadence for eventual supply-ordering workflow. No autonomous ordering without David confirmation.",
-        "days_until_ready": -32,
-        "days_until_supply_runs_out": -26,
-        "days_since_last_collection": 55,
+        "days_until_ready": -33,
+        "days_until_supply_runs_out": -27,
+        "days_since_last_collection": 56,
         "urgency": "ready",
         "urgency_label": "Ready for pickup/refill"
       }
@@ -5829,2141 +5857,5 @@
     "sleep_error": null,
     "workout_error": null
   },
-  "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
-  "ladder_exercises": {
-    "workouts": 19,
-    "total_reps": 2730,
-    "total_volume_lb": 143200.0,
-    "date_range": {
-      "start": "2026-08-04",
-      "end": "2026-08-31"
-    },
-    "exercises": [
-      "Arm Circles (forward)",
-      "Bear Hold Pull Through",
-      "Beat The Heat Halo (kneeling, Alt.)",
-      "Bench Press",
-      "Bent Over Reverse Fly",
-      "Bent Over Row",
-      "Bent Over Row 1.5 (L)",
-      "Bent Over Row 1.5 (R)",
-      "Bent Over Row, Knee Supported (L)",
-      "Bicep Curl",
-      "Bicycle Crunch",
-      "Bulgarian Split Squat (L)",
-      "Bulgarian Split Squat (R)",
-      "Cat Cow Floating Knees",
-      "Charged 4 Life",
-      "Chest Fly",
-      "Commando To 4 Shoulder Taps",
-      "Completion Downward Dog To Hip Opener (alt.)",
-      "Core Toaster Hollow Body Rock",
-      "Dead Bug (alternating)",
-      "Deep Roots Rooted Balance",
-      "Fast Break Cat Cow (floating Knees)",
-      "Flutter Kick",
-      "Forearm Plank",
-      "Forward Shoulder Roll",
-      "Front Raise",
-      "Glute Bridge",
-      "Goblet March",
-      "Goblet Reverse Lunge (alternating)",
-      "Goblet Squat",
-      "Gorilla Row (Alt.)",
-      "Halo (Kneeling Alt.)",
-      "Hammer Curl",
-      "Hammer Curl (Alternating)",
-      "Hand Release Pushup",
-      "Holy Moly Sumo Squat (front Rack)",
-      "Lateral Raise",
-      "Lift Over",
-      "Marathon Mindset Shoulder Raise (21's)",
-      "Move And Groove Cobra",
-      "Outta Control (10 Mt Climbers, 10 Plank Jacks)",
-      "Pit Stop Cobra",
-      "Primal Pull Gorilla Row (alternating)",
-      "Purpose Complete Superhuman",
-      "Push Plank To Plank Jack",
-      "Pushup",
-      "Rear Delt Row",
-      "Reload Plank Test Forearm Plank",
-      "Resetting Cobra",
-      "Rest + Digest Superhuman",
-      "Reverse Crunch Hollow Hold",
-      "Romanian Deadlift",
-      "Russian Twist",
-      "Save + Recharge",
-      "Shoulder Press (Seated)",
-      "Shoulder Tap (alternating)",
-      "Side Plank Reach (L)",
-      "Side Plank Reach (R)",
-      "Stablize Control Plank Isometric Hold (alt.)",
-      "Standing Curl Press",
-      "Sumo Deadlift",
-      "Swan",
-      "Swing",
-      "Tempo Power Mode Pushup (eccentric)",
-      "Time Under Pushup (eccentric)",
-      "Tricep Dip (Elevated)",
-      "Tricep Kickback",
-      "Tricep Pushup",
-      "Unlock Core Pause Pushup",
-      "Upright Row",
-      "Zottman Curl"
-    ],
-    "exercise_count": 71,
-    "by_exercise": {
-      "Arm Circles (forward)": [
-        {
-          "date": "2026-08-06",
-          "sets": 1,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Bear Hold Pull Through": [
-        {
-          "date": "2026-08-10",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        },
-        {
-          "date": "2026-08-13",
-          "sets": null,
-          "weight_lb": 35,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-19",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        },
-        {
-          "date": "2026-08-22",
-          "sets": 2,
-          "weight_lb": 35,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-24",
-          "sets": null,
-          "weight_lb": 35,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-31",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Beat The Heat Halo (kneeling, Alt.)": [
-        {
-          "date": "2026-08-19",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Bench Press": [
-        {
-          "date": "2026-08-11",
-          "sets": null,
-          "weight_lb": 60,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-19",
-          "sets": null,
-          "weight_lb": 85,
-          "reps": 10,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-25",
-          "sets": null,
-          "weight_lb": 70,
-          "reps": 12,
-          "bodyweight": false
-        }
-      ],
-      "Bent Over Reverse Fly": [
-        {
-          "date": "2026-08-13",
-          "sets": null,
-          "weight_lb": 35,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-22",
-          "sets": 3,
-          "weight_lb": 35,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Bent Over Row": [
-        {
-          "date": "2026-08-10",
-          "sets": null,
-          "weight_lb": 130,
-          "reps": 10,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-13",
-          "sets": null,
-          "weight_lb": 80,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-22",
-          "sets": 3,
-          "weight_lb": 90,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-22",
-          "sets": 3,
-          "weight_lb": 90,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-24",
-          "sets": null,
-          "weight_lb": 140,
-          "reps": 12,
-          "bodyweight": false
-        }
-      ],
-      "Bent Over Row 1.5 (L)": [
-        {
-          "date": "2026-08-06",
-          "sets": null,
-          "weight_lb": 70,
-          "reps": 10,
-          "bodyweight": false
-        }
-      ],
-      "Bent Over Row 1.5 (R)": [
-        {
-          "date": "2026-08-06",
-          "sets": null,
-          "weight_lb": 70,
-          "reps": 10,
-          "bodyweight": false
-        }
-      ],
-      "Bent Over Row, Knee Supported (L)": [
-        {
-          "date": "2026-08-13",
-          "sets": null,
-          "weight_lb": 80,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Bicep Curl": [
-        {
-          "date": "2026-08-06",
-          "sets": null,
-          "weight_lb": 40,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-08",
-          "sets": null,
-          "weight_lb": 25,
-          "reps": 10,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-28",
-          "sets": 3,
-          "weight_lb": 20,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Bicycle Crunch": [
-        {
-          "date": "2026-08-24",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        },
-        {
-          "date": "2026-08-28",
-          "sets": 2,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Bulgarian Split Squat (L)": [
-        {
-          "date": "2026-08-12",
-          "sets": null,
-          "weight_lb": 120,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-20",
-          "sets": null,
-          "weight_lb": 150,
-          "reps": 8,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-26",
-          "sets": 3,
-          "weight_lb": 100,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Bulgarian Split Squat (R)": [
-        {
-          "date": "2026-08-12",
-          "sets": null,
-          "weight_lb": 120,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-20",
-          "sets": null,
-          "weight_lb": 160,
-          "reps": 10,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-26",
-          "sets": 3,
-          "weight_lb": 100,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Cat Cow Floating Knees": [
-        {
-          "date": "2026-08-06",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Charged 4 Life": [
-        {
-          "date": "2026-08-31",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Chest Fly": [
-        {
-          "date": "2026-08-11",
-          "sets": null,
-          "weight_lb": 55,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-19",
-          "sets": null,
-          "weight_lb": 55,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-25",
-          "sets": null,
-          "weight_lb": 50,
-          "reps": 12,
-          "bodyweight": false
-        }
-      ],
-      "Commando To 4 Shoulder Taps": [
-        {
-          "date": "2026-08-10",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        },
-        {
-          "date": "2026-08-18",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Completion Downward Dog To Hip Opener (alt.)": [
-        {
-          "date": "2026-08-28",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Core Toaster Hollow Body Rock": [
-        {
-          "date": "2026-08-18",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Dead Bug (alternating)": [
-        {
-          "date": "2026-08-08",
-          "sets": 1,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Deep Roots Rooted Balance": [
-        {
-          "date": "2026-08-06",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Fast Break Cat Cow (floating Knees)": [
-        {
-          "date": "2026-08-22",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Flutter Kick": [
-        {
-          "date": "2026-08-11",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        },
-        {
-          "date": "2026-08-19",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        },
-        {
-          "date": "2026-08-25",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Forearm Plank": [
-        {
-          "date": "2026-08-25",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Forward Shoulder Roll": [
-        {
-          "date": "2026-08-06",
-          "sets": 1,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Front Raise": [
-        {
-          "date": "2026-08-11",
-          "sets": null,
-          "weight_lb": 30,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Glute Bridge": [
-        {
-          "date": "2026-08-10",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-18",
-          "sets": 3,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Goblet March": [
-        {
-          "date": "2026-08-12",
-          "sets": null,
-          "weight_lb": 70,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-20",
-          "sets": 2,
-          "weight_lb": 70,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-24",
-          "sets": null,
-          "weight_lb": 70,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-26",
-          "sets": 2,
-          "weight_lb": 75,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Goblet Reverse Lunge (alternating)": [
-        {
-          "date": "2026-08-31",
-          "sets": null,
-          "weight_lb": 75,
-          "reps": 18,
-          "bodyweight": false
-        }
-      ],
-      "Goblet Squat": [
-        {
-          "date": "2026-08-10",
-          "sets": null,
-          "weight_lb": 110,
-          "reps": 10,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-18",
-          "sets": 3,
-          "weight_lb": 120,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-24",
-          "sets": null,
-          "weight_lb": 100,
-          "reps": 12,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-26",
-          "sets": 3,
-          "weight_lb": 65,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Gorilla Row (Alt.)": [
-        {
-          "date": "2026-08-13",
-          "sets": null,
-          "weight_lb": 80,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Halo (Kneeling Alt.)": [
-        {
-          "date": "2026-08-11",
-          "sets": null,
-          "weight_lb": 35,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Hammer Curl": [
-        {
-          "date": "2026-08-06",
-          "sets": null,
-          "weight_lb": 40,
-          "reps": 12,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-31",
-          "sets": null,
-          "weight_lb": 35,
-          "reps": 12,
-          "bodyweight": false
-        }
-      ],
-      "Hammer Curl (Alternating)": [
-        {
-          "date": "2026-08-10",
-          "sets": null,
-          "weight_lb": 30,
-          "reps": 12,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-18",
-          "sets": 3,
-          "weight_lb": 40,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-24",
-          "sets": 3,
-          "weight_lb": 35,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Hand Release Pushup": [
-        {
-          "date": "2026-08-31",
-          "sets": 3,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Holy Moly Sumo Squat (front Rack)": [
-        {
-          "date": "2026-08-20",
-          "sets": null,
-          "weight_lb": 110,
-          "reps": 8,
-          "bodyweight": false
-        }
-      ],
-      "Lateral Raise": [
-        {
-          "date": "2026-08-10",
-          "sets": null,
-          "weight_lb": 30,
-          "reps": 12,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-18",
-          "sets": 3,
-          "weight_lb": 40,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-19",
-          "sets": 3,
-          "weight_lb": 35,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-24",
-          "sets": 3,
-          "weight_lb": 35,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Lift Over": [
-        {
-          "date": "2026-08-06",
-          "sets": 1,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Marathon Mindset Shoulder Raise (21's)": [
-        {
-          "date": "2026-08-28",
-          "sets": 2,
-          "weight_lb": 20,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Move And Groove Cobra": [
-        {
-          "date": "2026-08-19",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Outta Control (10 Mt Climbers, 10 Plank Jacks)": [
-        {
-          "date": "2026-08-06",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Pit Stop Cobra": [
-        {
-          "date": "2026-08-08",
-          "sets": 1,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Primal Pull Gorilla Row (alternating)": [
-        {
-          "date": "2026-08-22",
-          "sets": null,
-          "weight_lb": 100,
-          "reps": 12,
-          "bodyweight": false
-        }
-      ],
-      "Purpose Complete Superhuman": [
-        {
-          "date": "2026-08-13",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Push Plank To Plank Jack": [
-        {
-          "date": "2026-08-11",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Pushup": [
-        {
-          "date": "2026-08-24",
-          "sets": 3,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Rear Delt Row": [
-        {
-          "date": "2026-08-06",
-          "sets": null,
-          "weight_lb": 60,
-          "reps": 10,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-24",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Reload Plank Test Forearm Plank": [
-        {
-          "date": "2026-08-18",
-          "sets": 1,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Resetting Cobra": [
-        {
-          "date": "2026-08-25",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Rest + Digest Superhuman": [
-        {
-          "date": "2026-08-06",
-          "sets": 1,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Reverse Crunch Hollow Hold": [
-        {
-          "date": "2026-08-06",
-          "sets": 1,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Romanian Deadlift": [
-        {
-          "date": "2026-08-12",
-          "sets": null,
-          "weight_lb": 150,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-26",
-          "sets": null,
-          "weight_lb": 130,
-          "reps": 12,
-          "bodyweight": false
-        }
-      ],
-      "Russian Twist": [
-        {
-          "date": "2026-08-10",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-18",
-          "sets": null,
-          "weight_lb": 25,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-28",
-          "sets": 2,
-          "weight_lb": 20,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-31",
-          "sets": null,
-          "weight_lb": 30,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Save + Recharge": [
-        {
-          "date": "2026-08-10",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Shoulder Press (Seated)": [
-        {
-          "date": "2026-08-11",
-          "sets": null,
-          "weight_lb": 30,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-19",
-          "sets": 3,
-          "weight_lb": 35,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Shoulder Tap (alternating)": [
-        {
-          "date": "2026-08-28",
-          "sets": 3,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Side Plank Reach (L)": [
-        {
-          "date": "2026-08-08",
-          "sets": 1,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Side Plank Reach (R)": [
-        {
-          "date": "2026-08-08",
-          "sets": 1,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Stablize Control Plank Isometric Hold (alt.)": [
-        {
-          "date": "2026-08-08",
-          "sets": 1,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Standing Curl Press": [
-        {
-          "date": "2026-08-08",
-          "sets": null,
-          "weight_lb": 25,
-          "reps": 10,
-          "bodyweight": false
-        }
-      ],
-      "Sumo Deadlift": [
-        {
-          "date": "2026-08-12",
-          "sets": null,
-          "weight_lb": 150,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Swan": [
-        {
-          "date": "2026-08-08",
-          "sets": 1,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Swing": [
-        {
-          "date": "2026-08-12",
-          "sets": null,
-          "weight_lb": 70,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-13",
-          "sets": 1,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        },
-        {
-          "date": "2026-08-20",
-          "sets": null,
-          "weight_lb": 70,
-          "reps": 14,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-26",
-          "sets": 2,
-          "weight_lb": 75,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Tempo Power Mode Pushup (eccentric)": [
-        {
-          "date": "2026-08-10",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Time Under Pushup (eccentric)": [
-        {
-          "date": "2026-08-18",
-          "sets": 3,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Tricep Dip (Elevated)": [
-        {
-          "date": "2026-08-25",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Tricep Kickback": [
-        {
-          "date": "2026-08-08",
-          "sets": null,
-          "weight_lb": 60,
-          "reps": 12,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-11",
-          "sets": null,
-          "weight_lb": 65,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-19",
-          "sets": null,
-          "weight_lb": 70,
-          "reps": 10,
-          "bodyweight": false
-        }
-      ],
-      "Tricep Pushup": [
-        {
-          "date": "2026-08-08",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        },
-        {
-          "date": "2026-08-28",
-          "sets": 3,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Unlock Core Pause Pushup": [
-        {
-          "date": "2026-08-25",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Upright Row": [
-        {
-          "date": "2026-08-06",
-          "sets": null,
-          "weight_lb": 40,
-          "reps": 12,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-13",
-          "sets": null,
-          "weight_lb": 40,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-22",
-          "sets": 3,
-          "weight_lb": 40,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-31",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
-      "Zottman Curl": [
-        {
-          "date": "2026-08-13",
-          "sets": null,
-          "weight_lb": 35,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-22",
-          "sets": null,
-          "weight_lb": 35,
-          "reps": 10,
-          "bodyweight": false
-        }
-      ]
-    },
-    "workout_details": [
-      {
-        "date": "2026-08-06",
-        "title": "Coach Brian (Day 3/4 \u2014 Upper Body Pull + Arms + Core) \"Superhuman\"",
-        "volume_reps": 178,
-        "volume_lb": 9400.0,
-        "exercise_count": 14,
-        "exercises": [
-          {
-            "name": "Arm Circles (forward)",
-            "sets": 1,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Forward Shoulder Roll",
-            "sets": 1,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Deep Roots Rooted Balance",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Bent Over Row 1.5 (R)",
-            "sets": null,
-            "weight_lb": 70,
-            "reps": 10,
-            "bodyweight": false
-          },
-          {
-            "name": "Bent Over Row 1.5 (L)",
-            "sets": null,
-            "weight_lb": 70,
-            "reps": 10,
-            "bodyweight": false
-          },
-          {
-            "name": "Hammer Curl",
-            "sets": null,
-            "weight_lb": 40,
-            "reps": 12,
-            "bodyweight": false
-          },
-          {
-            "name": "Rear Delt Row",
-            "sets": null,
-            "weight_lb": 60,
-            "reps": 10,
-            "bodyweight": false
-          },
-          {
-            "name": "Bicep Curl",
-            "sets": null,
-            "weight_lb": 40,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Upright Row",
-            "sets": null,
-            "weight_lb": 40,
-            "reps": 12,
-            "bodyweight": false
-          },
-          {
-            "name": "Outta Control (10 Mt Climbers, 10 Plank Jacks)",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Lift Over",
-            "sets": 1,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Reverse Crunch Hollow Hold",
-            "sets": 1,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Rest + Digest Superhuman",
-            "sets": 1,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Cat Cow Floating Knees",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          }
-        ]
-      },
-      {
-        "date": "2026-08-08",
-        "title": "Coach Brian (Saturday \u2014 Arms + Core) \"Horse Power\"",
-        "volume_reps": 114,
-        "volume_lb": 3200.0,
-        "exercise_count": 10,
-        "exercises": [
-          {
-            "name": "Standing Curl Press",
-            "sets": null,
-            "weight_lb": 25,
-            "reps": 10,
-            "bodyweight": false
-          },
-          {
-            "name": "Tricep Kickback",
-            "sets": null,
-            "weight_lb": 60,
-            "reps": 12,
-            "bodyweight": false
-          },
-          {
-            "name": "Tricep Pushup",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Bicep Curl",
-            "sets": null,
-            "weight_lb": 25,
-            "reps": 10,
-            "bodyweight": false
-          },
-          {
-            "name": "Stablize Control Plank Isometric Hold (alt.)",
-            "sets": 1,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Side Plank Reach (R)",
-            "sets": 1,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Side Plank Reach (L)",
-            "sets": 1,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Dead Bug (alternating)",
-            "sets": 1,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Pit Stop Cobra",
-            "sets": 1,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Swan",
-            "sets": 1,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          }
-        ]
-      },
-      {
-        "date": "2026-08-10",
-        "title": "Coach Brian (Week 2, Day 1 \u2014 Leg Day + Core) \"Leg Level Up\"",
-        "volume_reps": 248,
-        "volume_lb": 9400.0,
-        "exercise_count": 10,
-        "exercises": [
-          {
-            "name": "Bent Over Row",
-            "sets": null,
-            "weight_lb": 130,
-            "reps": 10,
-            "bodyweight": false
-          },
-          {
-            "name": "Goblet Squat",
-            "sets": null,
-            "weight_lb": 110,
-            "reps": 10,
-            "bodyweight": false
-          },
-          {
-            "name": "Lateral Raise",
-            "sets": null,
-            "weight_lb": 30,
-            "reps": 12,
-            "bodyweight": false
-          },
-          {
-            "name": "Hammer Curl (Alternating)",
-            "sets": null,
-            "weight_lb": 30,
-            "reps": 12,
-            "bodyweight": false
-          },
-          {
-            "name": "Tempo Power Mode Pushup (eccentric)",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Glute Bridge",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bear Hold Pull Through",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Russian Twist",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Commando To 4 Shoulder Taps",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Save + Recharge",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          }
-        ]
-      },
-      {
-        "date": "2026-08-11",
-        "title": "Coach Brian (Week 2, Day 2 \u2014 Upper Body Push + Core) \"Bear to Downward Dog\"",
-        "volume_reps": 215,
-        "volume_lb": 9300.0,
-        "exercise_count": 8,
-        "exercises": [
-          {
-            "name": "Bench Press",
-            "sets": null,
-            "weight_lb": 60,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Shoulder Press (Seated)",
-            "sets": null,
-            "weight_lb": 30,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Chest Fly",
-            "sets": null,
-            "weight_lb": 55,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Tricep Kickback",
-            "sets": null,
-            "weight_lb": 65,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Front Raise",
-            "sets": null,
-            "weight_lb": 30,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Halo (Kneeling Alt.)",
-            "sets": null,
-            "weight_lb": 35,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Push Plank To Plank Jack",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Flutter Kick",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          }
-        ]
-      },
-      {
-        "date": "2026-08-12",
-        "title": "Coach Brian (Week 2, Day 3 \u2014 Lower Body) \"Hinge HQ\"",
-        "volume_reps": 164,
-        "volume_lb": 18000.0,
-        "exercise_count": 6,
-        "exercises": [
-          {
-            "name": "Romanian Deadlift",
-            "sets": null,
-            "weight_lb": 150,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bulgarian Split Squat (R)",
-            "sets": null,
-            "weight_lb": 120,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bulgarian Split Squat (L)",
-            "sets": null,
-            "weight_lb": 120,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Sumo Deadlift",
-            "sets": null,
-            "weight_lb": 150,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Swing",
-            "sets": null,
-            "weight_lb": 70,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Goblet March",
-            "sets": null,
-            "weight_lb": 70,
-            "reps": null,
-            "bodyweight": false
-          }
-        ]
-      },
-      {
-        "date": "2026-08-13",
-        "title": "Coach Brian (Week 2, Day 4 \u2014 Upper Body Pull) \"Back Boosted\"",
-        "volume_reps": 172,
-        "volume_lb": 9900.0,
-        "exercise_count": 9,
-        "exercises": [
-          {
-            "name": "Swing",
-            "sets": 1,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Bent Over Row",
-            "sets": null,
-            "weight_lb": 80,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bent Over Row, Knee Supported (L)",
-            "sets": null,
-            "weight_lb": 80,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bent Over Reverse Fly",
-            "sets": null,
-            "weight_lb": 35,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Zottman Curl",
-            "sets": null,
-            "weight_lb": 35,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Gorilla Row (Alt.)",
-            "sets": null,
-            "weight_lb": 80,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Upright Row",
-            "sets": null,
-            "weight_lb": 40,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bear Hold Pull Through",
-            "sets": null,
-            "weight_lb": 35,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Purpose Complete Superhuman",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          }
-        ]
-      },
-      {
-        "date": "2026-08-18",
-        "title": "Coach Brian (Week 3, Day 1 \u2014 Legs + Full Body) \"Earth Power\"",
-        "volume_reps": 254,
-        "volume_lb": 11000.0,
-        "exercise_count": 9,
-        "exercises": [
-          {
-            "name": "Goblet Squat",
-            "sets": 3,
-            "weight_lb": 120,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Lateral Raise",
-            "sets": 3,
-            "weight_lb": 40,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Hammer Curl (Alternating)",
-            "sets": 3,
-            "weight_lb": 40,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Time Under Pushup (eccentric)",
-            "sets": 3,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Glute Bridge",
-            "sets": 3,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Core Toaster Hollow Body Rock",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Russian Twist",
-            "sets": null,
-            "weight_lb": 25,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Commando To 4 Shoulder Taps",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Reload Plank Test Forearm Plank",
-            "sets": 1,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          }
-        ]
-      },
-      {
-        "date": "2026-08-19",
-        "title": "Coach Brian (Week 3, Day 2 \u2014 Upper Body Push) \"New Benchmark\"",
-        "volume_reps": 177,
-        "volume_lb": 7700.0,
-        "exercise_count": 9,
-        "exercises": [
-          {
-            "name": "Bench Press",
-            "sets": null,
-            "weight_lb": 85,
-            "reps": 10,
-            "bodyweight": false
-          },
-          {
-            "name": "Shoulder Press (Seated)",
-            "sets": 3,
-            "weight_lb": 35,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Chest Fly",
-            "sets": null,
-            "weight_lb": 55,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Tricep Kickback",
-            "sets": null,
-            "weight_lb": 70,
-            "reps": 10,
-            "bodyweight": false
-          },
-          {
-            "name": "Lateral Raise",
-            "sets": 3,
-            "weight_lb": 35,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Beat The Heat Halo (kneeling, Alt.)",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bear Hold Pull Through",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Flutter Kick",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Move And Groove Cobra",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          }
-        ]
-      },
-      {
-        "date": "2026-08-20",
-        "title": "Coach Brian (Week 3, Day 3 \u2014 Lower Body) \"Solo Yolo\"",
-        "volume_reps": 174,
-        "volume_lb": 20000.0,
-        "exercise_count": 5,
-        "exercises": [
-          {
-            "name": "Bulgarian Split Squat (R)",
-            "sets": null,
-            "weight_lb": 160,
-            "reps": 10,
-            "bodyweight": false
-          },
-          {
-            "name": "Bulgarian Split Squat (L)",
-            "sets": null,
-            "weight_lb": 150,
-            "reps": 8,
-            "bodyweight": false
-          },
-          {
-            "name": "Holy Moly Sumo Squat (front Rack)",
-            "sets": null,
-            "weight_lb": 110,
-            "reps": 8,
-            "bodyweight": false
-          },
-          {
-            "name": "Swing",
-            "sets": null,
-            "weight_lb": 70,
-            "reps": 14,
-            "bodyweight": false
-          },
-          {
-            "name": "Goblet March",
-            "sets": 2,
-            "weight_lb": 70,
-            "reps": null,
-            "bodyweight": false
-          }
-        ]
-      },
-      {
-        "date": "2026-08-22",
-        "title": "Coach Brian (Week 3, Day 5 \u2014 Upper Body Pull) \"Raw Power\"",
-        "volume_reps": 178,
-        "volume_lb": 10000.0,
-        "exercise_count": 8,
-        "exercises": [
-          {
-            "name": "Bent Over Row",
-            "sets": 3,
-            "weight_lb": 90,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bent Over Row",
-            "sets": 3,
-            "weight_lb": 90,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bent Over Reverse Fly",
-            "sets": 3,
-            "weight_lb": 35,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Zottman Curl",
-            "sets": null,
-            "weight_lb": 35,
-            "reps": 10,
-            "bodyweight": false
-          },
-          {
-            "name": "Primal Pull Gorilla Row (alternating)",
-            "sets": null,
-            "weight_lb": 100,
-            "reps": 12,
-            "bodyweight": false
-          },
-          {
-            "name": "Upright Row",
-            "sets": 3,
-            "weight_lb": 40,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bear Hold Pull Through",
-            "sets": 2,
-            "weight_lb": 35,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Fast Break Cat Cow (floating Knees)",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          }
-        ]
-      },
-      {
-        "date": "2026-08-24",
-        "title": "Coach Brian (Week 4, Day 1 \u2014 Full Body) \"Arm Pump\"",
-        "volume_reps": 252,
-        "volume_lb": 12000.0,
-        "exercise_count": 9,
-        "exercises": [
-          {
-            "name": "Hammer Curl (Alternating)",
-            "sets": 3,
-            "weight_lb": 35,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Pushup",
-            "sets": 3,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Goblet Squat",
-            "sets": null,
-            "weight_lb": 100,
-            "reps": 12,
-            "bodyweight": false
-          },
-          {
-            "name": "Bent Over Row",
-            "sets": null,
-            "weight_lb": 140,
-            "reps": 12,
-            "bodyweight": false
-          },
-          {
-            "name": "Rear Delt Row",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Lateral Raise",
-            "sets": 3,
-            "weight_lb": 35,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Goblet March",
-            "sets": null,
-            "weight_lb": 70,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bear Hold Pull Through",
-            "sets": null,
-            "weight_lb": 35,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bicycle Crunch",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          }
-        ]
-      },
-      {
-        "date": "2026-08-25",
-        "title": "Coach Brian (Week 4, Day 2 \u2014 Upper Body Push)",
-        "volume_reps": 140,
-        "volume_lb": 4600.0,
-        "exercise_count": 7,
-        "exercises": [
-          {
-            "name": "Bench Press",
-            "sets": null,
-            "weight_lb": 70,
-            "reps": 12,
-            "bodyweight": false
-          },
-          {
-            "name": "Chest Fly",
-            "sets": null,
-            "weight_lb": 50,
-            "reps": 12,
-            "bodyweight": false
-          },
-          {
-            "name": "Tricep Dip (Elevated)",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Unlock Core Pause Pushup",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Forearm Plank",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Flutter Kick",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Resetting Cobra",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          }
-        ]
-      },
-      {
-        "date": "2026-08-26",
-        "title": "Coach Brian (Week 4, Day 3 \u2014 Lower Body)",
-        "volume_reps": 172,
-        "volume_lb": 16000.0,
-        "exercise_count": 6,
-        "exercises": [
-          {
-            "name": "Swing",
-            "sets": 2,
-            "weight_lb": 75,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Goblet March",
-            "sets": 2,
-            "weight_lb": 75,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bulgarian Split Squat (R)",
-            "sets": 3,
-            "weight_lb": 100,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bulgarian Split Squat (L)",
-            "sets": 3,
-            "weight_lb": 100,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Romanian Deadlift",
-            "sets": null,
-            "weight_lb": 130,
-            "reps": 12,
-            "bodyweight": false
-          },
-          {
-            "name": "Goblet Squat",
-            "sets": 3,
-            "weight_lb": 65,
-            "reps": null,
-            "bodyweight": false
-          }
-        ]
-      },
-      {
-        "date": "2026-08-28",
-        "title": "Coach Brian (Week 4, Day 4 \u2014 Upper Body + Core) \"Marathon Mindset\"",
-        "volume_reps": 292,
-        "volume_lb": 2700.0,
-        "exercise_count": 7,
-        "exercises": [
-          {
-            "name": "Marathon Mindset Shoulder Raise (21's)",
-            "sets": 2,
-            "weight_lb": 20,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bicep Curl",
-            "sets": 3,
-            "weight_lb": 20,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Shoulder Tap (alternating)",
-            "sets": 3,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Tricep Pushup",
-            "sets": 3,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Russian Twist",
-            "sets": 2,
-            "weight_lb": 20,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bicycle Crunch",
-            "sets": 2,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Completion Downward Dog To Hip Opener (alt.)",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          }
-        ]
-      },
-      {
-        "date": "2026-08-31",
-        "title": "Coach Brian (Week 5, Day 1 \u2014 Full Body) \ud83d\udd04",
-        "volume_reps": null,
-        "volume_lb": null,
-        "exercise_count": 7,
-        "exercises": [
-          {
-            "name": "Upright Row",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Goblet Reverse Lunge (alternating)",
-            "sets": null,
-            "weight_lb": 75,
-            "reps": 18,
-            "bodyweight": false
-          },
-          {
-            "name": "Hand Release Pushup",
-            "sets": 3,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Hammer Curl",
-            "sets": null,
-            "weight_lb": 35,
-            "reps": 12,
-            "bodyweight": false
-          },
-          {
-            "name": "Russian Twist",
-            "sets": null,
-            "weight_lb": 30,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bear Hold Pull Through",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Charged 4 Life",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": false
-          }
-        ]
-      }
-    ]
-  },
-  "historical_injuries": {
-    "right_rear_delt": {
-      "injury": "Torn right rear deltoid",
-      "cause": "Cricket match",
-      "when": "Years ago (adult)",
-      "status": "Active \u2014 bothers occasionally",
-      "affected_exercises": [
-        "Deadlift to Upright Row",
-        "Bear Plank Row",
-        "Bear Hold Shoulder Tap",
-        "Upright Row",
-        "Bent Over Reverse Fly"
-      ],
-      "management": "Narrow grip on upright rows, sub plank holds for bear plank rows on flare days, reduce weight on affected side"
-    },
-    "left_big_toe": {
-      "injury": "Fractured left big toe",
-      "cause": "Rugby tackle (barefoot)",
-      "when": "Age ~13",
-      "status": "May cause lingering stiffness \u2014 relevant for single-leg balance, squats, lunges",
-      "management": "Monitor left-side stability on single-leg work"
-    },
-    "right_eye_trauma": {
-      "injury": "Hit in right eye by cricket ball",
-      "cause": "Cricket",
-      "when": "Age ~10",
-      "status": "Monitor \u2014 ensure annual dilated eye exam covers both diabetic and traumatic history",
-      "management": "Annual optometry with trauma history noted"
-    },
-    "broken_tooth": {
-      "injury": "Broken tooth",
-      "cause": "Rugby tackle",
-      "when": "Age 14-15",
-      "status": "Resolved \u2014 dental repair, no training impact"
-    }
-  }
+  "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions."
 }
