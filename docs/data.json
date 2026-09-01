@@ -7929,5 +7929,41 @@
         ]
       }
     ]
+  },
+  "historical_injuries": {
+    "right_rear_delt": {
+      "injury": "Torn right rear deltoid",
+      "cause": "Cricket match",
+      "when": "Years ago (adult)",
+      "status": "Active \u2014 bothers occasionally",
+      "affected_exercises": [
+        "Deadlift to Upright Row",
+        "Bear Plank Row",
+        "Bear Hold Shoulder Tap",
+        "Upright Row",
+        "Bent Over Reverse Fly"
+      ],
+      "management": "Narrow grip on upright rows, sub plank holds for bear plank rows on flare days, reduce weight on affected side"
+    },
+    "left_big_toe": {
+      "injury": "Fractured left big toe",
+      "cause": "Rugby tackle (barefoot)",
+      "when": "Age ~13",
+      "status": "May cause lingering stiffness \u2014 relevant for single-leg balance, squats, lunges",
+      "management": "Monitor left-side stability on single-leg work"
+    },
+    "right_eye_trauma": {
+      "injury": "Hit in right eye by cricket ball",
+      "cause": "Cricket",
+      "when": "Age ~10",
+      "status": "Monitor \u2014 ensure annual dilated eye exam covers both diabetic and traumatic history",
+      "management": "Annual optometry with trauma history noted"
+    },
+    "broken_tooth": {
+      "injury": "Broken tooth",
+      "cause": "Rugby tackle",
+      "when": "Age 14-15",
+      "status": "Resolved \u2014 dental repair, no training impact"
+    }
   }
 }
