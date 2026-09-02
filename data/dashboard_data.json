@@ -5881,7 +5881,6 @@
       "Bulgarian Split Squat (L)",
       "Bulgarian Split Squat (R)",
       "Cat Cow Floating Knees",
-      "Charged 4 Life",
       "Chest Fly",
       "Commando To 4 Shoulder Taps",
       "Completion Downward Dog To Hip Opener (alt.)",
@@ -5895,13 +5894,11 @@
       "Front Raise",
       "Glute Bridge",
       "Goblet March",
-      "Goblet Reverse Lunge (alternating)",
       "Goblet Squat",
       "Gorilla Row (Alt.)",
       "Halo (Kneeling Alt.)",
       "Hammer Curl",
       "Hammer Curl (Alternating)",
-      "Hand Release Pushup",
       "Holy Moly Sumo Squat (front Rack)",
       "Lateral Raise",
       "Lift Over",
@@ -5939,7 +5936,7 @@
       "Upright Row",
       "Zottman Curl"
     ],
-    "exercise_count": 71,
+    "exercise_count": 68,
     "by_exercise": {
       "Arm Circles (forward)": [
         {
@@ -5985,13 +5982,6 @@
           "weight_lb": 35,
           "reps": null,
           "bodyweight": false
-        },
-        {
-          "date": "2026-08-31",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
         }
       ],
       "Beat The Heat Halo (kneeling, Alt.)": [
@@ -6200,15 +6190,6 @@
           "bodyweight": true
         }
       ],
-      "Charged 4 Life": [
-        {
-          "date": "2026-08-31",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": false
-        }
-      ],
       "Chest Fly": [
         {
           "date": "2026-08-11",
@@ -6389,15 +6370,6 @@
           "bodyweight": false
         }
       ],
-      "Goblet Reverse Lunge (alternating)": [
-        {
-          "date": "2026-08-31",
-          "sets": null,
-          "weight_lb": 75,
-          "reps": 18,
-          "bodyweight": false
-        }
-      ],
       "Goblet Squat": [
         {
           "date": "2026-08-10",
@@ -6453,13 +6425,6 @@
           "weight_lb": 40,
           "reps": 12,
           "bodyweight": false
-        },
-        {
-          "date": "2026-08-31",
-          "sets": null,
-          "weight_lb": 35,
-          "reps": 12,
-          "bodyweight": false
         }
       ],
       "Hammer Curl (Alternating)": [
@@ -6483,15 +6448,6 @@
           "weight_lb": 35,
           "reps": null,
           "bodyweight": false
-        }
-      ],
-      "Hand Release Pushup": [
-        {
-          "date": "2026-08-31",
-          "sets": 3,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
         }
       ],
       "Holy Moly Sumo Squat (front Rack)": [
@@ -6701,13 +6657,6 @@
           "date": "2026-08-28",
           "sets": 2,
           "weight_lb": 20,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-31",
-          "sets": null,
-          "weight_lb": 30,
           "reps": null,
           "bodyweight": false
         }
@@ -6924,13 +6873,6 @@
           "date": "2026-08-22",
           "sets": 3,
           "weight_lb": 40,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
-          "date": "2026-08-31",
-          "sets": null,
-          "weight_lb": null,
           "reps": null,
           "bodyweight": false
         }
@@ -7895,64 +7837,6 @@
             "weight_lb": null,
             "reps": null,
             "bodyweight": true
-          }
-        ]
-      },
-      {
-        "date": "2026-08-31",
-        "title": "Coach Brian (Week 5, Day 1 \u2014 Full Body) \ud83d\udd04",
-        "volume_reps": null,
-        "volume_lb": null,
-        "exercise_count": 7,
-        "exercises": [
-          {
-            "name": "Upright Row",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Goblet Reverse Lunge (alternating)",
-            "sets": null,
-            "weight_lb": 75,
-            "reps": 18,
-            "bodyweight": false
-          },
-          {
-            "name": "Hand Release Pushup",
-            "sets": 3,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Hammer Curl",
-            "sets": null,
-            "weight_lb": 35,
-            "reps": 12,
-            "bodyweight": false
-          },
-          {
-            "name": "Russian Twist",
-            "sets": null,
-            "weight_lb": 30,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Bear Hold Pull Through",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Charged 4 Life",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": false
           }
         ]
       }
