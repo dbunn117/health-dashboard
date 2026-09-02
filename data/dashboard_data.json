@@ -5831,12 +5831,12 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 20,
+    "workouts": 21,
     "total_reps": 2730,
     "total_volume_lb": 143200.0,
     "date_range": {
       "start": "2026-08-04",
-      "end": "2026-09-01"
+      "end": "2026-09-02"
     },
     "exercises": [
       "Arm Circles (forward)",
@@ -5861,6 +5861,7 @@
       "Dead Bug (alternating)",
       "Deep Roots Rooted Balance",
       "Fast Break Cat Cow (floating Knees)",
+      "Finish Cobra",
       "Flutter Kick",
       "Forearm Plank",
       "Forward Shoulder Roll",
@@ -5893,6 +5894,7 @@
       "Romanian Deadlift",
       "Russian Twist",
       "Save + Recharge",
+      "Shoulder Current Arnold Press (seated)",
       "Shoulder Press (Seated)",
       "Shoulder Tap (alternating)",
       "Side Plank Reach (L)",
@@ -5908,10 +5910,11 @@
       "Tricep Kickback",
       "Tricep Pushup",
       "Unlock Core Pause Pushup",
+      "Unlock Now Mountain Climber (knee To Elbow)",
       "Upright Row",
       "Zottman Curl"
     ],
-    "exercise_count": 71,
+    "exercise_count": 74,
     "by_exercise": {
       "Arm Circles (forward)": [
         {
@@ -5994,6 +5997,13 @@
           "date": "2026-08-25",
           "sets": null,
           "weight_lb": 70,
+          "reps": 12,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-09-02",
+          "sets": null,
+          "weight_lb": 65,
           "reps": 12,
           "bodyweight": false
         }
@@ -6202,6 +6212,13 @@
           "weight_lb": 50,
           "reps": 12,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-02",
+          "sets": null,
+          "weight_lb": 50,
+          "reps": 10,
+          "bodyweight": false
         }
       ],
       "Commando To 4 Shoulder Taps": [
@@ -6265,6 +6282,15 @@
           "bodyweight": true
         }
       ],
+      "Finish Cobra": [
+        {
+          "date": "2026-09-02",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
       "Flutter Kick": [
         {
           "date": "2026-08-11",
@@ -6286,11 +6312,25 @@
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
+        },
+        {
+          "date": "2026-09-02",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
         }
       ],
       "Forearm Plank": [
         {
           "date": "2026-08-25",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        },
+        {
+          "date": "2026-09-02",
           "sets": null,
           "weight_lb": null,
           "reps": null,
@@ -6693,6 +6733,15 @@
           "bodyweight": true
         }
       ],
+      "Shoulder Current Arnold Press (seated)": [
+        {
+          "date": "2026-09-02",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
       "Shoulder Press (Seated)": [
         {
           "date": "2026-08-11",
@@ -6850,6 +6899,13 @@
           "weight_lb": 70,
           "reps": 10,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-02",
+          "sets": null,
+          "weight_lb": 60,
+          "reps": 12,
+          "bodyweight": false
         }
       ],
       "Tricep Pushup": [
@@ -6871,6 +6927,15 @@
       "Unlock Core Pause Pushup": [
         {
           "date": "2026-08-25",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Unlock Now Mountain Climber (knee To Elbow)": [
+        {
+          "date": "2026-09-02",
           "sets": null,
           "weight_lb": null,
           "reps": null,
@@ -7925,6 +7990,71 @@
             "weight_lb": null,
             "reps": null,
             "bodyweight": false
+          }
+        ]
+      },
+      {
+        "date": "2026-09-02",
+        "title": "Coach Brian (Week 5, Day 2 \u2014 Upper Body Push + Core)",
+        "volume_reps": null,
+        "volume_lb": null,
+        "exercise_count": 8,
+        "exercises": [
+          {
+            "name": "Bench Press",
+            "sets": null,
+            "weight_lb": 65,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Shoulder Current Arnold Press (seated)",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Chest Fly",
+            "sets": null,
+            "weight_lb": 50,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Tricep Kickback",
+            "sets": null,
+            "weight_lb": 60,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Unlock Now Mountain Climber (knee To Elbow)",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Forearm Plank",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Flutter Kick",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Finish Cobra",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
           }
         ]
       }
