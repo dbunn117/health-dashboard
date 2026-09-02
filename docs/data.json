@@ -8059,5 +8059,42 @@
         ]
       }
     ]
+  },
+  "function_health_labs_sep_2026": {
+    "date": "2026-09-02",
+    "source": "Function Health / Quest Diagnostics",
+    "summary": {
+      "strengths": [
+        "Optimal blood counts",
+        "Low inflammation (hs-CRP 0.3)",
+        "Healthy BMI 24.91",
+        "Excellent BP 116/66",
+        "Normal liver function",
+        "Normal kidney function (eGFR 76, no proteinuria)",
+        "Optimal Vit D 57",
+        "Low heavy metals",
+        "Healthy total T 531",
+        "Normal thyroid (low antibodies)",
+        "Normal adrenal function"
+      ],
+      "attention_areas": [
+        "HbA1c 7.3% - persistent hyperglycemia",
+        "Lipoprotein(a) 101 nmol/L elevated",
+        "Ferritin 19 - depleted iron stores",
+        "Omega-3 2.3% - significant deficiency",
+        "Free testosterone 60.1 - below optimal",
+        "LDL particle burden high (small/medium)",
+        "HDL large low",
+        "Creatinine 1.27 mild elevation",
+        "ANA+ 1:80 low-titer (non-specific)"
+      ],
+      "recommendations": [
+        "Discuss omega-3 supplementation (EPA/DHA) to address 2.3% level and high AA/EPA ratio 65.1",
+        "Discuss iron supplementation given ferritin 19 and high training volume",
+        "Monitor free T / SHBG in context of body comp goals",
+        "Continue aggressive glucose management to protect CV/kidney health",
+        "Routine monitoring of creatinine/eGFR given upward trend"
+      ]
+    }
   }
 }
