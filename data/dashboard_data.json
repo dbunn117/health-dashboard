@@ -5831,12 +5831,12 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 21,
+    "workouts": 22,
     "total_reps": 2730,
     "total_volume_lb": 143200.0,
     "date_range": {
       "start": "2026-08-04",
-      "end": "2026-09-02"
+      "end": "2026-09-03"
     },
     "exercises": [
       "Arm Circles (forward)",
@@ -5859,6 +5859,7 @@
       "Completion Downward Dog To Hip Opener (alt.)",
       "Core Toaster Hollow Body Rock",
       "Dead Bug (alternating)",
+      "Deadlift Single Leg (l)",
       "Deep Roots Rooted Balance",
       "Fast Break Cat Cow (floating Knees)",
       "Finish Cobra",
@@ -5866,6 +5867,7 @@
       "Forearm Plank",
       "Forward Shoulder Roll",
       "Front Raise",
+      "Fwd Force Forward Lunge (alternating)",
       "Glute Bridge",
       "Goblet March",
       "Goblet Reverse Lunge (alternating)",
@@ -5876,6 +5878,7 @@
       "Hammer Curl (Alternating)",
       "Hand Release Pushup",
       "Holy Moly Sumo Squat (front Rack)",
+      "Keep Climbing Step Up (alternating)",
       "Lateral Raise",
       "Lift Over",
       "Marathon Mindset Shoulder Raise (21's)",
@@ -5899,6 +5902,7 @@
       "Shoulder Tap (alternating)",
       "Side Plank Reach (L)",
       "Side Plank Reach (R)",
+      "Single Shoot Deadlift Single Leg (r)",
       "Stablize Control Plank Isometric Hold (alt.)",
       "Standing Curl Press",
       "Sumo Deadlift",
@@ -5914,7 +5918,7 @@
       "Upright Row",
       "Zottman Curl"
     ],
-    "exercise_count": 74,
+    "exercise_count": 78,
     "by_exercise": {
       "Arm Circles (forward)": [
         {
@@ -6264,6 +6268,15 @@
           "bodyweight": true
         }
       ],
+      "Deadlift Single Leg (l)": [
+        {
+          "date": "2026-09-03",
+          "sets": null,
+          "weight_lb": 130,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
       "Deep Roots Rooted Balance": [
         {
           "date": "2026-08-06",
@@ -6355,6 +6368,15 @@
           "bodyweight": false
         }
       ],
+      "Fwd Force Forward Lunge (alternating)": [
+        {
+          "date": "2026-09-03",
+          "sets": null,
+          "weight_lb": 130,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
       "Glute Bridge": [
         {
           "date": "2026-08-10",
@@ -6438,6 +6460,13 @@
           "weight_lb": 65,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-03",
+          "sets": null,
+          "weight_lb": 80,
+          "reps": 10,
+          "bodyweight": false
         }
       ],
       "Gorilla Row (Alt.)": [
@@ -6512,6 +6541,15 @@
           "sets": null,
           "weight_lb": 110,
           "reps": 8,
+          "bodyweight": false
+        }
+      ],
+      "Keep Climbing Step Up (alternating)": [
+        {
+          "date": "2026-09-03",
+          "sets": null,
+          "weight_lb": 100,
+          "reps": 10,
           "bodyweight": false
         }
       ],
@@ -6781,6 +6819,15 @@
           "date": "2026-08-08",
           "sets": 1,
           "weight_lb": null,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Single Shoot Deadlift Single Leg (r)": [
+        {
+          "date": "2026-09-03",
+          "sets": null,
+          "weight_lb": 130,
           "reps": null,
           "bodyweight": false
         }
@@ -8055,6 +8102,50 @@
             "weight_lb": null,
             "reps": null,
             "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-09-03",
+        "title": "Coach Brian (Week 5, Day 3 \u2014 Leg Day) \ud83d\udd25",
+        "volume_reps": null,
+        "volume_lb": null,
+        "exercise_count": 5,
+        "exercises": [
+          {
+            "name": "Goblet Squat",
+            "sets": null,
+            "weight_lb": 80,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Fwd Force Forward Lunge (alternating)",
+            "sets": null,
+            "weight_lb": 130,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Single Shoot Deadlift Single Leg (r)",
+            "sets": null,
+            "weight_lb": 130,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Deadlift Single Leg (l)",
+            "sets": null,
+            "weight_lb": 130,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Keep Climbing Step Up (alternating)",
+            "sets": null,
+            "weight_lb": 100,
+            "reps": 10,
+            "bodyweight": false
           }
         ]
       }
