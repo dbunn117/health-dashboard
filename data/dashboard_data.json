@@ -5875,15 +5875,16 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 22,
+    "workouts": 24,
     "total_reps": 2730,
     "total_volume_lb": 143200.0,
     "date_range": {
       "start": "2026-08-04",
-      "end": "2026-09-03"
+      "end": "2026-09-05"
     },
     "exercises": [
       "Arm Circles (forward)",
+      "Be And Believe Cat Cow Floating Knees",
       "Bear Hold Pull Through",
       "Beat The Heat Halo (kneeling, Alt.)",
       "Bench Press",
@@ -5917,6 +5918,7 @@
       "Goblet Reverse Lunge (alternating)",
       "Goblet Squat",
       "Gorilla Row (Alt.)",
+      "Grip Core Crusher Reverse Curl",
       "Halo (Kneeling Alt.)",
       "Hammer Curl",
       "Hammer Curl (Alternating)",
@@ -5929,6 +5931,7 @@
       "Move And Groove Cobra",
       "Outta Control (10 Mt Climbers, 10 Plank Jacks)",
       "Pit Stop Cobra",
+      "Plank Pull Through (alternating)",
       "Primal Pull Gorilla Row (alternating)",
       "Purpose Complete Superhuman",
       "Push Plank To Plank Jack",
@@ -5950,6 +5953,7 @@
       "Stablize Control Plank Isometric Hold (alt.)",
       "Standing Curl Press",
       "Sumo Deadlift",
+      "Superman",
       "Swan",
       "Swing",
       "Tempo Power Mode Pushup (eccentric)",
@@ -5962,12 +5966,21 @@
       "Upright Row",
       "Zottman Curl"
     ],
-    "exercise_count": 78,
+    "exercise_count": 82,
     "by_exercise": {
       "Arm Circles (forward)": [
         {
           "date": "2026-08-06",
           "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Be And Believe Cat Cow Floating Knees": [
+        {
+          "date": "2026-09-05",
+          "sets": null,
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
@@ -6107,6 +6120,20 @@
           "weight_lb": 140,
           "reps": 12,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-05",
+          "sets": null,
+          "weight_lb": 50,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-09-05",
+          "sets": null,
+          "weight_lb": 50,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Bent Over Row 1.5 (L)": [
@@ -6156,6 +6183,13 @@
           "sets": 3,
           "weight_lb": 20,
           "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-09-05",
+          "sets": null,
+          "weight_lb": 30,
+          "reps": 10,
           "bodyweight": false
         }
       ],
@@ -6224,6 +6258,13 @@
       "Cat Cow Floating Knees": [
         {
           "date": "2026-08-06",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        },
+        {
+          "date": "2026-09-05",
           "sets": null,
           "weight_lb": null,
           "reps": null,
@@ -6522,6 +6563,15 @@
           "bodyweight": false
         }
       ],
+      "Grip Core Crusher Reverse Curl": [
+        {
+          "date": "2026-09-05",
+          "sets": null,
+          "weight_lb": 35,
+          "reps": 10,
+          "bodyweight": false
+        }
+      ],
       "Halo (Kneeling Alt.)": [
         {
           "date": "2026-08-11",
@@ -6672,6 +6722,15 @@
           "bodyweight": true
         }
       ],
+      "Plank Pull Through (alternating)": [
+        {
+          "date": "2026-09-05",
+          "sets": 3,
+          "weight_lb": 25,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
       "Primal Pull Gorilla Row (alternating)": [
         {
           "date": "2026-08-22",
@@ -6722,6 +6781,13 @@
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
+        },
+        {
+          "date": "2026-09-05",
+          "sets": null,
+          "weight_lb": 50,
+          "reps": 10,
+          "bodyweight": false
         }
       ],
       "Reload Plank Test Forearm Plank": [
@@ -6901,6 +6967,15 @@
           "weight_lb": 150,
           "reps": null,
           "bodyweight": false
+        }
+      ],
+      "Superman": [
+        {
+          "date": "2026-09-05",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
         }
       ],
       "Swan": [
@@ -8190,6 +8265,78 @@
             "weight_lb": 100,
             "reps": 10,
             "bodyweight": false
+          }
+        ]
+      },
+      {
+        "date": "2026-09-05",
+        "title": "Coach Brian (Saturday \u2014 Upper Body Pull + Arms)",
+        "volume_reps": null,
+        "volume_lb": null,
+        "exercise_count": 9,
+        "exercises": [
+          {
+            "name": "Cat Cow Floating Knees",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Bicep Curl",
+            "sets": null,
+            "weight_lb": 30,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Bent Over Row",
+            "sets": null,
+            "weight_lb": 50,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bent Over Row",
+            "sets": null,
+            "weight_lb": 50,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Grip Core Crusher Reverse Curl",
+            "sets": null,
+            "weight_lb": 35,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Plank Pull Through (alternating)",
+            "sets": 3,
+            "weight_lb": 25,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Rear Delt Row",
+            "sets": null,
+            "weight_lb": 50,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Superman",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Be And Believe Cat Cow Floating Knees",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
           }
         ]
       }
