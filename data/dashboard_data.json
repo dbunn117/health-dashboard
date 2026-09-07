@@ -5847,12 +5847,12 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 25,
+    "workouts": 26,
     "total_reps": 2730,
     "total_volume_lb": 143200.0,
     "date_range": {
       "start": "2026-08-04",
-      "end": "2026-09-06"
+      "end": "2026-09-07"
     },
     "exercises": [
       "Arm Circles (forward)",
@@ -5900,13 +5900,16 @@
       "Lateral Raise",
       "Lift Over",
       "Marathon Mindset Shoulder Raise (21's)",
+      "Max Life Child's Pose",
       "Move And Groove Cobra",
       "Outta Control (10 Mt Climbers, 10 Plank Jacks)",
       "Pit Stop Cobra",
       "Plank Pull Through (alternating)",
+      "Plank Test Forearm Plank",
       "Primal Pull Gorilla Row (alternating)",
       "Purpose Complete Superhuman",
       "Push Plank To Plank Jack",
+      "Push Up",
       "Pushup",
       "Rear Delt Row",
       "Reload Plank Test Forearm Plank",
@@ -5922,6 +5925,7 @@
       "Side Plank Reach (L)",
       "Side Plank Reach (R)",
       "Single Shoot Deadlift Single Leg (r)",
+      "Sit Up Press",
       "Stablize Control Plank Isometric Hold (alt.)",
       "Standing Curl Press",
       "Sumo Deadlift",
@@ -5938,7 +5942,7 @@
       "Upright Row",
       "Zottman Curl"
     ],
-    "exercise_count": 82,
+    "exercise_count": 86,
     "by_exercise": {
       "Arm Circles (forward)": [
         {
@@ -6106,6 +6110,13 @@
           "weight_lb": 50,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-07",
+          "sets": null,
+          "weight_lb": 140,
+          "reps": 10,
+          "bodyweight": false
         }
       ],
       "Bent Over Row 1.5 (L)": [
@@ -6176,6 +6187,13 @@
         {
           "date": "2026-08-28",
           "sets": 2,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        },
+        {
+          "date": "2026-09-07",
+          "sets": null,
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
@@ -6524,6 +6542,13 @@
           "weight_lb": 80,
           "reps": 10,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-07",
+          "sets": null,
+          "weight_lb": 120,
+          "reps": 10,
+          "bodyweight": false
         }
       ],
       "Gorilla Row (Alt.)": [
@@ -6590,6 +6615,13 @@
           "weight_lb": 35,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-07",
+          "sets": null,
+          "weight_lb": 40,
+          "reps": 12,
+          "bodyweight": false
         }
       ],
       "Hand Release Pushup": [
@@ -6647,6 +6679,13 @@
           "weight_lb": 35,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-07",
+          "sets": 3,
+          "weight_lb": 40,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Lift Over": [
@@ -6665,6 +6704,15 @@
           "weight_lb": 20,
           "reps": null,
           "bodyweight": false
+        }
+      ],
+      "Max Life Child's Pose": [
+        {
+          "date": "2026-09-07",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
         }
       ],
       "Move And Groove Cobra": [
@@ -6703,6 +6751,15 @@
           "bodyweight": false
         }
       ],
+      "Plank Test Forearm Plank": [
+        {
+          "date": "2026-09-07",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
       "Primal Pull Gorilla Row (alternating)": [
         {
           "date": "2026-08-22",
@@ -6725,6 +6782,15 @@
         {
           "date": "2026-08-11",
           "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Push Up": [
+        {
+          "date": "2026-09-07",
+          "sets": 3,
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
@@ -6812,6 +6878,13 @@
           "weight_lb": 130,
           "reps": 12,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-07",
+          "sets": null,
+          "weight_lb": 150,
+          "reps": 10,
+          "bodyweight": false
         }
       ],
       "Russian Twist": [
@@ -6840,6 +6913,13 @@
           "date": "2026-08-31",
           "sets": null,
           "weight_lb": 30,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-09-07",
+          "sets": null,
+          "weight_lb": null,
           "reps": null,
           "bodyweight": false
         }
@@ -6910,6 +6990,15 @@
           "date": "2026-09-03",
           "sets": null,
           "weight_lb": 130,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Sit Up Press": [
+        {
+          "date": "2026-09-07",
+          "sets": null,
+          "weight_lb": null,
           "reps": null,
           "bodyweight": false
         }
@@ -8305,6 +8394,92 @@
           },
           {
             "name": "Be And Believe Cat Cow Floating Knees",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-09-07",
+        "title": "Coach Brian (Week 6, Day 1 \u2014 Full Body + Core) \ud83d\udd04",
+        "volume_reps": null,
+        "volume_lb": null,
+        "exercise_count": 11,
+        "exercises": [
+          {
+            "name": "Bent Over Row",
+            "sets": null,
+            "weight_lb": 140,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Goblet Squat",
+            "sets": null,
+            "weight_lb": 120,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Lateral Raise",
+            "sets": 3,
+            "weight_lb": 40,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Hammer Curl (Alternating)",
+            "sets": null,
+            "weight_lb": 40,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Romanian Deadlift",
+            "sets": null,
+            "weight_lb": 150,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Push Up",
+            "sets": 3,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Russian Twist",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bicycle Crunch",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Sit Up Press",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Plank Test Forearm Plank",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Max Life Child's Pose",
             "sets": null,
             "weight_lb": null,
             "reps": null,
