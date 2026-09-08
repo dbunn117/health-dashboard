@@ -5875,12 +5875,12 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 26,
+    "workouts": 27,
     "total_reps": 2730,
     "total_volume_lb": 143200.0,
     "date_range": {
       "start": "2026-08-04",
-      "end": "2026-09-07"
+      "end": "2026-09-08"
     },
     "exercises": [
       "Arm Circles (forward)",
@@ -5903,6 +5903,7 @@
       "Commando To 4 Shoulder Taps",
       "Completion Downward Dog To Hip Opener (alt.)",
       "Core Toaster Hollow Body Rock",
+      "Coremaxxing V Sit Kick Out",
       "Dead Bug (alternating)",
       "Deadlift Single Leg (l)",
       "Deep Roots Rooted Balance",
@@ -5931,6 +5932,7 @@
       "Max Life Child's Pose",
       "Move And Groove Cobra",
       "Outta Control (10 Mt Climbers, 10 Plank Jacks)",
+      "Peace Out Child's Pose Thread The Needle (r)",
       "Pit Stop Cobra",
       "Plank Pull Through (alternating)",
       "Plank Test Forearm Plank",
@@ -5943,12 +5945,14 @@
       "Reload Plank Test Forearm Plank",
       "Resetting Cobra",
       "Rest + Digest Superhuman",
+      "Reverse Crunch",
       "Reverse Crunch Hollow Hold",
       "Romanian Deadlift",
       "Russian Twist",
       "Save + Recharge",
       "Shoulder Current Arnold Press (seated)",
       "Shoulder Press (Seated)",
+      "Shoulder Raise (21's)",
       "Shoulder Tap (alternating)",
       "Side Plank Reach (L)",
       "Side Plank Reach (R)",
@@ -5970,7 +5974,7 @@
       "Upright Row",
       "Zottman Curl"
     ],
-    "exercise_count": 86,
+    "exercise_count": 90,
     "by_exercise": {
       "Arm Circles (forward)": [
         {
@@ -6070,6 +6074,13 @@
           "sets": null,
           "weight_lb": 65,
           "reps": 12,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-09-08",
+          "sets": null,
+          "weight_lb": 70,
+          "reps": null,
           "bodyweight": false
         }
       ],
@@ -6326,6 +6337,13 @@
           "weight_lb": 50,
           "reps": 10,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-08",
+          "sets": null,
+          "weight_lb": 50,
+          "reps": 10,
+          "bodyweight": false
         }
       ],
       "Commando To 4 Shoulder Taps": [
@@ -6356,6 +6374,15 @@
       "Core Toaster Hollow Body Rock": [
         {
           "date": "2026-08-18",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Coremaxxing V Sit Kick Out": [
+        {
+          "date": "2026-09-08",
           "sets": null,
           "weight_lb": null,
           "reps": null,
@@ -6435,6 +6462,13 @@
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
+        },
+        {
+          "date": "2026-09-08",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
         }
       ],
       "Forearm Plank": [
@@ -6468,6 +6502,13 @@
           "sets": null,
           "weight_lb": 30,
           "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-09-08",
+          "sets": null,
+          "weight_lb": 30,
+          "reps": 12,
           "bodyweight": false
         }
       ],
@@ -6761,6 +6802,15 @@
           "bodyweight": true
         }
       ],
+      "Peace Out Child's Pose Thread The Needle (r)": [
+        {
+          "date": "2026-09-08",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
       "Pit Stop Cobra": [
         {
           "date": "2026-08-08",
@@ -6883,6 +6933,15 @@
           "bodyweight": true
         }
       ],
+      "Reverse Crunch": [
+        {
+          "date": "2026-09-08",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
       "Reverse Crunch Hollow Hold": [
         {
           "date": "2026-08-06",
@@ -6983,6 +7042,22 @@
           "sets": 3,
           "weight_lb": 35,
           "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-09-08",
+          "sets": null,
+          "weight_lb": 25,
+          "reps": 10,
+          "bodyweight": false
+        }
+      ],
+      "Shoulder Raise (21's)": [
+        {
+          "date": "2026-09-08",
+          "sets": null,
+          "weight_lb": 25,
+          "reps": 21,
           "bodyweight": false
         }
       ],
@@ -7160,6 +7235,13 @@
           "sets": null,
           "weight_lb": 60,
           "reps": 12,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-09-08",
+          "sets": null,
+          "weight_lb": 70,
+          "reps": null,
           "bodyweight": false
         }
       ],
@@ -8508,6 +8590,85 @@
           },
           {
             "name": "Max Life Child's Pose",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-09-08",
+        "title": "Coach Brian (Week 6, Day 2 \u2014 Upper Body Push + Shoulders + Core)",
+        "volume_reps": null,
+        "volume_lb": null,
+        "exercise_count": 10,
+        "exercises": [
+          {
+            "name": "Bench Press",
+            "sets": null,
+            "weight_lb": 70,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Shoulder Press (Seated)",
+            "sets": null,
+            "weight_lb": 25,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Chest Fly",
+            "sets": null,
+            "weight_lb": 50,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Tricep Kickback",
+            "sets": null,
+            "weight_lb": 70,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Front Raise",
+            "sets": null,
+            "weight_lb": 30,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Shoulder Raise (21's)",
+            "sets": null,
+            "weight_lb": 25,
+            "reps": 21,
+            "bodyweight": false
+          },
+          {
+            "name": "Coremaxxing V Sit Kick Out",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Reverse Crunch",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Flutter Kick",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Peace Out Child's Pose Thread The Needle (r)",
             "sets": null,
             "weight_lb": null,
             "reps": null,
