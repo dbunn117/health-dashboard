@@ -15,7 +15,7 @@ from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 
-LOG_PATH = Path('/root/obsidian/David OS/03 Health/Ladder Workout Log.md')
+LOG_PATH = Path('/root/obsidian/David OS/03 Health/Training & Diet/Ladder Workout Log.md')
 DASHBOARD_JSON = Path('/root/health-dashboard/data/dashboard_data.json')
 
 # Bodyweight exercises to skip for weight tracking
