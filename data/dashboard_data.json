@@ -5867,8 +5867,8 @@
     "total_reps": 1639,
     "total_volume_lb": 84000.0,
     "date_range": {
-      "start": "2026-08-15",
-      "end": "2026-09-10"
+      "start": "2026-08-18",
+      "end": "2026-09-14"
     },
     "exercises": [
       "5 Butt Kicks + 5 Jumping Jacks",
@@ -5876,12 +5876,14 @@
       "Another Level High Pull",
       "Be And Believe Cat Cow Floating Knees",
       "Bear Hold Pull Through",
+      "Beast Mode Plank Jack",
       "Beat The Heat Halo (kneeling, Alt.)",
       "Bench Press",
       "Bent Over Reverse Fly",
       "Bent Over Row",
       "Bicep Curl",
       "Bicycle Crunch",
+      "Built To Last Deadlift",
       "Bulgarian Split Squat (L)",
       "Bulgarian Split Squat (R)",
       "Cat Cow Floating Knees",
@@ -5896,7 +5898,9 @@
       "Finish Cobra",
       "Flutter Kick",
       "Forearm Plank",
+      "Forever Strong Forward Lunge (alt)",
       "Front Raise",
+      "Full Send Thruster (alternating)",
       "Fwd Force Forward Lunge (alternating)",
       "Glute Bridge",
       "Goblet March",
@@ -5913,12 +5917,14 @@
       "Max Life Child's Pose",
       "Max Split Test Split Squat (r)",
       "Move And Groove Cobra",
+      "Own It Kneeling Hip Flexor Opener Static",
       "Peace Out Child's Pose Thread The Needle (r)",
       "Plank Pull Through (alternating)",
       "Plank Test Forearm Plank",
       "Primal Pull Gorilla Row (alternating)",
       "Push Up",
       "Pushup",
+      "Raise The Roof Shoulder Raise (21's)",
       "Rear Delt Row",
       "Reload Plank Test Forearm Plank",
       "Reset Now Wide Leg Toe Reach Static",
@@ -5933,6 +5939,8 @@
       "Shoulder Tap (alternating)",
       "Single Shoot Deadlift Single Leg (r)",
       "Sit Up Press",
+      "Sit Up Tuck",
+      "Standing Calf Raise (deficit)",
       "Sumo Squat",
       "Superman",
       "Swing",
@@ -5946,7 +5954,7 @@
       "Upright Row",
       "Zottman Curl"
     ],
-    "exercise_count": 74,
+    "exercise_count": 82,
     "by_exercise": {
       "5 Butt Kicks + 5 Jumping Jacks": [
         {
@@ -6019,6 +6027,15 @@
           "weight_lb": null,
           "reps": null,
           "bodyweight": false
+        }
+      ],
+      "Beast Mode Plank Jack": [
+        {
+          "date": "2026-09-14",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
         }
       ],
       "Beat The Heat Halo (kneeling, Alt.)": [
@@ -6185,6 +6202,15 @@
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
+        }
+      ],
+      "Built To Last Deadlift": [
+        {
+          "date": "2026-09-14",
+          "sets": null,
+          "weight_lb": 140,
+          "reps": 10,
+          "bodyweight": false
         }
       ],
       "Bulgarian Split Squat (L)": [
@@ -6383,12 +6409,30 @@
           "bodyweight": true
         }
       ],
+      "Forever Strong Forward Lunge (alt)": [
+        {
+          "date": "2026-09-14",
+          "sets": null,
+          "weight_lb": 130,
+          "reps": 10,
+          "bodyweight": false
+        }
+      ],
       "Front Raise": [
         {
           "date": "2026-09-08",
           "sets": null,
           "weight_lb": 30,
           "reps": 12,
+          "bodyweight": false
+        }
+      ],
+      "Full Send Thruster (alternating)": [
+        {
+          "date": "2026-09-14",
+          "sets": null,
+          "weight_lb": 50,
+          "reps": 10,
           "bodyweight": false
         }
       ],
@@ -6627,6 +6671,15 @@
           "bodyweight": true
         }
       ],
+      "Own It Kneeling Hip Flexor Opener Static": [
+        {
+          "date": "2026-09-14",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
       "Peace Out Child's Pose Thread The Needle (r)": [
         {
           "date": "2026-09-08",
@@ -6679,6 +6732,15 @@
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
+        }
+      ],
+      "Raise The Roof Shoulder Raise (21's)": [
+        {
+          "date": "2026-09-14",
+          "sets": null,
+          "weight_lb": 25,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Rear Delt Row": [
@@ -6793,6 +6855,13 @@
           "weight_lb": null,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-14",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Shoulder Current Arnold Press (seated)": [
@@ -6853,6 +6922,24 @@
           "sets": null,
           "weight_lb": null,
           "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Sit Up Tuck": [
+        {
+          "date": "2026-09-14",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Standing Calf Raise (deficit)": [
+        {
+          "date": "2026-09-14",
+          "sets": null,
+          "weight_lb": 140,
+          "reps": 20,
           "bodyweight": false
         }
       ],
@@ -8045,6 +8132,78 @@
             "weight_lb": null,
             "reps": null,
             "bodyweight": false
+          }
+        ]
+      },
+      {
+        "date": "2026-09-14",
+        "title": "Coach Brian (Week 7, Day 1 \u2014 Full Body + Conditioning)",
+        "volume_reps": null,
+        "volume_lb": null,
+        "exercise_count": 9,
+        "exercises": [
+          {
+            "name": "Full Send Thruster (alternating)",
+            "sets": null,
+            "weight_lb": 50,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Forever Strong Forward Lunge (alt)",
+            "sets": null,
+            "weight_lb": 130,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Raise The Roof Shoulder Raise (21's)",
+            "sets": null,
+            "weight_lb": 25,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Built To Last Deadlift",
+            "sets": null,
+            "weight_lb": 140,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Standing Calf Raise (deficit)",
+            "sets": null,
+            "weight_lb": 140,
+            "reps": 20,
+            "bodyweight": false
+          },
+          {
+            "name": "Beast Mode Plank Jack",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Sit Up Tuck",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Russian Twist",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Own It Kneeling Hip Flexor Opener Static",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
           }
         ]
       }
