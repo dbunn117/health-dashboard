@@ -5919,12 +5919,12 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 21,
+    "workouts": 23,
     "total_reps": 1639,
     "total_volume_lb": 84000.0,
     "date_range": {
       "start": "2026-08-18",
-      "end": "2026-09-14"
+      "end": "2026-09-16"
     },
     "exercises": [
       "5 Butt Kicks + 5 Jumping Jacks",
@@ -5950,9 +5950,11 @@
       "Core Toaster Hollow Body Rock",
       "Coremaxxing V Sit Kick Out",
       "Deadlift Single Leg (l)",
+      "Elevate Energy Shoulder Press",
       "Fast Break Cat Cow (floating Knees)",
       "Finish Cobra",
       "Flutter Kick",
+      "Focus Power Commando To 4 Shoulder Taps",
       "Forearm Plank",
       "Forever Strong Forward Lunge (alt)",
       "Front Raise",
@@ -5967,6 +5969,7 @@
       "Hammer Curl (Alternating)",
       "Hand Release Pushup",
       "Holy Moly Sumo Squat (front Rack)",
+      "Keep Becoming Cat Cow",
       "Keep Climbing Step Up (alternating)",
       "Lateral Raise",
       "Marathon Mindset Shoulder Raise (21's)",
@@ -6010,7 +6013,7 @@
       "Upright Row",
       "Zottman Curl"
     ],
-    "exercise_count": 82,
+    "exercise_count": 85,
     "by_exercise": {
       "5 Butt Kicks + 5 Jumping Jacks": [
         {
@@ -6130,6 +6133,13 @@
           "sets": null,
           "weight_lb": 70,
           "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-09-16",
+          "sets": null,
+          "weight_lb": 65,
+          "reps": 10,
           "bodyweight": false
         }
       ],
@@ -6354,6 +6364,13 @@
           "weight_lb": 50,
           "reps": 10,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-16",
+          "sets": null,
+          "weight_lb": 45,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Commando To 4 Shoulder Taps": [
@@ -6397,6 +6414,15 @@
           "date": "2026-09-03",
           "sets": null,
           "weight_lb": 130,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Elevate Energy Shoulder Press": [
+        {
+          "date": "2026-09-16",
+          "sets": null,
+          "weight_lb": 35,
           "reps": null,
           "bodyweight": false
         }
@@ -6449,6 +6475,15 @@
           "bodyweight": true
         }
       ],
+      "Focus Power Commando To 4 Shoulder Taps": [
+        {
+          "date": "2026-09-16",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
       "Forearm Plank": [
         {
           "date": "2026-08-25",
@@ -6480,6 +6515,13 @@
           "sets": null,
           "weight_lb": 30,
           "reps": 12,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-09-16",
+          "sets": null,
+          "weight_lb": 25,
+          "reps": null,
           "bodyweight": false
         }
       ],
@@ -6650,6 +6692,15 @@
           "weight_lb": 110,
           "reps": 8,
           "bodyweight": false
+        }
+      ],
+      "Keep Becoming Cat Cow": [
+        {
+          "date": "2026-09-16",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
         }
       ],
       "Keep Climbing Step Up (alternating)": [
@@ -7085,6 +7136,13 @@
         {
           "date": "2026-08-28",
           "sets": 3,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        },
+        {
+          "date": "2026-09-16",
+          "sets": null,
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
@@ -8256,6 +8314,64 @@
           },
           {
             "name": "Own It Kneeling Hip Flexor Opener Static",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
+      },
+      {
+        "date": "2026-09-16",
+        "title": "Coach Brian (Week 7, Day 2 \u2014 Upper Body Push) \ud83d\udcaa",
+        "volume_reps": null,
+        "volume_lb": null,
+        "exercise_count": 7,
+        "exercises": [
+          {
+            "name": "Bench Press",
+            "sets": null,
+            "weight_lb": 65,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Elevate Energy Shoulder Press",
+            "sets": null,
+            "weight_lb": 35,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Chest Fly",
+            "sets": null,
+            "weight_lb": 45,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Front Raise",
+            "sets": null,
+            "weight_lb": 25,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Tricep Pushup",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Focus Power Commando To 4 Shoulder Taps",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Keep Becoming Cat Cow",
             "sets": null,
             "weight_lb": null,
             "reps": null,
