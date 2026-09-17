@@ -5892,11 +5892,11 @@
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
     "workouts": 23,
-    "total_reps": 1639,
-    "total_volume_lb": 84000.0,
+    "total_reps": 1385,
+    "total_volume_lb": 73000.0,
     "date_range": {
-      "start": "2026-08-18",
-      "end": "2026-09-16"
+      "start": "2026-08-19",
+      "end": "2026-09-17"
     },
     "exercises": [
       "5 Butt Kicks + 5 Jumping Jacks",
@@ -5917,9 +5917,7 @@
       "Cat Cow Floating Knees",
       "Charged 4 Life",
       "Chest Fly",
-      "Commando To 4 Shoulder Taps",
       "Completion Downward Dog To Hip Opener (alt.)",
-      "Core Toaster Hollow Body Rock",
       "Coremaxxing V Sit Kick Out",
       "Deadlift Single Leg (l)",
       "Elevate Energy Shoulder Press",
@@ -5940,8 +5938,10 @@
       "Hammer Curl",
       "Hammer Curl (Alternating)",
       "Hand Release Pushup",
+      "Hip Thrust",
       "Holy Moly Sumo Squat (front Rack)",
       "Keep Becoming Cat Cow",
+      "Keep Climbing Squat To Reverse Lunge (alt)",
       "Keep Climbing Step Up (alternating)",
       "Lateral Raise",
       "Marathon Mindset Shoulder Raise (21's)",
@@ -5957,7 +5957,6 @@
       "Pushup",
       "Raise The Roof Shoulder Raise (21's)",
       "Rear Delt Row",
-      "Reload Plank Test Forearm Plank",
       "Reset Now Wide Leg Toe Reach Static",
       "Resetting Cobra",
       "Reverse Crunch",
@@ -5975,7 +5974,6 @@
       "Sumo Squat",
       "Superman",
       "Swing",
-      "Time Under Pushup (eccentric)",
       "Tricep Dip (Elevated)",
       "Tricep Kickback",
       "Tricep Pushup",
@@ -5983,9 +5981,10 @@
       "Unlock Energy Hamstring Sweep (r/l)",
       "Unlock Now Mountain Climber (knee To Elbow)",
       "Upright Row",
+      "Wall Sit",
       "Zottman Curl"
     ],
-    "exercise_count": 85,
+    "exercise_count": 84,
     "by_exercise": {
       "5 Butt Kicks + 5 Jumping Jacks": [
         {
@@ -6272,6 +6271,13 @@
           "weight_lb": 150,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-17",
+          "sets": null,
+          "weight_lb": 110,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Bulgarian Split Squat (R)": [
@@ -6286,6 +6292,13 @@
           "date": "2026-08-26",
           "sets": 3,
           "weight_lb": 100,
+          "reps": null,
+          "bodyweight": false
+        },
+        {
+          "date": "2026-09-17",
+          "sets": null,
+          "weight_lb": 110,
           "reps": null,
           "bodyweight": false
         }
@@ -6345,27 +6358,9 @@
           "bodyweight": false
         }
       ],
-      "Commando To 4 Shoulder Taps": [
-        {
-          "date": "2026-08-18",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
       "Completion Downward Dog To Hip Opener (alt.)": [
         {
           "date": "2026-08-28",
-          "sets": null,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
-      "Core Toaster Hollow Body Rock": [
-        {
-          "date": "2026-08-18",
           "sets": null,
           "weight_lb": null,
           "reps": null,
@@ -6517,13 +6512,6 @@
       ],
       "Glute Bridge": [
         {
-          "date": "2026-08-18",
-          "sets": 3,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
           "date": "2026-09-09",
           "sets": null,
           "weight_lb": null,
@@ -6564,13 +6552,6 @@
         }
       ],
       "Goblet Squat": [
-        {
-          "date": "2026-08-18",
-          "sets": 3,
-          "weight_lb": 120,
-          "reps": null,
-          "bodyweight": false
-        },
         {
           "date": "2026-08-24",
           "sets": null,
@@ -6627,13 +6608,6 @@
       ],
       "Hammer Curl (Alternating)": [
         {
-          "date": "2026-08-18",
-          "sets": 3,
-          "weight_lb": 40,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
           "date": "2026-08-24",
           "sets": 3,
           "weight_lb": 35,
@@ -6657,6 +6631,15 @@
           "bodyweight": true
         }
       ],
+      "Hip Thrust": [
+        {
+          "date": "2026-09-17",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
       "Holy Moly Sumo Squat (front Rack)": [
         {
           "date": "2026-08-20",
@@ -6675,6 +6658,15 @@
           "bodyweight": true
         }
       ],
+      "Keep Climbing Squat To Reverse Lunge (alt)": [
+        {
+          "date": "2026-09-17",
+          "sets": null,
+          "weight_lb": 70,
+          "reps": 10,
+          "bodyweight": false
+        }
+      ],
       "Keep Climbing Step Up (alternating)": [
         {
           "date": "2026-09-03",
@@ -6685,13 +6677,6 @@
         }
       ],
       "Lateral Raise": [
-        {
-          "date": "2026-08-18",
-          "sets": 3,
-          "weight_lb": 40,
-          "reps": null,
-          "bodyweight": false
-        },
         {
           "date": "2026-08-19",
           "sets": 3,
@@ -6838,18 +6823,16 @@
           "bodyweight": false
         }
       ],
-      "Reload Plank Test Forearm Plank": [
-        {
-          "date": "2026-08-18",
-          "sets": 1,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
-        }
-      ],
       "Reset Now Wide Leg Toe Reach Static": [
         {
           "date": "2026-09-09",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        },
+        {
+          "date": "2026-09-17",
           "sets": null,
           "weight_lb": null,
           "reps": null,
@@ -6904,16 +6887,16 @@
           "weight_lb": 160,
           "reps": null,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-17",
+          "sets": null,
+          "weight_lb": 150,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Russian Twist": [
-        {
-          "date": "2026-08-18",
-          "sets": null,
-          "weight_lb": 25,
-          "reps": null,
-          "bodyweight": false
-        },
         {
           "date": "2026-08-28",
           "sets": 2,
@@ -7061,15 +7044,13 @@
           "weight_lb": 50,
           "reps": 12,
           "bodyweight": false
-        }
-      ],
-      "Time Under Pushup (eccentric)": [
+        },
         {
-          "date": "2026-08-18",
-          "sets": 3,
-          "weight_lb": null,
-          "reps": null,
-          "bodyweight": true
+          "date": "2026-09-17",
+          "sets": null,
+          "weight_lb": 75,
+          "reps": 12,
+          "bodyweight": false
         }
       ],
       "Tricep Dip (Elevated)": [
@@ -7163,6 +7144,15 @@
           "bodyweight": false
         }
       ],
+      "Wall Sit": [
+        {
+          "date": "2026-09-17",
+          "sets": 3,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
       "Zottman Curl": [
         {
           "date": "2026-08-22",
@@ -7174,78 +7164,6 @@
       ]
     },
     "workout_details": [
-      {
-        "date": "2026-08-18",
-        "title": "Coach Brian (Week 3, Day 1 \u2014 Legs + Full Body) \"Earth Power\"",
-        "volume_reps": 254,
-        "volume_lb": 11000.0,
-        "exercise_count": 9,
-        "exercises": [
-          {
-            "name": "Goblet Squat",
-            "sets": 3,
-            "weight_lb": 120,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Lateral Raise",
-            "sets": 3,
-            "weight_lb": 40,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Hammer Curl (Alternating)",
-            "sets": 3,
-            "weight_lb": 40,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Time Under Pushup (eccentric)",
-            "sets": 3,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Glute Bridge",
-            "sets": 3,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Core Toaster Hollow Body Rock",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Russian Twist",
-            "sets": null,
-            "weight_lb": 25,
-            "reps": null,
-            "bodyweight": false
-          },
-          {
-            "name": "Commando To 4 Shoulder Taps",
-            "sets": null,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          },
-          {
-            "name": "Reload Plank Test Forearm Plank",
-            "sets": 1,
-            "weight_lb": null,
-            "reps": null,
-            "bodyweight": true
-          }
-        ]
-      },
       {
         "date": "2026-08-19",
         "title": "Coach Brian (Week 3, Day 2 \u2014 Upper Body Push) \"New Benchmark\"",
@@ -8350,7 +8268,288 @@
             "bodyweight": true
           }
         ]
+      },
+      {
+        "date": "2026-09-17",
+        "title": "Coach Brian (Week 7, Day 3 \u2014 Leg Day)",
+        "volume_reps": null,
+        "volume_lb": null,
+        "exercise_count": 8,
+        "exercises": [
+          {
+            "name": "Bulgarian Split Squat (R)",
+            "sets": null,
+            "weight_lb": 110,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Bulgarian Split Squat (L)",
+            "sets": null,
+            "weight_lb": 110,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Romanian Deadlift",
+            "sets": null,
+            "weight_lb": 150,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Keep Climbing Squat To Reverse Lunge (alt)",
+            "sets": null,
+            "weight_lb": 70,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Swing",
+            "sets": null,
+            "weight_lb": 75,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Hip Thrust",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Wall Sit",
+            "sets": 3,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Reset Now Wide Leg Toe Reach Static",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
       }
     ]
+  },
+  "streak_tracker": {
+    "current_streak": 1,
+    "best_streak": 5,
+    "current_tier": null,
+    "days_to_next_tier": 6,
+    "calendar": [
+      {
+        "date": "2026-08-18",
+        "win": false,
+        "tir": 49.8,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-19",
+        "win": true,
+        "tir": 76.4,
+        "low": 1.74
+      },
+      {
+        "date": "2026-08-20",
+        "win": false,
+        "tir": 84.0,
+        "low": 3.12
+      },
+      {
+        "date": "2026-08-21",
+        "win": true,
+        "tir": 80.2,
+        "low": 1.74
+      },
+      {
+        "date": "2026-08-22",
+        "win": true,
+        "tir": 82.3,
+        "low": 1.74
+      },
+      {
+        "date": "2026-08-23",
+        "win": false,
+        "tir": 68.8,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-24",
+        "win": false,
+        "tir": 70.5,
+        "low": 1.74
+      },
+      {
+        "date": "2026-08-25",
+        "win": false,
+        "tir": 42.7,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-26",
+        "win": false,
+        "tir": 72.6,
+        "low": 1.39
+      },
+      {
+        "date": "2026-08-27",
+        "win": true,
+        "tir": 75.0,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-28",
+        "win": false,
+        "tir": 91.5,
+        "low": 3.31
+      },
+      {
+        "date": "2026-08-29",
+        "win": false,
+        "tir": 71.9,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-30",
+        "win": true,
+        "tir": 86.4,
+        "low": 0.7
+      },
+      {
+        "date": "2026-08-31",
+        "win": true,
+        "tir": 78.8,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-01",
+        "win": false,
+        "tir": 62.1,
+        "low": 0.69
+      },
+      {
+        "date": "2026-09-02",
+        "win": true,
+        "tir": 92.4,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-03",
+        "win": true,
+        "tir": 92.4,
+        "low": 0.69
+      },
+      {
+        "date": "2026-09-04",
+        "win": false,
+        "tir": 52.6,
+        "low": 2.09
+      },
+      {
+        "date": "2026-09-05",
+        "win": true,
+        "tir": 83.7,
+        "low": 1.39
+      },
+      {
+        "date": "2026-09-06",
+        "win": false,
+        "tir": 62.0,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-07",
+        "win": false,
+        "tir": 58.0,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-08",
+        "win": false,
+        "tir": 41.3,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-09",
+        "win": false,
+        "tir": 78.1,
+        "low": 3.12
+      },
+      {
+        "date": "2026-09-10",
+        "win": true,
+        "tir": 77.1,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-11",
+        "win": true,
+        "tir": 86.4,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-12",
+        "win": false,
+        "tir": 74.1,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-13",
+        "win": true,
+        "tir": 89.9,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-14",
+        "win": true,
+        "tir": 86.1,
+        "low": 1.39
+      },
+      {
+        "date": "2026-09-15",
+        "win": false,
+        "tir": 56.2,
+        "low": 1.06
+      },
+      {
+        "date": "2026-09-16",
+        "win": true,
+        "tir": 77.4,
+        "low": 0.69
+      }
+    ],
+    "last_check": "2026-09-17",
+    "rules": {
+      "version": 1,
+      "set_date": "2026-09-16",
+      "win_day": "TIR >= 75% AND low% < 2%",
+      "streak_tiers": [
+        {
+          "days": 7,
+          "name": "Bronze"
+        },
+        {
+          "days": 14,
+          "name": "Silver"
+        },
+        {
+          "days": 21,
+          "name": "Gold"
+        },
+        {
+          "days": 30,
+          "name": "Diamond"
+        },
+        {
+          "days": 60,
+          "name": "Legendary"
+        }
+      ]
+    }
   }
 }
