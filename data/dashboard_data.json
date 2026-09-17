@@ -8380,5 +8380,58 @@
         ]
       }
     ]
+  },
+  "diabetes_goals": {
+    "set_date": "2026-09-16",
+    "tir_targets": {
+      "green": {
+        "label": "Exceptional",
+        "range": ">85%"
+      },
+      "target": {
+        "label": "Good - Primary Goal",
+        "range": ">75%"
+      },
+      "warning": {
+        "label": "Needs attention",
+        "range": "65-75%"
+      },
+      "alert": {
+        "label": "Poor",
+        "range": "<65%"
+      }
+    },
+    "metrics": [
+      {
+        "metric": "TIR 70-180",
+        "current_30d": 71.9,
+        "goal": ">75%"
+      },
+      {
+        "metric": "Low % (<70)",
+        "current_30d": 1.5,
+        "goal": "<1%"
+      },
+      {
+        "metric": "Very Low % (<54)",
+        "current_30d": 0.3,
+        "goal": "<0.1%"
+      },
+      {
+        "metric": "Stddev",
+        "current_30d": 38,
+        "goal": "<30"
+      },
+      {
+        "metric": "Overnight avg",
+        "current_30d": 150,
+        "goal": "<160"
+      },
+      {
+        "metric": "HbA1c",
+        "current": "7.3%",
+        "goal": "<7.0%"
+      }
+    ]
   }
 }
