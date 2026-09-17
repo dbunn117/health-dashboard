@@ -8435,38 +8435,6 @@
     ]
   },
   "streak_tracker": {
-    "rules": {
-      "version": 1,
-      "set_date": "2026-09-16",
-      "win_day": "TIR >= 75% AND low% < 2%",
-      "streak_tiers": [
-        {
-          "days": 7,
-          "name": "Bronze",
-          "icon": "\ud83e\udd49"
-        },
-        {
-          "days": 14,
-          "name": "Silver",
-          "icon": "\ud83e\udd48"
-        },
-        {
-          "days": 21,
-          "name": "Gold",
-          "icon": "\ud83e\udd47"
-        },
-        {
-          "days": 30,
-          "name": "Diamond",
-          "icon": "\ud83d\udc8e"
-        },
-        {
-          "days": 60,
-          "name": "Legendary",
-          "icon": "\ud83c\udfc6"
-        }
-      ]
-    },
     "current_streak": 0,
     "best_streak": 5,
     "current_tier": null,
@@ -8653,6 +8621,33 @@
         "low": 1.32
       }
     ],
-    "last_update": "2026-09-16"
+    "last_check": "2026-09-16",
+    "rules": {
+      "version": 1,
+      "set_date": "2026-09-16",
+      "win_day": "TIR >= 75% AND low% < 2%",
+      "streak_tiers": [
+        {
+          "days": 7,
+          "name": "Bronze"
+        },
+        {
+          "days": 14,
+          "name": "Silver"
+        },
+        {
+          "days": 21,
+          "name": "Gold"
+        },
+        {
+          "days": 30,
+          "name": "Diamond"
+        },
+        {
+          "days": 60,
+          "name": "Legendary"
+        }
+      ]
+    }
   }
 }
