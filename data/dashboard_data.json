@@ -8433,5 +8433,226 @@
         "goal": "<7.0%"
       }
     ]
+  },
+  "streak_tracker": {
+    "rules": {
+      "version": 1,
+      "set_date": "2026-09-16",
+      "win_day": "TIR >= 75% AND low% < 2%",
+      "streak_tiers": [
+        {
+          "days": 7,
+          "name": "Bronze",
+          "icon": "\ud83e\udd49"
+        },
+        {
+          "days": 14,
+          "name": "Silver",
+          "icon": "\ud83e\udd48"
+        },
+        {
+          "days": 21,
+          "name": "Gold",
+          "icon": "\ud83e\udd47"
+        },
+        {
+          "days": 30,
+          "name": "Diamond",
+          "icon": "\ud83d\udc8e"
+        },
+        {
+          "days": 60,
+          "name": "Legendary",
+          "icon": "\ud83c\udfc6"
+        }
+      ]
+    },
+    "current_streak": 0,
+    "best_streak": 5,
+    "current_tier": null,
+    "days_to_next_tier": 7,
+    "calendar": [
+      {
+        "date": "2026-08-17",
+        "win": false,
+        "tir": 67.0,
+        "low": 3.0
+      },
+      {
+        "date": "2026-08-18",
+        "win": false,
+        "tir": 49.8,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-19",
+        "win": true,
+        "tir": 76.4,
+        "low": 1.74
+      },
+      {
+        "date": "2026-08-20",
+        "win": false,
+        "tir": 84.0,
+        "low": 3.12
+      },
+      {
+        "date": "2026-08-21",
+        "win": true,
+        "tir": 80.2,
+        "low": 1.74
+      },
+      {
+        "date": "2026-08-22",
+        "win": true,
+        "tir": 82.3,
+        "low": 1.74
+      },
+      {
+        "date": "2026-08-23",
+        "win": false,
+        "tir": 68.8,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-24",
+        "win": false,
+        "tir": 70.5,
+        "low": 1.74
+      },
+      {
+        "date": "2026-08-25",
+        "win": false,
+        "tir": 42.7,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-26",
+        "win": false,
+        "tir": 72.6,
+        "low": 1.39
+      },
+      {
+        "date": "2026-08-27",
+        "win": true,
+        "tir": 75.0,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-28",
+        "win": false,
+        "tir": 91.5,
+        "low": 3.31
+      },
+      {
+        "date": "2026-08-29",
+        "win": false,
+        "tir": 71.9,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-30",
+        "win": true,
+        "tir": 86.4,
+        "low": 0.7
+      },
+      {
+        "date": "2026-08-31",
+        "win": true,
+        "tir": 78.8,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-01",
+        "win": false,
+        "tir": 62.1,
+        "low": 0.69
+      },
+      {
+        "date": "2026-09-02",
+        "win": true,
+        "tir": 92.4,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-03",
+        "win": true,
+        "tir": 92.4,
+        "low": 0.69
+      },
+      {
+        "date": "2026-09-04",
+        "win": false,
+        "tir": 52.6,
+        "low": 2.09
+      },
+      {
+        "date": "2026-09-05",
+        "win": true,
+        "tir": 83.7,
+        "low": 1.39
+      },
+      {
+        "date": "2026-09-06",
+        "win": false,
+        "tir": 62.0,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-07",
+        "win": false,
+        "tir": 58.0,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-08",
+        "win": false,
+        "tir": 41.3,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-09",
+        "win": false,
+        "tir": 78.1,
+        "low": 3.12
+      },
+      {
+        "date": "2026-09-10",
+        "win": true,
+        "tir": 77.1,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-11",
+        "win": true,
+        "tir": 86.4,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-12",
+        "win": false,
+        "tir": 74.1,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-13",
+        "win": true,
+        "tir": 89.9,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-14",
+        "win": true,
+        "tir": 86.1,
+        "low": 1.39
+      },
+      {
+        "date": "2026-09-15",
+        "win": false,
+        "tir": 52.2,
+        "low": 1.32
+      }
+    ],
+    "last_update": "2026-09-16"
   }
 }
