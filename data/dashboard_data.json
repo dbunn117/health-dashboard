@@ -5891,12 +5891,12 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 22,
-    "total_reps": 1208,
-    "total_volume_lb": 65300.0,
+    "workouts": 23,
+    "total_reps": 1034,
+    "total_volume_lb": 45300.0,
     "date_range": {
-      "start": "2026-08-20",
-      "end": "2026-09-17"
+      "start": "2026-08-22",
+      "end": "2026-09-19"
     },
     "exercises": [
       "5 Butt Kicks + 5 Jumping Jacks",
@@ -5916,6 +5916,7 @@
       "Cat Cow Floating Knees",
       "Charged 4 Life",
       "Chest Fly",
+      "Commando Plank (alternating)",
       "Completion Downward Dog To Hip Opener (alt.)",
       "Coremaxxing V Sit Kick Out",
       "Deadlift Single Leg (l)",
@@ -5938,7 +5939,7 @@
       "Hammer Curl (Alternating)",
       "Hand Release Pushup",
       "Hip Thrust",
-      "Holy Moly Sumo Squat (front Rack)",
+      "Increase Vitality Renegade Row To Pushup",
       "Keep Becoming Cat Cow",
       "Keep Climbing Squat To Reverse Lunge (alt)",
       "Keep Climbing Step Up (alternating)",
@@ -5946,6 +5947,7 @@
       "Marathon Mindset Shoulder Raise (21's)",
       "Max Life Child's Pose",
       "Max Split Test Split Squat (r)",
+      "Overhead Tricep Extension",
       "Own It Kneeling Hip Flexor Opener Static",
       "Peace Out Child's Pose Thread The Needle (r)",
       "Plank Pull Through (alternating)",
@@ -5953,6 +5955,7 @@
       "Primal Pull Gorilla Row (alternating)",
       "Push Up",
       "Pushup",
+      "Pushup (eccentric)",
       "Raise The Roof Shoulder Raise (21's)",
       "Rear Delt Row",
       "Reset Now Wide Leg Toe Reach Static",
@@ -5961,10 +5964,13 @@
       "Reverse Curl",
       "Romanian Deadlift",
       "Russian Twist",
+      "Share Wins Air Squat Deep Hold",
       "Shoulder Current Arnold Press (seated)",
       "Shoulder Press (Seated)",
       "Shoulder Raise (21's)",
       "Shoulder Tap (alternating)",
+      "Side Plank Reach (L)",
+      "Side Plank Reach (R)",
       "Single Shoot Deadlift Single Leg (r)",
       "Sit Up Press",
       "Sit Up Tuck",
@@ -5982,7 +5988,7 @@
       "Wall Sit",
       "Zottman Curl"
     ],
-    "exercise_count": 82,
+    "exercise_count": 88,
     "by_exercise": {
       "5 Butt Kicks + 5 Jumping Jacks": [
         {
@@ -6227,13 +6233,6 @@
       ],
       "Bulgarian Split Squat (L)": [
         {
-          "date": "2026-08-20",
-          "sets": null,
-          "weight_lb": 150,
-          "reps": 8,
-          "bodyweight": false
-        },
-        {
           "date": "2026-08-26",
           "sets": 3,
           "weight_lb": 100,
@@ -6256,13 +6255,6 @@
         }
       ],
       "Bulgarian Split Squat (R)": [
-        {
-          "date": "2026-08-20",
-          "sets": null,
-          "weight_lb": 160,
-          "reps": 10,
-          "bodyweight": false
-        },
         {
           "date": "2026-08-26",
           "sets": 3,
@@ -6324,6 +6316,15 @@
           "weight_lb": 45,
           "reps": null,
           "bodyweight": false
+        }
+      ],
+      "Commando Plank (alternating)": [
+        {
+          "date": "2026-09-19",
+          "sets": 3,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
         }
       ],
       "Completion Downward Dog To Hip Opener (alt.)": [
@@ -6482,13 +6483,6 @@
       ],
       "Goblet March": [
         {
-          "date": "2026-08-20",
-          "sets": 2,
-          "weight_lb": 70,
-          "reps": null,
-          "bodyweight": false
-        },
-        {
           "date": "2026-08-24",
           "sets": null,
           "weight_lb": 70,
@@ -6565,6 +6559,13 @@
           "weight_lb": 35,
           "reps": 12,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-19",
+          "sets": null,
+          "weight_lb": 30,
+          "reps": 10,
+          "bodyweight": false
         }
       ],
       "Hammer Curl (Alternating)": [
@@ -6601,12 +6602,12 @@
           "bodyweight": false
         }
       ],
-      "Holy Moly Sumo Squat (front Rack)": [
+      "Increase Vitality Renegade Row To Pushup": [
         {
-          "date": "2026-08-20",
+          "date": "2026-09-19",
           "sets": null,
-          "weight_lb": 110,
-          "reps": 8,
+          "weight_lb": 25,
+          "reps": null,
           "bodyweight": false
         }
       ],
@@ -6680,6 +6681,15 @@
           "bodyweight": false
         }
       ],
+      "Overhead Tricep Extension": [
+        {
+          "date": "2026-09-19",
+          "sets": null,
+          "weight_lb": 30,
+          "reps": 10,
+          "bodyweight": false
+        }
+      ],
       "Own It Kneeling Hip Flexor Opener Static": [
         {
           "date": "2026-09-14",
@@ -6738,6 +6748,15 @@
         {
           "date": "2026-08-24",
           "sets": 3,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "Pushup (eccentric)": [
+        {
+          "date": "2026-09-19",
+          "sets": null,
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
@@ -6871,6 +6890,15 @@
           "bodyweight": false
         }
       ],
+      "Share Wins Air Squat Deep Hold": [
+        {
+          "date": "2026-09-19",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
       "Shoulder Current Arnold Press (seated)": [
         {
           "date": "2026-09-02",
@@ -6905,6 +6933,24 @@
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
+        }
+      ],
+      "Side Plank Reach (L)": [
+        {
+          "date": "2026-09-19",
+          "sets": 2,
+          "weight_lb": 15,
+          "reps": null,
+          "bodyweight": false
+        }
+      ],
+      "Side Plank Reach (R)": [
+        {
+          "date": "2026-09-19",
+          "sets": 2,
+          "weight_lb": 15,
+          "reps": null,
+          "bodyweight": false
         }
       ],
       "Single Shoot Deadlift Single Leg (r)": [
@@ -6962,13 +7008,6 @@
         }
       ],
       "Swing": [
-        {
-          "date": "2026-08-20",
-          "sets": null,
-          "weight_lb": 70,
-          "reps": 14,
-          "bodyweight": false
-        },
         {
           "date": "2026-08-26",
           "sets": 2,
@@ -7095,50 +7134,6 @@
       ]
     },
     "workout_details": [
-      {
-        "date": "2026-08-20",
-        "title": "Coach Brian (Week 3, Day 3 \u2014 Lower Body) \"Solo Yolo\"",
-        "volume_reps": 174,
-        "volume_lb": 20000.0,
-        "exercise_count": 5,
-        "exercises": [
-          {
-            "name": "Bulgarian Split Squat (R)",
-            "sets": null,
-            "weight_lb": 160,
-            "reps": 10,
-            "bodyweight": false
-          },
-          {
-            "name": "Bulgarian Split Squat (L)",
-            "sets": null,
-            "weight_lb": 150,
-            "reps": 8,
-            "bodyweight": false
-          },
-          {
-            "name": "Holy Moly Sumo Squat (front Rack)",
-            "sets": null,
-            "weight_lb": 110,
-            "reps": 8,
-            "bodyweight": false
-          },
-          {
-            "name": "Swing",
-            "sets": null,
-            "weight_lb": 70,
-            "reps": 14,
-            "bodyweight": false
-          },
-          {
-            "name": "Goblet March",
-            "sets": 2,
-            "weight_lb": 70,
-            "reps": null,
-            "bodyweight": false
-          }
-        ]
-      },
       {
         "date": "2026-08-22",
         "title": "Coach Brian (Week 3, Day 5 \u2014 Upper Body Pull) \"Raw Power\"",
@@ -8192,7 +8187,288 @@
             "bodyweight": true
           }
         ]
+      },
+      {
+        "date": "2026-09-19",
+        "title": "Coach Brian (Saturday \u2014 Arms + Core + Push) \ud83d\udcaa",
+        "volume_reps": null,
+        "volume_lb": null,
+        "exercise_count": 8,
+        "exercises": [
+          {
+            "name": "Overhead Tricep Extension",
+            "sets": null,
+            "weight_lb": 30,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Hammer Curl",
+            "sets": null,
+            "weight_lb": 30,
+            "reps": 10,
+            "bodyweight": false
+          },
+          {
+            "name": "Pushup (eccentric)",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Commando Plank (alternating)",
+            "sets": 3,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Increase Vitality Renegade Row To Pushup",
+            "sets": null,
+            "weight_lb": 25,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Side Plank Reach (R)",
+            "sets": 2,
+            "weight_lb": 15,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Side Plank Reach (L)",
+            "sets": 2,
+            "weight_lb": 15,
+            "reps": null,
+            "bodyweight": false
+          },
+          {
+            "name": "Share Wins Air Squat Deep Hold",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
       }
     ]
+  },
+  "streak_tracker": {
+    "current_streak": 1,
+    "best_streak": 5,
+    "current_tier": null,
+    "days_to_next_tier": 6,
+    "calendar": [
+      {
+        "date": "2026-08-20",
+        "win": false,
+        "tir": 84.0,
+        "low": 3.12
+      },
+      {
+        "date": "2026-08-21",
+        "win": true,
+        "tir": 80.2,
+        "low": 1.74
+      },
+      {
+        "date": "2026-08-22",
+        "win": true,
+        "tir": 82.3,
+        "low": 1.74
+      },
+      {
+        "date": "2026-08-23",
+        "win": false,
+        "tir": 68.8,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-24",
+        "win": false,
+        "tir": 70.5,
+        "low": 1.74
+      },
+      {
+        "date": "2026-08-25",
+        "win": false,
+        "tir": 42.7,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-26",
+        "win": false,
+        "tir": 72.6,
+        "low": 1.39
+      },
+      {
+        "date": "2026-08-27",
+        "win": true,
+        "tir": 75.0,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-28",
+        "win": false,
+        "tir": 91.5,
+        "low": 3.31
+      },
+      {
+        "date": "2026-08-29",
+        "win": false,
+        "tir": 71.9,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-30",
+        "win": true,
+        "tir": 86.4,
+        "low": 0.7
+      },
+      {
+        "date": "2026-08-31",
+        "win": true,
+        "tir": 78.8,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-01",
+        "win": false,
+        "tir": 62.1,
+        "low": 0.69
+      },
+      {
+        "date": "2026-09-02",
+        "win": true,
+        "tir": 92.4,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-03",
+        "win": true,
+        "tir": 92.4,
+        "low": 0.69
+      },
+      {
+        "date": "2026-09-04",
+        "win": false,
+        "tir": 52.6,
+        "low": 2.09
+      },
+      {
+        "date": "2026-09-05",
+        "win": true,
+        "tir": 83.7,
+        "low": 1.39
+      },
+      {
+        "date": "2026-09-06",
+        "win": false,
+        "tir": 62.0,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-07",
+        "win": false,
+        "tir": 58.0,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-08",
+        "win": false,
+        "tir": 41.3,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-09",
+        "win": false,
+        "tir": 78.1,
+        "low": 3.12
+      },
+      {
+        "date": "2026-09-10",
+        "win": true,
+        "tir": 77.1,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-11",
+        "win": true,
+        "tir": 86.4,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-12",
+        "win": false,
+        "tir": 74.1,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-13",
+        "win": true,
+        "tir": 89.9,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-14",
+        "win": true,
+        "tir": 86.1,
+        "low": 1.39
+      },
+      {
+        "date": "2026-09-15",
+        "win": false,
+        "tir": 56.2,
+        "low": 1.06
+      },
+      {
+        "date": "2026-09-16",
+        "win": true,
+        "tir": 77.4,
+        "low": 0.69
+      },
+      {
+        "date": "2026-09-17",
+        "win": false,
+        "tir": 73.8,
+        "low": 3.53
+      },
+      {
+        "date": "2026-09-18",
+        "win": true,
+        "tir": 89.3,
+        "low": 1.59
+      }
+    ],
+    "last_check": "2026-09-19",
+    "rules": {
+      "version": 1,
+      "set_date": "2026-09-16",
+      "win_day": "TIR >= 75% AND low% < 2%",
+      "streak_tiers": [
+        {
+          "days": 7,
+          "name": "Bronze"
+        },
+        {
+          "days": 14,
+          "name": "Silver"
+        },
+        {
+          "days": 21,
+          "name": "Gold"
+        },
+        {
+          "days": 30,
+          "name": "Diamond"
+        },
+        {
+          "days": 60,
+          "name": "Legendary"
+        }
+      ]
+    }
   }
 }
