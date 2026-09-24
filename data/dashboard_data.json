@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T08:04:23.606866-07:00",
+  "generated_at": "2026-09-24T23:10:56.856Z",
   "date_range": {
     "start": "2024-01-23",
     "end": "2026-09-24",
@@ -5084,6 +5084,18 @@
         "same_day_avg_glucose": 155.3,
         "next_day_tir": 85.9,
         "next_day_avg_glucose": 162.32
+      },
+      {
+        "local_date": "2026-09-24",
+        "workouts": 1,
+        "strain": null,
+        "z3_5_min": null,
+        "z2_min": null,
+        "avg_hr": null,
+        "same_day_tir": null,
+        "same_day_avg_glucose": null,
+        "next_day_tir": null,
+        "next_day_avg_glucose": null
       }
     ],
     "workout_correlations": [
@@ -5919,12 +5931,12 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 24,
-    "total_reps": 604,
-    "total_volume_lb": 23300.0,
+    "workouts": 26,
+    "total_reps": 1216,
+    "total_volume_lb": 59300.0,
     "date_range": {
       "start": "2026-08-25",
-      "end": "2026-09-23"
+      "end": "2026-09-24"
     },
     "exercises": [
       "5 Butt Kicks + 5 Jumping Jacks",
@@ -6019,7 +6031,15 @@
       "Unlock Now Mountain Climber (knee To Elbow)",
       "Upright Row",
       "V Sit Kick Out (50% Slower)",
-      "Wall Sit"
+      "Wall Sit",
+      "Split Squat Right",
+      "Split Squat Left",
+      "Romanian Deadlift Eccentric",
+      "Goblet Squat Heels Elevated",
+      "Hand to Hand Swing Alternating",
+      "Glute Bridge (50% Slower)",
+      "Wide Leg Toe Reach Static",
+      "Guided Breathwork"
     ],
     "exercise_count": 93,
     "by_exercise": {
@@ -7053,6 +7073,12 @@
           "weight_lb": 90,
           "reps": 12,
           "bodyweight": false
+        },
+        {
+          "date": "2026-09-24",
+          "weight_lb": 60,
+          "max_weight_lb": 125,
+          "sets": 2
         }
       ],
       "Superman": [
@@ -7187,6 +7213,54 @@
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
+        }
+      ],
+      "Split Squat Right": [
+        {
+          "date": "2026-09-24",
+          "weight_lb": 170,
+          "max_weight_lb": 191,
+          "sets": 3
+        }
+      ],
+      "Split Squat Left": [
+        {
+          "date": "2026-09-24",
+          "weight_lb": 170,
+          "max_weight_lb": 191,
+          "sets": 3
+        }
+      ],
+      "Romanian Deadlift Eccentric": [
+        {
+          "date": "2026-09-24",
+          "weight_lb": 170,
+          "max_weight_lb": 205,
+          "sets": 4
+        }
+      ],
+      "Goblet Squat Heels Elevated": [
+        {
+          "date": "2026-09-24",
+          "weight_lb": 110,
+          "max_weight_lb": 141,
+          "sets": 4
+        }
+      ],
+      "Hand to Hand Swing Alternating": [
+        {
+          "date": "2026-09-24",
+          "weight_lb": 60,
+          "max_weight_lb": 72,
+          "sets": 2
+        }
+      ],
+      "Glute Bridge (50% Slower)": [
+        {
+          "date": "2026-09-24",
+          "weight_lb": 50,
+          "max_weight_lb": 66,
+          "sets": 2
         }
       ]
     },
@@ -8325,5 +8399,221 @@
         ]
       }
     ]
+  },
+  "streak_tracker": {
+    "current_streak": 1,
+    "best_streak": 5,
+    "current_tier": null,
+    "days_to_next_tier": 6,
+    "calendar": [
+      {
+        "date": "2026-08-25",
+        "win": false,
+        "tir": 42.7,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-26",
+        "win": false,
+        "tir": 72.6,
+        "low": 1.39
+      },
+      {
+        "date": "2026-08-27",
+        "win": true,
+        "tir": 75.0,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-28",
+        "win": false,
+        "tir": 91.5,
+        "low": 3.31
+      },
+      {
+        "date": "2026-08-29",
+        "win": false,
+        "tir": 71.9,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-30",
+        "win": true,
+        "tir": 86.4,
+        "low": 0.7
+      },
+      {
+        "date": "2026-08-31",
+        "win": true,
+        "tir": 78.8,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-01",
+        "win": false,
+        "tir": 62.1,
+        "low": 0.69
+      },
+      {
+        "date": "2026-09-02",
+        "win": true,
+        "tir": 92.4,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-03",
+        "win": true,
+        "tir": 92.4,
+        "low": 0.69
+      },
+      {
+        "date": "2026-09-04",
+        "win": false,
+        "tir": 52.6,
+        "low": 2.09
+      },
+      {
+        "date": "2026-09-05",
+        "win": true,
+        "tir": 83.7,
+        "low": 1.39
+      },
+      {
+        "date": "2026-09-06",
+        "win": false,
+        "tir": 62.0,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-07",
+        "win": false,
+        "tir": 58.0,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-08",
+        "win": false,
+        "tir": 41.3,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-09",
+        "win": false,
+        "tir": 78.1,
+        "low": 3.12
+      },
+      {
+        "date": "2026-09-10",
+        "win": true,
+        "tir": 77.1,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-11",
+        "win": true,
+        "tir": 86.4,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-12",
+        "win": false,
+        "tir": 74.1,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-13",
+        "win": true,
+        "tir": 89.9,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-14",
+        "win": true,
+        "tir": 86.1,
+        "low": 1.39
+      },
+      {
+        "date": "2026-09-15",
+        "win": false,
+        "tir": 56.2,
+        "low": 1.06
+      },
+      {
+        "date": "2026-09-16",
+        "win": true,
+        "tir": 77.4,
+        "low": 0.69
+      },
+      {
+        "date": "2026-09-17",
+        "win": false,
+        "tir": 73.8,
+        "low": 3.53
+      },
+      {
+        "date": "2026-09-18",
+        "win": true,
+        "tir": 89.1,
+        "low": 1.5
+      },
+      {
+        "date": "2026-09-19",
+        "win": true,
+        "tir": 77.1,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-20",
+        "win": false,
+        "tir": 56.2,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-21",
+        "win": false,
+        "tir": 70.8,
+        "low": 0.69
+      },
+      {
+        "date": "2026-09-22",
+        "win": false,
+        "tir": 69.4,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-23",
+        "win": true,
+        "tir": 80.0,
+        "low": 0.0
+      }
+    ],
+    "last_check": "2026-09-24",
+    "rules": {
+      "version": 1,
+      "set_date": "2026-09-16",
+      "win_day": "TIR >= 75% AND low% < 2%",
+      "streak_tiers": [
+        {
+          "days": 7,
+          "name": "Bronze"
+        },
+        {
+          "days": 14,
+          "name": "Silver"
+        },
+        {
+          "days": 21,
+          "name": "Gold"
+        },
+        {
+          "days": 30,
+          "name": "Diamond"
+        },
+        {
+          "days": 60,
+          "name": "Legendary"
+        }
+      ]
+    }
   }
 }
