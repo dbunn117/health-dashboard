@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-23T08:04:17.526980-07:00",
+  "generated_at": "2026-09-24T00:16:24.121Z",
   "date_range": {
     "start": "2024-01-23",
-    "end": "2026-09-22",
-    "days": 974
+    "end": "2026-09-23",
+    "days": 975
   },
   "summary30": {
     "days": 30,
@@ -5084,6 +5084,18 @@
         "same_day_avg_glucose": 194.64,
         "next_day_tir": null,
         "next_day_avg_glucose": null
+      },
+      {
+        "local_date": "2026-09-23",
+        "workouts": 1,
+        "strain": null,
+        "z3_5_min": null,
+        "z2_min": null,
+        "avg_hr": null,
+        "same_day_tir": null,
+        "same_day_avg_glucose": null,
+        "next_day_tir": null,
+        "next_day_avg_glucose": null
       }
     ],
     "workout_correlations": [
@@ -5919,12 +5931,12 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 24,
-    "total_reps": 856,
-    "total_volume_lb": 35300.0,
+    "workouts": 25,
+    "total_reps": 1048,
+    "total_volume_lb": 42300.0,
     "date_range": {
       "start": "2026-08-24",
-      "end": "2026-09-21"
+      "end": "2026-09-23"
     },
     "exercises": [
       "5 Butt Kicks + 5 Jumping Jacks",
@@ -6014,7 +6026,14 @@
       "Unlock Energy Hamstring Sweep (r/l)",
       "Unlock Now Mountain Climber (knee To Elbow)",
       "Upright Row",
-      "Wall Sit"
+      "Wall Sit",
+      "Shoulder Press Seated",
+      "Front Raise Alternating",
+      "Shoulder Raise 21s",
+      "V Sit Kick Out (50% Slower)",
+      "Reverse Crunch (50% Slower)",
+      "Flutter Kick (50% Slower)",
+      "Child's Pose Thread the Needle Right"
     ],
     "exercise_count": 88,
     "by_exercise": {
@@ -8296,5 +8315,221 @@
         ]
       }
     ]
+  },
+  "streak_tracker": {
+    "current_streak": 0,
+    "best_streak": 5,
+    "current_tier": null,
+    "days_to_next_tier": 7,
+    "calendar": [
+      {
+        "date": "2026-08-23",
+        "win": false,
+        "tir": 68.8,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-24",
+        "win": false,
+        "tir": 70.5,
+        "low": 1.74
+      },
+      {
+        "date": "2026-08-25",
+        "win": false,
+        "tir": 42.7,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-26",
+        "win": false,
+        "tir": 72.6,
+        "low": 1.39
+      },
+      {
+        "date": "2026-08-27",
+        "win": true,
+        "tir": 75.0,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-28",
+        "win": false,
+        "tir": 91.5,
+        "low": 3.31
+      },
+      {
+        "date": "2026-08-29",
+        "win": false,
+        "tir": 71.9,
+        "low": 0.0
+      },
+      {
+        "date": "2026-08-30",
+        "win": true,
+        "tir": 86.4,
+        "low": 0.7
+      },
+      {
+        "date": "2026-08-31",
+        "win": true,
+        "tir": 78.8,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-01",
+        "win": false,
+        "tir": 62.1,
+        "low": 0.69
+      },
+      {
+        "date": "2026-09-02",
+        "win": true,
+        "tir": 92.4,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-03",
+        "win": true,
+        "tir": 92.4,
+        "low": 0.69
+      },
+      {
+        "date": "2026-09-04",
+        "win": false,
+        "tir": 52.6,
+        "low": 2.09
+      },
+      {
+        "date": "2026-09-05",
+        "win": true,
+        "tir": 83.7,
+        "low": 1.39
+      },
+      {
+        "date": "2026-09-06",
+        "win": false,
+        "tir": 62.0,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-07",
+        "win": false,
+        "tir": 58.0,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-08",
+        "win": false,
+        "tir": 41.3,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-09",
+        "win": false,
+        "tir": 78.1,
+        "low": 3.12
+      },
+      {
+        "date": "2026-09-10",
+        "win": true,
+        "tir": 77.1,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-11",
+        "win": true,
+        "tir": 86.4,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-12",
+        "win": false,
+        "tir": 74.1,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-13",
+        "win": true,
+        "tir": 89.9,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-14",
+        "win": true,
+        "tir": 86.1,
+        "low": 1.39
+      },
+      {
+        "date": "2026-09-15",
+        "win": false,
+        "tir": 56.2,
+        "low": 1.06
+      },
+      {
+        "date": "2026-09-16",
+        "win": true,
+        "tir": 77.4,
+        "low": 0.69
+      },
+      {
+        "date": "2026-09-17",
+        "win": false,
+        "tir": 73.8,
+        "low": 3.53
+      },
+      {
+        "date": "2026-09-18",
+        "win": true,
+        "tir": 89.1,
+        "low": 1.5
+      },
+      {
+        "date": "2026-09-19",
+        "win": true,
+        "tir": 77.1,
+        "low": 1.04
+      },
+      {
+        "date": "2026-09-20",
+        "win": false,
+        "tir": 56.2,
+        "low": 0.0
+      },
+      {
+        "date": "2026-09-21",
+        "win": false,
+        "tir": 70.8,
+        "low": 0.69
+      }
+    ],
+    "last_check": "2026-09-23",
+    "rules": {
+      "version": 1,
+      "set_date": "2026-09-16",
+      "win_day": "TIR >= 75% AND low% < 2%",
+      "streak_tiers": [
+        {
+          "days": 7,
+          "name": "Bronze"
+        },
+        {
+          "days": 14,
+          "name": "Silver"
+        },
+        {
+          "days": 21,
+          "name": "Gold"
+        },
+        {
+          "days": 30,
+          "name": "Diamond"
+        },
+        {
+          "days": 60,
+          "name": "Legendary"
+        }
+      ]
+    }
   }
 }
