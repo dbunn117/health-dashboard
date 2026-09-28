@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T08:03:44.874705-07:00",
+  "generated_at": "2026-09-28T23:06:14.481Z",
   "date_range": {
     "start": "2024-01-23",
     "end": "2026-09-28",
@@ -5056,6 +5056,18 @@
         "same_day_avg_glucose": 141.47,
         "next_day_tir": 74.22,
         "next_day_avg_glucose": 158.0
+      },
+      {
+        "local_date": "2026-09-28",
+        "workouts": 1,
+        "strain": null,
+        "z3_5_min": null,
+        "z2_min": null,
+        "avg_hr": null,
+        "same_day_tir": null,
+        "same_day_avg_glucose": null,
+        "next_day_tir": null,
+        "next_day_avg_glucose": null
       }
     ],
     "workout_correlations": [
@@ -5891,12 +5903,12 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 24,
-    "total_reps": 0,
-    "total_volume_lb": 0,
+    "workouts": 27,
+    "total_reps": 1397,
+    "total_volume_lb": 75300.0,
     "date_range": {
       "start": "2026-08-29",
-      "end": "2026-09-25"
+      "end": "2026-09-28"
     },
     "exercises": [
       "5 Butt Kicks + 5 Jumping Jacks",
@@ -5987,7 +5999,13 @@
       "Upright Row",
       "V Sit Kick Out (50% Slower)",
       "Wall Sit",
-      "Wide Leg Toe Reach Static"
+      "Wide Leg Toe Reach Static",
+      "Thruster Alternating",
+      "Shoulder Raise 21's",
+      "Forward Lunge Alternating",
+      "Deadlift",
+      "Standing Calf Raise Deficit",
+      "Beast Bird Dog Alternating"
     ],
     "exercise_count": 89,
     "by_exercise": {
