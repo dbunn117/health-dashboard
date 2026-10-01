@@ -1,0 +1,931 @@
+(async () => {
+'use strict';
+const embedded = (document.getElementById('portal-data') || {}).textContent || '';
+let D;
+try { D = embedded.trim().startsWith('{') ? JSON.parse(embedded) : await (await fetch('portal_data.json', { cache: 'no-cache' })).json(); }
+catch (e) { document.getElementById('view').textContent = 'Could not load health data. Refresh the page; if it persists, ask Heath to check the portal build.'; return; }
+const T = D.targets;
+const HEATH_BOT = 'Heath117Bot';
+
+/* ---------- dates ---------- */
+const toUTC = s => Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10));
+const fromUTC = t => new Date(t).toISOString().slice(0, 10);
+const addDays = (s, n) => fromUTC(toUTC(s) + n * 864e5);
+const diffDays = (a, b) => Math.round((toUTC(b) - toUTC(a)) / 864e5);
+const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const WDL = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const dow = s => new Date(toUTC(s)).getUTCDay();
+const fmtD = s => `${MON[+s.slice(5, 7) - 1]} ${+s.slice(8, 10)}`;
+const fmtDY = s => `${fmtD(s)}, ${s.slice(0, 4)}`;
+const fmtMY = s => `${MON[+s.slice(5, 7) - 1]} ${s.slice(2, 4) === '' ? '' : "'" + s.slice(2, 4)}`;
+const fmtHM = slot => { const m = slot * 5, h = Math.floor(m / 60), mm = m % 60, ap = h < 12 ? 'AM' : 'PM'; return `${(h % 12) || 12}:${String(mm).padStart(2, '0')} ${ap}`; };
+const fmtHour = h => h === 0 ? '12a' : h < 12 ? `${h}a` : h === 12 ? '12p' : `${h - 12}p`;
+
+/* ---------- data ---------- */
+const DAYS = D.days.map(r => ({ date: r[0], n: r[1], avg: r[2], sd: r[3], ins: r[9], basal: r[10], bolus: r[11], carbs: r[12] }));
+const DAY = new Map(DAYS.map(d => [d.date, d]));
+const lastDate = DAYS[DAYS.length - 1].date;
+const lastFull = [...DAYS].reverse().find(d => d.n >= 250).date;
+const firstDate = DAYS[0].date;
+
+const cgmCache = new Map();
+function cgm(date) {
+  if (cgmCache.has(date)) return cgmCache.get(date);
+  const b = D.cgm[date];
+  let a = null;
+  if (b) { const s = atob(b); a = new Uint16Array(288); for (let i = 0; i < 288; i++) a[i] = s.charCodeAt(2 * i) | (s.charCodeAt(2 * i + 1) << 8); }
+  cgmCache.set(date, a);
+  return a;
+}
+function bucketCounts(vals, acc) {
+  for (const v of vals) {
+    if (!v) continue;
+    acc.n++; acc.sum += v; acc.sum2 += v * v;
+    if (v < 54) acc.vlow++; else if (v < 70) acc.low++; else if (v <= 180) acc.inr++; else if (v <= 250) acc.high++; else acc.vhigh++;
+  }
+  return acc;
+}
+const newAcc = () => ({ n: 0, sum: 0, sum2: 0, vlow: 0, low: 0, inr: 0, high: 0, vhigh: 0 });
+function finish(acc, days = 0) {
+  if (!acc.n) return null;
+  const mean = acc.sum / acc.n, sd = Math.sqrt(Math.max(0, acc.sum2 / acc.n - mean * mean));
+  const p = k => 100 * acc[k] / acc.n;
+  return { n: acc.n, days, mean, sd, cv: 100 * sd / mean, gmi: 3.31 + 0.02392 * mean,
+    tir: p('inr'), vlow: p('vlow'), low: p('low'), lowAll: p('vlow') + p('low'), high: p('high'), vhigh: p('vhigh'), highAll: p('high') + p('vhigh') };
+}
+const dayStatCache = new Map();
+function dayStats(date) {
+  if (dayStatCache.has(date)) return dayStatCache.get(date);
+  const a = cgm(date), s = a ? finish(bucketCounts(a, newAcc()), 1) : null;
+  dayStatCache.set(date, s);
+  return s;
+}
+function datesIn(start, end) { const out = []; for (let d = start; d <= end; d = addDays(d, 1)) out.push(d); return out; }
+function rangeStats(start, end) {
+  const acc = newAcc(); let days = 0;
+  for (const d of datesIn(start, end)) { const a = cgm(d); if (a) { bucketCounts(a, acc); days++; } }
+  const s = finish(acc, days);
+  if (!s) return null;
+  const ds = datesIn(start, end).map(d => DAY.get(d)).filter(Boolean);
+  const avgOf = k => { const v = ds.map(d => d[k]).filter(x => x != null && x > 0); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; };
+  s.ins = avgOf('ins'); s.basal = avgOf('basal'); s.bolus = avgOf('bolus'); s.carbs = avgOf('carbs');
+  return s;
+}
+const isWin = s => s && s.n >= 200 && s.tir >= 75 && s.lowAll < 2;
+function streakInfo(end) {
+  let cur = 0, d = end;
+  while (DAY.has(d) && isWin(dayStats(d))) { cur++; d = addDays(d, -1); }
+  let best = 0, run = 0;
+  for (const x of DAYS) { if (x.date > end) break; if (isWin(dayStats(x.date))) { run++; best = Math.max(best, run); } else run = 0; }
+  const tiers = [7, 14, 30, 60];
+  return { cur, best, next: tiers.find(t => t > cur) || cur + 30 };
+}
+
+const REC = new Map((D.recovery || []).map(r => [r.d, r]));
+const SLP = new Map((D.sleep || []).map(r => [r.d, r]));
+const WORK = D.workouts || [];
+const LADDER = D.ladder || { sessions: [], lifts: {} };
+const FOOD = new Map((D.food || []).map(r => [r[0], { kcal: r[1], protein: r[2], carbs: r[3], fat: r[4], meals: r[5] }]));
+const whoopStart = (D.recovery && D.recovery[0]) ? D.recovery[0].d : null;
+const STRENGTH_SPORTS = new Set(['weightlifting', 'hiit', 'functional-fitness', 'powerlifting', 'crossfit', 'strength-trainer']);
+function activityByDate() {
+  const m = new Map();
+  const put = (d, k) => { if (!m.has(d)) m.set(d, new Set()); m.get(d).add(k); };
+  LADDER.sessions.forEach(([d, type]) => put(d, /conditioning/i.test(type) ? 'conditioning' : 'strength'));
+  WORK.forEach(w => {
+    const sp = (w.sport || '').toLowerCase();
+    if (sp === 'pickleball') put(w.d, 'pickleball');
+    else if (STRENGTH_SPORTS.has(sp)) { if (!m.has(w.d) || !(m.get(w.d).has('strength') || m.get(w.d).has('conditioning'))) put(w.d, 'strength'); }
+    else put(w.d, 'cardio');
+  });
+  return m;
+}
+const ACT = activityByDate();
+const actStart = [...ACT.keys()].sort()[0] || lastFull;
+
+/* ---------- state ---------- */
+const RANGES = [['7D', 7], ['14D', 14], ['30D', 30], ['90D', 90], ['YTD', 'ytd'], ['1Y', 365], ['All', 'all']];
+const state = { view: 'today', range: '30D', compare: true };
+try { const r = localStorage.getItem('hp-range'); if (r && RANGES.some(x => x[0] === r)) state.range = r; } catch (e) {}
+function curRange() {
+  const spec = RANGES.find(r => r[0] === state.range)[1];
+  const end = lastFull;
+  let start;
+  if (spec === 'ytd') start = end.slice(0, 4) + '-01-01';
+  else if (spec === 'all') start = firstDate;
+  else start = addDays(end, -(spec - 1));
+  if (start < firstDate) start = firstDate;
+  const len = diffDays(start, end) + 1;
+  const pEnd = addDays(start, -1), pStart = addDays(pEnd, -(len - 1));
+  const prev = pStart >= firstDate ? { start: pStart, end: pEnd } : null;
+  return { start, end, len, prev };
+}
+
+/* ---------- formatting & status ---------- */
+const f0 = v => v == null || isNaN(v) ? '—' : Math.round(v).toLocaleString();
+const f1 = v => v == null || isNaN(v) ? '—' : (Math.round(v * 10) / 10).toFixed(1);
+const f2 = v => v == null || isNaN(v) ? '—' : v.toFixed(2);
+function tier(t) {
+  if (t == null) return { cls: 'none', label: 'No data' };
+  if (t >= T.tir.green) return { cls: 'good', label: 'Green' };
+  if (t >= T.tir.target) return { cls: 'target', label: 'On target' };
+  if (t >= T.tir.warning) return { cls: 'warn', label: 'Warning' };
+  return { cls: 'crit', label: 'Alert' };
+}
+const tierColor = c => ({ good: 'var(--s-good)', target: 'var(--s-target)', warn: 'var(--s-warn)', crit: 'var(--s-crit)', none: 'var(--muted)' })[c];
+function recZone(v) { if (v == null) return { cls: 'none', label: 'No data' }; if (v >= 67) return { cls: 'good', label: 'Green' }; if (v >= 34) return { cls: 'warn', label: 'Yellow' }; return { cls: 'crit', label: 'Red' }; }
+function okChip(ok, okText = 'On target', badText = 'Off target') { return chip(ok == null ? 'none' : ok ? 'good' : 'crit', ok == null ? 'No data' : ok ? okText : badText); }
+
+/* ---------- dom helpers ---------- */
+function h(tag, attrs, ...kids) {
+  const el = document.createElement(tag);
+  if (attrs) for (const [k, v] of Object.entries(attrs)) {
+    if (v == null || v === false) continue;
+    if (k === 'class') el.className = v; else if (k === 'html') el.innerHTML = v; else if (k.startsWith('on')) el.addEventListener(k.slice(2), v); else el.setAttribute(k, v === true ? '' : v);
+  }
+  for (const k of kids.flat()) { if (k == null || k === false) continue; el.append(k.nodeType ? k : document.createTextNode(String(k))); }
+  return el;
+}
+const SVGNS = 'http://www.w3.org/2000/svg';
+function s(tag, attrs, parent) { const el = document.createElementNS(SVGNS, tag); for (const [k, v] of Object.entries(attrs || {})) if (v != null) el.setAttribute(k, v); if (parent) parent.appendChild(el); return el; }
+function chip(cls, label) { return h('span', { class: 'chip ' + cls }, h('i'), label); }
+const ICON = {
+  today: '<path d="M8 1.8v1.6M8 12.6v1.6M1.8 8h1.6M12.6 8h1.6M3.6 3.6l1.1 1.1M11.3 11.3l1.1 1.1M3.6 12.4l1.1-1.1M11.3 4.7l1.1-1.1"/><circle cx="8" cy="8" r="2.8"/>',
+  glucose: '<path d="M8 1.8c2.4 3 4.2 5.4 4.2 7.7a4.2 4.2 0 0 1-8.4 0C3.8 7.2 5.6 4.8 8 1.8Z"/>',
+  training: '<path d="M2 6v4M4.5 4.5v7M11.5 4.5v7M14 6v4M4.5 8h7"/>',
+  sleep: '<path d="M13.5 9.7A5.6 5.6 0 0 1 6.3 2.5a5.6 5.6 0 1 0 7.2 7.2Z"/>',
+  patterns: '<rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/>',
+  labs: '<path d="M6 1.8v4.4L2.6 12.4A1.2 1.2 0 0 0 3.7 14.2h8.6a1.2 1.2 0 0 0 1.1-1.8L10 6.2V1.8M5 1.8h6M4.6 9.6h6.8"/>',
+  chat: '<path d="M2.5 3.5h11v7h-6l-3 2.5v-2.5h-2z"/>',
+  plus: '<path d="M8 3v10M3 8h10"/>',
+};
+const icon = (name) => { const sv = document.createElementNS(SVGNS, 'svg'); sv.setAttribute('viewBox', '0 0 16 16'); sv.setAttribute('aria-hidden', 'true'); sv.innerHTML = ICON[name]; sv.setAttribute('stroke-linecap', 'round'); sv.setAttribute('stroke-linejoin', 'round'); return sv; };
+const heathUrl = q => `https://t.me/${HEATH_BOT}?text=${encodeURIComponent(q)}`;
+function askLink(q, label = 'Ask Heath') { return h('a', { class: 'ask', href: heathUrl(q), target: '_blank', rel: 'noopener', title: 'Opens your Heath chat in Telegram with this question filled in' }, icon('chat'), label); }
+function card(title, sub, aside, ...body) {
+  return h('section', { class: 'card' }, h('div', { class: 'card-h' }, h('div', null, h('h2', null, title), sub ? h('p', null, sub) : null), aside ? h('div', { class: 'aside' }, aside) : null), ...body);
+}
+function deltaEl(cur, prev, better, unit = '', digits = 1, label = 'vs prev') {
+  if (cur == null || prev == null || !state.compare) return null;
+  const d = cur - prev;
+  const r = Math.abs(d) < Math.pow(10, -digits) / 2 ? 0 : d;
+  const cls = r === 0 ? 'flat' : ((r > 0) === (better === 'up') ? 'good' : 'bad');
+  const sign = r > 0 ? '+' : r < 0 ? '−' : '±';
+  return h('span', { class: 'delta ' + cls }, `${sign}${Math.abs(r).toFixed(digits)}${unit} ${label}`);
+}
+function kpis(...tiles) { const el = h('div', { class: 'kpis' }, ...tiles); el.style.setProperty('--n', tiles.length); return el; }
+function kpi(label, value, unit, meta, statusEl) {
+  return h('div', { class: 'kpi' }, h('div', { class: 'lbl' }, h('span', null, label), statusEl || null), h('div', { class: 'val' }, value, unit ? h('small', null, unit) : null), h('div', { class: 'meta' }, ...(meta || [])));
+}
+
+/* ---------- tooltip ---------- */
+const tipEl = document.getElementById('tip');
+function showTip(evt, head, rows) {
+  tipEl.replaceChildren(h('div', { class: 't-h' }, head), ...rows.map(r => h('div', { class: 't-r' }, h('span', null, r.color ? h('i', { class: 'k', style: `background:${r.color}` }) : null, r.label), h('b', null, r.value))));
+  tipEl.hidden = false;
+  const pad = 14, w = tipEl.offsetWidth, ht = tipEl.offsetHeight;
+  let x = evt.clientX + pad, y = evt.clientY + pad;
+  if (x + w > innerWidth - 8) x = evt.clientX - w - pad;
+  if (y + ht > innerHeight - 8) y = evt.clientY - ht - pad;
+  tipEl.style.left = x + 'px'; tipEl.style.top = y + 'px';
+}
+const hideTip = () => { tipEl.hidden = true; };
+
+/* ---------- scales & frame ---------- */
+const lin = (d0, d1, r0, r1) => v => r0 + (v - d0) / ((d1 - d0) || 1) * (r1 - r0);
+function niceTicks(min, max, count = 4) {
+  const span = max - min || 1, raw = span / count, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const step = [1, 2, 2.5, 5, 10].map(m => m * mag).find(st => span / st <= count) || 10 * mag;
+  const out = []; for (let v = Math.ceil(min / step) * step; v <= max + 1e-9; v += step) out.push(+v.toFixed(6));
+  return out;
+}
+function frame(host, height, m = { l: 40, r: 12, t: 10, b: 26 }) {
+  const w = Math.max(280, Math.floor(host.clientWidth || host.parentElement.clientWidth || 600));
+  const svg = s('svg', { viewBox: `0 0 ${w} ${height}`, role: 'img' });
+  host.replaceChildren(svg);
+  return { svg, w, h: height, x0: m.l, x1: w - m.r, y0: height - m.b, y1: m.t };
+}
+function yAxis(fr, y, ticks, fmt = f0) {
+  const g = s('g', { class: 'axis' }, fr.svg);
+  ticks.forEach(t => { s('line', { x1: fr.x0, x2: fr.x1, y1: y(t), y2: y(t), class: 'gridline' }, g); const tx = s('text', { x: fr.x0 - 8, y: y(t) + 3.5, 'text-anchor': 'end' }, g); tx.textContent = fmt(t); });
+}
+function xLabels(fr, items, every) {
+  const g = s('g', { class: 'axis' }, fr.svg);
+  const minGap = 58, lastX = items.length ? items[items.length - 1].x : 0;
+  let prevX = -Infinity;
+  items.forEach((it, i) => {
+    const isLast = i === items.length - 1;
+    if (!isLast && (i % every || it.x - prevX < minGap || lastX - it.x < minGap)) return;
+    if (isLast && it.x - prevX < minGap * 0.6) return;
+    const tx = s('text', { x: it.x, y: fr.y0 + 17, 'text-anchor': 'middle' }, g); tx.textContent = it.label; prevX = it.x;
+  });
+}
+const roundTop = (x, y, w, hgt, r = 4) => { r = Math.min(r, w / 2, hgt); return `M${x},${y + hgt}V${y + r}Q${x},${y} ${x + r},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + hgt}Z`; };
+
+/* columns: items [{label, value, color, tip:{head, rows}}] */
+function columns(host, { items, height = 200, yMax, yMin = 0, ticks, fmt = f0, ref, band, labelEvery }) {
+  const fr = frame(host, height);
+  const top = yMax ?? Math.max(...items.map(i => i.value || 0)) * 1.1;
+  const y = lin(yMin, top, fr.y0, fr.y1);
+  yAxis(fr, y, ticks || niceTicks(yMin, top, 4), fmt);
+  if (band) s('rect', { x: fr.x0, width: fr.x1 - fr.x0, y: y(band[1]), height: y(band[0]) - y(band[1]), fill: 'var(--g-in-wash)' }, fr.svg);
+  const n = items.length, slot = (fr.x1 - fr.x0) / n, bw = Math.max(2, Math.min(24, slot - 2));
+  const g = s('g', null, fr.svg);
+  const xs = [];
+  items.forEach((it, i) => {
+    const cx = fr.x0 + slot * (i + 0.5); xs.push({ x: cx, label: it.label });
+    if (it.value == null) return;
+    const yy = y(Math.max(yMin, it.value)), hh = Math.max(1, fr.y0 - yy);
+    s('path', { d: roundTop(cx - bw / 2, yy, bw, hh, bw < 8 ? 2 : 4), fill: it.color, class: 'mark', 'data-i': i }, g);
+  });
+  s('line', { x1: fr.x0, x2: fr.x1, y1: fr.y0, y2: fr.y0, class: 'baseline' }, fr.svg);
+  if (ref) { s('line', { x1: fr.x0, x2: fr.x1, y1: y(ref.value), y2: y(ref.value), class: 'refline' }, fr.svg); }
+  xLabels(fr, xs, labelEvery || Math.max(1, Math.ceil(n / Math.max(4, Math.floor((fr.x1 - fr.x0) / 70)))));
+  const hit = s('rect', { x: fr.x0, y: fr.y1, width: fr.x1 - fr.x0, height: fr.y0 - fr.y1, class: 'hit' }, fr.svg);
+  let last = -1;
+  const pick = evt => { const r = fr.svg.getBoundingClientRect(); const px = (evt.clientX - r.left) * fr.w / r.width; return Math.max(0, Math.min(n - 1, Math.floor((px - fr.x0) / slot))); };
+  hit.addEventListener('pointermove', evt => { const i = pick(evt); if (i !== last) { g.querySelectorAll('.hl').forEach(e => e.classList.remove('hl')); const m = g.querySelector(`[data-i="${i}"]`); if (m) m.classList.add('hl'); last = i; } const it = items[i]; if (it && it.tip) showTip(evt, it.tip.head, it.tip.rows); });
+  hit.addEventListener('pointerleave', () => { hideTip(); g.querySelectorAll('.hl').forEach(e => e.classList.remove('hl')); last = -1; });
+  return fr;
+}
+
+/* stacked columns: series [{name,color}], items [{label, values:[...], tip}] */
+function stacked(host, { items, series, height = 200, ref }) {
+  const fr = frame(host, height);
+  const top = Math.max(ref ? ref.value : 0, ...items.map(i => i.values.reduce((a, b) => a + b, 0))) * 1.15 || 1;
+  const y = lin(0, top, fr.y0, fr.y1);
+  yAxis(fr, y, niceTicks(0, top, 4));
+  const n = items.length, slot = (fr.x1 - fr.x0) / n, bw = Math.max(4, Math.min(24, slot - 6));
+  const g = s('g', null, fr.svg); const xs = [];
+  items.forEach((it, i) => {
+    const cx = fr.x0 + slot * (i + 0.5); xs.push({ x: cx, label: it.label });
+    let acc = 0; const segs = it.values.map((v, k) => ({ v, k })).filter(z => z.v > 0);
+    segs.forEach((z, j) => {
+      const yTop = y(acc + z.v), yBot = y(acc); acc += z.v;
+      const isTop = j === segs.length - 1, hgt = Math.max(1, yBot - yTop - (j > 0 ? 2 : 0));
+      const yy = yTop;
+      if (isTop) s('path', { d: roundTop(cx - bw / 2, yy, bw, hgt, 4), fill: series[z.k].color, class: 'mark', 'data-i': i }, g);
+      else s('rect', { x: cx - bw / 2, y: yy, width: bw, height: hgt, fill: series[z.k].color, class: 'mark', 'data-i': i }, g);
+    });
+  });
+  s('line', { x1: fr.x0, x2: fr.x1, y1: fr.y0, y2: fr.y0, class: 'baseline' }, fr.svg);
+  if (ref) { s('line', { x1: fr.x0, x2: fr.x1, y1: y(ref.value), y2: y(ref.value), class: 'refline' }, fr.svg); }
+  xLabels(fr, xs, Math.max(1, Math.ceil(n / 8)));
+  const hit = s('rect', { x: fr.x0, y: fr.y1, width: fr.x1 - fr.x0, height: fr.y0 - fr.y1, class: 'hit' }, fr.svg);
+  hit.addEventListener('pointermove', evt => { const r = fr.svg.getBoundingClientRect(); const px = (evt.clientX - r.left) * fr.w / r.width; const i = Math.max(0, Math.min(n - 1, Math.floor((px - fr.x0) / slot))); const it = items[i]; showTip(evt, it.tipHead || it.label, series.map((se, k) => ({ label: se.name, value: String(it.values[k]), color: se.color }))); });
+  hit.addEventListener('pointerleave', hideTip);
+}
+
+/* line chart over index positions; series [{name,color,values,width,opacity,area}] */
+function lines(host, { labels, series, height = 220, yDomain, band, refs = [], fmt = f0, tipHead, tipFmt, xEvery, xPos }) {
+  const fr = frame(host, height);
+  const all = series.flatMap(se => se.values.filter(v => v != null));
+  const [lo, hi] = yDomain || [Math.min(...all), Math.max(...all)];
+  const y = lin(lo, hi, fr.y0, fr.y1);
+  yAxis(fr, y, niceTicks(lo, hi, 4), fmt);
+  const n = labels.length;
+  const x = xPos ? (i => fr.x0 + xPos[i] * (fr.x1 - fr.x0)) : (i => n === 1 ? (fr.x0 + fr.x1) / 2 : fr.x0 + i * (fr.x1 - fr.x0) / (n - 1));
+  if (band) { s('rect', { x: fr.x0, width: fr.x1 - fr.x0, y: y(band[1]), height: y(band[0]) - y(band[1]), fill: 'var(--g-in-wash)' }, fr.svg); }
+  refs.forEach(r => { s('line', { x1: fr.x0, x2: fr.x1, y1: y(r.value), y2: y(r.value), class: 'refline' }, fr.svg); });
+  series.forEach(se => {
+    let d = '', pen = false;
+    se.values.forEach((v, i) => { if (v == null) { pen = false; return; } d += (pen ? 'L' : 'M') + x(i).toFixed(1) + ',' + y(v).toFixed(1); pen = true; });
+    if (se.area) {
+      const pts = se.values.map((v, i) => v == null ? null : [x(i), y(v)]).filter(Boolean);
+      if (pts.length > 1) s('path', { d: `M${pts[0][0]},${fr.y0}` + pts.map(p => `L${p[0]},${p[1]}`).join('') + `L${pts[pts.length - 1][0]},${fr.y0}Z`, fill: se.color, opacity: 0.1 }, fr.svg);
+    }
+    s('path', { d, fill: 'none', stroke: se.color, 'stroke-width': se.width || 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round', opacity: se.opacity || 1 }, fr.svg);
+    if (se.dots) se.values.forEach((v, i) => { if (v != null) s('circle', { cx: x(i), cy: y(v), r: 4, fill: se.color, stroke: 'var(--surface)', 'stroke-width': 2 }, fr.svg); });
+    if (se.endDot) { let i = se.values.length - 1; while (i >= 0 && se.values[i] == null) i--; if (i >= 0) s('circle', { cx: x(i), cy: y(se.values[i]), r: 4, fill: se.color, stroke: 'var(--surface)', 'stroke-width': 2 }, fr.svg); }
+  });
+  s('line', { x1: fr.x0, x2: fr.x1, y1: fr.y0, y2: fr.y0, class: 'baseline' }, fr.svg);
+  const every = xEvery || Math.max(1, Math.ceil(n / Math.max(4, Math.floor((fr.x1 - fr.x0) / 72))));
+  xLabels(fr, labels.map((l, i) => ({ x: x(i), label: l })), every);
+  const cross = s('line', { y1: fr.y1, y2: fr.y0, class: 'cross', visibility: 'hidden' }, fr.svg);
+  const hit = s('rect', { x: fr.x0, y: fr.y1, width: fr.x1 - fr.x0, height: fr.y0 - fr.y1, class: 'hit' }, fr.svg);
+  hit.addEventListener('pointermove', evt => {
+    const r = fr.svg.getBoundingClientRect(); const px = (evt.clientX - r.left) * fr.w / r.width;
+    let best = 0, bd = Infinity; for (let i = 0; i < n; i++) { const dd = Math.abs(x(i) - px); if (dd < bd) { bd = dd; best = i; } }
+    cross.setAttribute('x1', x(best)); cross.setAttribute('x2', x(best)); cross.setAttribute('visibility', 'visible');
+    showTip(evt, tipHead ? tipHead(best) : labels[best], series.filter(se => !se.noTip).map(se => ({ label: se.name, value: se.values[best] == null ? '—' : (tipFmt || fmt)(se.values[best]), color: se.color })));
+  });
+  hit.addEventListener('pointerleave', () => { cross.setAttribute('visibility', 'hidden'); hideTip(); });
+  return { fr, x, y };
+}
+
+/* AGP: 15-minute bins across a date list */
+function agpData(dates) {
+  const bins = Array.from({ length: 96 }, () => []);
+  for (const d of dates) { const a = cgm(d); if (!a) continue; for (let i = 0; i < 288; i++) if (a[i]) bins[Math.floor(i / 3)].push(a[i]); }
+  const q = (arr, p) => { if (!arr.length) return null; const k = (arr.length - 1) * p, lo = Math.floor(k), hi = Math.ceil(k); return arr[lo] + (arr[hi] - arr[lo]) * (k - lo); };
+  return bins.map(b => { b.sort((x, y) => x - y); return { p5: q(b, .05), p25: q(b, .25), p50: q(b, .5), p75: q(b, .75), p95: q(b, .95), n: b.length }; });
+}
+function agp(host, dates, height = 260) {
+  const bins = agpData(dates);
+  const fr = frame(host, height);
+  const y = lin(40, 350, fr.y0, fr.y1), x = i => fr.x0 + (i + 0.5) * (fr.x1 - fr.x0) / 96;
+  yAxis(fr, y, [54, 70, 180, 250, 350]);
+  s('rect', { x: fr.x0, width: fr.x1 - fr.x0, y: y(180), height: y(70) - y(180), fill: 'var(--g-in-wash)' }, fr.svg);
+  const area = (a, b, op) => { const pts = bins.map((v, i) => v[a] == null ? null : [x(i), y(v[a]), y(v[b])]).filter(Boolean); if (!pts.length) return; s('path', { d: 'M' + pts.map(p => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join('L') + 'L' + pts.reverse().map(p => `${p[0].toFixed(1)},${p[2].toFixed(1)}`).join('L') + 'Z', fill: 'var(--g-in)', opacity: op }, fr.svg); };
+  area('p95', 'p5', 0.1); area('p75', 'p25', 0.22);
+  let d = ''; bins.forEach((v, i) => { if (v.p50 != null) d += (d ? 'L' : 'M') + x(i).toFixed(1) + ',' + y(v.p50).toFixed(1); });
+  s('path', { d, fill: 'none', stroke: 'var(--g-in)', 'stroke-width': 2, 'stroke-linejoin': 'round' }, fr.svg);
+  [[70, 'var(--g-low)'], [180, 'var(--g-high)']].forEach(([v, c]) => s('line', { x1: fr.x0, x2: fr.x1, y1: y(v), y2: y(v), stroke: c, 'stroke-width': 1, opacity: .7 }, fr.svg));
+  s('line', { x1: fr.x0, x2: fr.x1, y1: fr.y0, y2: fr.y0, class: 'baseline' }, fr.svg);
+  xLabels(fr, [0, 3, 6, 9, 12, 15, 18, 21].map(hh => ({ x: fr.x0 + hh * 4 * (fr.x1 - fr.x0) / 96, label: fmtHour(hh) })), 1);
+  const cross = s('line', { y1: fr.y1, y2: fr.y0, class: 'cross', visibility: 'hidden' }, fr.svg);
+  const hit = s('rect', { x: fr.x0, y: fr.y1, width: fr.x1 - fr.x0, height: fr.y0 - fr.y1, class: 'hit' }, fr.svg);
+  hit.addEventListener('pointermove', evt => {
+    const r = fr.svg.getBoundingClientRect(); const px = (evt.clientX - r.left) * fr.w / r.width;
+    const i = Math.max(0, Math.min(95, Math.floor((px - fr.x0) / ((fr.x1 - fr.x0) / 96)))); const b = bins[i];
+    cross.setAttribute('x1', x(i)); cross.setAttribute('x2', x(i)); cross.setAttribute('visibility', 'visible');
+    showTip(evt, `${fmtHM(i * 3)} – ${fmtHM(i * 3 + 3)}`, [
+      { label: '95th percentile', value: f0(b.p95) }, { label: '75th', value: f0(b.p75) }, { label: 'Median', value: f0(b.p50), color: 'var(--g-in)' }, { label: '25th', value: f0(b.p25) }, { label: '5th percentile', value: f0(b.p5) }]);
+  });
+  hit.addEventListener('pointerleave', () => { cross.setAttribute('visibility', 'hidden'); hideTip(); });
+}
+
+/* heatmap: rows x cols values 0..1 (null = no data) */
+function heatmap(host, { rows, cols, values, color, tip, height }) {
+  const fr = frame(host, height || 34 + rows.length * 26, { l: 40, r: 8, t: 4, b: 22 });
+  const cw = (fr.x1 - fr.x0) / cols.length, ch = (fr.y0 - fr.y1) / rows.length;
+  const g = s('g', null, fr.svg);
+  rows.forEach((rl, r) => {
+    const t = s('text', { x: fr.x0 - 8, y: fr.y1 + ch * (r + 0.5) + 3.5, 'text-anchor': 'end', class: 'lbl-t' }, fr.svg); t.textContent = rl;
+    cols.forEach((cl, c) => {
+      const v = values[r][c];
+      const cell = s('rect', { x: fr.x0 + c * cw + 1, y: fr.y1 + r * ch + 1, width: Math.max(1, cw - 2), height: Math.max(1, ch - 2), rx: 3, fill: v == null ? 'var(--grid)' : color(v), class: 'mark' }, g);
+      cell.addEventListener('pointermove', evt => showTip(evt, `${rl} · ${cl}`, tip(r, c)));
+      cell.addEventListener('pointerleave', hideTip);
+    });
+  });
+  cols.forEach((cl, c) => { if (c % 3) return; const t = s('text', { x: fr.x0 + c * cw + cw / 2, y: fr.y0 + 15, 'text-anchor': 'middle', class: 'lbl-t' }, fr.svg); t.textContent = cl; });
+}
+
+/* scatter with Pearson r */
+function pearson(pts) { const n = pts.length; if (n < 3) return null; const mx = pts.reduce((a, p) => a + p[0], 0) / n, my = pts.reduce((a, p) => a + p[1], 0) / n; let sxy = 0, sxx = 0, syy = 0; pts.forEach(([a, b]) => { sxy += (a - mx) * (b - my); sxx += (a - mx) ** 2; syy += (b - my) ** 2; }); return sxx && syy ? sxy / Math.sqrt(sxx * syy) : null; }
+function scatter(host, { pts, xName, yName, xFmt = f1, yFmt = f1, height = 260 }) {
+  const fr = frame(host, height, { l: 44, r: 14, t: 10, b: 34 });
+  if (pts.length < 2) { const t = s('text', { x: (fr.x0 + fr.x1) / 2, y: (fr.y0 + fr.y1) / 2, 'text-anchor': 'middle', class: 'lbl-ink' }, fr.svg); t.textContent = 'Not enough overlapping days in this range'; return; }
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  const pad = (a, b) => { const d = (b - a) || 1; return [a - d * 0.08, b + d * 0.08]; };
+  const [xl, xh] = pad(Math.min(...xs), Math.max(...xs)), [yl, yh] = pad(Math.min(...ys), Math.max(...ys));
+  const x = lin(xl, xh, fr.x0, fr.x1), y = lin(yl, yh, fr.y0, fr.y1);
+  yAxis(fr, y, niceTicks(yl, yh, 4), yFmt);
+  const g = s('g', { class: 'axis' }, fr.svg);
+  niceTicks(xl, xh, 5).forEach(t => { const tx = s('text', { x: x(t), y: fr.y0 + 16, 'text-anchor': 'middle' }, g); tx.textContent = xFmt(t); });
+  const xt = s('text', { x: fr.x1, y: fr.y0 + 30, 'text-anchor': 'end', class: 'lbl-ink' }, fr.svg); xt.textContent = xName + ' →';
+  s('line', { x1: fr.x0, x2: fr.x1, y1: fr.y0, y2: fr.y0, class: 'baseline' }, fr.svg);
+  pts.forEach(p => {
+    const gg = s('g', { class: 'mark' }, fr.svg);
+    s('circle', { cx: x(p[0]), cy: y(p[1]), r: 12, fill: 'transparent' }, gg);
+    s('circle', { cx: x(p[0]), cy: y(p[1]), r: 4.5, fill: 'var(--c1)', stroke: 'var(--surface)', 'stroke-width': 2, opacity: 0.85 }, gg);
+    gg.addEventListener('pointermove', evt => showTip(evt, fmtDY(p[2]), [{ label: xName, value: xFmt(p[0]) }, { label: yName, value: yFmt(p[1]) }]));
+    gg.addEventListener('pointerleave', hideTip);
+  });
+}
+
+/* ---------- shared glucose pieces ---------- */
+function tierItemsForRange(start, end) {
+  const len = diffDays(start, end) + 1;
+  const items = [];
+  if (len <= 120) {
+    for (const d of datesIn(start, end)) {
+      const st = dayStats(d); const tr = tier(st ? st.tir : null);
+      items.push({ label: len <= 14 ? `${WD[dow(d)]} ${+d.slice(8)}` : fmtD(d), value: st ? st.tir : null, color: tierColor(tr.cls),
+        tip: { head: `${WDL[dow(d)]}, ${fmtDY(d)}`, rows: st ? [{ label: 'Time in range', value: f1(st.tir) + '%', color: tierColor(tr.cls) }, { label: 'Tier', value: tr.label }, { label: 'Below 70', value: f1(st.lowAll) + '%' }, { label: 'Average', value: f0(st.mean) + ' mg/dL' }, { label: 'Readings', value: `${st.n}/288` }, { label: 'WIN day', value: isWin(st) ? 'Yes' : 'No' }] : [{ label: 'No data', value: '' }] } });
+    }
+    return { items, unit: 'day' };
+  }
+  const weekly = len <= 400;
+  const groups = new Map();
+  for (const d of datesIn(start, end)) {
+    const key = weekly ? addDays(d, -((dow(d) + 6) % 7)) : d.slice(0, 7);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(d);
+  }
+  for (const [key, ds] of groups) {
+    const acc = newAcc(); ds.forEach(d => { const a = cgm(d); if (a) bucketCounts(a, acc); });
+    const st = finish(acc, ds.length); const tr = tier(st ? st.tir : null);
+    const label = weekly ? fmtD(key) : `${MON[+key.slice(5) - 1]} '${key.slice(2, 4)}`;
+    items.push({ label, value: st ? st.tir : null, color: tierColor(tr.cls), tip: { head: weekly ? `Week of ${fmtDY(key)}` : `${MON[+key.slice(5) - 1]} ${key.slice(0, 4)}`, rows: st ? [{ label: 'Time in range', value: f1(st.tir) + '%', color: tierColor(tr.cls) }, { label: 'Tier', value: tr.label }, { label: 'Below 70', value: f1(st.lowAll) + '%' }, { label: 'Average', value: f0(st.mean) + ' mg/dL' }] : [] } });
+  }
+  return { items, unit: weekly ? 'week' : 'month' };
+}
+function tierLegend() {
+  return h('div', { class: 'legend' }, ...[['good', `Green ≥${T.tir.green}%`], ['target', `On target ≥${T.tir.target}%`], ['warn', `Warning ${T.tir.warning}–${T.tir.target}%`], ['crit', `Alert <${T.tir.warning}%`]].map(([c, l]) => h('span', null, h('i', { class: 'sw', style: `background:${tierColor(c)}` }), l)));
+}
+function mixCard(st, title = 'Time in ranges') {
+  const parts = [['Very low', '<54', st.vlow, 'var(--g-vlow)', `<${T.veryLowMax}%`], ['Low', '54–69', st.low, 'var(--g-low)', `<${T.lowMax}% total`], ['In range', '70–180', st.tir, 'var(--g-in)', `>${T.tir.target}%`], ['High', '181–250', st.high, 'var(--g-high)', '<25%'], ['Very high', '>250', st.vhigh, 'var(--g-vhigh)', '<5%']];
+  const bar = h('div', { class: 'mix', role: 'img', 'aria-label': parts.map(p => `${p[0]} ${f1(p[2])}%`).join(', ') }, ...parts.filter(p => p[2] > 0).map(p => h('div', { style: `flex:${p[2]} 0 0;background:${p[3]}`, title: `${p[0]} ${f1(p[2])}%` })));
+  const rows = h('div', { class: 'mix-rows' }, ...parts.map(p => h('div', null, h('span', null, h('i', { class: 'sw', style: `background:${p[3]}` }), p[0], ' ', h('em', null, p[1])), h('b', null, f1(p[2]) + '%'), h('em', null, 'Goal ' + p[4]))));
+  return card(title, 'Share of all CGM readings in the selected period (mg/dL)', null, bar, rows);
+}
+
+/* ---------- views ---------- */
+const VIEWS = [
+  { id: 'today', name: 'Today', icon: 'today', ranged: false },
+  { id: 'glucose', name: 'Glucose', icon: 'glucose', ranged: true },
+  { id: 'training', name: 'Training & Body', icon: 'training', ranged: true },
+  { id: 'sleep', name: 'Sleep & Recovery', icon: 'sleep', ranged: true },
+  { id: 'patterns', name: 'Patterns', icon: 'patterns', ranged: true },
+  { id: 'labs', name: 'Labs', icon: 'labs', ranged: false },
+];
+
+function viewToday(root) {
+  const ydate = lastFull, yst = dayStats(ydate), today = lastDate;
+  const rec = REC.get(today) || REC.get(ydate), slp = SLP.get(today) || SLP.get(ydate);
+  const recDates = [...REC.keys()].sort().slice(-14);
+  const zone = recZone(rec && rec.rec);
+  const recCard = card('Recovery', rec ? `WHOOP · ${fmtD(rec.d)}` : 'WHOOP', askLink(`How should I train today given recovery ${rec ? rec.rec : '?'}, HRV ${rec ? f1(rec.hrv) : '?'}, RHR ${rec ? rec.rhr : '?'}?`),
+    h('div', { class: 'hero-row' }, h('span', { class: 'hero-num' }, rec ? f0(rec.rec) : '—'), chip(zone.cls, zone.label)),
+    h('div', { class: 'metric-list' },
+      h('div', null, h('span', null, 'HRV'), h('b', null, rec ? f1(rec.hrv) + ' ms' : '—'), h('em', null, `baseline ~${T.hrvBaseline}`)),
+      h('div', null, h('span', null, 'Resting HR'), h('b', null, rec ? f0(rec.rhr) + ' bpm' : '—'), h('em', null, `baseline ~${T.rhrBaseline}`)),
+      h('div', null, h('span', null, 'Sleep'), h('b', null, slp ? f1(slp.hrs) + ' h' : '—'), h('em', null, `goal ${T.sleepHours[0]}–${T.sleepHours[1]} h`)),
+      h('div', null, h('span', null, 'Sleep performance'), h('b', null, slp ? f0(slp.perf) + '%' : '—'), h('em', null, slp && slp.dist != null ? `${slp.dist} disturbances` : ''))),
+    h('div', { class: 'chart', style: 'margin-top:14px' }));
+  const ytr = tier(yst && yst.tir);
+  const ycard = card('Yesterday’s glucose', `${WDL[dow(ydate)]}, ${fmtD(ydate)}`, askLink(`Yesterday (${fmtD(ydate)}) I had ${f1(yst && yst.tir)}% TIR, ${f1(yst && yst.lowAll)}% below 70 and average ${f0(yst && yst.mean)}. What stands out?`),
+    h('div', { class: 'hero-row' }, h('span', { class: 'hero-num' }, yst ? f1(yst.tir) : '—', h('span', { style: 'font-size:22px;color:var(--muted);font-weight:500' }, '%')), chip(ytr.cls, ytr.label)),
+    h('div', { class: 'metric-list' },
+      h('div', null, h('span', null, 'Below 70'), h('b', null, f1(yst && yst.lowAll) + '%'), h('em', null, `goal <${T.lowMax}%`)),
+      h('div', null, h('span', null, 'Below 54'), h('b', null, f2(yst && yst.vlow) + '%'), h('em', null, `goal <${T.veryLowMax}%`)),
+      h('div', null, h('span', null, 'Average'), h('b', null, f0(yst && yst.mean) + ' mg/dL'), h('em', null, `GMI ${f1(yst && yst.gmi)}%`)),
+      h('div', null, h('span', null, 'Variability (SD)'), h('b', null, f0(yst && yst.sd)), h('em', null, `goal <${T.sdMax}`))));
+  const sk = streakInfo(lastFull);
+  const last14 = datesIn(addDays(lastFull, -13), lastFull);
+  const streakCard = card('WIN streak', `WIN = TIR ≥75% and under 2% below 70, full day of data`, null,
+    h('div', { class: 'hero-row' }, h('span', { class: 'hero-num' }, String(sk.cur)), h('span', { style: 'color:var(--ink-2)' }, sk.cur === 1 ? 'day' : 'days')),
+    h('div', { class: 'metric-list' },
+      h('div', null, h('span', null, 'Longest streak (all time)'), h('b', null, `${sk.best} days`), h('em', null, '')),
+      h('div', null, h('span', null, 'Next milestone'), h('b', null, `${sk.next} days`), h('em', null, `${sk.next - sk.cur} to go`))),
+    h('div', { class: 'dots', 'aria-label': 'Last 14 days' }, ...last14.map(d => { const st = dayStats(d); const w = isWin(st); return h('span', { class: w ? 'w' : 'm', title: `${fmtD(d)}: ${st ? f1(st.tir) + '% TIR' : 'no data'}${w ? ' · WIN' : ''}` }, String(+d.slice(8))); })),
+    h('div', { class: 'legend' }, h('span', null, h('i', { class: 'sw', style: 'background:#e7f5ed;box-shadow:inset 0 0 0 1px var(--s-good)' }), 'WIN day'), h('span', null, h('i', { class: 'sw', style: 'background:#f0f1f4' }), 'Missed')));
+  root.append(h('div', { class: 'grid g-3' }, recCard, ycard, streakCard));
+
+  // today's curve
+  const ta = cgm(today), ya = cgm(ydate);
+  const lastSlot = ta ? (() => { for (let i = 287; i >= 0; i--) if (ta[i]) return i; return -1; })() : -1;
+  const curveHost = h('div', { class: 'chart' });
+  const thru = D.glucose_through ? new Date(D.glucose_through) : null;
+  const curveCard = card(today === lastFull ? 'Today' : 'Today so far', `${WDL[dow(today)]}, ${fmtD(today)} · glucose through ${thru ? thru.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : '—'} (Glooko syncs about hourly)`, askLink(`Looking at my glucose so far today (${fmtD(today)}), anything I should watch this afternoon?`), curveHost,
+    h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--g-in)' }), 'Today'), h('span', null, h('i', { class: 'ln', style: 'background:#b8c0cc' }), 'Yesterday'), h('span', null, h('i', { class: 'sw', style: 'background:var(--g-in-wash);box-shadow:inset 0 0 0 1px #cfdcf0' }), 'Target 70–180')));
+  // Heath
+  const hn = D.heath || null;
+  const heathCard = card('Heath’s take', hn ? (hn.date && hn.date !== lastDate ? `Latest note, ${fmtD(hn.date)} ${hn.when || ''}` : `From the ${hn.when} brief`) : 'Heath writes this each morning', null,
+    h('div', { class: 'heath' },
+      hn ? h('div', { class: 'heath-note' }, ...hn.lines.map(l => h('p', null, l))) : h('p', { class: 'heath-src' }, 'No note yet today.'),
+      h('div', { class: 'btn-row' },
+        h('a', { class: 'btn primary', href: heathUrl('Question about my dashboard: '), target: '_blank', rel: 'noopener' }, icon('chat'), 'Ask Heath'),
+        h('a', { class: 'btn ghost', href: heathUrl('Meal: '), target: '_blank', rel: 'noopener' }, icon('plus'), 'Log a meal')),
+      h('p', { class: 'heath-src' }, 'Both buttons open your Heath chat in Telegram with the message started for you.')));
+  root.append(h('div', { class: 'grid g-21', style: 'margin-top:16px' }, curveCard, heathCard));
+
+  // week vs targets
+  const w7 = rangeStats(addDays(lastFull, -6), lastFull);
+  const monday = addDays(lastDate, -((dow(lastDate) + 6) % 7));
+  const strengthThisWeek = datesIn(monday, lastDate).filter(d => ACT.get(d) && ACT.get(d).has('strength')).length;
+  const sleep7 = datesIn(addDays(lastDate, -6), lastDate).map(d => SLP.get(d)).filter(Boolean);
+  const sleepAvg = sleep7.length ? sleep7.reduce((a, b) => a + b.hrs, 0) / sleep7.length : null;
+  const tr7 = tier(w7 && w7.tir);
+  const row = (label, value, target, chipEl) => h('div', null, h('span', null, label, h('br'), h('em', { style: 'font-style:normal;color:var(--muted);font-size:12px' }, target)), h('b', null, value), chipEl);
+  root.append(h('div', { class: 'grid g-2', style: 'margin-top:16px' },
+    card('Last 7 days vs your targets', `${fmtD(addDays(lastFull, -6))} – ${fmtD(lastFull)}`, askLink(`Review my last 7 days against my targets: TIR ${f1(w7 && w7.tir)}%, lows ${f1(w7 && w7.lowAll)}%, ${strengthThisWeek} strength sessions this week, sleep ${f1(sleepAvg)} h.`),
+      h('div', { class: 'checklist' },
+        row('Time in range', f1(w7 && w7.tir) + '%', `Target >${T.tir.target}%, green >${T.tir.green}%`, chip(tr7.cls, tr7.label)),
+        row('Below 70', f1(w7 && w7.lowAll) + '%', `Goal <${T.lowMax}%`, okChip(w7 && w7.lowAll < T.lowMax)),
+        row('Below 54', f2(w7 && w7.vlow) + '%', `Goal <${T.veryLowMax}%`, okChip(w7 && w7.vlow < T.veryLowMax)),
+        row('Variability (SD)', f0(w7 && w7.sd), `Goal <${T.sdMax}`, okChip(w7 && w7.sd < T.sdMax)),
+        row('Strength sessions this week', `${strengthThisWeek} of ${T.strengthPerWeek}`, `Week starting ${fmtD(monday)}`, okChip(strengthThisWeek >= T.strengthPerWeek, 'Done', 'In progress')),
+        row('Average sleep', sleepAvg == null ? '—' : f1(sleepAvg) + ' h', `Goal ${T.sleepHours[0]}–${T.sleepHours[1]} h`, okChip(sleepAvg == null ? null : sleepAvg >= T.sleepHours[0])))),
+    (() => {
+      const ft = FOOD.get(lastDate), logged = [...FOOD.keys()].sort(), lastLogged = logged[logged.length - 1];
+      const yd = DAY.get(ydate) || {};
+      const pumpRows = [h('div', null, h('span', null, 'Carbs entered in pump yesterday'), h('b', null, f0(yd.carbs) + ' g'), h('em', null, 'from Omnipod')),
+        h('div', null, h('span', null, 'Total insulin yesterday'), h('b', null, f1(yd.ins) + ' U'), h('em', null, `${f1(yd.basal)} basal`))];
+      const pct = ft ? Math.min(100, 100 * ft.protein / T.proteinG[0]) : 0;
+      return card('Nutrition today', `Protein goal ${T.proteinG[0]}–${T.proteinG[1]} g`, h('a', { class: 'btn ghost', href: heathUrl('Meal: '), target: '_blank', rel: 'noopener' }, icon('plus'), 'Log a meal'),
+        ft ? h('div', null,
+          h('div', { class: 'hero-row' }, h('span', { class: 'hero-num', style: 'font-size:40px' }, f0(ft.protein)), h('span', { style: 'color:var(--ink-2)' }, `g protein · ${f0(ft.kcal)} kcal · ${ft.meals} ${ft.meals === 1 ? 'meal' : 'meals'}`)),
+          h('div', { class: 'mix', style: 'margin-top:12px;background:var(--grid)', role: 'img', 'aria-label': `${f0(pct)}% of protein goal` }, h('div', { style: `flex:0 0 ${pct}%;background:${pct >= 100 ? 'var(--s-good)' : 'var(--c1)'}` })),
+          h('p', { class: 'heath-src', style: 'margin-top:8px' }, ft.protein >= T.proteinG[0] ? 'Protein goal reached.' : `${f0(T.proteinG[0] - ft.protein)} g to the low end of your goal.`))
+          : h('div', { class: 'empty' }, h('p', null, lastLogged ? `Nothing logged yet today. Last logged day: ${fmtDY(lastLogged)}.` : 'Protein appears here once you log meals with Heath.'), h('p', { class: 'heath-src' }, 'Text or photograph a meal to Heath in Telegram. The portal picks it up on its next update.')),
+        h('div', { class: 'metric-list', style: 'margin-top:14px' }, ...pumpRows));
+    })()));
+
+  requestAnimationFrame(() => {
+    const host = recCard.querySelector('.chart');
+    const vals = recDates.map(d => REC.get(d).rec);
+    if (vals.length > 1) lines(host, { labels: recDates.map(fmtD), series: [{ name: 'Recovery', color: 'var(--c1)', values: vals, area: true, endDot: true }], height: 110, yDomain: [0, 100], xEvery: 13, tipHead: i => fmtDY(recDates[i]) });
+    const labels = Array.from({ length: 288 }, (_, i) => fmtHM(i));
+    const tv = ta ? Array.from(ta, (v, i) => (i <= lastSlot && v) ? v : null) : [];
+    const yv = ya ? Array.from(ya, v => v || null) : [];
+    lines(curveHost, { labels, series: [{ name: 'Yesterday', color: '#b8c0cc', values: yv, width: 1.5 }, { name: 'Today', color: 'var(--g-in)', values: tv, endDot: true }], height: 230, yDomain: [40, 320], band: [70, 180], xEvery: 36, fmt: f0, tipFmt: v => f0(v) + ' mg/dL' });
+  });
+}
+
+function viewGlucose(root) {
+  const R = curRange(), st = rangeStats(R.start, R.end), pv = R.prev ? rangeStats(R.prev.start, R.prev.end) : null;
+  if (!st) { root.append(card('No glucose data in this range', null, null)); return; }
+  const tr = tier(st.tir);
+  const P = pv || {};
+  root.append(kpis(
+    kpi('Time in range', f1(st.tir), '%', [deltaEl(st.tir, P.tir, 'up', ' pts')], chip(tr.cls, tr.label)),
+    kpi('Below 70', f1(st.lowAll), '%', [h('span', null, `goal <${T.lowMax}%`), deltaEl(st.lowAll, P.lowAll, 'down', ' pts')], okChip(st.lowAll < T.lowMax)),
+    kpi('Below 54', f2(st.vlow), '%', [h('span', null, `goal <${T.veryLowMax}%`), deltaEl(st.vlow, P.vlow, 'down', ' pts', 2)], okChip(st.vlow < T.veryLowMax)),
+    kpi('Average', f0(st.mean), 'mg/dL', [deltaEl(st.mean, P.mean, 'down', '', 0)]),
+    kpi('Variability', f0(st.sd), 'SD', [h('span', { title: 'Standard deviation and CV across all readings in the period, the standard CGM report method' }, `CV ${f1(st.cv)}% · all readings`), deltaEl(st.sd, P.sd, 'down', '', 0)], okChip(st.sd < T.sdMax)),
+    kpi('GMI', f1(st.gmi), '%', [h('span', null, `A1c goal <${T.a1cMax}%`), deltaEl(st.gmi, P.gmi, 'down', ' pts', 1)], okChip(st.gmi < T.a1cMax))));
+
+  const { items, unit } = tierItemsForRange(R.start, R.end);
+  const tirHost = h('div', { class: 'chart' });
+  root.append(h('div', { class: 'grid g-21' },
+    card(`Time in range by ${unit}`, `Colored by your tier system · ${st.days} days with CGM data`, askLink(`Why did my time in range move the way it did between ${fmtD(R.start)} and ${fmtD(R.end)}? Range TIR ${f1(st.tir)}%.`), tirHost, (() => { const l = tierLegend(); l.append(h('span', null, h('i', { class: 'ln', style: 'background:var(--ink-2);opacity:.55' }), `Target ${T.tir.target}%`)); return l; })()),
+    mixCard(st)));
+
+  const agpHost = h('div', { class: 'chart' }), lowHost = h('div', { class: 'chart' });
+  root.append(h('div', { class: 'grid g-21', style: 'margin-top:16px' },
+    card('Daily pattern', `Ambulatory glucose profile across ${st.days} days, by time of day`, askLink(`My glucose profile for ${fmtD(R.start)}–${fmtD(R.end)}: which time of day is my weakest?`), agpHost,
+      h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--g-in)' }), 'Median'), h('span', null, h('i', { class: 'sw', style: 'background:rgba(42,120,214,.3)' }), '25th–75th percentile'), h('span', null, h('i', { class: 'sw', style: 'background:rgba(42,120,214,.12)' }), '5th–95th percentile'))),
+    card('When lows happen', 'Share of readings below 70, by hour', askLink(`Most of my lows between ${fmtD(R.start)} and ${fmtD(R.end)} happen at certain hours. What could be driving that?`), lowHost)));
+
+  // low episodes
+  const eps = lowEpisodes(R.start, R.end);
+  const epTable = h('table', null, h('thead', null, h('tr', null, h('th', null, 'Date'), h('th', null, 'Started'), h('th', { class: 'num' }, 'Duration'), h('th', { class: 'num' }, 'Lowest'), h('th', null, 'Activity that day'))),
+    h('tbody', null, ...eps.slice(0, 12).map(e => h('tr', null, h('td', null, `${WD[dow(e.date)]} ${fmtD(e.date)}`), h('td', null, fmtHM(e.start)), h('td', { class: 'num' }, `${e.mins} min`), h('td', { class: 'num' }, `${e.nadir} mg/dL`), h('td', null, actLabel(e.date, e.start))))));
+  const longest = eps.reduce((a, e) => Math.max(a, e.mins), 0);
+  root.append(h('div', { class: 'grid g-12', style: 'margin-top:16px' },
+    card('Low episodes', 'A low episode is 15+ minutes below 70', null,
+      h('div', { class: 'metric-list', style: 'margin-top:0' },
+        h('div', null, h('span', null, 'Episodes in period'), h('b', null, String(eps.length)), h('em', null, `${f1(eps.length / Math.max(1, st.days) * 7)} per week`)),
+        h('div', null, h('span', null, 'Below 54 at any point'), h('b', null, String(eps.filter(e => e.nadir < 54).length)), h('em', null, 'episodes')),
+        h('div', null, h('span', null, 'Longest'), h('b', null, `${longest} min`), h('em', null, '')),
+        h('div', null, h('span', null, 'Overnight (12–6 AM)'), h('b', null, String(eps.filter(e => e.start < 72).length)), h('em', null, 'episodes'))),
+      h('p', { class: 'heath-src', style: 'margin-top:12px' }, whoopStart ? `Activity tags use WHOOP and Ladder, available from ${fmtD(actStart)}.` : '')),
+    card(eps.length > 12 ? `Most recent 12 of ${eps.length} episodes` : 'Episodes', null, askLink(`Look at my recent low episodes and tell me if training is a factor.`), h('div', { class: 'tbl-wrap' }, eps.length ? epTable : h('p', { class: 'heath-src' }, 'No low episodes in this period.')))));
+
+  // insulin & carbs
+  const ds = datesIn(R.start, R.end), insHost = h('div', { class: 'chart' }), carbHost = h('div', { class: 'chart' });
+  root.append(h('div', { class: 'grid g-2', style: 'margin-top:16px' },
+    card('Insulin per day', `Average ${f1(st.ins)} U · ${f1(st.basal)} basal / ${f1(st.bolus)} bolus`, null, insHost, h('div', { class: 'legend' }, h('span', null, h('i', { class: 'sw', style: 'background:var(--c1)' }), 'Basal'), h('span', null, h('i', { class: 'sw', style: 'background:var(--c2)' }), 'Bolus'))),
+    card('Carbs entered in pump per day', `Average ${f0(st.carbs)} g`, null, carbHost)));
+
+  requestAnimationFrame(() => {
+    columns(tirHost, { items, height: 220, yMax: 100, ticks: [0, 25, 50, 75, 100], fmt: v => v + '%', ref: { value: T.tir.target, label: `Target ${T.tir.target}%` } });
+    agp(agpHost, datesIn(R.start, R.end));
+    const hrs = Array.from({ length: 24 }, () => [0, 0]);
+    for (const d of datesIn(R.start, R.end)) { const a = cgm(d); if (!a) continue; for (let i = 0; i < 288; i++) if (a[i]) { hrs[Math.floor(i / 12)][1]++; if (a[i] < 70) hrs[Math.floor(i / 12)][0]++; } }
+    const lowItems = hrs.map(([l, n], hh) => ({ label: fmtHour(hh), value: n ? 100 * l / n : 0, color: 'var(--g-low)', tip: { head: `${fmtHour(hh)}–${fmtHour((hh + 1) % 24)}`, rows: [{ label: 'Below 70', value: f1(n ? 100 * l / n : 0) + '%', color: 'var(--g-low)' }, { label: 'Low readings', value: String(l) }] } }));
+    const lmax = Math.max(2, ...lowItems.map(i => i.value));
+    columns(lowHost, { items: lowItems, height: 260, yMax: lmax * 1.15, fmt: v => f1(v) + '%', labelEvery: 3 });
+    const agg = groupDays(ds, 120);
+    stacked(insHost, { items: agg.map(g => ({ label: g.label, tipHead: g.head, values: [+f1(g.mean('basal')), +f1(g.mean('bolus'))] })), series: [{ name: 'Basal (U)', color: 'var(--c1)' }, { name: 'Bolus (U)', color: 'var(--c2)' }], height: 200 });
+    columns(carbHost, { items: agg.map(g => ({ label: g.label, value: g.mean('carbs'), color: 'var(--c3)', tip: { head: g.head, rows: [{ label: 'Carbs', value: f0(g.mean('carbs')) + ' g', color: 'var(--c3)' }] } })), height: 200 });
+  });
+}
+function groupDays(ds, maxDaily) {
+  const len = ds.length, weekly = len > maxDaily && len <= 400, monthly = len > 400;
+  const groups = new Map();
+  ds.forEach(d => { const k = monthly ? d.slice(0, 7) : weekly ? addDays(d, -((dow(d) + 6) % 7)) : d; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(d); });
+  return [...groups].map(([k, arr]) => ({
+    label: monthly ? `${MON[+k.slice(5) - 1]} '${k.slice(2, 4)}` : fmtD(k),
+    head: monthly ? `${MON[+k.slice(5) - 1]} ${k.slice(0, 4)} (daily avg)` : weekly ? `Week of ${fmtDY(k)} (daily avg)` : `${WDL[dow(k)]}, ${fmtDY(k)}`,
+    mean: key => { const v = arr.map(d => DAY.get(d) && DAY.get(d)[key]).filter(x => x != null && x > 0); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; },
+  }));
+}
+function lowEpisodes(start, end) {
+  const out = [];
+  for (const d of datesIn(start, end)) {
+    const a = cgm(d); if (!a) continue;
+    let i = 0;
+    while (i < 288) {
+      if (a[i] && a[i] < 70) {
+        let j = i, nadir = a[i], gap = 0, lastLow = i;
+        while (j < 288) { const v = a[j]; if (!v) { if (++gap > 2) break; } else if (v < 70) { gap = 0; lastLow = j; nadir = Math.min(nadir, v); } else break; j++; }
+        const mins = (lastLow - i + 1) * 5;
+        if (mins >= 15) out.push({ date: d, start: i, mins, nadir });
+        i = lastLow + 1;
+      } else i++;
+    }
+  }
+  return out.reverse();
+}
+function actLabel(date, slot) {
+  const today = ACT.get(date), prev = ACT.get(addDays(date, -1));
+  if (date < actStart) return h('span', { style: 'color:var(--muted)' }, 'No activity data');
+  const parts = [];
+  if (today) parts.push([...today].map(t => ({ strength: 'Strength', conditioning: 'Conditioning', pickleball: 'Pickleball', cardio: 'Cardio' })[t]).join(', '));
+  if (slot < 72 && prev && prev.has('strength')) parts.push('after strength the day before');
+  return parts.length ? parts.join(' · ') : h('span', { style: 'color:var(--muted)' }, 'Rest day');
+}
+
+function viewTraining(root) {
+  const R = curRange(), ds = datesIn(R.start, R.end);
+  const dexa = D.dexa || [];
+  const L = dexa[dexa.length - 1], Pd = dexa[dexa.length - 2];
+  const dd = (k, better, unit, dig = 1) => Pd ? deltaElAlways(L[k], Pd[k], better, unit, dig) : null;
+  root.append(kpis(
+    kpi('Body fat', f1(L.bf), '%', [h('span', null, `DEXA ${fmtD(L.date)}`), dd('bf', 'down', ' pts')]),
+    kpi('Lean tissue', f1(L.lean), 'lb', [dd('lean', 'up', ' lb')]),
+    kpi('Fat tissue', f1(L.fat), 'lb', [dd('fat', 'down', ' lb')]),
+    kpi('Visceral fat', f2(L.vat), 'lb', [dd('vat', 'down', ' lb', 2)]),
+    kpi('Total mass', f1(L.total), 'lb', [dd('total', null, ' lb')]),
+    kpi('Resting metabolic rate', f0(L.rmr), 'kcal', [dd('rmr', 'up', '', 0)])));
+  const bfHost = h('div', { class: 'chart' }), lfHost = h('div', { class: 'chart' });
+  root.append(h('div', { class: 'grid g-2' },
+    card('Body fat over time', `${dexa.length} DEXA scans since ${fmtMYfull(dexa[0].date)}`, h('span', { class: 'scope' }, 'All scans'), bfHost),
+    card('Lean and fat tissue', 'Pounds at each scan', askLink(`My latest DEXA (${fmtD(L.date)}) shows fat ${signed(L.fat - Pd.fat)} lb and lean ${signed(L.lean - Pd.lean)} lb since ${fmtD(Pd.date)}. What should I change?`), lfHost,
+      h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--c1)' }), 'Lean tissue'), h('span', null, h('i', { class: 'ln', style: 'background:var(--c2)' }), 'Fat tissue')))));
+
+  const weeksIn = Math.max(1, ds.length / 7);
+  const count = k => ds.filter(d => ACT.get(d) && ACT.get(d).has(k)).length;
+  const strengthN = count('strength'), condN = count('conditioning');
+  const P = R.prev ? datesIn(R.prev.start, R.prev.end) : [];
+  const prevStrength = P.length ? P.filter(d => ACT.get(d) && ACT.get(d).has('strength')).length / Math.max(1, P.length / 7) : null;
+  const VOL = new Map((LADDER.volume || []).map(([d, v]) => [d, v]));
+  const volSum = ds.reduce((a, d) => a + (VOL.get(d) || 0), 0);
+  const sess = LADDER.sessions.filter(s => s[0] >= R.start && s[0] <= R.end);
+  const mins = sess.map(s => s[2]).filter(Boolean);
+  root.append(h('div', { style: 'margin-top:16px' }, kpis(
+    kpi('Strength sessions', f1(strengthN / weeksIn), 'per week', [h('span', null, `goal ${T.strengthPerWeek}`), deltaEl(strengthN / weeksIn, prevStrength, 'up', '')], okChip(strengthN / weeksIn >= T.strengthPerWeek - 0.05, 'On target', 'Below target')),
+    kpi('Conditioning', f1(condN / weeksIn), 'per week', []),
+    kpi('Ladder workouts', String(sess.length), '', [h('span', null, mins.length ? `avg ${f0(mins.reduce((a, b) => a + b, 0) / mins.length)} min` : '')]),
+    kpi('Volume lifted', volSum >= 1e5 ? f0(volSum / 1000) + 'k' : f0(volSum), 'lb', [h('span', null, `${f0(volSum / weeksIn)} lb per week`)]))));
+
+  const freqHost = h('div', { class: 'chart' }), volHost = h('div', { class: 'chart' });
+  const monthly = ds.length > 182;
+  const tvg = trainingVsGlucose(R.start, R.end);
+  root.append(h('div', { class: 'grid g-21' },
+    card(monthly ? 'Sessions per week, by month' : 'Sessions per week', `Ladder and WHOOP · strength goal ${T.strengthPerWeek} per week`, askLink(`I averaged ${f1(strengthN / weeksIn)} strength sessions a week between ${fmtD(R.start)} and ${fmtD(R.end)}. What is getting in the way of ${T.strengthPerWeek}?`), freqHost,
+      h('div', { class: 'legend' }, ...[['var(--c1)', 'Strength'], ['var(--c2)', 'Conditioning'], ['var(--c3)', 'Pickleball'], ['var(--c4)', 'Cardio and other']].map(([c, l]) => h('span', null, h('i', { class: 'sw', style: `background:${c}` }), l)), h('span', null, h('i', { class: 'ln', style: 'background:var(--ink-2);opacity:.55' }), `Strength goal ${T.strengthPerWeek}`))),
+    card('Training days and glucose', `${fmtD(R.start)} – ${fmtD(R.end)}`, askLink(`On strength days my next-night time below 70 is ${f1(tvg.s.night)}% vs ${f1(tvg.r.night)}% after rest days. How should I plan around training?`),
+      h('div', { class: 'tbl-wrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, ''), h('th', { class: 'num' }, 'Days'), h('th', { class: 'num' }, 'Same-day TIR'), h('th', { class: 'num' }, 'Next night <70'))),
+        h('tbody', null, ...[['Strength days', tvg.s], ['Other activity', tvg.o], ['Rest days', tvg.r]].map(([l, v]) => h('tr', null, h('td', null, l), h('td', { class: 'num' }, String(v.n)), h('td', { class: 'num' }, f1(v.tir) + '%'), h('td', { class: 'num' }, f1(v.night) + '%')))))),
+      h('p', { class: 'heath-src', style: 'margin-top:10px' }, 'Next night = midnight to 6 AM after that day. Treat differences as patterns to test.'))));
+
+  const lifts = liftTable(R.start, R.end);
+  if (!lifts.some(l => l.name === explore.lift)) explore.lift = lifts.length ? lifts[0].name : null;
+  const liftHost = h('div', { class: 'chart' });
+  const liftSel = h('select', { class: 'select', id: 'lift-pick', onchange: e => { explore.lift = e.target.value; render(); } }, ...lifts.map(l => h('option', { value: l.name, selected: l.name === explore.lift }, prettyLift(l.name))));
+  root.append(h('div', { class: 'grid g-2', style: 'margin-top:16px' },
+    card('Strength progress', 'Estimated one-rep max per session (best set, Epley)', askLink(`How is my ${explore.lift ? prettyLift(explore.lift) : 'strength'} progressing, and what would move it?`),
+      lifts.length ? h('div', { class: 'pick-row', style: 'margin-bottom:10px' }, 'Exercise', liftSel) : null,
+      lifts.length ? liftHost : h('p', { class: 'heath-src' }, 'No weighted Ladder sets in this period.')),
+    card('Volume lifted', `Pounds moved in Ladder sets per ${monthly ? 'month' : 'week'}`, null, volHost)));
+  root.append(h('div', { style: 'margin-top:16px' }, card('Lifts in this period', `Most-trained lifts between ${fmtD(R.start)} and ${fmtD(R.end)} · Ladder export through ${fmtD(LADDER.export_through || R.end)}`, askLink('Which of my lifts are progressing and which have stalled?'),
+    h('div', { class: 'tbl-wrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, 'Exercise'), h('th', { class: 'num' }, 'Sessions'), h('th', { class: 'num' }, 'First'), h('th', { class: 'num' }, 'Latest'), h('th', { class: 'num' }, 'Best'), h('th', { class: 'num' }, 'Change'), h('th', null, 'Last done'))),
+      h('tbody', null, ...lifts.slice(0, 12).map(l => h('tr', null, h('td', null, prettyLift(l.name)), h('td', { class: 'num' }, String(l.n)), h('td', { class: 'num' }, f0(l.first) + ' lb'), h('td', { class: 'num' }, f0(l.latest) + ' lb'), h('td', { class: 'num' }, f0(l.best) + ' lb'), h('td', { class: 'num' }, deltaElAlways(l.latest, l.first, 'up', ' lb', 0, '')), h('td', null, fmtDY(l.lastDate))))))),
+    h('p', { class: 'heath-src', style: 'margin-top:10px' }, 'Estimated maxes use the logged weight and reps of the best set (sets of 15 reps or fewer). Dumbbell lifts use the weight as logged in Ladder.'))));
+
+  const fdays = ds.filter(d => FOOD.has(d));
+  const protHost = h('div', { class: 'chart' });
+  const avgP = fdays.length ? fdays.reduce((a, d) => a + FOOD.get(d).protein, 0) / fdays.length : null;
+  root.append(h('div', { style: 'margin-top:16px' }, card('Protein per day', `${fdays.length} logged ${fdays.length === 1 ? 'day' : 'days'} in this period · goal ${T.proteinG[0]}–${T.proteinG[1]} g`, h('a', { class: 'btn ghost', href: heathUrl('Meal: '), target: '_blank', rel: 'noopener' }, icon('plus'), 'Log a meal'),
+    fdays.length ? h('div', { class: 'metric-list', style: 'margin:0 0 12px' }, h('div', null, h('span', null, 'Average on logged days'), h('b', null, f0(avgP) + ' g protein'), h('em', null, `${f0(fdays.reduce((a, d) => a + FOOD.get(d).kcal, 0) / fdays.length)} kcal`))) : null,
+    fdays.length ? protHost : h('div', { class: 'empty' }, h('p', null, 'No meals logged in this period. Text or photograph a meal to Heath in Telegram and it shows up here the next morning.')))));
+
+  requestAnimationFrame(() => {
+    const t0 = toUTC(dexa[0].date), t1 = toUTC(L.date), pos = dexa.map(x => (toUTC(x.date) - t0) / ((t1 - t0) || 1));
+    lines(bfHost, { labels: dexa.map(x => fmtMYfull(x.date)), xPos: pos, series: [{ name: 'Body fat', color: 'var(--c1)', values: dexa.map(x => x.bf), dots: true }], height: 220, yDomain: [8, 24], fmt: v => v + '%', tipFmt: v => f1(v) + '%', xEvery: 1, tipHead: i => fmtDY(dexa[i].date) });
+    lines(lfHost, { labels: dexa.map(x => fmtMYfull(x.date)), xPos: pos, series: [{ name: 'Lean tissue', color: 'var(--c1)', values: dexa.map(x => x.lean), dots: true }, { name: 'Fat tissue', color: 'var(--c2)', values: dexa.map(x => x.fat), dots: true }], height: 220, yDomain: [0, 180], fmt: v => v + ' lb', tipFmt: v => f1(v) + ' lb', xEvery: 1, tipHead: i => fmtDY(dexa[i].date) });
+    const groups = new Map();
+    ds.forEach(d => { const k = monthly ? d.slice(0, 7) : addDays(d, -((dow(d) + 6) % 7)); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(d); });
+    const items = [...groups].map(([k, arr]) => {
+      const per = monthly ? arr.length / 7 : 1;
+      const c = key => +(arr.filter(d => ACT.get(d) && ACT.get(d).has(key)).length / per).toFixed(1);
+      return { label: monthly ? `${MON[+k.slice(5) - 1]} '${k.slice(2, 4)}` : fmtD(k), tipHead: monthly ? `${MON[+k.slice(5) - 1]} ${k.slice(0, 4)} · per week` : `Week of ${fmtDY(k)}`, values: [c('strength'), c('conditioning'), c('pickleball'), c('cardio')],
+        vol: arr.reduce((a, d) => a + (VOL.get(d) || 0), 0) };
+    });
+    stacked(freqHost, { items, series: [{ name: 'Strength', color: 'var(--c1)' }, { name: 'Conditioning', color: 'var(--c2)' }, { name: 'Pickleball', color: 'var(--c3)' }, { name: 'Cardio/other', color: 'var(--c4)' }], height: 230, ref: { value: T.strengthPerWeek } });
+    columns(volHost, { items: items.map(it => ({ label: it.label, value: it.vol, color: 'var(--c1)', tip: { head: it.tipHead.replace(' · per week', ''), rows: [{ label: 'Volume', value: f0(it.vol) + ' lb', color: 'var(--c1)' }] } })), height: 230, fmt: v => v >= 1000 ? f0(v / 1000) + 'k' : f0(v) });
+    if (explore.lift && liftHost.isConnected) {
+      let pts = (LADDER.lifts[explore.lift] || []).filter(x => x[1] && x[0] >= R.start && x[0] <= R.end);
+      if (pts.length < 2) pts = (LADDER.lifts[explore.lift] || []).filter(x => x[1]);
+      const tA = toUTC(pts[0][0]), tB = toUTC(pts[pts.length - 1][0]);
+      lines(liftHost, { labels: pts.map(x => fmtD(x[0])), xPos: pts.map(x => (toUTC(x[0]) - tA) / ((tB - tA) || 1)), series: [{ name: 'Estimated max', color: 'var(--c1)', values: pts.map(x => x[1]), dots: pts.length <= 40, endDot: true }], height: 230, fmt: v => f0(v) + ' lb', tipFmt: v => f0(v) + ' lb', tipHead: i => fmtDY(pts[i][0]) });
+    }
+    if (fdays.length) columns(protHost, { items: ds.map(d => { const f = FOOD.get(d); return { label: fmtD(d), value: f ? f.protein : null, color: f && f.protein >= T.proteinG[0] ? 'var(--s-good)' : 'var(--c1)', tip: { head: fmtDY(d), rows: f ? [{ label: 'Protein', value: f0(f.protein) + ' g' }, { label: 'Calories', value: f0(f.kcal) }, { label: 'Carbs', value: f0(f.carbs) + ' g' }, { label: 'Fat', value: f0(f.fat) + ' g' }, { label: 'Meals logged', value: String(f.meals) }] : [{ label: 'Not logged', value: '' }] } }; }), height: 200, band: T.proteinG, yMax: 220, ticks: [0, 50, 100, 150, 200], fmt: v => v + 'g' });
+  });
+}
+const prettyLift = n => n.includes(' | ') ? `${n.split(' | ')[0]} (${n.split(' | ')[1]})` : n;
+const signed = v => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(1);
+const fmtMYfull = s => `${MON[+s.slice(5, 7) - 1]} ${s.slice(0, 4)}`;
+function deltaElAlways(cur, prev, better, unit = '', digits = 1, label = 'vs prior scan') {
+  if (cur == null || prev == null) return null;
+  const d = cur - prev, r = Math.abs(d) < Math.pow(10, -digits) / 2 ? 0 : d;
+  const cls = r === 0 || !better ? 'flat' : ((r > 0) === (better === 'up') ? 'good' : 'bad');
+  return h('span', { class: 'delta ' + cls }, `${r > 0 ? '+' : r < 0 ? '−' : '±'}${Math.abs(r).toFixed(digits)}${unit}${label ? ' ' + label : ''}`);
+}
+function trainingVsGlucose(start, end) {
+  const g = { s: [], o: [], r: [] };
+  for (const d of datesIn(start, end)) {
+    const st = dayStats(d), next = cgm(addDays(d, 1)); if (!st || st.n < 200) continue;
+    let low = 0, n = 0; if (next) for (let i = 0; i < 72; i++) if (next[i]) { n++; if (next[i] < 70) low++; }
+    const a = ACT.get(d); const k = a && a.has('strength') ? 's' : a ? 'o' : 'r';
+    g[k].push({ tir: st.tir, night: n ? 100 * low / n : null });
+  }
+  const sum = arr => ({ n: arr.length, tir: arr.length ? arr.reduce((a, b) => a + b.tir, 0) / arr.length : null, night: (() => { const v = arr.map(x => x.night).filter(x => x != null); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; })() });
+  return { s: sum(g.s), o: sum(g.o), r: sum(g.r) };
+}
+function liftTable(start, end) {
+  return Object.entries(LADDER.lifts || {}).map(([name, arr]) => {
+    const r = arr.filter(x => x[1] && x[0] >= start && x[0] <= end);
+    if (r.length < 2) return null;
+    return { name, n: r.length, first: r[0][1], latest: r[r.length - 1][1], best: Math.max(...r.map(x => x[1])), lastDate: r[r.length - 1][0] };
+  }).filter(Boolean).sort((a, b) => b.n - a.n || b.best - a.best);
+}
+
+function viewSleep(root) {
+  const R = curRange();
+  const start = whoopStart && R.start < whoopStart ? whoopStart : R.start;
+  const ds = datesIn(start, lastDate);
+  const recs = ds.map(d => REC.get(d)).filter(Boolean), slps = ds.map(d => SLP.get(d)).filter(Boolean);
+  const avg = (arr, k) => { const v = arr.map(x => x[k]).filter(x => x != null); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; };
+  const pvs = R.prev ? datesIn(R.prev.start, R.prev.end) : [];
+  const precs = pvs.map(d => REC.get(d)).filter(Boolean), pslps = pvs.map(d => SLP.get(d)).filter(Boolean);
+  const pa = (arr, k) => arr.length ? avg(arr, k) : null;
+  const hrs = avg(slps, 'hrs');
+  if (whoopStart && R.start < whoopStart) root.append(h('div', { class: 'note', style: 'margin-bottom:16px' }, h('b', null, 'WHOOP history starts ' + fmtDY(whoopStart) + '. '), 'The data pipeline currently keeps only the last 25 WHOOP records, so this view shows what exists. Once the pipeline keeps full history, every range here fills in.'));
+  root.append(kpis(
+    kpi('Recovery', f0(avg(recs, 'rec')), '', [h('span', null, 'average'), deltaEl(avg(recs, 'rec'), pa(precs, 'rec'), 'up', '', 0)]),
+    kpi('HRV', f1(avg(recs, 'hrv')), 'ms', [h('span', null, `baseline ~${T.hrvBaseline}`), deltaEl(avg(recs, 'hrv'), pa(precs, 'hrv'), 'up', ' ms')]),
+    kpi('Resting HR', f0(avg(recs, 'rhr')), 'bpm', [h('span', null, `baseline ~${T.rhrBaseline}`), deltaEl(avg(recs, 'rhr'), pa(precs, 'rhr'), 'down', '', 0)]),
+    kpi('Sleep', f1(hrs), 'h', [h('span', null, `goal ${T.sleepHours[0]}–${T.sleepHours[1]} h`), deltaEl(hrs, pa(pslps, 'hrs'), 'up', ' h')], okChip(hrs == null ? null : hrs >= T.sleepHours[0])),
+    kpi('Sleep performance', f0(avg(slps, 'perf')), '%', [deltaEl(avg(slps, 'perf'), pa(pslps, 'perf'), 'up', ' pts', 0)]),
+    kpi('Nights under 7 h', String(slps.filter(x => x.hrs < T.sleepHours[0]).length), `of ${slps.length}`, [])));
+  const recHost = h('div', { class: 'chart' }), slHost = h('div', { class: 'chart' }), hrvHost = h('div', { class: 'chart' }), rhrHost = h('div', { class: 'chart' }), scHost = h('div', { class: 'chart' });
+  root.append(h('div', { class: 'grid g-2' },
+    card('Recovery', `WHOOP recovery score by ${ds.length > 400 ? 'month' : ds.length > 120 ? 'week' : 'day'}`, askLink('What has been dragging my recovery down lately?'), recHost,
+      h('div', { class: 'legend' }, ...[['good', 'Green ≥67'], ['warn', 'Yellow 34–66'], ['crit', 'Red <34']].map(([c, l]) => h('span', null, h('i', { class: 'sw', style: `background:${tierColor(c)}` }), l)))),
+    card('Sleep', ds.length > 120 ? `Average hours asleep per night, by ${ds.length > 400 ? 'month' : 'week'}` : 'Hours asleep by night', askLink(`I average ${f1(hrs)} h of sleep. With the twins, what is the most realistic lever to get to 7+?`), slHost,
+      h('div', { class: 'legend' }, h('span', null, h('i', { class: 'sw', style: 'background:var(--c1)' }), 'Hours asleep'), h('span', null, h('i', { class: 'sw', style: 'background:var(--g-in-wash);box-shadow:inset 0 0 0 1px #cfdcf0' }), `Goal ${T.sleepHours[0]}–${T.sleepHours[1]} h`)))));
+  root.append(h('div', { class: 'grid g-3', style: 'margin-top:16px' },
+    card('HRV', `Milliseconds · line marks your ~${T.hrvBaseline} ms baseline`, null, hrvHost), card('Resting heart rate', `Beats per minute · line marks your ~${T.rhrBaseline} bpm baseline`, null, rhrHost),
+    card('Sleep and next-day glucose', 'Each dot is one night', null, scHost, h('p', { class: 'r-badge', id: 'sleep-r' }))));
+  requestAnimationFrame(() => {
+    const rd = ds.filter(d => REC.get(d)), sd = ds.filter(d => SLP.get(d));
+    const unit = ds.length > 400 ? 'month' : ds.length > 120 ? 'week' : 'day';
+    const keyOf = d => unit === 'month' ? d.slice(0, 7) : unit === 'week' ? addDays(d, -((dow(d) + 6) % 7)) : d;
+    const labelOf = k => unit === 'month' ? `${MON[+k.slice(5, 7) - 1]} '${k.slice(2, 4)}` : fmtD(k);
+    const headOf = k => unit === 'month' ? `${MON[+k.slice(5, 7) - 1]} ${k.slice(0, 4)} (average)` : unit === 'week' ? `Week of ${fmtDY(k)} (average)` : fmtDY(k);
+    const group = (dates, get) => { const m = new Map(); dates.forEach(d => { const k = keyOf(d); if (!m.has(k)) m.set(k, []); m.get(k).push(get(d)); }); return [...m].map(([k, arr]) => ({ k, arr })); };
+    const mean = (arr, f) => { const v = arr.map(f).filter(x => x != null); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; };
+    const recG = group(rd, d => REC.get(d)), slG = group(sd, d => SLP.get(d));
+    columns(recHost, { items: recG.map(({ k, arr }) => { const v = mean(arr, x => x.rec), z = recZone(v); return { label: labelOf(k), value: v, color: tierColor(z.cls), tip: { head: headOf(k), rows: [{ label: 'Recovery', value: f0(v), color: tierColor(z.cls) }, { label: 'Zone', value: z.label }, { label: 'HRV', value: f1(mean(arr, x => x.hrv)) + ' ms' }, { label: 'Resting HR', value: f0(mean(arr, x => x.rhr)) + ' bpm' }, ...(unit === 'day' ? [] : [{ label: 'Nights', value: String(arr.length) }])] } }; }), yMax: 100, ticks: [0, 34, 67, 100], height: 210 });
+    columns(slHost, { items: slG.map(({ k, arr }) => { const v = mean(arr, x => x.hrs); return { label: labelOf(k), value: v, color: 'var(--c1)', tip: { head: unit === 'day' ? `Night before ${fmtDY(k)}` : headOf(k), rows: [{ label: 'Asleep', value: f1(v) + ' h', color: 'var(--c1)' }, { label: 'In bed', value: f1(mean(arr, x => x.bed)) + ' h' }, { label: 'Deep', value: f1(mean(arr, x => x.deep)) + ' h' }, { label: 'REM', value: f1(mean(arr, x => x.rem)) + ' h' }, { label: 'Performance', value: f0(mean(arr, x => x.perf)) + '%' }, unit === 'day' ? { label: 'Disturbances', value: String(arr[0].dist) } : { label: 'Nights', value: String(arr.length) }] } }; }), yMax: 10, ticks: [0, 2, 4, 6, 8, 10], fmt: v => v + 'h', band: T.sleepHours, height: 210 });
+    lines(hrvHost, { labels: recG.map(g => labelOf(g.k)), series: [{ name: 'HRV', color: 'var(--c1)', values: recG.map(g => mean(g.arr, x => x.hrv)), endDot: true }], refs: [{ value: T.hrvBaseline }], height: 170, tipFmt: v => f1(v) + ' ms', tipHead: i => headOf(recG[i].k) });
+    lines(rhrHost, { labels: recG.map(g => labelOf(g.k)), series: [{ name: 'Resting HR', color: 'var(--c2)', values: recG.map(g => mean(g.arr, x => x.rhr)), endDot: true }], refs: [{ value: T.rhrBaseline }], height: 170, tipFmt: v => f0(v) + ' bpm', tipHead: i => headOf(recG[i].k) });
+    const pts = sd.map(d => { const st = dayStats(d); return st && st.n >= 200 ? [SLP.get(d).hrs, st.tir, d] : null; }).filter(Boolean);
+    scatter(scHost, { pts, xName: 'Hours asleep', yName: 'TIR that day (%)', height: 200, yFmt: v => f0(v) + '%' });
+    const r = pearson(pts); document.getElementById('sleep-r').textContent = r == null ? '' : `r = ${r.toFixed(2)} across ${pts.length} nights · a pattern to test, not proof`;
+  });
+}
+
+const METRICS = {
+  tir: { name: 'Time in range (%)', get: d => { const s = dayStats(d); return s && s.n >= 200 ? s.tir : null; }, fmt: v => f0(v) + '%' },
+  low: { name: 'Below 70 (%)', get: d => { const s = dayStats(d); return s && s.n >= 200 ? s.lowAll : null; }, fmt: f1 },
+  avg: { name: 'Average glucose', get: d => { const s = dayStats(d); return s && s.n >= 200 ? s.mean : null; }, fmt: f0 },
+  sd: { name: 'Glucose SD', get: d => { const s = dayStats(d); return s && s.n >= 200 ? s.sd : null; }, fmt: f0 },
+  ins: { name: 'Total insulin (U)', get: d => DAY.get(d) && DAY.get(d).ins || null, fmt: f1 },
+  carbs: { name: 'Carbs in pump (g)', get: d => DAY.get(d) && DAY.get(d).carbs || null, fmt: f0 },
+  rec: { name: 'WHOOP recovery', get: d => REC.get(d) ? REC.get(d).rec : null, fmt: f0 },
+  hrv: { name: 'HRV (ms)', get: d => REC.get(d) ? REC.get(d).hrv : null, fmt: f1 },
+  sleep: { name: 'Hours asleep', get: d => SLP.get(d) ? SLP.get(d).hrs : null, fmt: f1 },
+  strain: { name: 'WHOOP strain (sum)', get: d => { const w = WORK.filter(x => x.d === d); return w.length ? w.reduce((a, b) => a + (b.strain || 0), 0) : null; }, fmt: f1 },
+};
+const explore = { x: 'sleep', y: 'tir', heat: 'in', lift: null };
+function viewPatterns(root) {
+  const R = curRange(), ds = datesIn(R.start, R.end);
+  // heatmap
+  const heatHost = h('div', { class: 'chart' });
+  const HEAT = { in: { name: 'In range', color: [42, 120, 214], fn: v => v >= 70 && v <= 180 }, low: { name: 'Below 70', color: [176, 42, 53], fn: v => v < 70 }, high: { name: 'Above 180', color: [180, 84, 26], fn: v => v > 180 } };
+  const heatSeg = h('div', { class: 'seg', role: 'group', 'aria-label': 'Heatmap metric' }, ...Object.entries(HEAT).map(([k, v]) => h('button', { 'aria-pressed': String(explore.heat === k), onclick: () => { explore.heat = k; render(); } }, v.name)));
+  root.append(card('Week rhythm', `Share of readings ${HEAT[explore.heat].name.toLowerCase()} by weekday and hour · ${fmtD(R.start)} – ${fmtD(R.end)}`, heatSeg, heatHost));
+  // compare table
+  const cur = rangeStats(R.start, R.end), prev = R.prev ? rangeStats(R.prev.start, R.prev.end) : null;
+  const lyS = addDays(R.start, -364), lyE = addDays(R.end, -364), ly = lyS >= firstDate ? rangeStats(lyS, lyE) : null;
+  const rowsDef = [['Time in range', 'tir', '%', 1, 'up', `>${T.tir.target}%`], ['Below 70', 'lowAll', '%', 1, 'down', `<${T.lowMax}%`], ['Below 54', 'vlow', '%', 2, 'down', `<${T.veryLowMax}%`], ['Above 180', 'highAll', '%', 1, 'down', ''], ['Average glucose', 'mean', '', 0, 'down', ''], ['SD', 'sd', '', 0, 'down', `<${T.sdMax}`], ['CV', 'cv', '%', 1, 'down', '<36%'], ['GMI', 'gmi', '%', 1, 'down', `A1c <${T.a1cMax}%`], ['Insulin per day', 'ins', ' U', 1, null, ''], ['Carbs per day', 'carbs', ' g', 0, null, '']];
+  const fmtv = (v, u, dg) => v == null ? '—' : (dg === 0 ? f0(v) : dg === 2 ? f2(v) : f1(v)) + u;
+  const cmpTable = h('table', null, h('thead', null, h('tr', null, h('th', null, 'Metric'), h('th', { class: 'num' }, `${fmtD(R.start)} – ${fmtD(R.end)}`), h('th', { class: 'num' }, R.prev ? `Previous ${R.len} days` : 'Previous'), h('th', { class: 'num' }, 'Change'), h('th', { class: 'num' }, 'Same dates last year'), h('th', null, 'Goal'))),
+    h('tbody', null, ...rowsDef.map(([l, k, u, dg, b, goal]) => h('tr', null, h('td', null, l), h('td', { class: 'num' }, h('b', null, fmtv(cur && cur[k], u, dg))), h('td', { class: 'num' }, fmtv(prev && prev[k], u, dg)), h('td', { class: 'num' }, prev ? deltaElAlways(cur[k], prev[k], b, u.trim() === '%' ? ' pts' : u, dg, '') : '—'), h('td', { class: 'num' }, fmtv(ly && ly[k], u, dg)), h('td', null, goal)))));
+  root.append(h('div', { style: 'margin-top:16px' }, card('Compare periods', 'Selected range against the previous period and the same dates a year earlier', askLink(`Compare ${fmtD(R.start)}–${fmtD(R.end)} with the period before: TIR ${f1(cur && cur.tir)}% vs ${f1(prev && prev.tir)}%. What changed?`), h('div', { class: 'tbl-wrap' }, cmpTable))));
+  // explorer
+  const scHost = h('div', { class: 'chart' });
+  const sel = (key, id) => h('select', { class: 'select', id, onchange: e => { explore[key] = e.target.value; render(); } }, ...Object.entries(METRICS).map(([k, m]) => h('option', { value: k, selected: explore[key] === k }, m.name)));
+  const pts = ds.map(d => { const x = METRICS[explore.x].get(d), y = METRICS[explore.y].get(d); return x != null && y != null ? [x, y, d] : null; }).filter(Boolean);
+  const r = pearson(pts);
+  root.append(h('div', { style: 'margin-top:16px' }, card('Explore relationships', 'Pick any two daily metrics. Each dot is one day in the selected range.', askLink(`Is there a real relationship between ${METRICS[explore.x].name} and ${METRICS[explore.y].name} for me? I see r = ${r == null ? 'n/a' : r.toFixed(2)} over ${pts.length} days.`),
+    h('div', { class: 'pick-row' }, 'Compare', sel('x', 'exp-x'), 'against', sel('y', 'exp-y'), h('span', { class: 'r-badge' }, r == null ? 'Not enough overlapping days' : `r = ${r.toFixed(2)} · ${pts.length} days`)),
+    h('div', { style: 'margin-top:12px' }, scHost),
+    h('p', { class: 'heath-src' }, 'Correlation shows things that move together. It does not show cause; use it to pick experiments.'))));
+  requestAnimationFrame(() => {
+    const H = HEAT[explore.heat];
+    const cnt = Array.from({ length: 7 }, () => Array.from({ length: 24 }, () => [0, 0]));
+    for (const d of ds) { const a = cgm(d); if (!a) continue; const w = (dow(d) + 6) % 7; for (let i = 0; i < 288; i++) if (a[i]) { const c = cnt[w][Math.floor(i / 12)]; c[1]++; if (H.fn(a[i])) c[0]++; } }
+    const vals = cnt.map(r => r.map(([a, n]) => n ? a / n : null));
+    const maxV = Math.max(0.01, ...vals.flat().filter(v => v != null));
+    const [cr, cg, cb] = H.color;
+    const mix = t => { const k = 0.08 + 0.92 * t; return `rgb(${Math.round(255 + (cr - 255) * k)},${Math.round(255 + (cg - 255) * k)},${Math.round(255 + (cb - 255) * k)})`; };
+    heatmap(heatHost, { rows: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], cols: Array.from({ length: 24 }, (_, i) => fmtHour(i)), values: vals, color: v => mix(explore.heat === 'in' ? v : v / maxV), tip: (r, c) => [{ label: H.name, value: vals[r][c] == null ? 'No data' : f1(100 * vals[r][c]) + '%' }, { label: 'Readings', value: String(cnt[r][c][1]) }] });
+    scatter(scHost, { pts, xName: METRICS[explore.x].name, yName: METRICS[explore.y].name, xFmt: METRICS[explore.x].fmt, yFmt: METRICS[explore.y].fmt, height: 300 });
+  });
+}
+
+const LABS = [
+  ['HbA1c', '7.3%', 'ref <5.7%', 'crit', 'Up from 6.5% (Oct 2025)'],
+  ['Ferritin', '19 ng/mL', 'ref 38–380', 'crit', 'Depleted iron stores; recheck due ~late Nov'],
+  ['Omega-3 index', '2.3%', 'min >5.4%', 'crit', 'Significantly low'],
+  ['Lipoprotein(a)', '101 nmol/L', 'ref <75', 'warn', 'Genetic cardiovascular risk factor'],
+  ['LDL particle number', '1227 nmol/L', 'high', 'warn', 'Small/medium LDL also elevated'],
+  ['Free testosterone', '60.1 pg/mL', 'optimal 148.8–228.1', 'warn', 'SHBG 47 (high-normal)'],
+  ['Creatinine', '1.27 mg/dL', 'ref 0.60–1.26', 'warn', 'Mild; may reflect muscle mass'],
+  ['TSH', '2.39 mIU/L', 'ref 0.4–4.5', 'none', 'In range, slightly above optimal'],
+  ['hs-CRP', '0.3 mg/L', 'optimal', 'good', 'Low inflammation'],
+];
+function viewLabs(root) {
+  const a1c = D.a1c || [];
+  const latest = a1c[a1c.length - 1];
+  const host = h('div', { class: 'chart' });
+  root.append(h('div', { class: 'grid g-21' },
+    card('A1c and GMI', 'Lab A1c results against the CGM-estimated GMI (90-day rolling, sampled monthly)', askLink(`My A1c went from 6.5% to ${latest.value}%. What are the biggest levers to get back under ${T.a1cMax}%?`), host,
+      h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--c1)' }), 'GMI from CGM'), h('span', null, h('i', { class: 'sw', style: 'background:var(--c2);border-radius:50%' }), 'Lab A1c'), h('span', null, h('i', { class: 'ln', style: 'background:var(--ink-2);opacity:.55' }), `Goal <${T.a1cMax}%`))),
+    card('Coming up', 'From your vault notes', null, h('div', { class: 'checklist' },
+      h('div', null, h('span', null, 'A1c with Sutter'), h('b', null, 'Overdue'), chip('crit', 'Since Apr 24')),
+      h('div', null, h('span', null, 'Eye exam'), h('b', null, 'Due'), chip('warn', 'Since Aug 1')),
+      h('div', null, h('span', null, 'Ferritin recheck'), h('b', null, '~Late Nov'), chip('none', 'Planned')),
+      h('div', null, h('span', null, 'Omega-3 recheck'), h('b', null, 'Nov–Feb'), chip('none', 'Planned')),
+      h('div', null, h('span', null, 'Next DEXA'), h('b', null, 'Not booked'), chip('none', 'Every 3–4 months'))))));
+  root.append(h('div', { style: 'margin-top:16px' }, card('Flagged lab results', 'Function Health via Quest, Aug 2026, plus A1c history from Sutter', askLink('Which of my flagged labs matter most right now and what should I ask my doctor?'),
+    h('div', { class: 'tbl-wrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, 'Test'), h('th', { class: 'num' }, 'Result'), h('th', null, 'Reference'), h('th', null, 'Status'), h('th', null, 'Note'))),
+      h('tbody', null, ...LABS.map(([t, v, r, c, n]) => h('tr', null, h('td', null, t), h('td', { class: 'num' }, h('b', null, v)), h('td', null, r), h('td', null, chip(c, { crit: 'Flagged', warn: 'Watch', none: 'In range', good: 'Good' }[c])), h('td', null, n)))))))));
+  requestAnimationFrame(() => {
+    const months = []; for (let m = firstDate.slice(0, 7); m <= lastFull.slice(0, 7);) { months.push(m); const y = +m.slice(0, 4), mo = +m.slice(5); m = mo === 12 ? `${y + 1}-01` : `${y}-${String(mo + 1).padStart(2, '0')}`; }
+    const t0 = toUTC(a1c.find(x => x.date >= '2023-01-01').date), t1 = toUTC(lastFull);
+    const pts = [];
+    months.forEach(m => { const end = m + '-28' > lastFull ? lastFull : m + '-28'; const s = rangeStats(addDays(end, -89) < firstDate ? firstDate : addDays(end, -89), end); if (s && diffDays(firstDate, end) >= 60) pts.push({ t: toUTC(end), v: s.gmi, label: `${MON[+m.slice(5) - 1]} ${m.slice(0, 4)}` }); });
+    const labs = a1c.filter(x => toUTC(x.date) >= t0);
+    const allT = [...pts.map(p => p.t), ...labs.map(x => toUTC(x.date))].sort((a, b) => a - b);
+    const tmin = Math.min(t0, ...allT), tmax = Math.max(t1, ...allT);
+    const fr = frame(host, 250);
+    const y = lin(5.5, 8.5, fr.y0, fr.y1), x = t => fr.x0 + (t - tmin) / (tmax - tmin) * (fr.x1 - fr.x0);
+    yAxis(fr, y, [6, 6.5, 7, 7.5, 8, 8.5], v => v + '%');
+    s('line', { x1: fr.x0, x2: fr.x1, y1: y(T.a1cMax), y2: y(T.a1cMax), class: 'refline' }, fr.svg);
+    s('path', { d: pts.map((p, i) => (i ? 'L' : 'M') + x(p.t).toFixed(1) + ',' + y(p.v).toFixed(1)).join(''), fill: 'none', stroke: 'var(--c1)', 'stroke-width': 2, 'stroke-linejoin': 'round' }, fr.svg);
+    labs.forEach(l => { const c = s('circle', { cx: x(toUTC(l.date)), cy: y(l.value), r: 5, fill: 'var(--c2)', stroke: 'var(--surface)', 'stroke-width': 2, class: 'mark' }, fr.svg); const hit = s('circle', { cx: x(toUTC(l.date)), cy: y(l.value), r: 12, fill: 'transparent' }, fr.svg); hit.addEventListener('pointermove', e => showTip(e, fmtDY(l.date), [{ label: 'Lab A1c', value: l.value + '%', color: 'var(--c2)' }, { label: 'Source', value: l.source }])); hit.addEventListener('pointerleave', hideTip); const tx = s('text', { x: x(toUTC(l.date)), y: y(l.value) - 10, 'text-anchor': 'middle', class: 'lbl-strong' }, fr.svg); tx.textContent = l.value + '%'; });
+    s('line', { x1: fr.x0, x2: fr.x1, y1: fr.y0, y2: fr.y0, class: 'baseline' }, fr.svg);
+    const g = s('g', { class: 'axis' }, fr.svg);
+    for (let yr = new Date(tmin).getUTCFullYear() + 1; yr <= new Date(tmax).getUTCFullYear(); yr++) { const tx = s('text', { x: x(Date.UTC(yr, 0, 1)), y: fr.y0 + 17, 'text-anchor': 'middle' }, g); tx.textContent = String(yr); }
+    const cross = s('line', { y1: fr.y1, y2: fr.y0, class: 'cross', visibility: 'hidden' }, fr.svg);
+    const hit = s('rect', { x: fr.x0, y: fr.y1, width: fr.x1 - fr.x0, height: fr.y0 - fr.y1, class: 'hit' }, fr.svg);
+    fr.svg.insertBefore(hit, fr.svg.querySelector('circle'));
+    hit.addEventListener('pointermove', evt => { const r = fr.svg.getBoundingClientRect(); const px = (evt.clientX - r.left) * fr.w / r.width; let b = pts[0], bd = Infinity; pts.forEach(p => { const d = Math.abs(x(p.t) - px); if (d < bd) { bd = d; b = p; } }); cross.setAttribute('x1', x(b.t)); cross.setAttribute('x2', x(b.t)); cross.setAttribute('visibility', 'visible'); showTip(evt, b.label, [{ label: 'GMI (90-day)', value: f1(b.v) + '%', color: 'var(--c1)' }]); });
+    hit.addEventListener('pointerleave', () => { cross.setAttribute('visibility', 'hidden'); hideTip(); });
+  });
+}
+
+/* ---------- shell ---------- */
+const nav = document.getElementById('nav'), viewEl = document.getElementById('view');
+function renderNav() {
+  nav.replaceChildren(...VIEWS.map(v => h('button', { 'aria-current': state.view === v.id ? 'page' : null, onclick: () => { state.view = v.id; history.replaceState(null, '', '#' + v.id); render(); window.scrollTo(0, 0); } }, icon(v.icon), v.name)));
+  const thru = D.glucose_through ? new Date(D.glucose_through) : null;
+  document.getElementById('rail-foot').replaceChildren(
+    h('div', { class: 'fresh' }, chip('good', 'Live'), 'Updated daily at 8:00 AM'),
+    h('div', null, `Glucose through ${thru ? `${fmtD(lastDate)}, ${thru.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}` : '—'}`),
+    h('div', null, `WHOOP through ${D.whoop_through ? fmtD(D.whoop_through) : '—'}`),
+    h('div', null, `${DAYS.length.toLocaleString()} days of CGM history`));
+}
+function renderControls(v) {
+  const seg = document.getElementById('range-seg');
+  seg.replaceChildren(...RANGES.map(([k]) => h('button', { 'aria-pressed': String(state.range === k), onclick: () => { state.range = k; try { localStorage.setItem('hp-range', k); } catch (e) {} render(); } }, k)));
+  const R = curRange();
+  document.getElementById('range-label').textContent = `${fmtDY(R.start)} – ${fmtDY(R.end)}`;
+  document.getElementById('controls').hidden = !v.ranged;
+}
+const SUBS = {
+  today: () => `${WDL[dow(lastDate)]}, ${fmtDY(lastDate)}`,
+  glucose: () => 'Control against your tiers, daily pattern and lows',
+  training: () => 'Body composition, training volume and how training affects glucose',
+  sleep: () => 'WHOOP recovery and sleep against your targets',
+  patterns: () => 'Find what drives your numbers',
+  labs: () => 'Lab history and what is due',
+};
+function render() {
+  const v = VIEWS.find(x => x.id === state.view) || VIEWS[0];
+  renderNav(); renderControls(v);
+  document.getElementById('view-title').textContent = v.id === 'today' ? 'Good morning, David' : v.name;
+  document.getElementById('view-sub').textContent = SUBS[v.id]();
+  document.getElementById('cmp').checked = state.compare;
+  hideTip();
+  const root = h('div');
+  viewEl.replaceChildren(root);
+  ({ today: viewToday, glucose: viewGlucose, training: viewTraining, sleep: viewSleep, patterns: viewPatterns, labs: viewLabs })[v.id](root);
+}
+document.getElementById('cmp').addEventListener('change', e => { state.compare = e.target.checked; render(); });
+const hv = (location.hash || '').slice(1);
+if (VIEWS.some(v => v.id === hv)) state.view = hv;
+addEventListener('hashchange', () => { const k = location.hash.slice(1); if (VIEWS.some(v => v.id === k) && k !== state.view) { state.view = k; render(); } });
+let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(render, 150); });
+render();
+})();
