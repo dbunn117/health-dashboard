@@ -218,6 +218,22 @@ def run_whoop(cmd: list[str]) -> dict:
         return {'error': f'JSON parse failed: {e}', 'records': []}
 
 
+WHOOP_HISTORY = Path('/root/health-data/whoop/whoop_history.sqlite')
+
+
+def whoop_history(kind: str):
+    """Full WHOOP history kept by whoop_history_sync.py; None if unavailable (falls back to the live API)."""
+    if not WHOOP_HISTORY.exists():
+        return None
+    try:
+        hc = sqlite3.connect(WHOOP_HISTORY)
+        recs = [json.loads(r[0]) for r in hc.execute(f'SELECT json FROM {kind} ORDER BY t')]
+        hc.close()
+        return {'records': recs} if recs else None
+    except Exception:
+        return None
+
+
 def iso_utc(dt: datetime) -> str:
     return dt.astimezone(timezone.utc).isoformat().replace('+00:00', 'Z')
 
@@ -228,7 +244,7 @@ def ingest_whoop(conn: sqlite3.Connection, days=120):
     start_s = iso_utc(start)
     end_s = iso_utc(end)
     cur = conn.cursor()
-    recov = run_whoop(['whoop-pp-cli','recovery','--agent','--start',start_s,'--end',end_s,'--limit','25','--timeout','60s'])
+    recov = whoop_history('recovery') or run_whoop(['whoop-pp-cli','recovery','--agent','--start',start_s,'--end',end_s,'--limit','25','--timeout','60s'])
     for r in recov.get('records', []) or []:
         created = parse_dt(r.get('created_at'))
         if not created: continue
@@ -236,8 +252,10 @@ def ingest_whoop(conn: sqlite3.Connection, days=120):
         cur.execute('INSERT OR REPLACE INTO whoop_recovery VALUES (?,?,?,?,?,?)', (
             created.date().isoformat(), s.get('recovery_score'), s.get('hrv_rmssd_milli'), s.get('resting_heart_rate'), s.get('spo2_percentage'), s.get('skin_temp_celsius')
         ))
-    sleep = run_whoop(['whoop-pp-cli','activity','get-sleep-collection','--agent','--start',start_s,'--end',end_s,'--limit','25','--timeout','60s'])
+    sleep = whoop_history('sleep') or run_whoop(['whoop-pp-cli','activity','get-sleep-collection','--agent','--start',start_s,'--end',end_s,'--limit','25','--timeout','60s'])
     for r in sleep.get('records', []) or []:
+        if r.get('nap'):
+            continue
         enddt = parse_dt(r.get('end')) or parse_dt(r.get('created_at'))
         if not enddt: continue
         s = r.get('score') or {}
@@ -259,7 +277,7 @@ def ingest_whoop(conn: sqlite3.Connection, days=120):
             st.get('sleep_cycle_count'),
             sleep_needed_ms/3600000 if sleep_needed_ms else None
         ))
-    workouts = run_whoop(['whoop-pp-cli','activity','get-workout-collection','--agent','--start',start_s,'--end',end_s,'--limit','25','--timeout','60s'])
+    workouts = whoop_history('workout') or run_whoop(['whoop-pp-cli','activity','get-workout-collection','--agent','--start',start_s,'--end',end_s,'--limit','25','--timeout','60s'])
     for r in workouts.get('records', []) or []:
         startdt = parse_dt(r.get('start'))
         if not startdt: continue
