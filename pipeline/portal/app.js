@@ -21,6 +21,20 @@ const fmtDY = s => `${fmtD(s)}, ${s.slice(0, 4)}`;
 const fmtMY = s => `${MON[+s.slice(5, 7) - 1]} ${s.slice(2, 4) === '' ? '' : "'" + s.slice(2, 4)}`;
 const fmtHM = slot => { const m = slot * 5, h = Math.floor(m / 60), mm = m % 60, ap = h < 12 ? 'AM' : 'PM'; return `${(h % 12) || 12}:${String(mm).padStart(2, '0')} ${ap}`; };
 const fmtHour = h => h === 0 ? '12a' : h < 12 ? `${h}a` : h === 12 ? '12p' : `${h - 12}p`;
+/* All data is bucketed by Pacific calendar day (12:00 AM – 11:59 PM PT); show times in PT whatever the viewer's clock says. */
+const TZN = 'America/Los_Angeles';
+const fmtClock = iso => new Date(iso).toLocaleTimeString('en-US', { timeZone: TZN, hour: 'numeric', minute: '2-digit' });
+const isoPT = dt => dt.toLocaleDateString('en-CA', { timeZone: TZN });
+const fmtStamp = iso => `${fmtD(isoPT(new Date(iso)))}, ${fmtClock(iso)} PT`;
+function fmtSpan(a, b, year = true) {
+  if (a === b) return year ? fmtDY(a) : fmtD(a);
+  const y = year ? `, ${b.slice(0, 4)}` : '';
+  if (a.slice(0, 4) !== b.slice(0, 4)) return `${fmtDY(a)} – ${fmtDY(b)}`;
+  if (a.slice(0, 7) === b.slice(0, 7)) return `${fmtD(a)} – ${+b.slice(8)}${y}`;
+  return `${fmtD(a)} – ${fmtD(b)}${y}`;
+}
+const nDays = (a, b) => diffDays(a, b) + 1;
+const plural = (n, w, ws = w + 's') => `${n.toLocaleString()} ${n === 1 ? w : ws}`;
 
 /* ---------- data ---------- */
 const DAYS = D.days.map(r => ({ date: r[0], n: r[1], avg: r[2], sd: r[3], ins: r[9], basal: r[10], bolus: r[11], carbs: r[12] }));
@@ -108,9 +122,10 @@ const actStart = [...ACT.keys()].sort()[0] || lastFull;
 const RANGES = [['7D', 7], ['14D', 14], ['30D', 30], ['90D', 90], ['YTD', 'ytd'], ['1Y', 365], ['All', 'all']];
 const state = { view: 'today', range: '30D', compare: true };
 try { const r = localStorage.getItem('hp-range'); if (r && RANGES.some(x => x[0] === r)) state.range = r; } catch (e) {}
-function curRange() {
+const whoopEnd = D.whoop_through || lastDate;
+function curRange(endOverride) {
   const spec = RANGES.find(r => r[0] === state.range)[1];
-  const end = lastFull;
+  const end = endOverride || lastFull;
   let start;
   if (spec === 'ytd') start = end.slice(0, 4) + '-01-01';
   else if (spec === 'all') start = firstDate;
@@ -119,8 +134,11 @@ function curRange() {
   const len = diffDays(start, end) + 1;
   const pEnd = addDays(start, -1), pStart = addDays(pEnd, -(len - 1));
   const prev = pStart >= firstDate ? { start: pStart, end: pEnd } : null;
-  return { start, end, len, prev };
+  return { start, end, len, prev, vs: prev ? 'vs ' + fmtSpan(prev.start, prev.end, false) : 'vs prev' };
 }
+const rangeFor = v => v.id === 'sleep' ? curRange(whoopEnd) : curRange();
+/* small caption above a KPI row stating exactly what the tiles cover */
+const kpiHead = (...parts) => h('div', { class: 'kpi-head' }, ...parts);
 
 /* ---------- formatting & status ---------- */
 const f0 = v => v == null || isNaN(v) ? '—' : Math.round(v).toLocaleString();
@@ -406,21 +424,22 @@ function tierItemsForRange(start, end) {
     groups.get(key).push(d);
   }
   for (const [key, ds] of groups) {
-    const acc = newAcc(); ds.forEach(d => { const a = cgm(d); if (a) bucketCounts(a, acc); });
+    const acc = newAcc(); let withData = 0; ds.forEach(d => { const a = cgm(d); if (a) { bucketCounts(a, acc); withData++; } });
     const st = finish(acc, ds.length); const tr = tier(st ? st.tir : null);
     const label = weekly ? fmtD(key) : `${MON[+key.slice(5) - 1]} '${key.slice(2, 4)}`;
-    items.push({ label, value: st ? st.tir : null, color: tierColor(tr.cls), tip: { head: weekly ? `Week of ${fmtDY(key)}` : `${MON[+key.slice(5) - 1]} ${key.slice(0, 4)}`, rows: st ? [{ label: 'Time in range', value: f1(st.tir) + '%', color: tierColor(tr.cls) }, { label: 'Tier', value: tr.label }, { label: 'Below 70', value: f1(st.lowAll) + '%' }, { label: 'Average', value: f0(st.mean) + ' mg/dL' }] : [] } });
+    const full = weekly ? ds.length === 7 : ds[0].endsWith('-01') && addDays(ds[ds.length - 1], 1).endsWith('-01');
+    items.push({ label, value: st ? st.tir : null, color: tierColor(tr.cls), tip: { head: fmtSpan(ds[0], ds[ds.length - 1]) + (full ? '' : ' (part)'), rows: st ? [{ label: 'Time in range', value: f1(st.tir) + '%', color: tierColor(tr.cls) }, { label: 'Tier', value: tr.label }, { label: 'Below 70', value: f1(st.lowAll) + '%' }, { label: 'Average', value: f0(st.mean) + ' mg/dL' }, { label: 'Days with data', value: `${withData} of ${ds.length}` }] : [] } });
   }
   return { items, unit: weekly ? 'week' : 'month' };
 }
 function tierLegend() {
   return h('div', { class: 'legend' }, ...[['good', `Green ≥${T.tir.green}%`], ['target', `On target ≥${T.tir.target}%`], ['warn', `Warning ${T.tir.warning}–${T.tir.target}%`], ['crit', `Alert <${T.tir.warning}%`]].map(([c, l]) => h('span', null, h('i', { class: 'sw', style: `background:${tierColor(c)}` }), l)));
 }
-function mixCard(st, title = 'Time in ranges') {
+function mixCard(st, span, title = 'Time in ranges') {
   const parts = [['Very low', '<54', st.vlow, 'var(--g-vlow)', `<${T.veryLowMax}%`], ['Low', '54–69', st.low, 'var(--g-low)', `<${T.lowMax}% total`], ['In range', '70–180', st.tir, 'var(--g-in)', `>${T.tir.target}%`], ['High', '181–250', st.high, 'var(--g-high)', '<25%'], ['Very high', '>250', st.vhigh, 'var(--g-vhigh)', '<5%']];
   const bar = h('div', { class: 'mix', role: 'img', 'aria-label': parts.map(p => `${p[0]} ${f1(p[2])}%`).join(', ') }, ...parts.filter(p => p[2] > 0).map(p => h('div', { style: `flex:${p[2]} 0 0;background:${p[3]}`, title: `${p[0]} ${f1(p[2])}%` })));
   const rows = h('div', { class: 'mix-rows' }, ...parts.map(p => h('div', null, h('span', null, h('i', { class: 'sw', style: `background:${p[3]}` }), p[0], ' ', h('em', null, p[1])), h('b', null, f1(p[2]) + '%'), h('em', null, 'Goal ' + p[4]))));
-  return card(title, 'Share of all CGM readings in the selected period (mg/dL)', null, bar, rows);
+  return card(title, `Share of all ${st.n.toLocaleString()} CGM readings, ${span} (mg/dL)`, null, bar, rows);
 }
 
 /* ---------- views ---------- */
@@ -435,19 +454,23 @@ const VIEWS = [
 
 function viewToday(root) {
   const ydate = lastFull, yst = dayStats(ydate), today = lastDate;
+  const nowDate = isoPT(new Date());
   const rec = REC.get(today) || REC.get(ydate), slp = SLP.get(today) || SLP.get(ydate);
   const recDates = [...REC.keys()].sort().slice(-14);
   const zone = recZone(rec && rec.rec);
-  const recCard = card('Recovery', rec ? `WHOOP · ${fmtD(rec.d)}` : 'WHOOP', askLink(`How should I train today given recovery ${rec ? rec.rec : '?'}, HRV ${rec ? f1(rec.hrv) : '?'}, RHR ${rec ? rec.rhr : '?'}?`),
+  const nightOf = d => `night of ${fmtD(addDays(d, -1))} → ${fmtD(d)}`;
+  const recCard = card('Recovery', rec ? `WHOOP, scored the morning of ${WD[dow(rec.d)]} ${fmtD(rec.d)} (${nightOf(rec.d)})` : 'WHOOP', askLink(`How should I train today given recovery ${rec ? rec.rec : '?'}, HRV ${rec ? f1(rec.hrv) : '?'}, RHR ${rec ? rec.rhr : '?'}?`),
     h('div', { class: 'hero-row' }, h('span', { class: 'hero-num' }, rec ? f0(rec.rec) : '—'), chip(zone.cls, zone.label)),
     h('div', { class: 'metric-list' },
       h('div', null, h('span', null, 'HRV'), h('b', null, rec ? f1(rec.hrv) + ' ms' : '—'), h('em', null, `baseline ~${T.hrvBaseline}`)),
       h('div', null, h('span', null, 'Resting HR'), h('b', null, rec ? f0(rec.rhr) + ' bpm' : '—'), h('em', null, `baseline ~${T.rhrBaseline}`)),
-      h('div', null, h('span', null, 'Sleep'), h('b', null, slp ? f1(slp.hrs) + ' h' : '—'), h('em', null, `goal ${T.sleepHours[0]}–${T.sleepHours[1]} h`)),
+      h('div', null, h('span', null, 'Sleep', slp ? h('small', { class: 'when' }, nightOf(slp.d)) : null), h('b', null, slp ? f1(slp.hrs) + ' h' : '—'), h('em', null, `goal ${T.sleepHours[0]}–${T.sleepHours[1]} h`)),
       h('div', null, h('span', null, 'Sleep performance'), h('b', null, slp ? f0(slp.perf) + '%' : '—'), h('em', null, slp && slp.dist != null ? `${slp.dist} disturbances` : ''))),
-    h('div', { class: 'chart', style: 'margin-top:14px' }));
+    h('div', { class: 'chart', style: 'margin-top:14px' }),
+    h('p', { class: 'when-line' }, recDates.length ? `Line: last ${recDates.length} recovery scores, ${fmtSpan(recDates[0], recDates[recDates.length - 1], false)}` : ''));
   const ytr = tier(yst && yst.tir);
-  const ycard = card('Yesterday’s glucose', `${WDL[dow(ydate)]}, ${fmtD(ydate)}`, askLink(`Yesterday (${fmtD(ydate)}) I had ${f1(yst && yst.tir)}% TIR, ${f1(yst && yst.lowAll)}% below 70 and average ${f0(yst && yst.mean)}. What stands out?`),
+  const isYest = ydate === addDays(nowDate, -1);
+  const ycard = card(isYest ? 'Yesterday’s glucose' : 'Last complete day', `${WDL[dow(ydate)]}, ${fmtD(ydate)} · 12:00 AM – 11:59 PM PT · ${yst ? yst.n : 0} of 288 readings`, askLink(`Yesterday (${fmtD(ydate)}) I had ${f1(yst && yst.tir)}% TIR, ${f1(yst && yst.lowAll)}% below 70 and average ${f0(yst && yst.mean)}. What stands out?`),
     h('div', { class: 'hero-row' }, h('span', { class: 'hero-num' }, yst ? f1(yst.tir) : '—', h('span', { style: 'font-size:22px;color:var(--muted);font-weight:500' }, '%')), chip(ytr.cls, ytr.label)),
     h('div', { class: 'metric-list' },
       h('div', null, h('span', null, 'Below 70'), h('b', null, f1(yst && yst.lowAll) + '%'), h('em', null, `goal <${T.lowMax}%`)),
@@ -456,12 +479,13 @@ function viewToday(root) {
       h('div', null, h('span', null, 'Variability (SD)'), h('b', null, f0(yst && yst.sd)), h('em', null, `goal <${T.sdMax}`))));
   const sk = streakInfo(lastFull);
   const last14 = datesIn(addDays(lastFull, -13), lastFull);
-  const streakCard = card('WIN streak', `WIN = TIR ≥75% and under 2% below 70, full day of data`, null,
+  const streakCard = card('WIN streak', `Consecutive complete days ending ${fmtD(lastFull)}. WIN = TIR ≥75%, under 2% below 70, at least 200 readings`, null,
     h('div', { class: 'hero-row' }, h('span', { class: 'hero-num' }, String(sk.cur)), h('span', { style: 'color:var(--ink-2)' }, sk.cur === 1 ? 'day' : 'days')),
     h('div', { class: 'metric-list' },
-      h('div', null, h('span', null, 'Longest streak (all time)'), h('b', null, `${sk.best} days`), h('em', null, '')),
+      h('div', null, h('span', null, `Longest streak since ${fmtD(firstDate)} '${firstDate.slice(2, 4)}`), h('b', null, `${sk.best} days`), h('em', null, '')),
       h('div', null, h('span', null, 'Next milestone'), h('b', null, `${sk.next} days`), h('em', null, `${sk.next - sk.cur} to go`))),
-    h('div', { class: 'dots', 'aria-label': 'Last 14 days' }, ...last14.map(d => { const st = dayStats(d); const w = isWin(st); return h('span', { class: w ? 'w' : 'm', title: `${fmtD(d)}: ${st ? f1(st.tir) + '% TIR' : 'no data'}${w ? ' · WIN' : ''}` }, String(+d.slice(8))); })),
+    h('p', { class: 'when-line', style: 'margin-top:12px' }, `Last 14 complete days, ${fmtSpan(last14[0], last14[13], false)}`),
+    h('div', { class: 'dots', style: 'margin-top:6px', 'aria-label': `Last 14 days, ${fmtSpan(last14[0], last14[13])}` }, ...last14.map(d => { const st = dayStats(d); const w = isWin(st); return h('span', { class: w ? 'w' : 'm', title: `${fmtD(d)}: ${st ? f1(st.tir) + '% TIR' : 'no data'}${w ? ' · WIN' : ''}` }, String(+d.slice(8))); })),
     h('div', { class: 'legend' }, h('span', null, h('i', { class: 'sw', style: 'background:#e7f5ed;box-shadow:inset 0 0 0 1px var(--s-good)' }), 'WIN day'), h('span', null, h('i', { class: 'sw', style: 'background:#f0f1f4' }), 'Missed')));
   root.append(h('div', { class: 'grid g-3' }, recCard, ycard, streakCard));
 
@@ -469,12 +493,13 @@ function viewToday(root) {
   const ta = cgm(today), ya = cgm(ydate);
   const lastSlot = ta ? (() => { for (let i = 287; i >= 0; i--) if (ta[i]) return i; return -1; })() : -1;
   const curveHost = h('div', { class: 'chart' });
-  const thru = D.glucose_through ? new Date(D.glucose_through) : null;
-  const curveCard = card(today === lastFull ? 'Today' : 'Today so far', `${WDL[dow(today)]}, ${fmtD(today)} · glucose through ${thru ? thru.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : '—'} (Glooko syncs about hourly)`, askLink(`Looking at my glucose so far today (${fmtD(today)}), anything I should watch this afternoon?`), curveHost,
+  const thru = D.glucose_through || null;
+  const curveTitle = today === nowDate ? 'Today so far' : today === addDays(nowDate, -1) ? 'Yesterday (latest synced day)' : `${WDL[dow(today)]} (latest synced day)`;
+  const curveCard = card(curveTitle, `${WDL[dow(today)]}, ${fmtD(today)} · 12:00 AM to ${thru ? fmtClock(thru) : '—'} PT, the last reading the portal has. It updates once a day at about 8:25 AM.`, askLink(`Looking at my glucose so far today (${fmtD(today)}), anything I should watch this afternoon?`), curveHost,
     h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--g-in)' }), 'Today'), h('span', null, h('i', { class: 'ln', style: 'background:#b8c0cc' }), 'Yesterday'), h('span', null, h('i', { class: 'sw', style: 'background:var(--g-in-wash);box-shadow:inset 0 0 0 1px #cfdcf0' }), 'Target 70–180')));
   // Heath
   const hn = D.heath || null;
-  const heathCard = card('Heath’s take', hn ? (hn.date && hn.date !== lastDate ? `Latest note, ${fmtD(hn.date)} ${hn.when || ''}` : `From the ${hn.when} brief`) : 'Heath writes this each morning', null,
+  const heathCard = card('Heath’s take', hn ? `Written ${hn.date === nowDate ? 'today' : WD[dow(hn.date)]}, ${fmtD(hn.date)}${hn.when ? ' at ' + hn.when + ' PT' : ''}, from the morning brief` : 'Heath writes this each morning', null,
     h('div', { class: 'heath' },
       hn ? h('div', { class: 'heath-note' }, ...hn.lines.map(l => h('p', null, l))) : h('p', { class: 'heath-src' }, 'No note yet today.'),
       h('div', { class: 'btn-row' },
@@ -490,23 +515,25 @@ function viewToday(root) {
   const sleep7 = datesIn(addDays(lastDate, -6), lastDate).map(d => SLP.get(d)).filter(Boolean);
   const sleepAvg = sleep7.length ? sleep7.reduce((a, b) => a + b.hrs, 0) / sleep7.length : null;
   const tr7 = tier(w7 && w7.tir);
-  const row = (label, value, target, chipEl) => h('div', null, h('span', null, label, h('br'), h('em', { style: 'font-style:normal;color:var(--muted);font-size:12px' }, target)), h('b', null, value), chipEl);
+  const row = (label, value, target, chipEl, when) => h('div', null, h('span', null, label, h('br'), h('em', { style: 'font-style:normal;color:var(--muted);font-size:12px' }, target, when ? h('span', { class: 'when-chip' }, when) : null)), h('b', null, value), chipEl);
+  const g7 = fmtSpan(addDays(lastFull, -6), lastFull, false);
+  const sl7 = `${sleep7.length} nights, ${fmtD(addDays(lastDate, -7))} → ${fmtD(lastDate)}`;
   root.append(h('div', { class: 'grid g-2', style: 'margin-top:16px' },
-    card('Last 7 days vs your targets', `${fmtD(addDays(lastFull, -6))} – ${fmtD(lastFull)}`, askLink(`Review my last 7 days against my targets: TIR ${f1(w7 && w7.tir)}%, lows ${f1(w7 && w7.lowAll)}%, ${strengthThisWeek} strength sessions this week, sleep ${f1(sleepAvg)} h.`),
+    card('Last 7 days vs your targets', `Glucose rows: ${g7} (7 complete days). Training and sleep use the windows shown on each row.`, askLink(`Review my last 7 days against my targets: TIR ${f1(w7 && w7.tir)}%, lows ${f1(w7 && w7.lowAll)}%, ${strengthThisWeek} strength sessions this week, sleep ${f1(sleepAvg)} h.`),
       h('div', { class: 'checklist' },
-        row('Time in range', f1(w7 && w7.tir) + '%', `Target >${T.tir.target}%, green >${T.tir.green}%`, chip(tr7.cls, tr7.label)),
-        row('Below 70', f1(w7 && w7.lowAll) + '%', `Goal <${T.lowMax}%`, okChip(w7 && w7.lowAll < T.lowMax)),
-        row('Below 54', f2(w7 && w7.vlow) + '%', `Goal <${T.veryLowMax}%`, okChip(w7 && w7.vlow < T.veryLowMax)),
-        row('Variability (SD)', f0(w7 && w7.sd), `Goal <${T.sdMax}`, okChip(w7 && w7.sd < T.sdMax)),
-        row('Strength sessions this week', `${strengthThisWeek} of ${T.strengthPerWeek}`, `Week starting ${fmtD(monday)}`, okChip(strengthThisWeek >= T.strengthPerWeek, 'Done', 'In progress')),
-        row('Average sleep', sleepAvg == null ? '—' : f1(sleepAvg) + ' h', `Goal ${T.sleepHours[0]}–${T.sleepHours[1]} h`, okChip(sleepAvg == null ? null : sleepAvg >= T.sleepHours[0])))),
+        row('Time in range', f1(w7 && w7.tir) + '%', `Target >${T.tir.target}%, green >${T.tir.green}%`, chip(tr7.cls, tr7.label), g7),
+        row('Below 70', f1(w7 && w7.lowAll) + '%', `Goal <${T.lowMax}%`, okChip(w7 && w7.lowAll < T.lowMax), g7),
+        row('Below 54', f2(w7 && w7.vlow) + '%', `Goal <${T.veryLowMax}%`, okChip(w7 && w7.vlow < T.veryLowMax), g7),
+        row('Variability (SD)', f0(w7 && w7.sd), `Goal <${T.sdMax}`, okChip(w7 && w7.sd < T.sdMax), g7),
+        row('Strength sessions this week', `${strengthThisWeek} of ${T.strengthPerWeek}`, `Goal ${T.strengthPerWeek}`, okChip(strengthThisWeek >= T.strengthPerWeek, 'Done', 'In progress'), `Mon ${fmtD(monday)} – ${fmtD(lastDate)}`),
+        row('Average sleep', sleepAvg == null ? '—' : f1(sleepAvg) + ' h', `Goal ${T.sleepHours[0]}–${T.sleepHours[1]} h`, okChip(sleepAvg == null ? null : sleepAvg >= T.sleepHours[0]), sl7))),
     (() => {
       const ft = FOOD.get(lastDate), logged = [...FOOD.keys()].sort(), lastLogged = logged[logged.length - 1];
       const yd = DAY.get(ydate) || {};
-      const pumpRows = [h('div', null, h('span', null, 'Carbs entered in pump yesterday'), h('b', null, f0(yd.carbs) + ' g'), h('em', null, 'from Omnipod')),
-        h('div', null, h('span', null, 'Total insulin yesterday'), h('b', null, f1(yd.ins) + ' U'), h('em', null, `${f1(yd.basal)} basal`))];
+      const pumpRows = [h('div', null, h('span', null, `Carbs entered in pump, ${WD[dow(ydate)]} ${fmtD(ydate)}`), h('b', null, f0(yd.carbs) + ' g'), h('em', null, 'from Omnipod')),
+        h('div', null, h('span', null, `Total insulin, ${WD[dow(ydate)]} ${fmtD(ydate)}`), h('b', null, f1(yd.ins) + ' U'), h('em', null, `${f1(yd.basal)} basal`))];
       const pct = ft ? Math.min(100, 100 * ft.protein / T.proteinG[0]) : 0;
-      return card('Nutrition today', `Protein goal ${T.proteinG[0]}–${T.proteinG[1]} g`, h('a', { class: 'btn ghost', href: heathUrl('Meal: '), target: '_blank', rel: 'noopener' }, icon('plus'), 'Log a meal'),
+      return card('Nutrition today', `${WD[dow(lastDate)]} ${fmtD(lastDate)}, meals logged so far · protein goal ${T.proteinG[0]}–${T.proteinG[1]} g`, h('a', { class: 'btn ghost', href: heathUrl('Meal: '), target: '_blank', rel: 'noopener' }, icon('plus'), 'Log a meal'),
         ft ? h('div', null,
           h('div', { class: 'hero-row' }, h('span', { class: 'hero-num', style: 'font-size:40px' }, f0(ft.protein)), h('span', { style: 'color:var(--ink-2)' }, `g protein · ${f0(ft.kcal)} kcal · ${ft.meals} ${ft.meals === 1 ? 'meal' : 'meals'}`)),
           h('div', { class: 'mix', style: 'margin-top:12px;background:var(--grid)', role: 'img', 'aria-label': `${f0(pct)}% of protein goal` }, h('div', { style: `flex:0 0 ${pct}%;background:${pct >= 100 ? 'var(--s-good)' : 'var(--c1)'}` })),
@@ -530,47 +557,48 @@ function viewGlucose(root) {
   const R = curRange(), st = rangeStats(R.start, R.end), pv = R.prev ? rangeStats(R.prev.start, R.prev.end) : null;
   if (!st) { root.append(card('No glucose data in this range', null, null)); return; }
   const tr = tier(st.tir);
-  const P = pv || {};
+  const P = pv || {}, vs = R.vs, span = fmtSpan(R.start, R.end), spanS = fmtSpan(R.start, R.end, false);
+  root.append(kpiHead(h('b', null, span), ` · ${plural(st.days, 'day')} with CGM data · ${st.n.toLocaleString()} readings, every one counted equally`, state.compare && R.prev ? ` · changes ${vs}` : ''));
   root.append(kpis(
-    kpi('Time in range', f1(st.tir), '%', [deltaEl(st.tir, P.tir, 'up', ' pts')], chip(tr.cls, tr.label)),
-    kpi('Below 70', f1(st.lowAll), '%', [h('span', null, `goal <${T.lowMax}%`), deltaEl(st.lowAll, P.lowAll, 'down', ' pts')], okChip(st.lowAll < T.lowMax)),
-    kpi('Below 54', f2(st.vlow), '%', [h('span', null, `goal <${T.veryLowMax}%`), deltaEl(st.vlow, P.vlow, 'down', ' pts', 2)], okChip(st.vlow < T.veryLowMax)),
-    kpi('Average', f0(st.mean), 'mg/dL', [deltaEl(st.mean, P.mean, 'down', '', 0)]),
-    kpi('Variability', f0(st.sd), 'SD', [h('span', { title: 'Standard deviation and CV across all readings in the period, the standard CGM report method' }, `CV ${f1(st.cv)}% · all readings`), deltaEl(st.sd, P.sd, 'down', '', 0)], okChip(st.sd < T.sdMax)),
-    kpi('GMI', f1(st.gmi), '%', [h('span', null, `A1c goal <${T.a1cMax}%`), deltaEl(st.gmi, P.gmi, 'down', ' pts', 1)], okChip(st.gmi < T.a1cMax))));
+    kpi('Time in range', f1(st.tir), '%', [deltaEl(st.tir, P.tir, 'up', ' pts', 1, vs)], chip(tr.cls, tr.label)),
+    kpi('Below 70', f1(st.lowAll), '%', [h('span', null, `goal <${T.lowMax}%`), deltaEl(st.lowAll, P.lowAll, 'down', ' pts', 1, vs)], okChip(st.lowAll < T.lowMax)),
+    kpi('Below 54', f2(st.vlow), '%', [h('span', null, `goal <${T.veryLowMax}%`), deltaEl(st.vlow, P.vlow, 'down', ' pts', 2, vs)], okChip(st.vlow < T.veryLowMax)),
+    kpi('Average', f0(st.mean), 'mg/dL', [deltaEl(st.mean, P.mean, 'down', '', 0, vs)]),
+    kpi('Variability', f0(st.sd), 'SD', [h('span', { title: 'Standard deviation and CV across all readings in the period, the standard CGM report method' }, `CV ${f1(st.cv)}% · all readings`), deltaEl(st.sd, P.sd, 'down', '', 0, vs)], okChip(st.sd < T.sdMax)),
+    kpi('GMI', f1(st.gmi), '%', [h('span', null, `A1c goal <${T.a1cMax}%`), deltaEl(st.gmi, P.gmi, 'down', ' pts', 1, vs)], okChip(st.gmi < T.a1cMax))));
 
   const { items, unit } = tierItemsForRange(R.start, R.end);
   const tirHost = h('div', { class: 'chart' });
   root.append(h('div', { class: 'grid g-21' },
-    card(`Time in range by ${unit}`, `Colored by your tier system · ${st.days} days with CGM data`, askLink(`Why did my time in range move the way it did between ${fmtD(R.start)} and ${fmtD(R.end)}? Range TIR ${f1(st.tir)}%.`), tirHost, (() => { const l = tierLegend(); l.append(h('span', null, h('i', { class: 'ln', style: 'background:var(--ink-2);opacity:.55' }), `Target ${T.tir.target}%`)); return l; })()),
-    mixCard(st)));
+    card(`Time in range by ${unit}`, `${span} · each bar is one ${unit === 'day' ? 'day, midnight to midnight PT' : unit + ' (hover for its exact dates)'} · colored by your tiers`, askLink(`Why did my time in range move the way it did between ${fmtD(R.start)} and ${fmtD(R.end)}? Range TIR ${f1(st.tir)}%.`), tirHost, (() => { const l = tierLegend(); l.append(h('span', null, h('i', { class: 'ln', style: 'background:var(--ink-2);opacity:.55' }), `Target ${T.tir.target}%`)); return l; })()),
+    mixCard(st, span)));
 
   const agpHost = h('div', { class: 'chart' }), lowHost = h('div', { class: 'chart' });
   root.append(h('div', { class: 'grid g-21', style: 'margin-top:16px' },
-    card('Daily pattern', `Ambulatory glucose profile across ${st.days} days, by time of day`, askLink(`My glucose profile for ${fmtD(R.start)}–${fmtD(R.end)}: which time of day is my weakest?`), agpHost,
+    card('Daily pattern', `All ${plural(st.days, 'day')} of ${spanS} stacked by time of day (PT)`, askLink(`My glucose profile for ${fmtD(R.start)}–${fmtD(R.end)}: which time of day is my weakest?`), agpHost,
       h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--g-in)' }), 'Median'), h('span', null, h('i', { class: 'sw', style: 'background:rgba(42,120,214,.3)' }), '25th–75th percentile'), h('span', null, h('i', { class: 'sw', style: 'background:rgba(42,120,214,.12)' }), '5th–95th percentile'))),
-    card('When lows happen', 'Share of readings below 70, by hour', askLink(`Most of my lows between ${fmtD(R.start)} and ${fmtD(R.end)} happen at certain hours. What could be driving that?`), lowHost)));
+    card('When lows happen', `Share of readings below 70 in each hour (PT), ${spanS}`, askLink(`Most of my lows between ${fmtD(R.start)} and ${fmtD(R.end)} happen at certain hours. What could be driving that?`), lowHost)));
 
   // low episodes
   const eps = lowEpisodes(R.start, R.end);
-  const epTable = h('table', null, h('thead', null, h('tr', null, h('th', null, 'Date'), h('th', null, 'Started'), h('th', { class: 'num' }, 'Duration'), h('th', { class: 'num' }, 'Lowest'), h('th', null, 'Activity that day'))),
+  const epTable = h('table', null, h('thead', null, h('tr', null, h('th', null, 'Date'), h('th', null, 'Started (PT)'), h('th', { class: 'num' }, 'Duration'), h('th', { class: 'num' }, 'Lowest'), h('th', null, 'Activity that day'))),
     h('tbody', null, ...eps.slice(0, 12).map(e => h('tr', null, h('td', null, `${WD[dow(e.date)]} ${fmtD(e.date)}`), h('td', null, fmtHM(e.start)), h('td', { class: 'num' }, `${e.mins} min`), h('td', { class: 'num' }, `${e.nadir} mg/dL`), h('td', null, actLabel(e.date, e.start))))));
   const longest = eps.reduce((a, e) => Math.max(a, e.mins), 0);
   root.append(h('div', { class: 'grid g-12', style: 'margin-top:16px' },
-    card('Low episodes', 'A low episode is 15+ minutes below 70', null,
+    card('Low episodes', `${span} · an episode is 15+ minutes below 70`, null,
       h('div', { class: 'metric-list', style: 'margin-top:0' },
         h('div', null, h('span', null, 'Episodes in period'), h('b', null, String(eps.length)), h('em', null, `${f1(eps.length / Math.max(1, st.days) * 7)} per week`)),
         h('div', null, h('span', null, 'Below 54 at any point'), h('b', null, String(eps.filter(e => e.nadir < 54).length)), h('em', null, 'episodes')),
         h('div', null, h('span', null, 'Longest'), h('b', null, `${longest} min`), h('em', null, '')),
-        h('div', null, h('span', null, 'Overnight (12–6 AM)'), h('b', null, String(eps.filter(e => e.start < 72).length)), h('em', null, 'episodes'))),
+        h('div', null, h('span', null, 'Overnight (12–6 AM PT)'), h('b', null, String(eps.filter(e => e.start < 72).length)), h('em', null, 'episodes'))),
       h('p', { class: 'heath-src', style: 'margin-top:12px' }, whoopStart ? `Activity tags use WHOOP and Ladder, available from ${fmtD(actStart)}.` : '')),
-    card(eps.length > 12 ? `Most recent 12 of ${eps.length} episodes` : 'Episodes', null, askLink(`Look at my recent low episodes and tell me if training is a factor.`), h('div', { class: 'tbl-wrap' }, eps.length ? epTable : h('p', { class: 'heath-src' }, 'No low episodes in this period.')))));
+    card(eps.length > 12 ? `Most recent 12 of ${eps.length} episodes` : 'Episodes', spanS, askLink(`Look at my recent low episodes and tell me if training is a factor.`), h('div', { class: 'tbl-wrap' }, eps.length ? epTable : h('p', { class: 'heath-src' }, 'No low episodes in this period.')))));
 
   // insulin & carbs
   const ds = datesIn(R.start, R.end), insHost = h('div', { class: 'chart' }), carbHost = h('div', { class: 'chart' });
   root.append(h('div', { class: 'grid g-2', style: 'margin-top:16px' },
-    card('Insulin per day', `Average ${f1(st.ins)} U · ${f1(st.basal)} basal / ${f1(st.bolus)} bolus`, null, insHost, h('div', { class: 'legend' }, h('span', null, h('i', { class: 'sw', style: 'background:var(--c1)' }), 'Basal'), h('span', null, h('i', { class: 'sw', style: 'background:var(--c2)' }), 'Bolus'))),
-    card('Carbs entered in pump per day', `Average ${f0(st.carbs)} g`, null, carbHost)));
+    card('Insulin per day', `${spanS}: average ${f1(st.ins)} U a day · ${f1(st.basal)} basal / ${f1(st.bolus)} bolus`, null, insHost, h('div', { class: 'legend' }, h('span', null, h('i', { class: 'sw', style: 'background:var(--c1)' }), 'Basal'), h('span', null, h('i', { class: 'sw', style: 'background:var(--c2)' }), 'Bolus'))),
+    card('Carbs entered in pump per day', `${spanS}: average ${f0(st.carbs)} g a day`, null, carbHost)));
 
   requestAnimationFrame(() => {
     columns(tirHost, { items, height: 220, yMax: 100, ticks: [0, 25, 50, 75, 100], fmt: v => v + '%', ref: { value: T.tir.target, label: `Target ${T.tir.target}%` } });
@@ -591,7 +619,7 @@ function groupDays(ds, maxDaily) {
   ds.forEach(d => { const k = monthly ? d.slice(0, 7) : weekly ? addDays(d, -((dow(d) + 6) % 7)) : d; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(d); });
   return [...groups].map(([k, arr]) => ({
     label: monthly ? `${MON[+k.slice(5) - 1]} '${k.slice(2, 4)}` : fmtD(k),
-    head: monthly ? `${MON[+k.slice(5) - 1]} ${k.slice(0, 4)} (daily avg)` : weekly ? `Week of ${fmtDY(k)} (daily avg)` : `${WDL[dow(k)]}, ${fmtDY(k)}`,
+    head: (monthly || weekly) ? `${fmtSpan(arr[0], arr[arr.length - 1])} (daily avg of ${arr.length} days)` : `${WDL[dow(k)]}, ${fmtDY(k)}`,
     mean: key => { const v = arr.map(d => DAY.get(d) && DAY.get(d)[key]).filter(x => x != null && x > 0); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; },
   }));
 }
@@ -625,9 +653,12 @@ function viewTraining(root) {
   const R = curRange(), ds = datesIn(R.start, R.end);
   const dexa = D.dexa || [];
   const L = dexa[dexa.length - 1], Pd = dexa[dexa.length - 2];
-  const dd = (k, better, unit, dig = 1) => Pd ? deltaElAlways(L[k], Pd[k], better, unit, dig) : null;
+  const span = fmtSpan(R.start, R.end), spanS = fmtSpan(R.start, R.end, false);
+  const vsScan = Pd ? `vs ${fmtD(Pd.date)} '${Pd.date.slice(2, 4)}` : '';
+  const dd = (k, better, unit, dig = 1) => Pd ? deltaElAlways(L[k], Pd[k], better, unit, dig, vsScan) : null;
+  root.append(kpiHead(h('b', null, `Latest DEXA scan, ${fmtDY(L.date)}`), Pd ? ` · changes against the previous scan on ${fmtDY(Pd.date)}` : '', ' · scans are not affected by the date range'));
   root.append(kpis(
-    kpi('Body fat', f1(L.bf), '%', [h('span', null, `DEXA ${fmtD(L.date)}`), dd('bf', 'down', ' pts')]),
+    kpi('Body fat', f1(L.bf), '%', [dd('bf', 'down', ' pts')]),
     kpi('Lean tissue', f1(L.lean), 'lb', [dd('lean', 'up', ' lb')]),
     kpi('Fat tissue', f1(L.fat), 'lb', [dd('fat', 'down', ' lb')]),
     kpi('Visceral fat', f2(L.vat), 'lb', [dd('vat', 'down', ' lb', 2)]),
@@ -635,8 +666,8 @@ function viewTraining(root) {
     kpi('Resting metabolic rate', f0(L.rmr), 'kcal', [dd('rmr', 'up', '', 0)])));
   const bfHost = h('div', { class: 'chart' }), lfHost = h('div', { class: 'chart' });
   root.append(h('div', { class: 'grid g-2' },
-    card('Body fat over time', `${dexa.length} DEXA scans since ${fmtMYfull(dexa[0].date)}`, h('span', { class: 'scope' }, 'All scans'), bfHost),
-    card('Lean and fat tissue', 'Pounds at each scan', askLink(`My latest DEXA (${fmtD(L.date)}) shows fat ${signed(L.fat - Pd.fat)} lb and lean ${signed(L.lean - Pd.lean)} lb since ${fmtD(Pd.date)}. What should I change?`), lfHost,
+    card('Body fat over time', `All ${dexa.length} DEXA scans, ${fmtMYfull(dexa[0].date)} – ${fmtMYfull(L.date)}`, h('span', { class: 'scope' }, 'All scans'), bfHost),
+    card('Lean and fat tissue', `Pounds at each scan, ${fmtMYfull(dexa[0].date)} – ${fmtMYfull(L.date)}`, askLink(`My latest DEXA (${fmtD(L.date)}) shows fat ${signed(L.fat - Pd.fat)} lb and lean ${signed(L.lean - Pd.lean)} lb since ${fmtD(Pd.date)}. What should I change?`), lfHost,
       h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--c1)' }), 'Lean tissue'), h('span', null, h('i', { class: 'ln', style: 'background:var(--c2)' }), 'Fat tissue')))));
 
   const weeksIn = Math.max(1, ds.length / 7);
@@ -648,32 +679,32 @@ function viewTraining(root) {
   const volSum = ds.reduce((a, d) => a + (VOL.get(d) || 0), 0);
   const sess = LADDER.sessions.filter(s => s[0] >= R.start && s[0] <= R.end);
   const mins = sess.map(s => s[2]).filter(Boolean);
-  root.append(h('div', { style: 'margin-top:16px' }, kpis(
-    kpi('Strength sessions', f1(strengthN / weeksIn), 'per week', [h('span', null, `goal ${T.strengthPerWeek}`), deltaEl(strengthN / weeksIn, prevStrength, 'up', '')], okChip(strengthN / weeksIn >= T.strengthPerWeek - 0.05, 'On target', 'Below target')),
+  root.append(h('div', { style: 'margin-top:16px' }, kpiHead(h('b', null, span), ` · ${plural(ds.length, 'day')} (${f1(weeksIn)} weeks) · Ladder export through ${fmtD(LADDER.export_through || R.end)}, newer sessions from screen recordings`, state.compare && R.prev ? ` · changes ${R.vs}` : ''), kpis(
+    kpi('Strength sessions', f1(strengthN / weeksIn), 'per week', [h('span', null, `goal ${T.strengthPerWeek}`), deltaEl(strengthN / weeksIn, prevStrength, 'up', '', 1, R.vs)], okChip(strengthN / weeksIn >= T.strengthPerWeek - 0.05, 'On target', 'Below target')),
     kpi('Conditioning', f1(condN / weeksIn), 'per week', []),
-    kpi('Ladder workouts', String(sess.length), '', [h('span', null, mins.length ? `avg ${f0(mins.reduce((a, b) => a + b, 0) / mins.length)} min` : '')]),
-    kpi('Volume lifted', volSum >= 1e5 ? f0(volSum / 1000) + 'k' : f0(volSum), 'lb', [h('span', null, `${f0(volSum / weeksIn)} lb per week`)]))));
+    kpi('Ladder workouts', String(sess.length), 'total', [h('span', null, mins.length ? `avg ${f0(mins.reduce((a, b) => a + b, 0) / mins.length)} min` : '')]),
+    kpi('Volume lifted', volSum >= 1e5 ? f0(volSum / 1000) + 'k' : f0(volSum), 'lb total', [h('span', null, `${f0(volSum / weeksIn)} lb per week`)]))));
 
   const freqHost = h('div', { class: 'chart' }), volHost = h('div', { class: 'chart' });
   const monthly = ds.length > 182;
   const tvg = trainingVsGlucose(R.start, R.end);
   root.append(h('div', { class: 'grid g-21' },
-    card(monthly ? 'Sessions per week, by month' : 'Sessions per week', `Ladder and WHOOP · strength goal ${T.strengthPerWeek} per week`, askLink(`I averaged ${f1(strengthN / weeksIn)} strength sessions a week between ${fmtD(R.start)} and ${fmtD(R.end)}. What is getting in the way of ${T.strengthPerWeek}?`), freqHost,
+    card(monthly ? 'Sessions per week, by month' : 'Sessions per week', `${span} · Mon–Sun weeks, edge weeks may be partial (hover for dates) · Ladder and WHOOP`, askLink(`I averaged ${f1(strengthN / weeksIn)} strength sessions a week between ${fmtD(R.start)} and ${fmtD(R.end)}. What is getting in the way of ${T.strengthPerWeek}?`), freqHost,
       h('div', { class: 'legend' }, ...[['var(--c1)', 'Strength'], ['var(--c2)', 'Conditioning'], ['var(--c3)', 'Pickleball'], ['var(--c4)', 'Cardio and other']].map(([c, l]) => h('span', null, h('i', { class: 'sw', style: `background:${c}` }), l)), h('span', null, h('i', { class: 'ln', style: 'background:var(--ink-2);opacity:.55' }), `Strength goal ${T.strengthPerWeek}`))),
     card('Training days and glucose', `${fmtD(R.start)} – ${fmtD(R.end)}`, askLink(`On strength days my next-night time below 70 is ${f1(tvg.s.night)}% vs ${f1(tvg.r.night)}% after rest days. How should I plan around training?`),
       h('div', { class: 'tbl-wrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, ''), h('th', { class: 'num' }, 'Days'), h('th', { class: 'num' }, 'Same-day TIR'), h('th', { class: 'num' }, 'Next night <70'))),
         h('tbody', null, ...[['Strength days', tvg.s], ['Other activity', tvg.o], ['Rest days', tvg.r]].map(([l, v]) => h('tr', null, h('td', null, l), h('td', { class: 'num' }, String(v.n)), h('td', { class: 'num' }, f1(v.tir) + '%'), h('td', { class: 'num' }, f1(v.night) + '%')))))),
-      h('p', { class: 'heath-src', style: 'margin-top:10px' }, 'Next night = midnight to 6 AM after that day. Treat differences as patterns to test.'))));
+      h('p', { class: 'heath-src', style: 'margin-top:10px' }, 'Complete days only. Same-day TIR = that day, midnight to midnight PT. Next night = 12–6 AM PT the following morning. Treat differences as patterns to test.'))));
 
   const lifts = liftTable(R.start, R.end);
   if (!lifts.some(l => l.name === explore.lift)) explore.lift = lifts.length ? lifts[0].name : null;
   const liftHost = h('div', { class: 'chart' });
   const liftSel = h('select', { class: 'select', id: 'lift-pick', onchange: e => { explore.lift = e.target.value; render(); } }, ...lifts.map(l => h('option', { value: l.name, selected: l.name === explore.lift }, prettyLift(l.name))));
   root.append(h('div', { class: 'grid g-2', style: 'margin-top:16px' },
-    card('Strength progress', 'Estimated one-rep max per session (best set, Epley)', askLink(`How is my ${explore.lift ? prettyLift(explore.lift) : 'strength'} progressing, and what would move it?`),
+    card('Strength progress', `${spanS} · estimated one-rep max per session (best set, Epley)`, askLink(`How is my ${explore.lift ? prettyLift(explore.lift) : 'strength'} progressing, and what would move it?`),
       lifts.length ? h('div', { class: 'pick-row', style: 'margin-bottom:10px' }, 'Exercise', liftSel) : null,
       lifts.length ? liftHost : h('p', { class: 'heath-src' }, 'No weighted Ladder sets in this period.')),
-    card('Volume lifted', `Pounds moved in Ladder sets per ${monthly ? 'month' : 'week'}`, null, volHost)));
+    card('Volume lifted', `${spanS} · pounds moved in Ladder sets per ${monthly ? 'month' : 'Mon–Sun week'}`, null, volHost)));
   root.append(h('div', { style: 'margin-top:16px' }, card('Lifts in this period', `Most-trained lifts between ${fmtD(R.start)} and ${fmtD(R.end)} · Ladder export through ${fmtD(LADDER.export_through || R.end)}`, askLink('Which of my lifts are progressing and which have stalled?'),
     h('div', { class: 'tbl-wrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, 'Exercise'), h('th', { class: 'num' }, 'Sessions'), h('th', { class: 'num' }, 'First'), h('th', { class: 'num' }, 'Latest'), h('th', { class: 'num' }, 'Best'), h('th', { class: 'num' }, 'Change'), h('th', null, 'Last done'))),
       h('tbody', null, ...lifts.slice(0, 12).map(l => h('tr', null, h('td', null, prettyLift(l.name)), h('td', { class: 'num' }, String(l.n)), h('td', { class: 'num' }, f0(l.first) + ' lb'), h('td', { class: 'num' }, f0(l.latest) + ' lb'), h('td', { class: 'num' }, f0(l.best) + ' lb'), h('td', { class: 'num' }, deltaElAlways(l.latest, l.first, 'up', ' lb', 0, '')), h('td', null, fmtDY(l.lastDate))))))),
@@ -682,7 +713,8 @@ function viewTraining(root) {
   const fdays = ds.filter(d => FOOD.has(d));
   const protHost = h('div', { class: 'chart' });
   const avgP = fdays.length ? fdays.reduce((a, d) => a + FOOD.get(d).protein, 0) / fdays.length : null;
-  root.append(h('div', { style: 'margin-top:16px' }, card('Protein per day', `${fdays.length} logged ${fdays.length === 1 ? 'day' : 'days'} in this period · goal ${T.proteinG[0]}–${T.proteinG[1]} g`, h('a', { class: 'btn ghost', href: heathUrl('Meal: '), target: '_blank', rel: 'noopener' }, icon('plus'), 'Log a meal'),
+  const foodDates = [...FOOD.keys()].sort(), lastFood = foodDates[foodDates.length - 1];
+  root.append(h('div', { style: 'margin-top:16px' }, card('Protein per day', `${spanS} · ${plural(fdays.length, 'logged day')} · goal ${T.proteinG[0]}–${T.proteinG[1]} g${lastFood ? ` · last meal logged ${fmtDY(lastFood)}` : ''}`, h('a', { class: 'btn ghost', href: heathUrl('Meal: '), target: '_blank', rel: 'noopener' }, icon('plus'), 'Log a meal'),
     fdays.length ? h('div', { class: 'metric-list', style: 'margin:0 0 12px' }, h('div', null, h('span', null, 'Average on logged days'), h('b', null, f0(avgP) + ' g protein'), h('em', null, `${f0(fdays.reduce((a, d) => a + FOOD.get(d).kcal, 0) / fdays.length)} kcal`))) : null,
     fdays.length ? protHost : h('div', { class: 'empty' }, h('p', null, 'No meals logged in this period. Text or photograph a meal to Heath in Telegram and it shows up here the next morning.')))));
 
@@ -695,7 +727,7 @@ function viewTraining(root) {
     const items = [...groups].map(([k, arr]) => {
       const per = monthly ? arr.length / 7 : 1;
       const c = key => +(arr.filter(d => ACT.get(d) && ACT.get(d).has(key)).length / per).toFixed(1);
-      return { label: monthly ? `${MON[+k.slice(5) - 1]} '${k.slice(2, 4)}` : fmtD(k), tipHead: monthly ? `${MON[+k.slice(5) - 1]} ${k.slice(0, 4)} · per week` : `Week of ${fmtDY(k)}`, values: [c('strength'), c('conditioning'), c('pickleball'), c('cardio')],
+      return { label: monthly ? `${MON[+k.slice(5) - 1]} '${k.slice(2, 4)}` : fmtD(k), tipHead: `${fmtSpan(arr[0], arr[arr.length - 1])}${monthly ? ' · per week' : arr.length < 7 ? ` (${arr.length} of 7 days)` : ''}`, values: [c('strength'), c('conditioning'), c('pickleball'), c('cardio')],
         vol: arr.reduce((a, d) => a + (VOL.get(d) || 0), 0) };
     });
     stacked(freqHost, { items, series: [{ name: 'Strength', color: 'var(--c1)' }, { name: 'Conditioning', color: 'var(--c2)' }, { name: 'Pickleball', color: 'var(--c3)' }, { name: 'Cardio/other', color: 'var(--c4)' }], height: 230, ref: { value: T.strengthPerWeek } });
@@ -738,48 +770,52 @@ function liftTable(start, end) {
 }
 
 function viewSleep(root) {
-  const R = curRange();
+  const R = curRange(whoopEnd);
   const start = whoopStart && R.start < whoopStart ? whoopStart : R.start;
-  const ds = datesIn(start, lastDate);
+  const ds = datesIn(start, R.end);
+  const span = fmtSpan(start, R.end), spanS = fmtSpan(start, R.end, false);
   const recs = ds.map(d => REC.get(d)).filter(Boolean), slps = ds.map(d => SLP.get(d)).filter(Boolean);
   const avg = (arr, k) => { const v = arr.map(x => x[k]).filter(x => x != null); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; };
   const pvs = R.prev ? datesIn(R.prev.start, R.prev.end) : [];
   const precs = pvs.map(d => REC.get(d)).filter(Boolean), pslps = pvs.map(d => SLP.get(d)).filter(Boolean);
   const pa = (arr, k) => arr.length ? avg(arr, k) : null;
   const hrs = avg(slps, 'hrs');
-  if (whoopStart && R.start < whoopStart) root.append(h('div', { class: 'note', style: 'margin-bottom:16px' }, h('b', null, 'WHOOP history starts ' + fmtDY(whoopStart) + '. '), 'The data pipeline currently keeps only the last 25 WHOOP records, so this view shows what exists. Once the pipeline keeps full history, every range here fills in.'));
+  if (whoopStart && R.start < whoopStart) root.append(h('div', { class: 'note', style: 'margin-bottom:16px' }, h('b', null, 'WHOOP history starts ' + fmtDY(whoopStart) + ', '), 'so this range begins there.'));
+  const vs = R.vs;
+  root.append(kpiHead(h('b', null, `Mornings of ${span}`), ` · ${plural(recs.length, 'recovery score')}, ${plural(slps.length, 'night')} · each night is dated by the morning you woke up`, state.compare && R.prev ? ` · changes ${vs}` : ''));
   root.append(kpis(
-    kpi('Recovery', f0(avg(recs, 'rec')), '', [h('span', null, 'average'), deltaEl(avg(recs, 'rec'), pa(precs, 'rec'), 'up', '', 0)]),
-    kpi('HRV', f1(avg(recs, 'hrv')), 'ms', [h('span', null, `baseline ~${T.hrvBaseline}`), deltaEl(avg(recs, 'hrv'), pa(precs, 'hrv'), 'up', ' ms')]),
-    kpi('Resting HR', f0(avg(recs, 'rhr')), 'bpm', [h('span', null, `baseline ~${T.rhrBaseline}`), deltaEl(avg(recs, 'rhr'), pa(precs, 'rhr'), 'down', '', 0)]),
-    kpi('Sleep', f1(hrs), 'h', [h('span', null, `goal ${T.sleepHours[0]}–${T.sleepHours[1]} h`), deltaEl(hrs, pa(pslps, 'hrs'), 'up', ' h')], okChip(hrs == null ? null : hrs >= T.sleepHours[0])),
-    kpi('Sleep performance', f0(avg(slps, 'perf')), '%', [deltaEl(avg(slps, 'perf'), pa(pslps, 'perf'), 'up', ' pts', 0)]),
+    kpi('Recovery', f0(avg(recs, 'rec')), '', [h('span', null, 'average'), deltaEl(avg(recs, 'rec'), pa(precs, 'rec'), 'up', '', 0, vs)]),
+    kpi('HRV', f1(avg(recs, 'hrv')), 'ms', [h('span', null, `baseline ~${T.hrvBaseline}`), deltaEl(avg(recs, 'hrv'), pa(precs, 'hrv'), 'up', ' ms', 1, vs)]),
+    kpi('Resting HR', f0(avg(recs, 'rhr')), 'bpm', [h('span', null, `baseline ~${T.rhrBaseline}`), deltaEl(avg(recs, 'rhr'), pa(precs, 'rhr'), 'down', '', 0, vs)]),
+    kpi('Sleep', f1(hrs), 'h', [h('span', null, `goal ${T.sleepHours[0]}–${T.sleepHours[1]} h`), deltaEl(hrs, pa(pslps, 'hrs'), 'up', ' h', 1, vs)], okChip(hrs == null ? null : hrs >= T.sleepHours[0])),
+    kpi('Sleep performance', f0(avg(slps, 'perf')), '%', [deltaEl(avg(slps, 'perf'), pa(pslps, 'perf'), 'up', ' pts', 0, vs)]),
     kpi('Nights under 7 h', String(slps.filter(x => x.hrs < T.sleepHours[0]).length), `of ${slps.length}`, [])));
   const recHost = h('div', { class: 'chart' }), slHost = h('div', { class: 'chart' }), hrvHost = h('div', { class: 'chart' }), rhrHost = h('div', { class: 'chart' }), scHost = h('div', { class: 'chart' });
   root.append(h('div', { class: 'grid g-2' },
-    card('Recovery', `WHOOP recovery score by ${ds.length > 400 ? 'month' : ds.length > 120 ? 'week' : 'day'}`, askLink('What has been dragging my recovery down lately?'), recHost,
+    card('Recovery', `${span} · WHOOP recovery score by ${ds.length > 400 ? 'month' : ds.length > 120 ? 'week' : 'morning'}`, askLink('What has been dragging my recovery down lately?'), recHost,
       h('div', { class: 'legend' }, ...[['good', 'Green ≥67'], ['warn', 'Yellow 34–66'], ['crit', 'Red <34']].map(([c, l]) => h('span', null, h('i', { class: 'sw', style: `background:${tierColor(c)}` }), l)))),
-    card('Sleep', ds.length > 120 ? `Average hours asleep per night, by ${ds.length > 400 ? 'month' : 'week'}` : 'Hours asleep by night', askLink(`I average ${f1(hrs)} h of sleep. With the twins, what is the most realistic lever to get to 7+?`), slHost,
+    card('Sleep', `${span} · ${ds.length > 120 ? `average hours asleep per night, by ${ds.length > 400 ? 'month' : 'week'}` : 'hours asleep, each bar is the night before that morning'}`, askLink(`I average ${f1(hrs)} h of sleep. With the twins, what is the most realistic lever to get to 7+?`), slHost,
       h('div', { class: 'legend' }, h('span', null, h('i', { class: 'sw', style: 'background:var(--c1)' }), 'Hours asleep'), h('span', null, h('i', { class: 'sw', style: 'background:var(--g-in-wash);box-shadow:inset 0 0 0 1px #cfdcf0' }), `Goal ${T.sleepHours[0]}–${T.sleepHours[1]} h`)))));
   root.append(h('div', { class: 'grid g-3', style: 'margin-top:16px' },
-    card('HRV', `Milliseconds · line marks your ~${T.hrvBaseline} ms baseline`, null, hrvHost), card('Resting heart rate', `Beats per minute · line marks your ~${T.rhrBaseline} bpm baseline`, null, rhrHost),
-    card('Sleep and next-day glucose', 'Each dot is one night', null, scHost, h('p', { class: 'r-badge', id: 'sleep-r' }))));
+    card('HRV', `${spanS} · milliseconds · line marks your ~${T.hrvBaseline} ms baseline`, null, hrvHost), card('Resting heart rate', `${spanS} · beats per minute · line marks your ~${T.rhrBaseline} bpm baseline`, null, rhrHost),
+    card('Sleep and next-day glucose', `${spanS} · each dot is one night against TIR for the day that followed (midnight to midnight PT)`, null, scHost, h('p', { class: 'r-badge', id: 'sleep-r' }))));
   requestAnimationFrame(() => {
     const rd = ds.filter(d => REC.get(d)), sd = ds.filter(d => SLP.get(d));
     const unit = ds.length > 400 ? 'month' : ds.length > 120 ? 'week' : 'day';
     const keyOf = d => unit === 'month' ? d.slice(0, 7) : unit === 'week' ? addDays(d, -((dow(d) + 6) % 7)) : d;
     const labelOf = k => unit === 'month' ? `${MON[+k.slice(5, 7) - 1]} '${k.slice(2, 4)}` : fmtD(k);
-    const headOf = k => unit === 'month' ? `${MON[+k.slice(5, 7) - 1]} ${k.slice(0, 4)} (average)` : unit === 'week' ? `Week of ${fmtDY(k)} (average)` : fmtDY(k);
+    const spanOf = new Map(); ds.forEach(d => { const k = keyOf(d); const v = spanOf.get(k); spanOf.set(k, v ? [v[0], d] : [d, d]); });
+    const headOf = k => unit === 'day' ? `Morning of ${fmtDY(k)}` : `${fmtSpan(...spanOf.get(k))} (average)`;
     const group = (dates, get) => { const m = new Map(); dates.forEach(d => { const k = keyOf(d); if (!m.has(k)) m.set(k, []); m.get(k).push(get(d)); }); return [...m].map(([k, arr]) => ({ k, arr })); };
     const mean = (arr, f) => { const v = arr.map(f).filter(x => x != null); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; };
     const recG = group(rd, d => REC.get(d)), slG = group(sd, d => SLP.get(d));
     columns(recHost, { items: recG.map(({ k, arr }) => { const v = mean(arr, x => x.rec), z = recZone(v); return { label: labelOf(k), value: v, color: tierColor(z.cls), tip: { head: headOf(k), rows: [{ label: 'Recovery', value: f0(v), color: tierColor(z.cls) }, { label: 'Zone', value: z.label }, { label: 'HRV', value: f1(mean(arr, x => x.hrv)) + ' ms' }, { label: 'Resting HR', value: f0(mean(arr, x => x.rhr)) + ' bpm' }, ...(unit === 'day' ? [] : [{ label: 'Nights', value: String(arr.length) }])] } }; }), yMax: 100, ticks: [0, 34, 67, 100], height: 210 });
-    columns(slHost, { items: slG.map(({ k, arr }) => { const v = mean(arr, x => x.hrs); return { label: labelOf(k), value: v, color: 'var(--c1)', tip: { head: unit === 'day' ? `Night before ${fmtDY(k)}` : headOf(k), rows: [{ label: 'Asleep', value: f1(v) + ' h', color: 'var(--c1)' }, { label: 'In bed', value: f1(mean(arr, x => x.bed)) + ' h' }, { label: 'Deep', value: f1(mean(arr, x => x.deep)) + ' h' }, { label: 'REM', value: f1(mean(arr, x => x.rem)) + ' h' }, { label: 'Performance', value: f0(mean(arr, x => x.perf)) + '%' }, unit === 'day' ? { label: 'Disturbances', value: String(arr[0].dist) } : { label: 'Nights', value: String(arr.length) }] } }; }), yMax: 10, ticks: [0, 2, 4, 6, 8, 10], fmt: v => v + 'h', band: T.sleepHours, height: 210 });
+    columns(slHost, { items: slG.map(({ k, arr }) => { const v = mean(arr, x => x.hrs); return { label: labelOf(k), value: v, color: 'var(--c1)', tip: { head: unit === 'day' ? `Night of ${fmtD(addDays(k, -1))} → ${fmtDY(k)}` : headOf(k), rows: [{ label: 'Asleep', value: f1(v) + ' h', color: 'var(--c1)' }, { label: 'In bed', value: f1(mean(arr, x => x.bed)) + ' h' }, { label: 'Deep', value: f1(mean(arr, x => x.deep)) + ' h' }, { label: 'REM', value: f1(mean(arr, x => x.rem)) + ' h' }, { label: 'Performance', value: f0(mean(arr, x => x.perf)) + '%' }, unit === 'day' ? { label: 'Disturbances', value: String(arr[0].dist) } : { label: 'Nights', value: String(arr.length) }] } }; }), yMax: 10, ticks: [0, 2, 4, 6, 8, 10], fmt: v => v + 'h', band: T.sleepHours, height: 210 });
     lines(hrvHost, { labels: recG.map(g => labelOf(g.k)), series: [{ name: 'HRV', color: 'var(--c1)', values: recG.map(g => mean(g.arr, x => x.hrv)), endDot: true }], refs: [{ value: T.hrvBaseline }], height: 170, tipFmt: v => f1(v) + ' ms', tipHead: i => headOf(recG[i].k) });
     lines(rhrHost, { labels: recG.map(g => labelOf(g.k)), series: [{ name: 'Resting HR', color: 'var(--c2)', values: recG.map(g => mean(g.arr, x => x.rhr)), endDot: true }], refs: [{ value: T.rhrBaseline }], height: 170, tipFmt: v => f0(v) + ' bpm', tipHead: i => headOf(recG[i].k) });
     const pts = sd.map(d => { const st = dayStats(d); return st && st.n >= 200 ? [SLP.get(d).hrs, st.tir, d] : null; }).filter(Boolean);
     scatter(scHost, { pts, xName: 'Hours asleep', yName: 'TIR that day (%)', height: 200, yFmt: v => f0(v) + '%' });
-    const r = pearson(pts); document.getElementById('sleep-r').textContent = r == null ? '' : `r = ${r.toFixed(2)} across ${pts.length} nights · a pattern to test, not proof`;
+    const r = pearson(pts); document.getElementById('sleep-r').textContent = r == null ? '' : `r = ${r.toFixed(2)} across ${pts.length} nights with a complete next day · a pattern to test, not proof`;
   });
 }
 
@@ -790,9 +826,9 @@ const METRICS = {
   sd: { name: 'Glucose SD', get: d => { const s = dayStats(d); return s && s.n >= 200 ? s.sd : null; }, fmt: f0 },
   ins: { name: 'Total insulin (U)', get: d => DAY.get(d) && DAY.get(d).ins || null, fmt: f1 },
   carbs: { name: 'Carbs in pump (g)', get: d => DAY.get(d) && DAY.get(d).carbs || null, fmt: f0 },
-  rec: { name: 'WHOOP recovery', get: d => REC.get(d) ? REC.get(d).rec : null, fmt: f0 },
+  rec: { name: 'WHOOP recovery (that morning)', get: d => REC.get(d) ? REC.get(d).rec : null, fmt: f0 },
   hrv: { name: 'HRV (ms)', get: d => REC.get(d) ? REC.get(d).hrv : null, fmt: f1 },
-  sleep: { name: 'Hours asleep', get: d => SLP.get(d) ? SLP.get(d).hrs : null, fmt: f1 },
+  sleep: { name: 'Hours asleep (night before)', get: d => SLP.get(d) ? SLP.get(d).hrs : null, fmt: f1 },
   strain: { name: 'WHOOP strain (sum)', get: d => { const w = WORK.filter(x => x.d === d); return w.length ? w.reduce((a, b) => a + (b.strain || 0), 0) : null; }, fmt: f1 },
 };
 const explore = { x: 'sleep', y: 'tir', heat: 'in', lift: null };
@@ -808,15 +844,15 @@ function viewPatterns(root) {
   const lyS = addDays(R.start, -364), lyE = addDays(R.end, -364), ly = lyS >= firstDate ? rangeStats(lyS, lyE) : null;
   const rowsDef = [['Time in range', 'tir', '%', 1, 'up', `>${T.tir.target}%`], ['Below 70', 'lowAll', '%', 1, 'down', `<${T.lowMax}%`], ['Below 54', 'vlow', '%', 2, 'down', `<${T.veryLowMax}%`], ['Above 180', 'highAll', '%', 1, 'down', ''], ['Average glucose', 'mean', '', 0, 'down', ''], ['SD', 'sd', '', 0, 'down', `<${T.sdMax}`], ['CV', 'cv', '%', 1, 'down', '<36%'], ['GMI', 'gmi', '%', 1, 'down', `A1c <${T.a1cMax}%`], ['Insulin per day', 'ins', ' U', 1, null, ''], ['Carbs per day', 'carbs', ' g', 0, null, '']];
   const fmtv = (v, u, dg) => v == null ? '—' : (dg === 0 ? f0(v) : dg === 2 ? f2(v) : f1(v)) + u;
-  const cmpTable = h('table', null, h('thead', null, h('tr', null, h('th', null, 'Metric'), h('th', { class: 'num' }, `${fmtD(R.start)} – ${fmtD(R.end)}`), h('th', { class: 'num' }, R.prev ? `Previous ${R.len} days` : 'Previous'), h('th', { class: 'num' }, 'Change'), h('th', { class: 'num' }, 'Same dates last year'), h('th', null, 'Goal'))),
+  const cmpTable = h('table', null, h('thead', null, h('tr', null, h('th', null, 'Metric'), h('th', { class: 'num' }, fmtSpan(R.start, R.end)), h('th', { class: 'num' }, R.prev ? `Previous: ${fmtSpan(R.prev.start, R.prev.end)}` : 'Previous'), h('th', { class: 'num' }, 'Change'), h('th', { class: 'num' }, ly ? `Year earlier: ${fmtSpan(lyS, lyE)}` : 'Year earlier'), h('th', null, 'Goal'))),
     h('tbody', null, ...rowsDef.map(([l, k, u, dg, b, goal]) => h('tr', null, h('td', null, l), h('td', { class: 'num' }, h('b', null, fmtv(cur && cur[k], u, dg))), h('td', { class: 'num' }, fmtv(prev && prev[k], u, dg)), h('td', { class: 'num' }, prev ? deltaElAlways(cur[k], prev[k], b, u.trim() === '%' ? ' pts' : u, dg, '') : '—'), h('td', { class: 'num' }, fmtv(ly && ly[k], u, dg)), h('td', null, goal)))));
-  root.append(h('div', { style: 'margin-top:16px' }, card('Compare periods', 'Selected range against the previous period and the same dates a year earlier', askLink(`Compare ${fmtD(R.start)}–${fmtD(R.end)} with the period before: TIR ${f1(cur && cur.tir)}% vs ${f1(prev && prev.tir)}%. What changed?`), h('div', { class: 'tbl-wrap' }, cmpTable))));
+  root.append(h('div', { style: 'margin-top:16px' }, card('Compare periods', `${fmtSpan(R.start, R.end)} against the ${R.len} days just before it and the same weekdays 52 weeks earlier`, askLink(`Compare ${fmtD(R.start)}–${fmtD(R.end)} with the period before: TIR ${f1(cur && cur.tir)}% vs ${f1(prev && prev.tir)}%. What changed?`), h('div', { class: 'tbl-wrap' }, cmpTable))));
   // explorer
   const scHost = h('div', { class: 'chart' });
   const sel = (key, id) => h('select', { class: 'select', id, onchange: e => { explore[key] = e.target.value; render(); } }, ...Object.entries(METRICS).map(([k, m]) => h('option', { value: k, selected: explore[key] === k }, m.name)));
   const pts = ds.map(d => { const x = METRICS[explore.x].get(d), y = METRICS[explore.y].get(d); return x != null && y != null ? [x, y, d] : null; }).filter(Boolean);
   const r = pearson(pts);
-  root.append(h('div', { style: 'margin-top:16px' }, card('Explore relationships', 'Pick any two daily metrics. Each dot is one day in the selected range.', askLink(`Is there a real relationship between ${METRICS[explore.x].name} and ${METRICS[explore.y].name} for me? I see r = ${r == null ? 'n/a' : r.toFixed(2)} over ${pts.length} days.`),
+  root.append(h('div', { style: 'margin-top:16px' }, card('Explore relationships', `${fmtSpan(R.start, R.end)} · pick any two daily metrics. Each dot is one complete day (midnight to midnight PT).`, askLink(`Is there a real relationship between ${METRICS[explore.x].name} and ${METRICS[explore.y].name} for me? I see r = ${r == null ? 'n/a' : r.toFixed(2)} over ${pts.length} days.`),
     h('div', { class: 'pick-row' }, 'Compare', sel('x', 'exp-x'), 'against', sel('y', 'exp-y'), h('span', { class: 'r-badge' }, r == null ? 'Not enough overlapping days' : `r = ${r.toFixed(2)} · ${pts.length} days`)),
     h('div', { style: 'margin-top:12px' }, scHost),
     h('p', { class: 'heath-src' }, 'Correlation shows things that move together. It does not show cause; use it to pick experiments.'))));
@@ -849,15 +885,15 @@ function viewLabs(root) {
   const latest = a1c[a1c.length - 1];
   const host = h('div', { class: 'chart' });
   root.append(h('div', { class: 'grid g-21' },
-    card('A1c and GMI', 'Lab A1c results against the CGM-estimated GMI (90-day rolling, sampled monthly)', askLink(`My A1c went from 6.5% to ${latest.value}%. What are the biggest levers to get back under ${T.a1cMax}%?`), host,
+    card('A1c and GMI', `Lab A1c by draw date against GMI from CGM. Each GMI point = the 90 days ending on the 28th of that month (latest point ends ${fmtD(lastFull)}).`, askLink(`My A1c went from 6.5% to ${latest.value}%. What are the biggest levers to get back under ${T.a1cMax}%?`), host,
       h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--c1)' }), 'GMI from CGM'), h('span', null, h('i', { class: 'sw', style: 'background:var(--c2);border-radius:50%' }), 'Lab A1c'), h('span', null, h('i', { class: 'ln', style: 'background:var(--ink-2);opacity:.55' }), `Goal <${T.a1cMax}%`))),
-    card('Coming up', 'From your vault notes', null, h('div', { class: 'checklist' },
+    card('Coming up', 'From your vault notes, as of Oct 1, 2026 (typed in by hand, not updated automatically)', null, h('div', { class: 'checklist' },
       h('div', null, h('span', null, 'A1c with Sutter'), h('b', null, 'Overdue'), chip('crit', 'Since Apr 24')),
       h('div', null, h('span', null, 'Eye exam'), h('b', null, 'Due'), chip('warn', 'Since Aug 1')),
       h('div', null, h('span', null, 'Ferritin recheck'), h('b', null, '~Late Nov'), chip('none', 'Planned')),
       h('div', null, h('span', null, 'Omega-3 recheck'), h('b', null, 'Nov–Feb'), chip('none', 'Planned')),
       h('div', null, h('span', null, 'Next DEXA'), h('b', null, 'Not booked'), chip('none', 'Every 3–4 months'))))));
-  root.append(h('div', { style: 'margin-top:16px' }, card('Flagged lab results', 'Function Health via Quest, Aug 2026, plus A1c history from Sutter', askLink('Which of my flagged labs matter most right now and what should I ask my doctor?'),
+  root.append(h('div', { style: 'margin-top:16px' }, card('Flagged lab results', 'Function Health via Quest, drawn Aug 2026 · A1c history from Sutter', askLink('Which of my flagged labs matter most right now and what should I ask my doctor?'),
     h('div', { class: 'tbl-wrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, 'Test'), h('th', { class: 'num' }, 'Result'), h('th', null, 'Reference'), h('th', null, 'Status'), h('th', null, 'Note'))),
       h('tbody', null, ...LABS.map(([t, v, r, c, n]) => h('tr', null, h('td', null, t), h('td', { class: 'num' }, h('b', null, v)), h('td', null, r), h('td', null, chip(c, { crit: 'Flagged', warn: 'Watch', none: 'In range', good: 'Good' }[c])), h('td', null, n)))))))));
   requestAnimationFrame(() => {
@@ -880,7 +916,7 @@ function viewLabs(root) {
     const cross = s('line', { y1: fr.y1, y2: fr.y0, class: 'cross', visibility: 'hidden' }, fr.svg);
     const hit = s('rect', { x: fr.x0, y: fr.y1, width: fr.x1 - fr.x0, height: fr.y0 - fr.y1, class: 'hit' }, fr.svg);
     fr.svg.insertBefore(hit, fr.svg.querySelector('circle'));
-    hit.addEventListener('pointermove', evt => { const r = fr.svg.getBoundingClientRect(); const px = (evt.clientX - r.left) * fr.w / r.width; let b = pts[0], bd = Infinity; pts.forEach(p => { const d = Math.abs(x(p.t) - px); if (d < bd) { bd = d; b = p; } }); cross.setAttribute('x1', x(b.t)); cross.setAttribute('x2', x(b.t)); cross.setAttribute('visibility', 'visible'); showTip(evt, b.label, [{ label: 'GMI (90-day)', value: f1(b.v) + '%', color: 'var(--c1)' }]); });
+    hit.addEventListener('pointermove', evt => { const r = fr.svg.getBoundingClientRect(); const px = (evt.clientX - r.left) * fr.w / r.width; let b = pts[0], bd = Infinity; pts.forEach(p => { const d = Math.abs(x(p.t) - px); if (d < bd) { bd = d; b = p; } }); cross.setAttribute('x1', x(b.t)); cross.setAttribute('x2', x(b.t)); cross.setAttribute('visibility', 'visible'); showTip(evt, `90 days ending ${fmtDY(fromUTC(b.t))}`, [{ label: 'GMI', value: f1(b.v) + '%', color: 'var(--c1)' }]); });
     hit.addEventListener('pointerleave', () => { cross.setAttribute('visibility', 'hidden'); hideTip(); });
   });
 }
@@ -889,22 +925,31 @@ function viewLabs(root) {
 const nav = document.getElementById('nav'), viewEl = document.getElementById('view');
 function renderNav() {
   nav.replaceChildren(...VIEWS.map(v => h('button', { 'aria-current': state.view === v.id ? 'page' : null, onclick: () => { state.view = v.id; history.replaceState(null, '', '#' + v.id); render(); window.scrollTo(0, 0); } }, icon(v.icon), v.name)));
-  const thru = D.glucose_through ? new Date(D.glucose_through) : null;
   document.getElementById('rail-foot').replaceChildren(
-    h('div', { class: 'fresh' }, chip('good', 'Live'), 'Updated daily at 8:00 AM'),
-    h('div', null, `Glucose through ${thru ? `${fmtD(lastDate)}, ${thru.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}` : '—'}`),
-    h('div', null, `WHOOP through ${D.whoop_through ? fmtD(D.whoop_through) : '—'}`),
-    h('div', null, `${DAYS.length.toLocaleString()} days of CGM history`));
+    h('div', { class: 'fresh' }, chip('good', 'Live'), 'Refreshes daily ~8:25 AM PT'),
+    h('div', null, `Built ${D.generated_at ? fmtStamp(D.generated_at) : '—'}`),
+    h('div', null, `Glucose through ${D.glucose_through ? fmtStamp(D.glucose_through) : '—'}`),
+    h('div', null, `WHOOP through the morning of ${D.whoop_through ? fmtD(D.whoop_through) : '—'}`),
+    h('div', null, `CGM history since ${fmtDY(firstDate)}`));
 }
 function renderControls(v) {
   const seg = document.getElementById('range-seg');
   seg.replaceChildren(...RANGES.map(([k]) => h('button', { 'aria-pressed': String(state.range === k), onclick: () => { state.range = k; try { localStorage.setItem('hp-range', k); } catch (e) {} render(); } }, k)));
-  const R = curRange();
-  document.getElementById('range-label').textContent = `${fmtDY(R.start)} – ${fmtDY(R.end)}`;
+  const R = rangeFor(v);
+  document.getElementById('range-label').textContent = `${fmtSpan(R.start, R.end)} · ${plural(R.len, 'day')}`;
   document.getElementById('controls').hidden = !v.ranged;
+  const per = document.getElementById('period');
+  per.hidden = !v.ranged;
+  if (!v.ranged) return;
+  const endWhy = v.id === 'sleep'
+    ? `Ends with the latest WHOOP morning (${fmtD(R.end)}). Each recovery and night of sleep is dated by the morning you woke up, so ${fmtD(R.end)} means the night of ${fmtD(addDays(R.end, -1))} → ${fmtD(R.end)}.`
+    : `Each day runs 12:00 AM – 11:59 PM Pacific. Ends with the last complete day of CGM data (${fmtD(R.end)}); ${lastDate > R.end ? `${fmtD(lastDate)} is left out until it's complete.` : 'nothing newer has synced yet.'}`;
+  per.replaceChildren(
+    h('div', null, h('span', { class: 'per-k' }, 'Showing'), h('b', null, fmtSpan(R.start, R.end)), ` · ${plural(R.len, 'day')}. `, endWhy),
+    state.compare ? h('div', null, h('span', { class: 'per-k' }, 'Compared with'), R.prev ? [h('b', null, fmtSpan(R.prev.start, R.prev.end)), `, the ${plural(R.len, 'day')} just before.`] : 'No earlier data of the same length to compare with.') : null);
 }
 const SUBS = {
-  today: () => `${WDL[dow(lastDate)]}, ${fmtDY(lastDate)}`,
+  today: () => `${WDL[dow(isoPT(new Date()))]}, ${fmtDY(isoPT(new Date()))} · data through ${D.glucose_through ? fmtStamp(D.glucose_through) : '—'}`,
   glucose: () => 'Control against your tiers, daily pattern and lows',
   training: () => 'Body composition, training volume and how training affects glucose',
   sleep: () => 'WHOOP recovery and sleep against your targets',
