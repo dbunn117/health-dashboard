@@ -688,6 +688,78 @@ function mixCard(st, span, title = 'Time in ranges') {
   return card(title, `Share of all ${st.n.toLocaleString()} CGM readings, ${span} (mg/dL)`, null, bar, rows);
 }
 
+/* ---------- meal outcomes & training timing (mirrors pipeline/settings_analysis.py) ---------- */
+// Minutes on a Pacific-calendar axis: day index * 1440 + minute of day.
+const absMin = (date, min) => toUTC(date) / 6e4 + min;
+function slotVal(i) { const day = Math.floor(i / 288), a = cgm(fromUTC(day * 864e5)); return a ? a[((i % 288) + 288) % 288] : 0; }
+function gAt(m) { const b = Math.round(m / 5); for (const k of [0, -1, 1, -2, 2]) { const v = slotVal(b + k); if (v) return v; } return null; }
+function gWindow(m0, mins) { const out = []; for (let i = Math.ceil(m0 / 5); i <= Math.floor((m0 + mins) / 5); i++) { const v = slotVal(i); if (v) out.push([i * 5 - m0, v]); } return out; }
+const EVENTS = (() => {  // boluses within 15 min merged (split doses)
+  const ev = [];
+  for (const [d, min, u, c] of (D.boluses || [])) { const m = absMin(d, min); const last = ev[ev.length - 1]; if (last && m - last.m <= 15) { last.u += u; last.carbs += c; } else ev.push({ m, date: d, min, u, carbs: c }); }
+  return ev;
+})();
+const SESS = (D.sessions || []).filter(x => x[3] !== 'light').map(([d, min, dur, kind]) => ({ date: d, s: absMin(d, min), e: absMin(d, min) + dur, kind }));
+const KIND_LABEL = { strength: 'Strength', conditioning: 'Conditioning', pickleball: 'Pickleball', cardio: 'Cardio' };
+const BLOCKS = [['Overnight', 0, 5], ['Breakfast', 5, 10], ['Lunch', 10, 14], ['Afternoon', 14, 17], ['Dinner', 17, 21], ['Late evening', 21, 24]];
+const blockOf = min => BLOCKS.find(([, a, b]) => min >= a * 60 && min < b * 60)[0];
+const RELS = [['before', 'Meal 0–3 h before training'], ['after3', '0–3 h after training'], ['after12', '3–12 h after training'], ['nextday', 'Next day (12–30 h after)'], ['none', 'No training nearby']];
+function relationOf(m) {
+  for (const x of SESS) if (x.s - m >= 0 && x.s - m <= 180) return ['before', x.kind];
+  for (const [lo, hi, k] of [[-1e9, 180, 'after3'], [180, 720, 'after12'], [720, 1800, 'nextday']])
+    for (let i = SESS.length - 1; i >= 0; i--) { const x = SESS[i], d = m - x.e; if (d > lo && d <= hi && m >= x.s) return [k, x.kind]; }
+  return ['none', null];
+}
+function mealOutcomes(start, end) {
+  const isf = T.isf || 30, out = []; let total = 0;
+  EVENTS.forEach((e, i) => {
+    if (e.date < start || e.date > end || e.carbs < 10) return;
+    total++;
+    if (EVENTS.slice(Math.max(0, i - 6), i).some(x => e.m - x.m > 0 && e.m - x.m <= 120)) return;
+    if (EVENTS.slice(i + 1, i + 8).some(x => x.m - e.m > 0 && x.m - e.m <= 240)) return;
+    const g0 = gAt(e.m), w = gWindow(e.m, 240), g4 = gAt(e.m + 240);
+    if (!g0 || g0 < 70 || g0 > 180 || w.length < 36 || !g4) return;
+    const vals = w.map(x => x[1]), pk = Math.max(...vals), need = e.u + (g4 - g0) / isf, lo = w.find(x => x[1] < 70);
+    out.push({ date: e.date, block: blockOf(e.min), rel: relationOf(e.m), d: g4 - g0, peak: pk - g0, peakMin: w[vals.indexOf(pk)][0],
+      low: !!lo, firstLow: lo ? lo[0] : null, highEnd: g4 > 180, icr: need > 0.3 ? e.carbs / need : null });
+  });
+  return { meals: out, total };
+}
+const median = xs => { const v = xs.filter(x => x != null).sort((a, b) => a - b); if (!v.length) return null; const k = (v.length - 1) / 2; return (v[Math.floor(k)] + v[Math.ceil(k)]) / 2; };
+function mealRow(label, ms) {
+  const icr = T.icr || 10, n = ms.length;
+  const pct = k => n ? 100 * ms.filter(m => m[k]).length / n : null;
+  const mi = median(ms.map(m => m.icr)), lowPct = pct('low'), hiPct = pct('highEnd'), fl = median(ms.map(m => m.firstLow));
+  let verdict;
+  if (n < 6 || mi == null) verdict = chip('none', 'Too few meals');
+  else if (lowPct >= 15 && hiPct >= 25) verdict = chip('warn', 'Timing, not ratio');
+  else if (mi < icr * 0.9) verdict = chip('crit', 'Needs more insulin');
+  else if (mi > icr * 1.1) verdict = chip('target', 'Needs less insulin');
+  else verdict = chip('good', `Fits 1:${icr}`);
+  return h('tr', null, h('td', null, label), h('td', { class: 'num' }, String(n)),
+    h('td', { class: 'num' }, n ? (median(ms.map(m => m.d)) > 0 ? '+' : '') + f0(median(ms.map(m => m.d))) : '—'),
+    h('td', { class: 'num' }, n ? f0(hiPct) + '%' : '—'),
+    h('td', { class: 'num' }, n ? `${f0(lowPct)}%${fl != null ? ` · ~${f0(fl)} min` : ''}` : '—'),
+    h('td', { class: 'num' }, n ? `${f1(median(ms.map(m => m.peakMin)) / 60)} h` : '—'),
+    h('td', { class: 'num' }, mi ? `1:${f1(mi)}` : '—'), h('td', null, verdict));
+}
+function mealTable(rows) {
+  return h('div', { class: 'tbl-wrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, ''), h('th', { class: 'num' }, 'Meals'), h('th', { class: 'num' }, '4 h change'),
+    h('th', { class: 'num' }, 'Ended >180'), h('th', { class: 'num' }, 'Dipped <70 · when'), h('th', { class: 'num' }, 'Peak at'), h('th', { class: 'num' }, 'Implied ratio'), h('th', null, 'Read'))),
+    h('tbody', null, ...rows)));
+}
+const MEAL_METHOD = 'Clean meal boluses only: 10 g+ carbs, starting 70–180, no other bolus 2 h before or 4 h after, CGM for the next 4 h. Changes are medians. Implied ratio = the ratio that would have brought glucose back to where it started. Omnipod\'s automatic insulin isn\'t in the data, so read these as direction, and pick 90D or longer for a reliable read.';
+function nightsAfter(start, end) {
+  const kindsByDay = new Map(); SESS.forEach(x => { if (!kindsByDay.has(x.date)) kindsByDay.set(x.date, new Set()); kindsByDay.get(x.date).add(x.kind); });
+  const g = { strength: [], conditioning: [], pickleball: [], cardio: [], none: [] };
+  for (const d of datesIn(start, end)) {
+    const a = cgm(addDays(d, 1)); if (!a) continue;
+    const v = Array.from(a.slice(0, 72)).filter(Boolean); if (v.length < 50) continue;
+    for (const k of (kindsByDay.get(d) || new Set(['none']))) (g[k] || (g[k] = [])).push(v);
+  }
+  return g;
+}
+
 /* ---------- views ---------- */
 const VIEWS = [
   { id: 'today', name: 'Today', icon: 'today', ranged: false },
@@ -739,10 +811,12 @@ function viewToday(root) {
   const ta = cgm(today), ya = cgm(ydate);
   const lastSlot = ta ? (() => { for (let i = 287; i >= 0; i--) if (ta[i]) return i; return -1; })() : -1;
   const curveHost = h('div', { class: 'chart' });
+  const todaySess = SESS.filter(x => x.date === today);
   const thru = D.glucose_through || null;
   const curveTitle = today === nowDate ? 'Today so far' : today === addDays(nowDate, -1) ? 'Yesterday (latest synced day)' : `${WDL[dow(today)]} (latest synced day)`;
   const curveCard = card(curveTitle, `${WDL[dow(today)]}, ${fmtD(today)} · 12:00 AM to ${thru ? fmtClock(thru) : '—'} PT, the last reading the portal has. It updates once a day at about 8:25 AM.`, askLink(`Looking at my glucose so far today (${fmtD(today)}), anything I should watch this afternoon?`), curveHost,
-    h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--g-in)' }), 'Today'), h('span', null, h('i', { class: 'ln', style: 'background:#b8c0cc' }), 'Yesterday'), h('span', null, h('i', { class: 'sw', style: 'background:var(--g-in-wash);box-shadow:inset 0 0 0 1px #cfdcf0' }), 'Target 70–180')));
+    h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--g-in)' }), 'Today'), h('span', null, h('i', { class: 'ln', style: 'background:#b8c0cc' }), 'Yesterday'), h('span', null, h('i', { class: 'sw', style: 'background:var(--g-in-wash);box-shadow:inset 0 0 0 1px #cfdcf0' }), 'Target 70–180'),
+      todaySess.length ? h('span', null, h('i', { class: 'sw', style: 'background:rgba(235,104,52,.25)' }), `Training (${todaySess.map(x => `${KIND_LABEL[x.kind] || x.kind} ${fmtHM(Math.round((x.s - absMin(today, 0)) / 5))}`).join(', ')})`) : null));
   // Heath
   const hn = D.heath || null;
   const heathCard = card('Heath’s take', hn ? `Written ${hn.date === nowDate ? 'today' : WD[dow(hn.date)]}, ${fmtD(hn.date)}${hn.when ? ' at ' + hn.when + ' PT' : ''}, from the morning brief` : 'Heath writes this each morning', null,
@@ -795,7 +869,10 @@ function viewToday(root) {
     const labels = Array.from({ length: 288 }, (_, i) => fmtHM(i));
     const tv = ta ? Array.from(ta, (v, i) => (i <= lastSlot && v) ? v : null) : [];
     const yv = ya ? Array.from(ya, v => v || null) : [];
-    lines(curveHost, { labels, series: [{ name: 'Yesterday', color: '#b8c0cc', values: yv, width: 1.5 }, { name: 'Today', color: 'var(--g-in)', values: tv, endDot: true }], height: 230, yDomain: [40, 320], band: [70, 180], xEvery: 36, fmt: f0, tipFmt: v => f0(v) + ' mg/dL' });
+    const cv = lines(curveHost, { labels, series: [{ name: 'Yesterday', color: '#b8c0cc', values: yv, width: 1.5 }, { name: 'Today', color: 'var(--g-in)', values: tv, endDot: true }], height: 230, yDomain: [40, 320], band: [70, 180], xEvery: 36, fmt: f0, tipFmt: v => f0(v) + ' mg/dL' });
+    const firstPath = cv.fr.svg.querySelector('path');
+    todaySess.forEach(x => { const a = cv.x(Math.max(0, Math.round((x.s - absMin(today, 0)) / 5))), b = cv.x(Math.min(287, Math.round((x.e - absMin(today, 0)) / 5)));
+      const r = s('rect', { x: a, y: cv.fr.y1, width: Math.max(2, b - a), height: cv.fr.y0 - cv.fr.y1, fill: 'var(--c2)', opacity: 0.1 }); cv.fr.svg.insertBefore(r, firstPath); });
   });
 }
 
@@ -839,6 +916,14 @@ function viewGlucose(root) {
         h('div', null, h('span', null, 'Overnight (12–6 AM PT)'), h('b', null, String(eps.filter(e => e.start < 72).length)), h('em', null, 'episodes'))),
       h('p', { class: 'heath-src', style: 'margin-top:12px' }, whoopStart ? `Activity tags use WHOOP and Ladder, available from ${fmtD(actStart)}.` : '')),
     card(eps.length > 12 ? `Most recent 12 of ${eps.length} episodes` : 'Episodes', spanS, askLink(`Look at my recent low episodes and tell me if training is a factor.`), h('div', { class: 'tbl-wrap' }, eps.length ? epTable : h('p', { class: 'heath-src' }, 'No low episodes in this period.')))));
+
+  // how meals land
+  const MO = mealOutcomes(R.start, R.end);
+  root.append(h('div', { style: 'margin-top:16px' }, card('How meals land, by time of day',
+    `${spanS} · ${MO.meals.length} clean meal boluses of ${MO.total} · current pump settings 1:${T.icr} carb ratio, correction factor ${T.isf}`,
+    askLink(`Looking at how my meals land by time of day between ${fmtD(R.start)} and ${fmtD(R.end)}, what one settings or timing change would help most?`),
+    mealTable(BLOCKS.map(([b]) => [b, MO.meals.filter(m => m.block === b)]).filter(([, ms]) => ms.length).map(([b, ms]) => mealRow(b, ms))),
+    h('p', { class: 'heath-src', style: 'margin-top:10px' }, '"Timing, not ratio" means many of these meals dip below 70 early and still end high: the insulin works before the food does, so a stronger ratio would deepen the dip. A split bolus or dosing at the start of the meal fits better. ' + MEAL_METHOD))));
 
   // insulin & carbs
   const ds = datesIn(R.start, R.end), insHost = h('div', { class: 'chart' }), carbHost = h('div', { class: 'chart' });
@@ -933,14 +1018,25 @@ function viewTraining(root) {
 
   const freqHost = h('div', { class: 'chart' }), volHost = h('div', { class: 'chart' });
   const monthly = ds.length > 182;
-  const tvg = trainingVsGlucose(R.start, R.end);
+  const MO = mealOutcomes(R.start, R.end), NA = nightsAfter(R.start, R.end);
+  const nightRow = (label, vs) => { const all = vs.flat(); return h('tr', null, h('td', null, label), h('td', { class: 'num' }, String(vs.length)),
+    h('td', { class: 'num' }, vs.length ? f0(100 * vs.filter(v => Math.min(...v) < 70).length / vs.length) + '%' : '—'),
+    h('td', { class: 'num' }, all.length ? f1(100 * all.filter(x => x < 70).length / all.length) + '%' : '—'),
+    h('td', { class: 'num' }, vs.length ? f0(median(vs.map(v => Math.min(...v)))) : '—')); };
+  const nightKinds = ['strength', 'conditioning', 'pickleball', 'cardio'].filter(k => NA[k] && NA[k].length);
+  const sN = NA.strength || [], nN = NA.none || [];
+  const pLow = vs => vs.length ? 100 * vs.filter(v => Math.min(...v) < 70).length / vs.length : null;
   root.append(h('div', { class: 'grid g-21' },
     card(monthly ? 'Sessions per week, by month' : 'Sessions per week', `${span} · Mon–Sun weeks, edge weeks may be partial (hover for dates) · Ladder and WHOOP`, askLink(`I averaged ${f1(strengthN / weeksIn)} strength sessions a week between ${fmtD(R.start)} and ${fmtD(R.end)}. What is getting in the way of ${T.strengthPerWeek}?`), freqHost,
       h('div', { class: 'legend' }, ...[['var(--c1)', 'Strength'], ['var(--c2)', 'Conditioning'], ['var(--c3)', 'Pickleball'], ['var(--c4)', 'Cardio and other']].map(([c, l]) => h('span', null, h('i', { class: 'sw', style: `background:${c}` }), l)), h('span', null, h('i', { class: 'ln', style: 'background:var(--ink-2);opacity:.55' }), `Strength goal ${T.strengthPerWeek}`))),
-    card('Training days and glucose', `${fmtD(R.start)} – ${fmtD(R.end)}`, askLink(`On strength days my next-night time below 70 is ${f1(tvg.s.night)}% vs ${f1(tvg.r.night)}% after rest days. How should I plan around training?`),
-      h('div', { class: 'tbl-wrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, ''), h('th', { class: 'num' }, 'Days'), h('th', { class: 'num' }, 'Same-day TIR'), h('th', { class: 'num' }, 'Next night <70'))),
-        h('tbody', null, ...[['Strength days', tvg.s], ['Other activity', tvg.o], ['Rest days', tvg.r]].map(([l, v]) => h('tr', null, h('td', null, l), h('td', { class: 'num' }, String(v.n)), h('td', { class: 'num' }, f1(v.tir) + '%'), h('td', { class: 'num' }, f1(v.night) + '%')))))),
-      h('p', { class: 'heath-src', style: 'margin-top:10px' }, 'Complete days only. Same-day TIR = that day, midnight to midnight PT. Next night = 12–6 AM PT the following morning. Treat differences as patterns to test.'))));
+    card('Nights after training', `12–6 AM after each day, ${spanS} · session times from WHOOP, type from Ladder`, askLink(`After strength days ${f0(pLow(sN))}% of my nights have a low vs ${f0(pLow(nN))}% with no training. What should my evening plan be on strength days?`),
+      h('div', { class: 'tbl-wrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, 'Day before the night'), h('th', { class: 'num' }, 'Nights'), h('th', { class: 'num' }, 'Nights with a low'), h('th', { class: 'num' }, 'Time below 70'), h('th', { class: 'num' }, 'Median lowest'))),
+        h('tbody', null, ...nightKinds.map(k => nightRow(KIND_LABEL[k], NA[k])), nightRow('No training', nN)))),
+      h('p', { class: 'heath-src', style: 'margin-top:10px' }, 'A night counts under every session type done that day. Lifting often raises insulin sensitivity for many hours afterwards, which shows up as lows the following night.'))));
+  root.append(h('div', { style: 'margin-top:16px' }, card('Meals around training', `${spanS} · ${MO.meals.length} clean meal boluses, tagged by timing against the nearest session (exact WHOOP times)`,
+    askLink(`How should I dose meals before and after training, based on my meals between ${fmtD(R.start)} and ${fmtD(R.end)}?`),
+    mealTable(RELS.map(([k, l]) => mealRow(l, MO.meals.filter(m => m.rel[0] === k))).filter(r => r.children[1].textContent !== '0')),
+    h('p', { class: 'heath-src', style: 'margin-top:10px' }, 'These rows mix times of day: training is mostly afternoon or evening, so "3–12 h after" is mostly late-evening food. ' + MEAL_METHOD))));
 
   const lifts = liftTable(R.start, R.end);
   if (!lifts.some(l => l.name === explore.lift)) explore.lift = lifts.length ? lifts[0].name : null;
@@ -995,17 +1091,6 @@ function deltaElAlways(cur, prev, better, unit = '', digits = 1, label = 'vs pri
   const d = cur - prev, r = Math.abs(d) < Math.pow(10, -digits) / 2 ? 0 : d;
   const cls = r === 0 || !better ? 'flat' : ((r > 0) === (better === 'up') ? 'good' : 'bad');
   return h('span', { class: 'delta ' + cls }, `${r > 0 ? '+' : r < 0 ? '−' : '±'}${Math.abs(r).toFixed(digits)}${unit}${label ? ' ' + label : ''}`);
-}
-function trainingVsGlucose(start, end) {
-  const g = { s: [], o: [], r: [] };
-  for (const d of datesIn(start, end)) {
-    const st = dayStats(d), next = cgm(addDays(d, 1)); if (!st || st.n < 200) continue;
-    let low = 0, n = 0; if (next) for (let i = 0; i < 72; i++) if (next[i]) { n++; if (next[i] < 70) low++; }
-    const a = ACT.get(d); const k = a && a.has('strength') ? 's' : a ? 'o' : 'r';
-    g[k].push({ tir: st.tir, night: n ? 100 * low / n : null });
-  }
-  const sum = arr => ({ n: arr.length, tir: arr.length ? arr.reduce((a, b) => a + b.tir, 0) / arr.length : null, night: (() => { const v = arr.map(x => x.night).filter(x => x != null); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; })() });
-  return { s: sum(g.s), o: sum(g.o), r: sum(g.r) };
 }
 function liftTable(start, end) {
   return Object.entries(LADDER.lifts || {}).map(([name, arr]) => {
