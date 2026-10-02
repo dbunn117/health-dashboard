@@ -9,19 +9,74 @@ Method (all from health.sqlite: Glooko boluses + CGM, WHOOP workouts, daily insu
   that would have brought glucose back to where it started.
 - Corrections: carb-free boluses >=0.5 U at >=150 with nothing else in the 2 h before / 3 h after.
   Observed correction factor = drop over 3 h / units.
-- Training load: a meal counts as "after training" when a WHOOP workout with strain >=8 ended in the
-  12 h before it. Daily automated basal (Omnipod adds/withholds this itself) is compared for training
-  days, the day after, and rest days as a sensitivity marker.
+- Training: sessions use WHOOP's exact start/end times, labelled with the Ladder session type when a
+  Ladder workout overlaps (Ladder logs all sets at the end, so alone it only gives the end time; Ladder
+  sessions WHOOP missed use end minus duration). Each meal is tagged by its timing relative to the
+  nearest session: before (session starts 0-3 h after the bolus), 0-3 h after, 3-12 h after, next day
+  (12-30 h after) or none. Also reported: overnight lows (12-6 AM) after each session type, and daily
+  automated basal (Omnipod adds/withholds this itself) as a sensitivity marker.
 Automated mode hides the minute-by-minute basal changes, so treat results as direction, not exact values.
 
-Usage: settings_analysis.py [--days 90] [--icr 10] [--isf 30]
+Usage: settings_analysis.py [--days 180] [--icr 10] [--isf 30]
 """
-import argparse, sqlite3, statistics as stat
+import argparse, csv, glob, sqlite3, statistics as stat
 from bisect import bisect_left
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 TZ = ZoneInfo("America/Los_Angeles")
+UTC = ZoneInfo("UTC")
+LADDER_DIR = "/root/health-data/ladder"
+WHOOP_KIND = {"weightlifting": "strength", "powerlifting": "strength", "functional-fitness": "strength", "strength-trainer": "strength",
+              "crossfit": "strength", "hiit": "conditioning", "pickleball": "pickleball", "tennis": "pickleball",
+              "walking": "light", "activity": "light", "yoga": "light", "meditation": "light", "stretching": "light"}
+RELS = ["before", "0-3 h after", "3-12 h after", "next day", "none"]
+
+
+def ladder_sessions():
+    """Ladder sessions as (end UTC, type, duration min). End = last set log time; type from the history file."""
+    hist = sorted(glob.glob(f"{LADDER_DIR}/workout_history_*.csv"))
+    jour = sorted(glob.glob(f"{LADDER_DIR}/workout_journal_*.csv"))
+    if not hist or not jour:
+        return []
+    meta = {}
+    for r in csv.DictReader(open(hist[-1], encoding="utf-8-sig")):
+        if str(r.get("wo_session_complete")).lower() == "true":
+            m, d, y = r["wo_start_date"].split("/")
+            meta[(f"{int(y):04d}-{int(m):02d}-{int(d):02d}", r["workout_name"].strip())] = (r.get("workout_type", ""), float(r.get("wo_duration_mins") or 0))
+    ends = {}
+    for r in csv.DictReader(open(jour[-1], encoding="utf-8-sig")):
+        if not r.get("journal_log_time_utc"):
+            continue
+        t = datetime.strptime(r["journal_log_time_utc"], "%Y-%m-%d %H:%M:%S").replace(tzinfo=UTC)
+        k = (t.astimezone(TZ).date().isoformat(), r["workout_name"].strip())
+        ends[k] = max(ends.get(k, t), t)
+    out = []
+    for k, e in ends.items():
+        typ, dur = meta.get(k, ("", 0))
+        out.append((e, typ.upper(), dur or 45))
+    return out
+
+
+def training_sessions(c, since):
+    lad = ladder_sessions()
+    out = []
+    for s, e, strain, sport in c.execute("SELECT start, end, strain, sport_name FROM whoop_workouts WHERE local_date >= date(?, '-2 day')", (since,)):
+        try:
+            s, e = datetime.fromisoformat(s.replace("Z", "+00:00")), datetime.fromisoformat(e.replace("Z", "+00:00"))
+        except (AttributeError, ValueError):
+            continue
+        kind = WHOOP_KIND.get((sport or "").lower(), "cardio")
+        hit = [x for x in lad if s - timedelta(minutes=20) <= x[0] <= e + timedelta(minutes=30)]
+        if hit:
+            kind = "conditioning" if "CONDITION" in hit[0][1] else "strength"
+        out.append(dict(s=s, e=e, kind=kind, strain=strain or 0, src="WHOOP" + (" + Ladder" if hit else "")))
+    for e, typ, dur in lad:
+        if e < datetime.fromisoformat(since).replace(tzinfo=TZ) - timedelta(days=2):
+            continue
+        if not any(x["s"] - timedelta(minutes=20) <= e <= x["e"] + timedelta(minutes=30) for x in out):
+            out.append(dict(s=e - timedelta(minutes=dur), e=e, kind="conditioning" if "CONDITION" in typ else "strength", strain=None, src="Ladder only"))
+    return sorted(out, key=lambda x: x["s"])
 
 DB = "/root/health-dashboard/data/health.sqlite"
 BLOCKS = [("Overnight", 0, 5), ("Breakfast", 5, 10), ("Lunch", 10, 14), ("Afternoon", 14, 17), ("Dinner", 17, 21), ("Late", 21, 24)]
@@ -44,7 +99,7 @@ def iqr(xs):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--days", type=int, default=90)
+    ap.add_argument("--days", type=int, default=180)
     ap.add_argument("--icr", type=float, default=10)
     ap.add_argument("--isf", type=float, default=30)
     a = ap.parse_args()
@@ -72,15 +127,21 @@ def main():
         else:
             ev.append(dict(t=t, u=u, carbs=cb, bg=bg))
 
-    wk = []
-    for s, e, strain, sport in c.execute("SELECT start, end, strain, sport_name FROM whoop_workouts WHERE local_date >= date(?, '-2 day')", (since,)):
-        try:
-            wk.append((datetime.fromisoformat(s.replace("Z", "+00:00")), datetime.fromisoformat(e.replace("Z", "+00:00")), strain or 0, sport or ""))
-        except (AttributeError, ValueError):
-            pass
+    sess = training_sessions(c, since)
+    real = [x for x in sess if x["kind"] != "light"]
 
-    def after_training(t):
-        return any(e <= t <= e + timedelta(hours=12) and strain >= 8 for s, e, strain, _ in wk)
+    def relation(t):
+        """(timing, session kind) of the session that matters most for a bolus at t."""
+        h = lambda td: td.total_seconds() / 3600
+        for x in real:
+            if 0 <= h(x["s"] - t) <= 3:
+                return "before", x["kind"]
+        for lo, hi, name in ((-99, 3, "0-3 h after"), (3, 12, "3-12 h after"), (12, 30, "next day")):
+            for x in reversed(real):
+                d = h(t - x["e"])
+                if lo < d <= hi and t >= x["s"]:
+                    return name, x["kind"]
+        return "none", None
 
     meals, corrs = [], []
     for i, e in enumerate(ev):
@@ -102,7 +163,7 @@ def main():
             meals.append(dict(t=t, block=block(t), carbs=e["carbs"], u=e["u"], d=g4 - g0, peak=max(vals) - g0,
                               first_low=first_low, peak_min=peak_min,
                               low=min(vals) < 70, high_end=g4 > 180, icr=e["carbs"] / need if need > 0.3 else None,
-                              trained=after_training(t)))
+                              rel=relation(t)))
         elif e["u"] >= 0.5 and (e["bg"] or at(t) or 0) >= 150:
             nxt_ok = not any(timedelta(0) < x["t"] - t <= timedelta(hours=3) for x in ev[i + 1:i + 8])
             g0, w = at(t), window(t, t + timedelta(hours=3, minutes=1))
@@ -111,7 +172,7 @@ def main():
             g3 = at(t + timedelta(hours=3))
             if g3 is None:
                 continue
-            corrs.append(dict(block=block(t), isf=(g0 - g3) / e["u"], low=min(g for _, g in w) < 70, trained=after_training(t)))
+            corrs.append(dict(block=block(t), isf=(g0 - g3) / e["u"], low=min(g for _, g in w) < 70, rel=relation(t)))
 
     print(f"Settings check, last {a.days} days (since {since}). Current settings: carb ratio 1:{a.icr:g}, correction factor {a.isf:g}.")
     print(f"Clean meal boluses: {len(meals)} of {sum(1 for e in ev if e['carbs'] >= 10)}. Clean corrections: {len(corrs)}.\n")
@@ -142,13 +203,30 @@ def main():
         ms = [m for m in meals if m["block"] == n]
         if ms:
             print(meal_line(n, ms))
-    print("\nMEALS by training load (overall lines mix times of day, because training is mostly in the evening; trust the per-block lines)")
-    print(meal_line("Within 12 h of training", [m for m in meals if m["trained"]], flags=False))
-    print(meal_line("No training in 12 h", [m for m in meals if not m["trained"]], flags=False))
+    kinds = {}
+    for x in real:
+        kinds[x["kind"]] = kinds.get(x["kind"], 0) + 1
+    print(f"\nTRAINING SESSIONS in the period: {len(real)} ({', '.join(f'{v} {k}' for k, v in sorted(kinds.items(), key=lambda kv: -kv[1]))}); "
+          f"timed by WHOOP for {sum(1 for x in real if x['src'].startswith('WHOOP'))}, Ladder only for {sum(1 for x in real if x['src'] == 'Ladder only')}.")
+    print("\nMEALS by timing relative to training (all times of day mixed; use the per-time-of-day lines below for decisions)")
+    for r in RELS:
+        ms = [m for m in meals if m["rel"][0] == r]
+        if ms:
+            print(meal_line({"before": "Before training (0-3 h)"}.get(r, r.capitalize() if r == "none" else r), ms, flags=False))
+    print("  Per time of day (implied ratio, n):")
     for n, _, _ in BLOCKS:
-        tr, no = [m for m in meals if m["block"] == n and m["trained"]], [m for m in meals if m["block"] == n and not m["trained"]]
-        if len(tr) >= 4 and len(no) >= 4:
-            print(f"  {n}: after training 1:{med([m['icr'] for m in tr if m['icr']]):.1f} (n={len(tr)}) vs no training 1:{med([m['icr'] for m in no if m['icr']]):.1f} (n={len(no)})")
+        parts = []
+        for r in RELS:
+            ms = [m for m in meals if m["block"] == n and m["rel"][0] == r and m["icr"]]
+            if len(ms) >= 3:
+                parts.append(f"{r} 1:{med([m['icr'] for m in ms]):.1f} (n={len(ms)})")
+        if len(parts) >= 2:
+            print(f"    {n}: " + " | ".join(parts))
+    print("  By session type, meals before or within 12 h after:")
+    for k in ("strength", "conditioning", "pickleball", "cardio"):
+        ms = [m for m in meals if m["rel"][1] == k and m["rel"][0] in ("before", "0-3 h after", "3-12 h after")]
+        if len(ms) >= 3:
+            print(meal_line(k.capitalize(), ms, flags=False))
 
     print(f"\nCORRECTIONS (observed drop per unit over 3 h; current factor {a.isf:g})")
     for n, _, _ in BLOCKS:
@@ -160,9 +238,31 @@ def main():
     if allc:
         print(f"  {'All':<22} n={len(allc):<3} observed {med(allc):.0f}{iqr(allc)}")
 
+    print("\nNIGHT AFTER (12-6 AM following the day; share of readings below 70, and the lowest reading)")
+    kind_by_day = {}
+    for x in real:
+        kind_by_day.setdefault(x["s"].astimezone(TZ).date().isoformat(), set()).add(x["kind"])
+    nights = {}
+    for t, g in cg:
+        lt = t.astimezone(TZ)
+        if lt.hour < 6:
+            nights.setdefault((lt.date() - timedelta(days=1)).isoformat(), []).append(g)
+    groups = {"strength": [], "conditioning": [], "pickleball": [], "cardio": [], "no training": []}
+    for d, vals in nights.items():
+        if d < since or len(vals) < 50:
+            continue
+        ks = kind_by_day.get(d) or {"no training"}
+        for k in ks:
+            groups.setdefault(k, []).append(vals)
+    for k, vs in groups.items():
+        if len(vs) >= 3:
+            allv = [g for v in vs for g in v]
+            print(f"  {k.capitalize():<14} {len(vs):>3} nights, {100 * sum(g < 70 for g in allv) / len(allv):.1f}% below 70, "
+                  f"nights with any low {100 * sum(min(v) < 70 for v in vs) / len(vs):.0f}%, median lowest {med([min(v) for v in vs]):.0f}")
+
     print("\nDAILY AUTOMATED BASAL (Omnipod adds less when you're more insulin-sensitive)")
     days = {d: b for d, b in c.execute("SELECT local_date, max(total_basal) FROM insulin_daily WHERE local_date >= ? GROUP BY local_date", (since,)) if b}
-    tdays = {s.astimezone(TZ).date().isoformat() for s, e, strain, _ in wk if strain >= 8}
+    tdays = set(kind_by_day)
     def avg(ds):
         v = [days[d] for d in ds if d in days]
         return (sum(v) / len(v), len(v)) if v else (None, 0)
