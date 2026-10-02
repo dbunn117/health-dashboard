@@ -27,6 +27,8 @@ TARGETS = {
     "lowMax": 1.0, "veryLowMax": 0.1, "sdMax": 30, "a1cMax": 7.0,
     "sleepHours": [7, 8], "strengthPerWeek": 4, "proteinG": [175, 195],
     "hrvBaseline": 52, "rhrBaseline": 50,
+    # Omnipod 5 bolus settings (vault: 03 Health/Omnipod 5 Settings.md). Update both when the pump changes.
+    "icr": 10, "isf": 30,
 }
 
 def r(x, n=1):
@@ -184,6 +186,23 @@ if FOOD_LOG.exists():
         f["kcal"] += kcal or 0; f["protein"] += prot or 0; f["carbs"] += carb or 0; f["fat"] += fat or 0; f["meals"] += 1
 food_out = [[d, round(v["kcal"]), round(v["protein"]), round(v["carbs"]), round(v["fat"]), v["meals"]] for d, v in sorted(food.items())]
 
+# pump boluses for the meal-outcome tables: [local date, minute of day, units, carbs]
+boluses = []
+for row in c.execute("select ts, insulin_delivered, carbs from boluses order by ts"):
+    try:
+        t = datetime.fromisoformat(row[0]).astimezone(TZ)
+    except (TypeError, ValueError):
+        continue
+    boluses.append([t.date().isoformat(), t.hour * 60 + t.minute, round(float(row[1] or 0), 2), round(float(row[2] or 0))])
+
+# training sessions with exact times (WHOOP start/end, Ladder session type), shared with settings_analysis.py
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from settings_analysis import training_sessions
+sessions = []
+for x in training_sessions(c, "2024-01-01"):
+    s0, e0 = x["s"].astimezone(TZ), x["e"].astimezone(TZ)
+    sessions.append([s0.date().isoformat(), s0.hour * 60 + s0.minute, round((e0 - s0).total_seconds() / 60), x["kind"]])
+
 heath = None
 if HEATH_NOTE.exists():
     try:
@@ -202,6 +221,7 @@ out = {
     "cgm": cgm,
     "recovery": recovery, "sleep": sleep, "workouts": workouts,
     "dexa": dexa, "a1c": a1c, "ladder": ladder_out, "food": food_out, "heath": heath,
+    "boluses": boluses, "sessions": sessions,
 }
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(json.dumps(out, separators=(",", ":")))

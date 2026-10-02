@@ -28,7 +28,8 @@ TZ = ZoneInfo("America/Los_Angeles")
 UTC = ZoneInfo("UTC")
 LADDER_DIR = "/root/health-data/ladder"
 WHOOP_KIND = {"weightlifting": "strength", "powerlifting": "strength", "functional-fitness": "strength", "strength-trainer": "strength",
-              "crossfit": "strength", "hiit": "conditioning", "pickleball": "pickleball", "tennis": "pickleball",
+              "crossfit": "strength", "hiit": "strength",  # WHOOP logs David's Ladder strength sessions as HIIT; Ladder type overrides when known
+              "pickleball": "pickleball", "tennis": "pickleball",
               "walking": "light", "activity": "light", "yoga": "light", "meditation": "light", "stretching": "light"}
 RELS = ["before", "0-3 h after", "3-12 h after", "next day", "none"]
 
