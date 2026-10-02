@@ -5,7 +5,7 @@ Read-only against sources. Output is a single compact JSON the portal page loads
 """
 import base64, csv, json, math, re, sqlite3, struct, sys
 from collections import defaultdict
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 from pathlib import Path
 
@@ -203,6 +203,107 @@ for x in training_sessions(c, "2024-01-01"):
     s0, e0 = x["s"].astimezone(TZ), x["e"].astimezone(TZ)
     sessions.append([s0.date().isoformat(), s0.hour * 60 + s0.minute, round((e0 - s0).total_seconds() / 60), x["kind"]])
 
+# training log: every WHOOP workout (calories, strain, HR, zone minutes) with the Ladder session it
+# overlaps (type + exercises); Ladder sessions WHOOP missed are added without WHOOP numbers.
+WHOOP_HIST = Path("/root/health-data/whoop/whoop_history.sqlite")
+LADDER_TYPE = {"LOWER BODY STRENGTH": "Ladder · Lower body (leg day)", "UPPER BODY STRENGTH": "Ladder · Upper body",
+               "FULL BODY STRENGTH": "Ladder · Full body", "CONDITIONING": "Ladder · Conditioning"}
+WHOOP_NAME = {"hiit": "HIIT", "activity": "General activity", "australian-football": "Footy"}
+
+
+def ladder_category_from_title(t):
+    t = t.lower()
+    for keys, cat in ((("leg", "lower"), "LOWER BODY STRENGTH"), (("upper", "push", "pull", "arm", "chest", "back"), "UPPER BODY STRENGTH"),
+                      (("full",), "FULL BODY STRENGTH"), (("condition",), "CONDITIONING")):
+        if any(k in t for k in keys):
+            return LADDER_TYPE[cat]
+    return "Ladder · Strength"
+
+
+def ladder_detail():
+    meta = {}
+    if hist:
+        for row in csv.DictReader(open(hist[-1], encoding="utf-8-sig")):
+            if str(row.get("wo_session_complete")).lower() == "true":
+                m, d, y = row["wo_start_date"].split("/")
+                meta[(f"{int(y):04d}-{int(m):02d}-{int(d):02d}", row["workout_name"].strip())] = (row.get("workout_type", "").upper(), num(row.get("wo_duration_mins")))
+    sess = {}
+    if jour:
+        for row in csv.DictReader(open(jour[-1], encoding="utf-8-sig")):
+            if not row.get("journal_log_time_utc"):
+                continue
+            t = datetime.strptime(row["journal_log_time_utc"], "%Y-%m-%d %H:%M:%S").replace(tzinfo=ZoneInfo("UTC")).astimezone(TZ)
+            k = (t.date().isoformat(), row["workout_name"].strip())
+            x = sess.setdefault(k, {"end": t, "moves": {}})
+            x["end"] = max(x["end"], t)
+            mv = x["moves"].setdefault(lift_name(row["movement_name"]), [0, 0, 0, 0, 0])  # sets, best lb, reps at best, max reps, max seconds
+            mv[0] += 1
+            w, reps, secs = num(row.get("mass_value")) or 0, num(row.get("logged_reps")) or 0, num(row.get("time_in_seconds")) or 0
+            if w > mv[1]:
+                mv[1], mv[2] = w, reps
+            mv[3], mv[4] = max(mv[3], reps), max(mv[4], secs)
+    out = []
+    for (d, name), x in sess.items():
+        typ, dur = meta.get((d, name), ("", None))
+        ex = []
+        for mv, (n, w, r_, mr, ms) in x["moves"].items():
+            sets = f"{n} set{'s' if n != 1 else ''}"
+            ex.append([mv, f"{sets}, best {w:g} lb × {r_:g}" if w else f"{sets}, up to {mr:g} reps" if mr else f"{sets} × {ms:g} s" if ms else sets])
+        out.append({"date": d, "end": x["end"], "name": name, "cat": LADDER_TYPE.get(typ, "Ladder · Strength"), "dur": dur, "ex": ex})
+    for w in (dash.get("ladder_exercises") or {}).get("workout_details") or []:  # screen-recorded sessions after the export
+        if w["date"] <= export_end:
+            continue
+        names = []
+        for e in w.get("exercises", []):
+            nm = lift_name(e.get("name") or "")
+            if nm and (not names or names[-1] != nm):
+                names.append(nm)
+        title = (w.get("title") or "").strip()
+        out.append({"date": w["date"], "end": None, "name": title, "cat": ladder_category_from_title(title), "dur": None, "ex": [[n, ""] for n in names]})
+    return out
+
+
+training_log = []
+if WHOOP_HIST.exists():
+    lad = ladder_detail()
+    used = set()
+    wc = sqlite3.connect(WHOOP_HIST)
+    for (js,) in wc.execute("SELECT json FROM workout ORDER BY t"):
+        w = json.loads(js)
+        try:
+            s0 = datetime.fromisoformat(w["start"].replace("Z", "+00:00")).astimezone(TZ)
+            e0 = datetime.fromisoformat(w["end"].replace("Z", "+00:00")).astimezone(TZ)
+        except (KeyError, ValueError, AttributeError):
+            continue
+        sc = w.get("score") or {}
+        zd = sc.get("zone_durations") or {}
+        zones = [round((zd.get(f"zone_{k}_milli") or 0) / 60000, 1) for k in ("zero", "one", "two", "three", "four", "five")]
+        sport = (w.get("sport_name") or "workout").lower()
+        hit = None
+        for i, l in enumerate(lad):
+            if i in used:
+                continue
+            if l["end"] is not None and s0 - timedelta(minutes=20) <= l["end"] <= e0 + timedelta(minutes=30):
+                hit = i; break
+            if l["end"] is None and l["date"] == s0.date().isoformat() and sport in ("hiit", "weightlifting", "functional-fitness", "powerlifting"):
+                hit = i; break
+        entry = {"d": s0.date().isoformat(), "m": s0.hour * 60 + s0.minute, "dur": round((e0 - s0).total_seconds() / 60),
+                 "cat": WHOOP_NAME.get(sport, sport.replace("-", " ").title()), "name": "", "strain": round(sc.get("strain") or 0, 1),
+                 "kcal": round((sc.get("kilojoule") or 0) / 4.184), "hr": sc.get("average_heart_rate"), "maxhr": sc.get("max_heart_rate"),
+                 "z": zones, "ex": []}
+        if hit is not None:
+            used.add(hit); l = lad[hit]
+            entry.update(cat=l["cat"], name=l["name"], ex=l["ex"])
+        training_log.append(entry)
+    for i, l in enumerate(lad):
+        if i not in used:
+            e0 = l["end"]
+            dur = round(l["dur"] or 0)
+            start = (e0 - timedelta(minutes=dur)) if e0 else None
+            training_log.append({"d": l["date"], "m": start.hour * 60 + start.minute if start else None, "dur": dur or None, "cat": l["cat"], "name": l["name"],
+                                 "strain": None, "kcal": None, "hr": None, "maxhr": None, "z": None, "ex": l["ex"]})
+    training_log.sort(key=lambda x: (x["d"], x["m"] if x["m"] is not None else 0))
+
 heath = None
 if HEATH_NOTE.exists():
     try:
@@ -221,7 +322,7 @@ out = {
     "cgm": cgm,
     "recovery": recovery, "sleep": sleep, "workouts": workouts,
     "dexa": dexa, "a1c": a1c, "ladder": ladder_out, "food": food_out, "heath": heath,
-    "boluses": boluses, "sessions": sessions,
+    "boluses": boluses, "sessions": sessions, "training_log": training_log,
 }
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(json.dumps(out, separators=(",", ":")))

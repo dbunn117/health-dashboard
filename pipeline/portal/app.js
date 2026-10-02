@@ -269,9 +269,10 @@ function columns(host, { items, height = 200, yMax, yMin = 0, ticks, fmt = f0, r
 }
 
 /* stacked columns: series [{name,color}], items [{label, values:[...], tip}] */
-function stacked(host, { items, series, height = 200, ref }) {
+function stacked(host, { items, series, height = 200, ref, refs = [] }) {
   const fr = frame(host, height);
-  const top = Math.max(ref ? ref.value : 0, ...items.map(i => i.values.reduce((a, b) => a + b, 0))) * 1.15 || 1;
+  if (ref) refs = [...refs, ref];
+  const top = Math.max(...refs.map(r => r.value), ...items.map(i => i.values.reduce((a, b) => a + b, 0))) * 1.15 || 1;
   const y = lin(0, top, fr.y0, fr.y1);
   yAxis(fr, y, niceTicks(0, top, 4));
   const n = items.length, slot = (fr.x1 - fr.x0) / n, bw = Math.max(4, Math.min(24, slot - 6));
@@ -288,10 +289,10 @@ function stacked(host, { items, series, height = 200, ref }) {
     });
   });
   s('line', { x1: fr.x0, x2: fr.x1, y1: fr.y0, y2: fr.y0, class: 'baseline' }, fr.svg);
-  if (ref) { s('line', { x1: fr.x0, x2: fr.x1, y1: y(ref.value), y2: y(ref.value), class: 'refline' }, fr.svg); }
+  refs.forEach(r => { s('line', { x1: fr.x0, x2: fr.x1, y1: y(r.value), y2: y(r.value), class: 'refline' }, fr.svg); if (r.label) { const t = s('text', { x: fr.x1, y: y(r.value) - 4, 'text-anchor': 'end', class: 'lbl-t' }, fr.svg); t.textContent = r.label; } });
   xLabels(fr, xs, Math.max(1, Math.ceil(n / 8)));
   const hit = s('rect', { x: fr.x0, y: fr.y1, width: fr.x1 - fr.x0, height: fr.y0 - fr.y1, class: 'hit' }, fr.svg);
-  hit.addEventListener('pointermove', evt => { const r = fr.svg.getBoundingClientRect(); const px = (evt.clientX - r.left) * fr.w / r.width; const i = Math.max(0, Math.min(n - 1, Math.floor((px - fr.x0) / slot))); const it = items[i]; showTip(evt, it.tipHead || it.label, series.map((se, k) => ({ label: se.name, value: String(it.values[k]), color: se.color }))); });
+  hit.addEventListener('pointermove', evt => { const r = fr.svg.getBoundingClientRect(); const px = (evt.clientX - r.left) * fr.w / r.width; const i = Math.max(0, Math.min(n - 1, Math.floor((px - fr.x0) / slot))); const it = items[i]; showTip(evt, it.tipHead || it.label, it.tipRows || series.map((se, k) => ({ label: se.name, value: String(it.values[k]), color: se.color }))); });
   hit.addEventListener('pointerleave', hideTip);
 }
 
@@ -513,6 +514,23 @@ function nightsAfter(start, end) {
   }
   return g;
 }
+
+/* ---------- training log & heart-rate zones ---------- */
+const TLOG = D.training_log || [];
+const ZONE_COLORS = ['#e3e5ea', '#fde0c5', '#f8b37a', '#ee8442', '#d2541c', '#972f0d'];  // below zone 1, then zones 1-5: one hue, light to dark
+const ZONE_NAMES = ['Below zone 1', 'Zone 1', 'Zone 2', 'Zone 3', 'Zone 4', 'Zone 5'];
+const weekOf = d => addDays(d, -((dow(d) + 6) % 7));
+const zsum = list => list.reduce((acc, x) => { (x.z || []).forEach((v, i) => { acc[i] += v || 0; }); return acc; }, [0, 0, 0, 0, 0, 0]);
+const modEq = z => z[2] + z[3] + 2 * (z[4] + z[5]);
+const HEART = { min: 150, more: 300 };  // WHO / AHA: 150-300 min moderate-equivalent a week; 1 vigorous minute = 2 moderate
+function zoneBar(z, wide) {
+  if (!z) return h('span', { style: 'color:var(--muted)' }, 'No WHOOP data');
+  const tot = z.reduce((a, b) => a + b, 0) || 1;
+  return h('div', { class: 'mix', style: `height:${wide ? 12 : 9}px;min-width:${wide ? 0 : 90}px`, title: z.map((v, i) => `${ZONE_NAMES[i]} ${f0(v)} min`).join(' · ') },
+    ...z.map((v, i) => v > 0 ? h('div', { style: `flex:${v} 0 0;background:${ZONE_COLORS[i]}` }) : null));
+}
+const zoneLegend = () => h('div', { class: 'legend' }, ...ZONE_NAMES.map((n, i) => h('span', null, h('i', { class: 'sw', style: `background:${ZONE_COLORS[i]}` }), n)));
+const fmtDur = m => m == null ? '—' : m >= 60 ? `${Math.floor(m / 60)} h ${String(Math.round(m % 60)).padStart(2, '0')}` : `${Math.round(m)} min`;
 
 /* ---------- views ---------- */
 const VIEWS = [
@@ -770,6 +788,69 @@ function viewTraining(root) {
     kpi('Ladder workouts', String(sess.length), 'total', [h('span', null, mins.length ? `avg ${f0(mins.reduce((a, b) => a + b, 0) / mins.length)} min` : '')]),
     kpi('Volume lifted', volSum >= 1e5 ? f0(volSum / 1000) + 'k' : f0(volSum), 'lb total', [h('span', null, `${f0(volSum / weeksIn)} lb per week`)]))));
 
+  // ---- heart-health zones, compare weeks, training log
+  const thisWk = weekOf(lastDate), lastWk = addDays(thisWk, -7);
+  const inWeek = (wk, list = TLOG) => list.filter(x => x.d >= wk && x.d <= addDays(wk, 6) && x.d <= lastDate);
+  const wkLabel = wk => fmtSpan(wk, addDays(wk, 6) > lastDate ? lastDate : addDays(wk, 6), false);
+  const zThis = zsum(inWeek(thisWk)), zLast = zsum(inWeek(lastWk));
+  const heartChip = me => chip(me >= HEART.more ? 'good' : me >= HEART.min ? 'target' : 'warn', me >= HEART.more ? 'Extra benefit' : me >= HEART.min ? 'Guideline met' : 'Below 150');
+  const zoneHost = h('div', { class: 'chart' });
+  const heartRow = (label, z, sub) => h('div', null, h('span', null, label, h('small', { class: 'when' }, sub)),
+    h('b', null, `${f0(modEq(z))} min`), h('em', null, `${f0(z[2] + z[3])} moderate + ${f0(z[4] + z[5])} vigorous`), heartChip(modEq(z)));
+  const heartCard = card('Heart health: weekly heart-rate zones', `Moderate-equivalent minutes from WHOOP-recorded workouts, Mon–Sun weeks · chart covers ${spanS}`,
+    askLink(`This week I have ${f0(modEq(zThis))} moderate-equivalent minutes (${f0(zThis[4] + zThis[5])} in zones 4–5). How should I get more heart-health training without hurting recovery or glucose?`),
+    h('div', { class: 'metric-list heart-list', style: 'margin-top:0' },
+      heartRow('This week', zThis, wkLabel(thisWk) + (lastDate < addDays(thisWk, 6) ? ', so far' : '')),
+      heartRow('Last week', zLast, wkLabel(lastWk))),
+    h('div', { style: 'margin-top:14px' }, zoneHost),
+    h('div', { class: 'legend' }, h('span', null, h('i', { class: 'sw', style: `background:${ZONE_COLORS[3]}` }), 'Zones 2–3 (moderate)'), h('span', null, h('i', { class: 'sw', style: `background:${ZONE_COLORS[5]}` }), 'Zones 4–5 (vigorous, counted double)'), h('span', null, h('i', { class: 'ln', style: 'background:var(--ink-2);opacity:.55' }), 'Guideline 150 and 300 min')),
+    h('p', { class: 'heath-src', style: 'margin-top:10px' }, 'Benchmark: WHO and American Heart Association guidance is at least 150 minutes a week of moderate activity, or 75 of vigorous, with 300 for extra benefit; a vigorous minute counts as two. WHOOP zones 2–3 roughly match moderate and zones 4–5 vigorous. Only workouts WHOOP recorded count, so start pickleball and runs in WHOOP if it misses them.'));
+
+  const cats = (() => { const c = new Map(); TLOG.filter(x => x.d >= addDays(lastDate, -63)).forEach(x => c.set(x.cat, (c.get(x.cat) || 0) + 1)); return [...c].sort((a, b) => b[1] - a[1]).map(x => x[0]); })();
+  if (!explore.cmpCat || (explore.cmpCat !== 'All training' && !cats.includes(explore.cmpCat))) explore.cmpCat = 'All training';
+  const pairs = [['now', 'This week vs last week', thisWk, lastWk], ['prev', 'Last week vs the week before', lastWk, addDays(lastWk, -7)]];
+  const pr = pairs.find(p => p[0] === explore.cmpWeeks) || pairs[0];
+  const pick = list => explore.cmpCat === 'All training' ? list : list.filter(x => x.cat === explore.cmpCat);
+  const A = pick(inWeek(pr[2])), B = pick(inWeek(pr[3]));
+  const agg = L => { const z = zsum(L), w = L.filter(x => x.strain != null); const avg = k => { const v = w.map(x => x[k]).filter(x => x != null); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; };
+    return { n: L.length, dur: L.reduce((a, x) => a + (x.dur || 0), 0), kcal: w.length ? w.reduce((a, x) => a + (x.kcal || 0), 0) : null, strain: avg('strain'), hr: avg('hr'), maxhr: w.length ? Math.max(...w.map(x => x.maxhr || 0)) : null, z, me: modEq(z), z45: z[4] + z[5] }; };
+  const a = agg(A), b = agg(B);
+  const cmpRow = (label, va, vb, fmt, better, dg = 0) => h('tr', null, h('td', null, label), h('td', { class: 'num' }, h('b', null, va == null ? '—' : fmt(va))), h('td', { class: 'num' }, vb == null ? '—' : fmt(vb)),
+    h('td', { class: 'num' }, va != null && vb != null ? deltaElAlways(va, vb, better, '', dg, '') : '—'));
+  const sessRow = x => h('tr', null, h('td', null, `${WD[dow(x.d)]} ${fmtD(x.d)}`), h('td', null, x.name || x.cat), h('td', { class: 'num' }, fmtDur(x.dur)), h('td', { class: 'num' }, x.kcal == null ? '—' : f0(x.kcal)), h('td', { class: 'num' }, x.strain == null ? '—' : f1(x.strain)), h('td', null, zoneBar(x.z)));
+  const catSel = h('select', { class: 'select', id: 'cmp-cat', onchange: e => { explore.cmpCat = e.target.value; render(); } }, ...['All training', ...cats].map(c => h('option', { value: c, selected: c === explore.cmpCat }, c)));
+  const wkSel = h('select', { class: 'select', id: 'cmp-weeks', onchange: e => { explore.cmpWeeks = e.target.value; render(); } }, ...pairs.map(p => h('option', { value: p[0], selected: p[0] === pr[0] }, p[1])));
+  const cmpCard = card('Compare weeks', `Mon–Sun weeks · ${wkLabel(pr[2])} vs ${wkLabel(pr[3])} · not affected by the date range`, askLink(`Compare my ${explore.cmpCat} for ${wkLabel(pr[2])} vs ${wkLabel(pr[3])}: ${a.n} vs ${b.n} sessions, ${f0(a.kcal)} vs ${f0(b.kcal)} calories, ${f0(a.z45)} vs ${f0(b.z45)} min in zones 4–5. What does that tell you?`),
+    h('div', { class: 'pick-row', style: 'margin-bottom:10px' }, 'Activity', catSel, 'Weeks', wkSel),
+    h('div', { class: 'tbl-wrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, ''), h('th', { class: 'num' }, wkLabel(pr[2])), h('th', { class: 'num' }, wkLabel(pr[3])), h('th', { class: 'num' }, 'Change'))),
+      h('tbody', null,
+        cmpRow('Sessions', a.n, b.n, f0, 'up'), cmpRow('Time', a.dur, b.dur, fmtDur, 'up'), cmpRow('Calories (WHOOP)', a.kcal, b.kcal, f0, 'up'),
+        cmpRow('Average strain', a.strain, b.strain, f1, null, 1), cmpRow('Average heart rate', a.hr, b.hr, v => f0(v) + ' bpm', null), cmpRow('Max heart rate', a.maxhr || null, b.maxhr || null, v => f0(v) + ' bpm', null),
+        ...[1, 2, 3, 4, 5].map(i => cmpRow(`${ZONE_NAMES[i]} minutes`, a.z[i], b.z[i], f0, i >= 2 ? 'up' : null)),
+        cmpRow('Moderate-equivalent minutes', a.me, b.me, f0, 'up')))),
+    (A.length || B.length) ? h('div', { class: 'tbl-wrap', style: 'margin-top:12px' }, h('table', null, h('thead', null, h('tr', null, h('th', null, 'Session'), h('th', null, ''), h('th', { class: 'num' }, 'Time'), h('th', { class: 'num' }, 'Calories'), h('th', { class: 'num' }, 'Strain'), h('th', null, 'Zones'))),
+      h('tbody', null, ...[...A, ...B].sort((x, y) => (y.d + String(y.m).padStart(4, '0')).localeCompare(x.d + String(x.m).padStart(4, '0'))).map(sessRow)))) : h('p', { class: 'heath-src' }, 'No sessions of this type in either week.'),
+    zoneLegend());
+
+  const logList = TLOG.filter(x => x.d >= R.start && x.d <= lastDate).reverse();
+  const shown = explore.logAll ? logList : logList.slice(0, 25);
+  let prevDay = null;
+  const logRows = shown.map(x => { const first = x.d !== prevDay; prevDay = x.d;
+    return h('tr', { class: first ? 'day-first' : null }, h('td', null, first ? `${WD[dow(x.d)]} ${fmtD(x.d)}` : ''), h('td', null, x.m == null ? '—' : fmtHM(Math.round(x.m / 5))),
+      h('td', null, h('b', null, x.cat), x.name ? h('small', { class: 'when' }, x.name) : null,
+        x.ex && x.ex.length ? h('details', { class: 'ex' }, h('summary', null, `${x.ex.length} exercises`), h('ul', null, ...x.ex.map(([n, t]) => h('li', null, n, t ? h('span', null, ` · ${t}`) : null)))) : null),
+      h('td', { class: 'num' }, fmtDur(x.dur)), h('td', { class: 'num' }, x.kcal == null ? '—' : f0(x.kcal)), h('td', { class: 'num' }, x.strain == null ? '—' : f1(x.strain)),
+      h('td', { class: 'num' }, x.hr == null ? '—' : `${f0(x.hr)} / ${f0(x.maxhr)}`), h('td', null, zoneBar(x.z))); });
+  const logCard = card('Training log', `${fmtSpan(R.start, lastDate)} (through today) · ${plural(logList.length, 'session')} · WHOOP numbers, Ladder session type and exercises`, null,
+    logList.length ? h('div', { class: 'tbl-wrap' }, h('table', { class: 'log' }, h('thead', null, h('tr', null, h('th', null, 'Day'), h('th', null, 'Start'), h('th', null, 'Activity'), h('th', { class: 'num' }, 'Duration'), h('th', { class: 'num' }, 'Calories'), h('th', { class: 'num' }, 'Strain'), h('th', { class: 'num' }, 'Avg / max HR'), h('th', null, 'Heart-rate zones'))),
+      h('tbody', null, ...logRows))) : h('p', { class: 'heath-src' }, 'No sessions in this period.'),
+    logList.length > 25 ? h('button', { class: 'btn ghost', style: 'margin-top:10px', onclick: () => { explore.logAll = !explore.logAll; render(); } }, explore.logAll ? 'Show the latest 25' : `Show all ${logList.length}`) : null,
+    zoneLegend(),
+    h('p', { class: 'heath-src', style: 'margin-top:8px' }, `Calories are WHOOP's estimate for the workout. Ladder sessions WHOOP didn't record show no WHOOP numbers. Ladder exercises come from the app export (through ${fmtD(LADDER.export_through || lastDate)}); newer sessions list exercises from screen recordings, without sets.`));
+
+  root.append(h('div', { class: 'grid g-2', style: 'margin-top:16px' }, heartCard, cmpCard));
+  root.append(h('div', { style: 'margin-top:16px' }, logCard));
+
   const freqHost = h('div', { class: 'chart' }), volHost = h('div', { class: 'chart' });
   const monthly = ds.length > 182;
   const MO = mealOutcomes(R.start, R.end), NA = nightsAfter(R.start, R.end);
@@ -826,6 +907,12 @@ function viewTraining(root) {
       return { label: monthly ? `${MON[+k.slice(5) - 1]} '${k.slice(2, 4)}` : fmtD(k), tipHead: `${fmtSpan(arr[0], arr[arr.length - 1])}${monthly ? ' · per week' : arr.length < 7 ? ` (${arr.length} of 7 days)` : ''}`, values: [c('strength'), c('conditioning'), c('pickleball'), c('cardio')],
         vol: arr.reduce((a, d) => a + (VOL.get(d) || 0), 0) };
     });
+    const zw = new Map();
+    TLOG.filter(x => x.d >= R.start && x.d <= R.end).forEach(x => { const k = weekOf(x.d); if (!zw.has(k)) zw.set(k, []); zw.get(k).push(x); });
+    const zItems = datesIn(weekOf(R.start), R.end).filter(d => d === weekOf(d)).map(wk => { const L = zw.get(wk) || [], z = zsum(L), e = addDays(wk, 6) > R.end ? R.end : addDays(wk, 6), st = wk < R.start ? R.start : wk;
+      return { label: fmtD(wk), values: [Math.round(z[2] + z[3]), Math.round(2 * (z[4] + z[5]))], tipHead: `${fmtSpan(st, e)}${nDays(st, e) < 7 ? ` (${nDays(st, e)} days)` : ''}`,
+        tipRows: [{ label: 'Moderate-equivalent', value: `${f0(modEq(z))} min` }, ...[1, 2, 3, 4, 5].map(i => ({ label: ZONE_NAMES[i], value: `${f0(z[i])} min`, color: ZONE_COLORS[i] })), { label: 'Sessions', value: String(L.length) }] }; });
+    stacked(zoneHost, { items: zItems, series: [{ name: 'Zones 2–3', color: ZONE_COLORS[3] }, { name: 'Zones 4–5 ×2', color: ZONE_COLORS[5] }], height: 200, refs: [{ value: HEART.min, label: '150' }, { value: HEART.more, label: '300' }] });
     stacked(freqHost, { items, series: [{ name: 'Strength', color: 'var(--c1)' }, { name: 'Conditioning', color: 'var(--c2)' }, { name: 'Pickleball', color: 'var(--c3)' }, { name: 'Cardio/other', color: 'var(--c4)' }], height: 230, ref: { value: T.strengthPerWeek } });
     columns(volHost, { items: items.map(it => ({ label: it.label, value: it.vol, color: 'var(--c1)', tip: { head: it.tipHead.replace(' · per week', ''), rows: [{ label: 'Volume', value: f0(it.vol) + ' lb', color: 'var(--c1)' }] } })), height: 230, fmt: v => v >= 1000 ? f0(v / 1000) + 'k' : f0(v) });
     if (explore.lift && liftHost.isConnected) {
@@ -916,7 +1003,7 @@ const METRICS = {
   sleep: { name: 'Hours asleep (night before)', get: d => SLP.get(d) ? SLP.get(d).hrs : null, fmt: f1 },
   strain: { name: 'WHOOP strain (sum)', get: d => { const w = WORK.filter(x => x.d === d); return w.length ? w.reduce((a, b) => a + (b.strain || 0), 0) : null; }, fmt: f1 },
 };
-const explore = { x: 'sleep', y: 'tir', heat: 'in', lift: null };
+const explore = { x: 'sleep', y: 'tir', heat: 'in', lift: null, cmpCat: null, cmpWeeks: 'now', logAll: false };
 function viewPatterns(root) {
   const R = curRange(), ds = datesIn(R.start, R.end);
   // heatmap
