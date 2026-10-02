@@ -31,6 +31,7 @@ Heath's profile (`/root/.hermes/profiles/heath/scripts/`) holds thin wrappers wi
 | `live_glucose.py` | Shared code for near-real-time glucose from Dexcom Share (via `pydexcom` in `/root/health-pipeline-home/pylib`), stored in `/root/health-data/dexcom/live.sqlite` |
 | `glucose_watch.py` | The 5-minute watch: fetch, apply rules (thresholds, cooldowns, quiet hours 10:30 PM–6:30 AM, daily cap), print a trigger for Heath or `{"wakeAgent": false}`; refreshes today's WHOOP workouts every 30 min |
 | `glucose_now.py` | Heath's on-demand "glucose right now" check |
+| `settings_analysis.py` | How well the pump settings fit by time of day and training load (meal and correction outcomes, daily automated basal). Heath runs it for settings tuning |
 | `set_dexcom_login.sh` | Run by David to save his Dexcom login to Heath's `.env` (password typed hidden) |
 | `weekly_health_report.py`, `overnight_hypo_check.py` | Older Heath report scripts |
 
