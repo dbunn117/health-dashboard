@@ -10,6 +10,7 @@ Everything that collects, processes and publishes David's health data lives here
 | 08:00 | Morning Brief | `refresh.sh`, then Heath writes the brief and calls `write_heath_note.py` |
 | 08:25 | Health Portal publish | `publish_portal.sh` (picks up Heath's note) |
 | Sat 08:10 | Weekly Health OS report | `weekly_health_report.py` |
+| Every 5 min | Live glucose watch | `glucose_watch.py`: pulls Dexcom Share and wakes Heath only when a rule fires (low, heading low, fast rise, >250 for 2 h) |
 
 Heath's profile (`/root/.hermes/profiles/heath/scripts/`) holds thin wrappers with the same names that call these files, because Hermes only runs scripts from that folder.
 
@@ -27,13 +28,17 @@ Heath's profile (`/root/.hermes/profiles/heath/scripts/`) holds thin wrappers wi
 | `publish_portal.sh` | Builds the portal page + data into `../docs/` and pushes if anything changed |
 | `portal/` | Portal source: `template.html` (layout/CSS), `app.js` (views and charts), `build_index.py` (assembles `docs/index.html`) |
 | `write_heath_note.py` | Heath saves its short morning note for the portal |
+| `live_glucose.py` | Shared code for near-real-time glucose from Dexcom Share (via `pydexcom` in `/root/health-pipeline-home/pylib`), stored in `/root/health-data/dexcom/live.sqlite` |
+| `glucose_watch.py` | The 5-minute watch: fetch, apply rules (thresholds, cooldowns, quiet hours 10:30 PM–6:30 AM, daily cap), print a trigger for Heath or `{"wakeAgent": false}`; refreshes today's WHOOP workouts every 30 min |
+| `glucose_now.py` | Heath's on-demand "glucose right now" check |
+| `set_dexcom_login.sh` | Run by David to save his Dexcom login to Heath's `.env` (password typed hidden) |
 | `weekly_health_report.py`, `overnight_hypo_check.py` | Older Heath report scripts |
 
 ## Data and secrets (never committed)
 
 - Raw and derived data: `/root/health-data/` (glooko, whoop, dexa, ladder, sutter, pharmacy, supplies).
 - Runtime state: `/root/health-portal/` (Heath's note, backups).
-- Logins: `/root/health-pipeline-home/` is the pipeline's own HOME. It holds the GitHub CLI login used to push and a copy of the Google login used for Drive (Scout's copy is the fallback). Glooko credentials and `GLOOKO_CODE` stay in Heath's `.env`; WHOOP uses Heath's `whoop-pp-cli` login.
+- Logins: `/root/health-pipeline-home/` is the pipeline's own HOME. It holds the GitHub CLI login used to push and a copy of the Google login used for Drive (Scout's copy is the fallback). Glooko credentials, `GLOOKO_CODE` and the Dexcom login (`DEXCOM_USERNAME`/`DEXCOM_PASSWORD`) stay in Heath's `.env`; WHOOP uses Heath's `whoop-pp-cli` login.
 - This repo is public. Keep identifiers, tokens and raw exports out of it.
 
 ## Manual inputs
