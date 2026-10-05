@@ -304,6 +304,38 @@ if WHOOP_HIST.exists():
                                  "strain": None, "kcal": None, "hr": None, "maxhr": None, "z": None, "ex": l["ex"]})
     training_log.sort(key=lambda x: (x["d"], x["m"] if x["m"] is not None else 0))
 
+# Sutter visit history from the After Visit Summary export (pipeline/sutter_avs_parse.py).
+# Public page, so only structured facts go out: no free-text clinician instructions, no IDs, no pharmacy details.
+SUTTER_VISITS = Path("/root/health-data/sutter/avs/visits.json")
+SHORT_TEST = [("GLYCOHEMOGLOBIN A1C", "A1c"), ("GLYCOSYLATED HEMOGLOBIN", "A1c"), ("COMPREHENSIVE METABOLIC", "Metabolic panel"), ("BASIC METABOLIC", "Basic metabolic panel"),
+              ("LIPID PROFILE", "Lipids"), ("MICROALBUMIN", "Urine microalbumin"), ("THYROID SCREEN", "Thyroid (TSH)"), ("CREATININE", "Creatinine"),
+              ("POTASSIUM", "Potassium"), ("ALT,", "ALT (liver)"), ("AST,", "AST (liver)"), ("CONT GLUCOSE MON", "CGM data review")]
+
+
+def short_test(t):
+    u = t.upper()
+    for k, v in SHORT_TEST:
+        if k in u:
+            return v
+    return re.sub(r"^PR\s+", "", re.sub(r"\s+for\s+.*$", "", t).strip()).title()
+
+
+visits = []
+if SUTTER_VISITS.exists():
+    for v in json.loads(SUTTER_VISITS.read_text()):
+        fu = None
+        m = re.search(r"around (\d{1,2})/(\d{1,2})/(\d{4})", v.get("follow_up") or "")
+        if m:
+            fu = f"{m[3]}-{int(m[1]):02d}-{int(m[2]):02d}"
+        tests = [short_test(x) for x in (v.get("orders") or [])]
+        done = [short_test(x) for x in (v.get("procedures") or []) if not re.match(r"^(XR|CT|MRI|US) ", x)]
+        img = [re.sub(r"\s+for\s+.*$", "", x).title().replace("Xr ", "X-ray ") for x in (v.get("imaging") or [])]
+        started = [re.sub(r"\s*[—(].*$", "", c).strip() for c in (v.get("med_changes") or []) if c and not re.match(r"^(Started|Stopped|Changed) by", c)]
+        visits.append({"d": v["date"], "time": v.get("time"), "type": v["type"], "clinician": v.get("clinician"), "place": v.get("place"),
+                       "issues": v.get("issues") or [], "vitals": v.get("vitals") or {}, "ordered": sorted(set(tests), key=tests.index),
+                       "done": sorted(set(done), key=done.index), "imaging": sorted(set(img), key=img.index), "refilled": v.get("refilled") or [],
+                       "meds": sorted(set(started), key=started.index)[:8], "follow_up": fu})
+
 heath = None
 if HEATH_NOTE.exists():
     try:
@@ -322,7 +354,7 @@ out = {
     "cgm": cgm,
     "recovery": recovery, "sleep": sleep, "workouts": workouts,
     "dexa": dexa, "a1c": a1c, "ladder": ladder_out, "food": food_out, "heath": heath,
-    "boluses": boluses, "sessions": sessions, "training_log": training_log,
+    "boluses": boluses, "sessions": sessions, "training_log": training_log, "visits": visits,
 }
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(json.dumps(out, separators=(",", ":")))
