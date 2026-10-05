@@ -157,6 +157,9 @@ details.ex { margin-top: 4px; font-size: 12px; color: var(--ink-2); }
 details.ex summary { cursor: pointer; color: var(--accent); width: fit-content; }
 details.ex ul { margin: 6px 0 2px; padding-left: 16px; display: grid; gap: 2px; }
 details.ex li span { color: var(--muted); }
+table.visits td { vertical-align: top; }
+table.visits td.visit-out { font-size: 12px; color: var(--ink-2); min-width: 220px; }
+table.visits td.visit-out div + div { margin-top: 3px; }
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
 th { text-align: left; font-weight: 500; color: var(--muted); font-size: 12px; padding: 8px 10px; border-bottom: 1px solid var(--hair); white-space: nowrap; }
 td { padding: 8px 10px; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; vertical-align: middle; }
@@ -1255,7 +1258,7 @@ const METRICS = {
   sleep: { name: 'Hours asleep (night before)', get: d => SLP.get(d) ? SLP.get(d).hrs : null, fmt: f1 },
   strain: { name: 'WHOOP strain (sum)', get: d => { const w = WORK.filter(x => x.d === d); return w.length ? w.reduce((a, b) => a + (b.strain || 0), 0) : null; }, fmt: f1 },
 };
-const explore = { x: 'sleep', y: 'tir', heat: 'in', lift: null, cmpCat: null, cmpWeeks: 'now', logAll: false };
+const explore = { x: 'sleep', y: 'tir', heat: 'in', lift: null, cmpCat: null, cmpWeeks: 'now', logAll: false, visitAll: false };
 function viewPatterns(root) {
   const R = curRange(), ds = datesIn(R.start, R.end);
   // heatmap
@@ -1304,6 +1307,62 @@ const LABS = [
   ['TSH', '2.39 mIU/L', 'ref 0.4–4.5', 'none', 'In range, slightly above optimal'],
   ['hs-CRP', '0.3 mg/L', 'optimal', 'good', 'Low inflammation'],
 ];
+const VISITS = D.visits || [];
+const VISIT_TYPE = v => v.type === 'Refill' ? 'Refill' : v.type === 'Ancillary Procedure' ? 'Imaging' : v.type === 'Ancillary Visit' ? (/lab/i.test(v.place || '') ? 'Lab draw' : 'Ancillary visit')
+  : v.type.replace('Urgent Care Office Visit', 'Urgent care').replace('Office Visit', 'Office visit').replace('Video Visit', 'Video visit');
+const isEndo = v => /endocrin/i.test(v.place || '') && /Office|Video/.test(v.type);
+function comingUp() {
+  const today = isoPT(new Date()), rows = [];
+  const row = (label, value, chipEl, sub) => h('div', null, h('span', null, label, sub ? h('small', { class: 'when' }, sub) : null), h('b', null, value), chipEl);
+  const endo = [...VISITS].reverse().find(isEndo);
+  if (endo && endo.follow_up) {
+    const over = endo.follow_up < today;
+    rows.push(row('Endocrinology follow-up', over ? 'Overdue' : 'Due', chip(over ? 'crit' : 'warn', `${over ? 'Since' : 'By'} ~${fmtD(endo.follow_up)} '${endo.follow_up.slice(2, 4)}`),
+      `Set at your ${fmtDY(endo.d)} visit with ${endo.clinician || 'endocrinology'}. The latest summary (${fmtDY(VISITS[VISITS.length - 1].d)}) lists no upcoming appointments.`));
+  }
+  const ord = [...VISITS].reverse().find(v => v.ordered.length);
+  if (ord) {
+    const drawn = VISITS.find(v => v.d >= ord.d && v.done.length && v !== ord);
+    rows.push(row(`Sutter labs ordered ${fmtD(ord.d)} '${ord.d.slice(2, 4)}`, drawn ? `Drawn ${fmtD(drawn.d)}` : 'Not drawn at Sutter', chip(drawn ? 'good' : 'warn', drawn ? 'Done' : 'Open'),
+      ord.ordered.join(', ') + (drawn ? '' : '. Function Health measured A1c in Aug 2026.')));
+  }
+  rows.push(row('Eye exam', 'Done Mar 27, 2026', chip('good', 'Retinal photos'), 'Focus Optometry, per your vault notes. Sutter\'s reminder system still lists it as due from Aug 1.'));
+  rows.push(row('Ferritin recheck', '~Late Nov', chip('none', 'Planned')));
+  rows.push(row('Omega-3 recheck', 'Nov–Feb', chip('none', 'Planned')));
+  const dx = (D.dexa || []).slice(-1)[0];
+  if (dx) { const nxt = addDays(dx.date, 105); rows.push(row('Next DEXA', `~${MON[+nxt.slice(5, 7) - 1]} ${nxt.slice(0, 4)}`, chip('none', 'Not booked'), `Every 3–4 months; last scan ${fmtDY(dx.date)}`)); }
+  return rows;
+}
+function visitCard() {
+  const list = (explore.visitAll ? VISITS : VISITS.filter(v => v.type !== 'Refill')).slice().reverse();
+  const nClinic = VISITS.filter(v => v.type !== 'Refill').length;
+  const seg = h('div', { class: 'seg', role: 'group', 'aria-label': 'Which visits' },
+    h('button', { 'aria-pressed': String(!explore.visitAll), onclick: () => { explore.visitAll = false; render(); } }, `Visits (${nClinic})`),
+    h('button', { 'aria-pressed': String(!!explore.visitAll), onclick: () => { explore.visitAll = true; render(); } }, `Including refills (${VISITS.length})`));
+  const outcome = v => { const p = [];
+    if (v.ordered.length) p.push(`Ordered: ${v.ordered.join(', ')}`);
+    if (v.done.length) p.push(`Done: ${v.done.join(', ')}`);
+    if (v.imaging.length) p.push(v.imaging.join(', '));
+    if (v.type === 'Refill') p.push(v.refilled.length ? `Refilled: ${v.refilled.join(', ')}` : 'Item not named in the summary');
+    else if (v.meds.length) p.push(`Medication changes: ${v.meds.join(', ')}`);
+    return p.length ? p.map(x => h('div', null, x)) : '—'; };
+  const vt = v => v.vitals || {};
+  const rows = list.map(v => h('tr', null,
+    h('td', { style: 'white-space:nowrap' }, fmtDY(v.d), v.time ? h('small', { class: 'when' }, v.time) : null),
+    h('td', null, h('b', null, VISIT_TYPE(v))),
+    h('td', null, v.clinician || '—', h('small', { class: 'when' }, v.place || '')),
+    h('td', null, v.issues.length ? v.issues.join('; ') : '—'),
+    h('td', { class: 'num' }, vt(v).bp ? `${vt(v).bp[0]}/${vt(v).bp[1]}` : '—'),
+    h('td', { class: 'num' }, vt(v).pulse ?? '—'),
+    h('td', { class: 'num' }, vt(v).weight_lb ? f1(vt(v).weight_lb) : '—'),
+    h('td', { style: 'white-space:nowrap' }, v.follow_up ? `~${fmtDY(v.follow_up)}` : '—'),
+    h('td', { class: 'visit-out' }, outcome(v))));
+  return card('Sutter visit history', `${VISITS.length ? `${fmtDY(VISITS[0].d)} – ${fmtDY(VISITS[VISITS.length - 1].d)}` : 'No visits loaded'} · ${VISITS.length} after-visit summaries from My Health Online, newest first · not affected by the date range`,
+    seg,
+    h('div', { class: 'tbl-wrap' }, h('table', { class: 'visits' }, h('thead', null, h('tr', null, h('th', null, 'Date'), h('th', null, 'Visit'), h('th', null, 'Clinician · clinic'), h('th', null, 'For'),
+      h('th', { class: 'num' }, 'BP'), h('th', { class: 'num' }, 'Pulse'), h('th', { class: 'num' }, 'Weight (lb)'), h('th', null, 'Follow-up'), h('th', null, 'Tests, imaging and meds'))), h('tbody', null, ...rows))),
+    h('p', { class: 'heath-src', style: 'margin-top:10px' }, 'Phone calls with the clinic have no after-visit summary, so they are not listed. Clinicians\' written instructions (including insulin-setting changes) are kept in your private notes, not on this public page.'));
+}
 function viewLabs(root) {
   const a1c = D.a1c || [];
   const latest = a1c[a1c.length - 1];
@@ -1311,16 +1370,31 @@ function viewLabs(root) {
   root.append(h('div', { class: 'grid g-21' },
     card('A1c and GMI', `Lab A1c by draw date against GMI from CGM. Each GMI point = the 90 days ending on the 28th of that month (latest point ends ${fmtD(lastFull)}).`, askLink(`My A1c went from 6.5% to ${latest.value}%. What are the biggest levers to get back under ${T.a1cMax}%?`), host,
       h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--c1)' }), 'GMI from CGM'), h('span', null, h('i', { class: 'sw', style: 'background:var(--c2);border-radius:50%' }), 'Lab A1c'), h('span', null, h('i', { class: 'ln', style: 'background:var(--ink-2);opacity:.55' }), `Goal <${T.a1cMax}%`))),
-    card('Coming up', 'From your vault notes, as of Oct 1, 2026 (typed in by hand, not updated automatically)', null, h('div', { class: 'checklist' },
-      h('div', null, h('span', null, 'A1c with Sutter'), h('b', null, 'Overdue'), chip('crit', 'Since Apr 24')),
-      h('div', null, h('span', null, 'Eye exam'), h('b', null, 'Due'), chip('warn', 'Since Aug 1')),
-      h('div', null, h('span', null, 'Ferritin recheck'), h('b', null, '~Late Nov'), chip('none', 'Planned')),
-      h('div', null, h('span', null, 'Omega-3 recheck'), h('b', null, 'Nov–Feb'), chip('none', 'Planned')),
-      h('div', null, h('span', null, 'Next DEXA'), h('b', null, 'Not booked'), chip('none', 'Every 3–4 months'))))));
+    card('Coming up', `As of ${fmtDY(isoPT(new Date()))} · from your Sutter visit summaries, DEXA scans and vault notes`, null, h('div', { class: 'checklist' }, ...comingUp()))));
+  root.append(h('div', { style: 'margin-top:16px' }, visitCard()));
+  const bpHost = h('div', { class: 'chart' }), wtHost = h('div', { class: 'chart' });
+  const vv = VISITS.filter(v => v.vitals && (v.vitals.bp || v.vitals.weight_lb));
+  const vSpan = vv.length ? `${fmtMYfull(vv[0].d)} – ${fmtMYfull(vv[vv.length - 1].d)}` : '';
+  root.append(h('div', { class: 'grid g-2', style: 'margin-top:16px' },
+    card('Blood pressure at visits', `${vSpan} · each point is one Sutter visit · lines mark 120 and 80`, null, bpHost,
+      h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--c1)' }), 'Systolic'), h('span', null, h('i', { class: 'ln', style: 'background:var(--c2)' }), 'Diastolic'))),
+    card('Weight', `${vSpan} · clinic scale at Sutter visits and DEXA scans`, null, wtHost,
+      h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--c1)' }), 'Sutter visit'), h('span', null, h('i', { class: 'ln', style: 'background:var(--c3)' }), 'DEXA scan')))));
   root.append(h('div', { style: 'margin-top:16px' }, card('Flagged lab results', 'Function Health via Quest, drawn Aug 2026 · A1c history from Sutter', askLink('Which of my flagged labs matter most right now and what should I ask my doctor?'),
     h('div', { class: 'tbl-wrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, 'Test'), h('th', { class: 'num' }, 'Result'), h('th', null, 'Reference'), h('th', null, 'Status'), h('th', null, 'Note'))),
       h('tbody', null, ...LABS.map(([t, v, r, c, n]) => h('tr', null, h('td', null, t), h('td', { class: 'num' }, h('b', null, v)), h('td', null, r), h('td', null, chip(c, { crit: 'Flagged', warn: 'Watch', none: 'In range', good: 'Good' }[c])), h('td', null, n)))))))));
   requestAnimationFrame(() => {
+    const bpv = VISITS.filter(v => v.vitals && v.vitals.bp);
+    if (bpv.length > 1) { const tA = toUTC(bpv[0].d), tB = toUTC(bpv[bpv.length - 1].d);
+      lines(bpHost, { labels: bpv.map(v => `${MON[+v.d.slice(5, 7) - 1]} '${v.d.slice(2, 4)}`), xPos: bpv.map(v => (toUTC(v.d) - tA) / ((tB - tA) || 1)), height: 200, yDomain: [50, 150], refs: [{ value: 120 }, { value: 80 }],
+        series: [{ name: 'Systolic', color: 'var(--c1)', values: bpv.map(v => v.vitals.bp[0]), dots: true }, { name: 'Diastolic', color: 'var(--c2)', values: bpv.map(v => v.vitals.bp[1]), dots: true },
+          { name: 'Pulse', color: 'transparent', values: bpv.map(v => v.vitals.pulse ?? null), width: 0, noTip: false }],
+        tipHead: i => `${fmtDY(bpv[i].d)} · ${VISIT_TYPE(bpv[i])}`, tipFmt: v => f0(v), xEvery: Math.max(1, Math.ceil(bpv.length / 6)) }); }
+    const wd = [...new Set([...VISITS.filter(v => v.vitals && v.vitals.weight_lb).map(v => v.d), ...(D.dexa || []).map(x => x.date)])].sort();
+    if (wd.length > 1) { const tA = toUTC(wd[0]), tB = toUTC(wd[wd.length - 1]), W = new Map(VISITS.filter(v => v.vitals && v.vitals.weight_lb).map(v => [v.d, v.vitals.weight_lb])), X = new Map((D.dexa || []).map(x => [x.date, x.total]));
+      lines(wtHost, { labels: wd.map(d => `${MON[+d.slice(5, 7) - 1]} '${d.slice(2, 4)}`), xPos: wd.map(d => (toUTC(d) - tA) / ((tB - tA) || 1)), height: 200, yDomain: [185, 210],
+        series: [{ name: 'Sutter visit', color: 'var(--c1)', values: wd.map(d => W.get(d) ?? null), dots: true }, { name: 'DEXA scan', color: 'var(--c3)', values: wd.map(d => X.get(d) ?? null), dots: true }],
+        tipHead: i => fmtDY(wd[i]), tipFmt: v => f1(v) + ' lb', xEvery: Math.max(1, Math.ceil(wd.length / 6)) }); }
     const months = []; for (let m = firstDate.slice(0, 7); m <= lastFull.slice(0, 7);) { months.push(m); const y = +m.slice(0, 4), mo = +m.slice(5); m = mo === 12 ? `${y + 1}-01` : `${y}-${String(mo + 1).padStart(2, '0')}`; }
     const t0 = toUTC(a1c.find(x => x.date >= '2023-01-01').date), t1 = toUTC(lastFull);
     const pts = [];
@@ -1378,7 +1452,7 @@ const SUBS = {
   training: () => 'Body composition, training volume and how training affects glucose',
   sleep: () => 'WHOOP recovery and sleep against your targets',
   patterns: () => 'Find what drives your numbers',
-  labs: () => 'Lab history and what is due',
+  labs: () => 'Labs, Sutter visit history and what is due',
 };
 function render() {
   const v = VIEWS.find(x => x.id === state.view) || VIEWS[0];
