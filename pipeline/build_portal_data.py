@@ -334,7 +334,19 @@ if SUTTER_VISITS.exists():
         visits.append({"d": v["date"], "time": v.get("time"), "type": v["type"], "clinician": v.get("clinician"), "place": v.get("place"),
                        "issues": v.get("issues") or [], "vitals": v.get("vitals") or {}, "ordered": sorted(set(tests), key=tests.index),
                        "done": sorted(set(done), key=done.index), "imaging": sorted(set(img), key=img.index), "refilled": v.get("refilled") or [],
-                       "meds": sorted(set(started), key=started.index)[:8], "follow_up": fu})
+                       "meds": sorted(set(started), key=started.index)[:8], "follow_up": fu, "src": "Sutter"})
+
+# One Medical (primary care) visits and immunizations (pipeline/onemedical_parse.py)
+ONEMED = Path("/root/health-data/onemedical/onemedical.json")
+immunizations = []
+if ONEMED.exists():
+    om = json.loads(ONEMED.read_text())
+    for v in om.get("visits", []):
+        visits.append({"d": v["date"], "time": v.get("time"), "type": v["type"], "clinician": v.get("clinician"), "place": "One Medical",
+                       "issues": v.get("issues") or [], "vitals": v.get("vitals") or {}, "ordered": [], "done": v.get("procedures") or [],
+                       "imaging": [], "refilled": [], "meds": [], "follow_up": None, "src": "One Medical"})
+    immunizations = om.get("immunizations", [])
+visits.sort(key=lambda v: (v["d"], v.get("time") or ""))
 
 heath = None
 if HEATH_NOTE.exists():
@@ -354,7 +366,7 @@ out = {
     "cgm": cgm,
     "recovery": recovery, "sleep": sleep, "workouts": workouts,
     "dexa": dexa, "a1c": a1c, "ladder": ladder_out, "food": food_out, "heath": heath,
-    "boluses": boluses, "sessions": sessions, "training_log": training_log, "visits": visits,
+    "boluses": boluses, "sessions": sessions, "training_log": training_log, "visits": visits, "immunizations": immunizations,
 }
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(json.dumps(out, separators=(",", ":")))

@@ -1066,11 +1066,20 @@ function comingUp() {
       `Set at your ${fmtDY(endo.d)} visit with ${endo.clinician || 'endocrinology'}. The latest summary (${fmtDY(VISITS[VISITS.length - 1].d)}) lists no upcoming appointments.`));
   }
   const ord = [...VISITS].reverse().find(v => v.ordered.length);
+  const kid = [...VISITS].reverse().find(v => v.done.includes('Urine microalbumin'));
   if (ord) {
     const drawn = VISITS.find(v => v.d >= ord.d && v.done.length && v !== ord);
     rows.push(row(`Sutter labs ordered ${fmtD(ord.d)} '${ord.d.slice(2, 4)}`, drawn ? `Drawn ${fmtD(drawn.d)}` : 'Not drawn at Sutter', chip(drawn ? 'good' : 'warn', drawn ? 'Done' : 'Open'),
       ord.ordered.join(', ') + (drawn ? '' : '. Function Health measured A1c in Aug 2026.')));
   }
+  if (kid) { const due = addDays(kid.d, 365), late = due < today;
+    rows.push(row('Kidney screening (urine albumin, eGFR)', `${late ? 'Overdue' : 'Due'} ~${fmtDY(due)}`, chip(late ? 'crit' : due <= addDays(today, 45) ? 'warn' : 'none', late ? 'Overdue' : due <= addDays(today, 45) ? 'Due soon' : 'Yearly'), `Yearly for T1D; last done ${fmtDY(kid.d)} at Sutter`)); }
+  const IMMS = D.immunizations || [];
+  const flu = [...IMMS].reverse().find(x => /influenza/i.test(x.vaccine));
+  if (flu) { const season = today.slice(5) >= '08-01' ? today.slice(0, 4) : String(+today.slice(0, 4) - 1), got = flu.d >= `${season}-08-01`;
+    rows.push(row(`Flu shot, ${season}–${String(+season + 1).slice(2)} season`, got ? `Done ${fmtD(flu.d)}` : 'Not yet', chip(got ? 'good' : 'warn', got ? 'Done' : 'Due this fall'), `Last recorded ${fmtDY(flu.d)}`)); }
+  const om = [...VISITS].reverse().find(v => v.src === 'One Medical' && v.vitals && v.vitals.bp);
+  if (om) { const due = addDays(om.d, 365); rows.push(row('Annual wellness visit (One Medical)', `~${fmtDY(due)}`, chip(due < today ? 'crit' : due <= addDays(today, 45) ? 'warn' : 'none', due < today ? 'Overdue' : due <= addDays(today, 45) ? 'Due soon' : 'Yearly'), `Last ${fmtDY(om.d)} with ${om.clinician || 'One Medical'}`)); }
   rows.push(row('Eye exam', 'Done Mar 27, 2026', chip('good', 'Retinal photos'), 'Focus Optometry, per your vault notes. Sutter\'s reminder system still lists it as due from Aug 1.'));
   rows.push(row('Ferritin recheck', '~Late Nov', chip('none', 'Planned')));
   rows.push(row('Omega-3 recheck', 'Nov–Feb', chip('none', 'Planned')));
@@ -1102,11 +1111,12 @@ function visitCard() {
     h('td', { class: 'num' }, vt(v).weight_lb ? f1(vt(v).weight_lb) : '—'),
     h('td', { style: 'white-space:nowrap' }, v.follow_up ? `~${fmtDY(v.follow_up)}` : '—'),
     h('td', { class: 'visit-out' }, outcome(v))));
-  return card('Sutter visit history', `${VISITS.length ? `${fmtDY(VISITS[0].d)} – ${fmtDY(VISITS[VISITS.length - 1].d)}` : 'No visits loaded'} · ${VISITS.length} after-visit summaries from My Health Online, newest first · not affected by the date range`,
+  const nS = VISITS.filter(v => v.src === 'Sutter').length, nO = VISITS.filter(v => v.src === 'One Medical').length;
+  return card('Visit history', `${VISITS.length ? `${fmtDY(VISITS[0].d)} – ${fmtDY(VISITS[VISITS.length - 1].d)}` : 'No visits loaded'} · ${nS} Sutter after-visit summaries and ${nO} One Medical visits, newest first · not affected by the date range`,
     seg,
     h('div', { class: 'tbl-wrap' }, h('table', { class: 'visits' }, h('thead', null, h('tr', null, h('th', null, 'Date'), h('th', null, 'Visit'), h('th', null, 'Clinician · clinic'), h('th', null, 'For'),
       h('th', { class: 'num' }, 'BP'), h('th', { class: 'num' }, 'Pulse'), h('th', { class: 'num' }, 'Weight (lb)'), h('th', null, 'Follow-up'), h('th', null, 'Tests, imaging and meds'))), h('tbody', null, ...rows))),
-    h('p', { class: 'heath-src', style: 'margin-top:10px' }, 'Phone calls with the clinic have no after-visit summary, so they are not listed. Clinicians\' written instructions (including insulin-setting changes) are kept in your private notes, not on this public page.'));
+    h('p', { class: 'heath-src', style: 'margin-top:10px' }, 'Sutter phone calls have no after-visit summary, so they are not listed; One Medical visits come from its records export (Mar 2019 – Oct 2025). Clinicians\' written instructions (including insulin-setting changes) are kept in your private notes, not on this public page.'));
 }
 function viewLabs(root) {
   const a1c = D.a1c || [];
@@ -1115,16 +1125,21 @@ function viewLabs(root) {
   root.append(h('div', { class: 'grid g-21' },
     card('A1c and GMI', `Lab A1c by draw date against GMI from CGM. Each GMI point = the 90 days ending on the 28th of that month (latest point ends ${fmtD(lastFull)}).`, askLink(`My A1c went from 6.5% to ${latest.value}%. What are the biggest levers to get back under ${T.a1cMax}%?`), host,
       h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--c1)' }), 'GMI from CGM'), h('span', null, h('i', { class: 'sw', style: 'background:var(--c2);border-radius:50%' }), 'Lab A1c'), h('span', null, h('i', { class: 'ln', style: 'background:var(--ink-2);opacity:.55' }), `Goal <${T.a1cMax}%`))),
-    card('Coming up', `As of ${fmtDY(isoPT(new Date()))} · from your Sutter visit summaries, DEXA scans and vault notes`, null, h('div', { class: 'checklist' }, ...comingUp()))));
+    card('Coming up', `As of ${fmtDY(isoPT(new Date()))} · from your Sutter and One Medical records, DEXA scans and vault notes`, null, h('div', { class: 'checklist' }, ...comingUp()))));
   root.append(h('div', { style: 'margin-top:16px' }, visitCard()));
+  const IM = (D.immunizations || []).slice().reverse();
+  if (IM.length) root.append(h('div', { style: 'margin-top:16px' }, card('Immunizations', `${fmtDY(IM[IM.length - 1].d)} – ${fmtDY(IM[0].d)} · from the One Medical record, which includes the California Immunization Registry`, null,
+    h('div', { class: 'tbl-wrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, 'Date'), h('th', null, 'Vaccine'))),
+      h('tbody', null, ...IM.map(x => h('tr', null, h('td', { style: 'white-space:nowrap' }, fmtDY(x.d)), h('td', null, x.vaccine)))))),
+    h('p', { class: 'heath-src', style: 'margin-top:10px' }, 'Tdap (tetanus, diphtheria, whooping cough) is usually repeated every 10 years; yours is good until about March 2031.'))));
   const bpHost = h('div', { class: 'chart' }), wtHost = h('div', { class: 'chart' });
   const vv = VISITS.filter(v => v.vitals && (v.vitals.bp || v.vitals.weight_lb));
   const vSpan = vv.length ? `${fmtMYfull(vv[0].d)} – ${fmtMYfull(vv[vv.length - 1].d)}` : '';
   root.append(h('div', { class: 'grid g-2', style: 'margin-top:16px' },
-    card('Blood pressure at visits', `${vSpan} · each point is one Sutter visit · lines mark 120 and 80`, null, bpHost,
+    card('Blood pressure at visits', `${vSpan} · each point is one Sutter or One Medical visit · lines mark 120 and 80`, null, bpHost,
       h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--c1)' }), 'Systolic'), h('span', null, h('i', { class: 'ln', style: 'background:var(--c2)' }), 'Diastolic'))),
-    card('Weight', `${vSpan} · clinic scale at Sutter visits and DEXA scans`, null, wtHost,
-      h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--c1)' }), 'Sutter visit'), h('span', null, h('i', { class: 'ln', style: 'background:var(--c3)' }), 'DEXA scan')))));
+    card('Weight', `${vSpan} · clinic scale at Sutter and One Medical visits, and DEXA scans`, null, wtHost,
+      h('div', { class: 'legend' }, h('span', null, h('i', { class: 'ln', style: 'background:var(--c1)' }), 'Clinic visit'), h('span', null, h('i', { class: 'ln', style: 'background:var(--c3)' }), 'DEXA scan')))));
   root.append(h('div', { style: 'margin-top:16px' }, card('Flagged lab results', 'Function Health via Quest, drawn Aug 2026 · A1c history from Sutter', askLink('Which of my flagged labs matter most right now and what should I ask my doctor?'),
     h('div', { class: 'tbl-wrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, 'Test'), h('th', { class: 'num' }, 'Result'), h('th', null, 'Reference'), h('th', null, 'Status'), h('th', null, 'Note'))),
       h('tbody', null, ...LABS.map(([t, v, r, c, n]) => h('tr', null, h('td', null, t), h('td', { class: 'num' }, h('b', null, v)), h('td', null, r), h('td', null, chip(c, { crit: 'Flagged', warn: 'Watch', none: 'In range', good: 'Good' }[c])), h('td', null, n)))))))));
@@ -1138,7 +1153,7 @@ function viewLabs(root) {
     const wd = [...new Set([...VISITS.filter(v => v.vitals && v.vitals.weight_lb).map(v => v.d), ...(D.dexa || []).map(x => x.date)])].sort();
     if (wd.length > 1) { const tA = toUTC(wd[0]), tB = toUTC(wd[wd.length - 1]), W = new Map(VISITS.filter(v => v.vitals && v.vitals.weight_lb).map(v => [v.d, v.vitals.weight_lb])), X = new Map((D.dexa || []).map(x => [x.date, x.total]));
       lines(wtHost, { labels: wd.map(d => `${MON[+d.slice(5, 7) - 1]} '${d.slice(2, 4)}`), xPos: wd.map(d => (toUTC(d) - tA) / ((tB - tA) || 1)), height: 200, yDomain: [185, 210],
-        series: [{ name: 'Sutter visit', color: 'var(--c1)', values: wd.map(d => W.get(d) ?? null), dots: true }, { name: 'DEXA scan', color: 'var(--c3)', values: wd.map(d => X.get(d) ?? null), dots: true }],
+        series: [{ name: 'Clinic visit', color: 'var(--c1)', values: wd.map(d => W.get(d) ?? null), dots: true }, { name: 'DEXA scan', color: 'var(--c3)', values: wd.map(d => X.get(d) ?? null), dots: true }],
         tipHead: i => fmtDY(wd[i]), tipFmt: v => f1(v) + ' lb', xEvery: Math.max(1, Math.ceil(wd.length / 6)) }); }
     const months = []; for (let m = firstDate.slice(0, 7); m <= lastFull.slice(0, 7);) { months.push(m); const y = +m.slice(0, 4), mo = +m.slice(5); m = mo === 12 ? `${y + 1}-01` : `${y}-${String(mo + 1).padStart(2, '0')}`; }
     const t0 = toUTC(a1c.find(x => x.date >= '2023-01-01').date), t1 = toUTC(lastFull);
