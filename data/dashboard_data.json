@@ -1,70 +1,42 @@
 {
-  "generated_at": "2026-10-13T08:04:20.882847-07:00",
+  "generated_at": "2026-10-14T08:04:27.132656-07:00",
   "date_range": {
     "start": "2024-01-23",
-    "end": "2026-10-13",
-    "days": 995
+    "end": "2026-10-14",
+    "days": 996
   },
   "summary30": {
     "days": 30,
-    "avg_glucose": 155.73,
-    "tir_70_180": 74.37,
-    "high_pct": 19.65,
-    "very_high_pct": 4.53,
-    "low_pct": 1.12,
-    "very_low_pct": 0.34,
-    "gmi": 7.03,
-    "avg_total_insulin": 42.54,
-    "avg_basal": 21.57,
-    "avg_bolus": 20.97,
-    "avg_carbs": 186.65,
-    "avg_cv_pct": 26.99,
+    "avg_glucose": 155.01,
+    "tir_70_180": 75.49,
+    "high_pct": 19.66,
+    "very_high_pct": 3.59,
+    "low_pct": 1.02,
+    "very_low_pct": 0.24,
+    "gmi": 7.02,
+    "avg_total_insulin": 42.27,
+    "avg_basal": 21.43,
+    "avg_bolus": 20.84,
+    "avg_carbs": 193.91,
+    "avg_cv_pct": 26.18,
     "overnight_low_pct": 0.23,
-    "evening_avg": 141.1,
-    "avg_recovery": 65.13,
-    "avg_hrv": 52.06,
+    "evening_avg": 141.64,
+    "avg_recovery": 64.3,
+    "avg_hrv": 51.86,
     "avg_rhr": 50.97,
-    "avg_sleep_performance": 85.83,
+    "avg_sleep_performance": 86.0,
     "avg_respiratory_rate": 13.54,
     "workout_count": 25,
     "hr_zones": {
-      "zone0_min": 432.6,
-      "zone1_min": 480.5,
-      "zone2_min": 112.3,
-      "zone3_min": 134.5,
-      "zone4_min": 17.6,
+      "zone0_min": 451.1,
+      "zone1_min": 462.2,
+      "zone2_min": 112.2,
+      "zone3_min": 137.1,
+      "zone4_min": 17.9,
       "zone5_min": 0
     }
   },
   "daily90": [
-    {
-      "local_date": "2026-07-16",
-      "cgm_count": 288,
-      "avg_glucose": 150.84,
-      "median_glucose": 149.0,
-      "gmi": 6.92,
-      "tir_70_180": 86.11,
-      "very_high_pct": 5.21,
-      "high_pct": 7.29,
-      "low_pct": 1.39,
-      "very_low_pct": 0.0,
-      "total_insulin": 37.35,
-      "total_basal": 21.85,
-      "total_bolus": 15.5,
-      "bolus_sum": 15.5,
-      "carbs_sum": 90.0,
-      "bolus_count": 5,
-      "alarm_count": 155,
-      "stddev": 45.9,
-      "cv_pct": 30.43,
-      "overnight_avg": 138.19,
-      "morning_avg": 140.65,
-      "afternoon_avg": 187.07,
-      "evening_avg": 137.46,
-      "overnight_low_pct": 5.56,
-      "morning_high_pct": 1.39,
-      "evening_high_pct": 9.72
-    },
     {
       "local_date": "2026-07-17",
       "cgm_count": 288,
@@ -1762,7 +1734,7 @@
       "bolus_sum": 24.2,
       "carbs_sum": 195.0,
       "bolus_count": 14,
-      "alarm_count": 224,
+      "alarm_count": 232,
       "stddev": 68.0,
       "cv_pct": 39.16,
       "overnight_avg": 201.16,
@@ -1790,7 +1762,7 @@
       "bolus_sum": 18.7,
       "carbs_sum": 180.0,
       "bolus_count": 7,
-      "alarm_count": 191,
+      "alarm_count": 198,
       "stddev": 36.53,
       "cv_pct": 24.1,
       "overnight_avg": 170.64,
@@ -1818,7 +1790,7 @@
       "bolus_sum": 22.1,
       "carbs_sum": 185.0,
       "bolus_count": 12,
-      "alarm_count": 287,
+      "alarm_count": 298,
       "stddev": 51.87,
       "cv_pct": 36.47,
       "overnight_avg": 176.43,
@@ -1846,7 +1818,7 @@
       "bolus_sum": 20.4,
       "carbs_sum": 165.0,
       "bolus_count": 8,
-      "alarm_count": 276,
+      "alarm_count": 287,
       "stddev": 29.89,
       "cv_pct": 20.75,
       "overnight_avg": 147.04,
@@ -1874,7 +1846,7 @@
       "bolus_sum": 20.6,
       "carbs_sum": 165.0,
       "bolus_count": 15,
-      "alarm_count": 353,
+      "alarm_count": 368,
       "stddev": 32.77,
       "cv_pct": 20.96,
       "overnight_avg": 159.5,
@@ -1902,7 +1874,7 @@
       "bolus_sum": 23.85,
       "carbs_sum": 145.0,
       "bolus_count": 15,
-      "alarm_count": 182,
+      "alarm_count": 190,
       "stddev": 44.89,
       "cv_pct": 24.78,
       "overnight_avg": 179.62,
@@ -1930,7 +1902,7 @@
       "bolus_sum": 26.0,
       "carbs_sum": 189.0,
       "bolus_count": 9,
-      "alarm_count": 176,
+      "alarm_count": 184,
       "stddev": 48.03,
       "cv_pct": 28.28,
       "overnight_avg": 207.92,
@@ -1958,7 +1930,7 @@
       "bolus_sum": 27.6,
       "carbs_sum": 239.0,
       "bolus_count": 8,
-      "alarm_count": 104,
+      "alarm_count": 109,
       "stddev": 47.21,
       "cv_pct": 29.77,
       "overnight_avg": 203.92,
@@ -1986,7 +1958,7 @@
       "bolus_sum": 23.7,
       "carbs_sum": 185.0,
       "bolus_count": 7,
-      "alarm_count": 140,
+      "alarm_count": 147,
       "stddev": 41.67,
       "cv_pct": 26.84,
       "overnight_avg": 152.92,
@@ -2014,7 +1986,7 @@
       "bolus_sum": 28.9,
       "carbs_sum": 259.0,
       "bolus_count": 10,
-      "alarm_count": 345,
+      "alarm_count": 363,
       "stddev": 50.24,
       "cv_pct": 32.18,
       "overnight_avg": 163.58,
@@ -2042,7 +2014,7 @@
       "bolus_sum": 24.75,
       "carbs_sum": 230.0,
       "bolus_count": 5,
-      "alarm_count": 57,
+      "alarm_count": 60,
       "stddev": 36.95,
       "cv_pct": 26.43,
       "overnight_avg": 186.68,
@@ -2070,7 +2042,7 @@
       "bolus_sum": 19.1,
       "carbs_sum": 155.0,
       "bolus_count": 7,
-      "alarm_count": 102,
+      "alarm_count": 108,
       "stddev": 36.52,
       "cv_pct": 25.81,
       "overnight_avg": 140.29,
@@ -2098,7 +2070,7 @@
       "bolus_sum": 10.85,
       "carbs_sum": 100.0,
       "bolus_count": 6,
-      "alarm_count": 257,
+      "alarm_count": 273,
       "stddev": 33.15,
       "cv_pct": 20.96,
       "overnight_avg": 188.5,
@@ -2126,7 +2098,7 @@
       "bolus_sum": 27.4,
       "carbs_sum": 179.0,
       "bolus_count": 10,
-      "alarm_count": 202,
+      "alarm_count": 215,
       "stddev": 74.5,
       "cv_pct": 37.45,
       "overnight_avg": 283.6,
@@ -2154,7 +2126,7 @@
       "bolus_sum": 29.15,
       "carbs_sum": 190.0,
       "bolus_count": 10,
-      "alarm_count": 154,
+      "alarm_count": 165,
       "stddev": 33.77,
       "cv_pct": 22.75,
       "overnight_avg": 136.33,
@@ -2182,7 +2154,7 @@
       "bolus_sum": 24.1,
       "carbs_sum": 205.0,
       "bolus_count": 6,
-      "alarm_count": 130,
+      "alarm_count": 140,
       "stddev": 30.85,
       "cv_pct": 21.77,
       "overnight_avg": 151.44,
@@ -2210,7 +2182,7 @@
       "bolus_sum": 15.75,
       "carbs_sum": 139.0,
       "bolus_count": 6,
-      "alarm_count": 156,
+      "alarm_count": 169,
       "stddev": 37.38,
       "cv_pct": 25.9,
       "overnight_avg": 142.61,
@@ -2238,7 +2210,7 @@
       "bolus_sum": 16.6,
       "carbs_sum": 135.0,
       "bolus_count": 5,
-      "alarm_count": 56,
+      "alarm_count": 61,
       "stddev": 29.74,
       "cv_pct": 21.48,
       "overnight_avg": 140.93,
@@ -2266,7 +2238,7 @@
       "bolus_sum": 27.5,
       "carbs_sum": 190.0,
       "bolus_count": 9,
-      "alarm_count": 115,
+      "alarm_count": 126,
       "stddev": 51.5,
       "cv_pct": 30.2,
       "overnight_avg": 156.69,
@@ -2294,7 +2266,7 @@
       "bolus_sum": 19.9,
       "carbs_sum": 155.0,
       "bolus_count": 7,
-      "alarm_count": 85,
+      "alarm_count": 94,
       "stddev": 34.36,
       "cv_pct": 22.42,
       "overnight_avg": 178.42,
@@ -2322,7 +2294,7 @@
       "bolus_sum": 21.45,
       "carbs_sum": 244.0,
       "bolus_count": 7,
-      "alarm_count": 67,
+      "alarm_count": 75,
       "stddev": 30.29,
       "cv_pct": 19.41,
       "overnight_avg": 164.99,
@@ -2350,7 +2322,7 @@
       "bolus_sum": 22.7,
       "carbs_sum": 239.5,
       "bolus_count": 9,
-      "alarm_count": 56,
+      "alarm_count": 64,
       "stddev": 32.14,
       "cv_pct": 20.42,
       "overnight_avg": 148.57,
@@ -2378,7 +2350,7 @@
       "bolus_sum": 20.95,
       "carbs_sum": 264.0,
       "bolus_count": 13,
-      "alarm_count": 63,
+      "alarm_count": 73,
       "stddev": 57.55,
       "cv_pct": 35.84,
       "overnight_avg": 212.81,
@@ -2406,7 +2378,7 @@
       "bolus_sum": 17.95,
       "carbs_sum": 189.0,
       "bolus_count": 7,
-      "alarm_count": 67,
+      "alarm_count": 80,
       "stddev": 47.26,
       "cv_pct": 30.8,
       "overnight_avg": 192.32,
@@ -2434,7 +2406,7 @@
       "bolus_sum": 20.8,
       "carbs_sum": 231.0,
       "bolus_count": 10,
-      "alarm_count": 36,
+      "alarm_count": 45,
       "stddev": 37.99,
       "cv_pct": 27.75,
       "overnight_avg": 151.06,
@@ -2462,7 +2434,7 @@
       "bolus_sum": 19.05,
       "carbs_sum": 170.0,
       "bolus_count": 6,
-      "alarm_count": 22,
+      "alarm_count": 29,
       "stddev": 49.78,
       "cv_pct": 31.79,
       "overnight_avg": 185.92,
@@ -2490,7 +2462,7 @@
       "bolus_sum": 14.9,
       "carbs_sum": 220.0,
       "bolus_count": 12,
-      "alarm_count": 2,
+      "alarm_count": 3,
       "stddev": 29.3,
       "cv_pct": 20.14,
       "overnight_avg": 169.64,
@@ -2518,7 +2490,7 @@
       "bolus_sum": 16.45,
       "carbs_sum": 208.0,
       "bolus_count": 9,
-      "alarm_count": 10,
+      "alarm_count": 20,
       "stddev": 31.06,
       "cv_pct": 21.62,
       "overnight_avg": 150.67,
@@ -2531,63 +2503,62 @@
     },
     {
       "local_date": "2026-10-13",
-      "cgm_count": 80,
-      "avg_glucose": 188.12,
-      "median_glucose": 170.5,
-      "gmi": 7.81,
-      "tir_70_180": 46.25,
-      "very_high_pct": 35.0,
-      "high_pct": 12.5,
-      "low_pct": 2.5,
-      "very_low_pct": 3.75,
-      "total_insulin": 11.55,
-      "total_basal": 10.05,
-      "total_bolus": 1.5,
-      "bolus_sum": 1.5,
-      "carbs_sum": 50.0,
-      "bolus_count": 1,
-      "alarm_count": 2,
-      "stddev": 69.81,
-      "cv_pct": 37.11,
+      "cgm_count": 288,
+      "avg_glucose": 167.64,
+      "median_glucose": 160.5,
+      "gmi": 7.32,
+      "tir_70_180": 65.97,
+      "very_high_pct": 9.72,
+      "high_pct": 22.57,
+      "low_pct": 0.69,
+      "very_low_pct": 1.04,
+      "total_insulin": 41.25,
+      "total_basal": 23.95,
+      "total_bolus": 17.3,
+      "bolus_sum": 17.3,
+      "carbs_sum": 273.0,
+      "bolus_count": 8,
+      "alarm_count": 7,
+      "stddev": 50.09,
+      "cv_pct": 29.88,
       "overnight_avg": 181.18,
-      "morning_avg": 250.62,
+      "morning_avg": 198.22,
+      "afternoon_avg": 149.12,
+      "evening_avg": 142.01,
+      "overnight_low_pct": 6.94,
+      "morning_high_pct": 73.61,
+      "evening_high_pct": 8.33
+    },
+    {
+      "local_date": "2026-10-14",
+      "cgm_count": 76,
+      "avg_glucose": 148.47,
+      "median_glucose": 148.5,
+      "gmi": 6.86,
+      "tir_70_180": 100.0,
+      "very_high_pct": 0.0,
+      "high_pct": 0.0,
+      "low_pct": 0.0,
+      "very_low_pct": 0.0,
+      "total_insulin": 7.35,
+      "total_basal": 7.35,
+      "total_bolus": 0.0,
+      "bolus_sum": null,
+      "carbs_sum": null,
+      "bolus_count": 0,
+      "alarm_count": 0,
+      "stddev": 13.99,
+      "cv_pct": 9.42,
+      "overnight_avg": 147.56,
+      "morning_avg": 156.25,
       "afternoon_avg": null,
       "evening_avg": null,
-      "overnight_low_pct": 6.94,
-      "morning_high_pct": 100.0,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
       "evening_high_pct": null
     }
   ],
   "joined30": [
-    {
-      "local_date": "2026-09-14",
-      "recovery_score": 83.0,
-      "hrv": 58.76,
-      "rhr": 49.0,
-      "sleep_performance": 83.0,
-      "sleep_efficiency": 94.23,
-      "asleep_hours": 8.04,
-      "respiratory_rate": 13.59,
-      "awake_hours": 0.49,
-      "light_sleep_hours": 4.14,
-      "deep_sleep_hours": 1.18,
-      "rem_sleep_hours": 2.72,
-      "sleep_cycle_count": 6,
-      "disturbances": 6,
-      "avg_glucose": 149.61,
-      "tir_70_180": 86.06,
-      "total_insulin": 45.15,
-      "carbs_sum": 199.0,
-      "stddev": 39.32,
-      "cv_pct": 26.28,
-      "overnight_avg": 166.61,
-      "morning_avg": 126.54,
-      "afternoon_avg": 179.44,
-      "evening_avg": 126.25,
-      "overnight_low_pct": 0.0,
-      "morning_high_pct": 0.0,
-      "evening_high_pct": 0.0
-    },
     {
       "local_date": "2026-09-15",
       "recovery_score": 66.0,
@@ -3415,22 +3386,67 @@
       "rem_sleep_hours": 1.77,
       "sleep_cycle_count": 5,
       "disturbances": 8,
-      "avg_glucose": 188.12,
-      "tir_70_180": 46.25,
-      "total_insulin": 11.55,
-      "carbs_sum": 50.0,
-      "stddev": 69.81,
-      "cv_pct": 37.11,
+      "avg_glucose": 167.64,
+      "tir_70_180": 65.97,
+      "total_insulin": 41.25,
+      "carbs_sum": 273.0,
+      "stddev": 50.09,
+      "cv_pct": 29.88,
       "overnight_avg": 181.18,
-      "morning_avg": 250.62,
+      "morning_avg": 198.22,
+      "afternoon_avg": 149.12,
+      "evening_avg": 142.01,
+      "overnight_low_pct": 6.94,
+      "morning_high_pct": 73.61,
+      "evening_high_pct": 8.33
+    },
+    {
+      "local_date": "2026-10-14",
+      "recovery_score": 58.0,
+      "hrv": 52.66,
+      "rhr": 49.0,
+      "sleep_performance": 88.0,
+      "sleep_efficiency": 90.35,
+      "asleep_hours": 7.73,
+      "respiratory_rate": 13.6,
+      "awake_hours": 0.9,
+      "light_sleep_hours": 3.97,
+      "deep_sleep_hours": 1.32,
+      "rem_sleep_hours": 2.44,
+      "sleep_cycle_count": 8,
+      "disturbances": 8,
+      "avg_glucose": 148.47,
+      "tir_70_180": 100.0,
+      "total_insulin": 7.35,
+      "carbs_sum": null,
+      "stddev": 13.99,
+      "cv_pct": 9.42,
+      "overnight_avg": 147.56,
+      "morning_avg": 156.25,
       "afternoon_avg": null,
       "evening_avg": null,
-      "overnight_low_pct": 6.94,
-      "morning_high_pct": 100.0,
+      "overnight_low_pct": 0.0,
+      "morning_high_pct": 0.0,
       "evening_high_pct": null
     }
   ],
   "workouts30": [
+    {
+      "id": "294dead8-8803-4dc2-9529-768a3552dee4",
+      "local_date": "2026-10-13",
+      "sport_name": "weightlifting",
+      "start": "2026-10-13T22:38:00.250Z",
+      "end": "2026-10-13T23:36:59.200Z",
+      "strain": 13.44,
+      "avg_hr": 113.0,
+      "max_hr": 169.0,
+      "zone0_min": 27.78,
+      "zone1_min": 16.58,
+      "zone2_min": 4.48,
+      "zone3_min": 8.75,
+      "zone4_min": 1.38,
+      "zone5_min": 0.0
+    },
     {
       "id": "fd12ac7e-1b8d-4cc5-81f7-409c1ef080e7",
       "local_date": "2026-10-12",
@@ -3814,143 +3830,127 @@
       "zone3_min": 2.5,
       "zone4_min": 0.0,
       "zone5_min": 0.0
-    },
-    {
-      "id": "6b8497de-8d51-4e9a-9c7c-af68c83ad81e",
-      "local_date": "2026-09-14",
-      "sport_name": "hiit",
-      "start": "2026-09-14T23:18:00.370Z",
-      "end": "2026-09-15T00:13:59.330Z",
-      "strain": 13.4,
-      "avg_hr": 121.0,
-      "max_hr": 168.0,
-      "zone0_min": 9.25,
-      "zone1_min": 34.88,
-      "zone2_min": 4.58,
-      "zone3_min": 6.13,
-      "zone4_min": 1.13,
-      "zone5_min": 0.0
     }
   ],
   "hourly_glucose": [
     {
       "hour": 0,
-      "avg_glucose": 146.59,
+      "avg_glucose": 147.32,
       "readings": 1079
     },
     {
       "hour": 1,
-      "avg_glucose": 156.98,
+      "avg_glucose": 157.38,
       "readings": 1082
     },
     {
       "hour": 2,
-      "avg_glucose": 171.72,
+      "avg_glucose": 171.68,
       "readings": 1080
     },
     {
       "hour": 3,
-      "avg_glucose": 178.23,
-      "readings": 1077
+      "avg_glucose": 178.33,
+      "readings": 1073
     },
     {
       "hour": 4,
-      "avg_glucose": 175.4,
+      "avg_glucose": 175.19,
       "readings": 1079
     },
     {
       "hour": 5,
-      "avg_glucose": 165.84,
+      "avg_glucose": 165.61,
       "readings": 1076
     },
     {
       "hour": 6,
-      "avg_glucose": 153.34,
+      "avg_glucose": 153.86,
       "readings": 1073
     },
     {
       "hour": 7,
-      "avg_glucose": 142.25,
+      "avg_glucose": 142.77,
       "readings": 1052
     },
     {
       "hour": 8,
-      "avg_glucose": 141.1,
+      "avg_glucose": 141.32,
       "readings": 1054
     },
     {
       "hour": 9,
-      "avg_glucose": 154.85,
+      "avg_glucose": 155.82,
       "readings": 1056
     },
     {
       "hour": 10,
-      "avg_glucose": 162.72,
+      "avg_glucose": 163.33,
       "readings": 1047
     },
     {
       "hour": 11,
-      "avg_glucose": 163.24,
+      "avg_glucose": 163.61,
       "readings": 1056
     },
     {
       "hour": 12,
-      "avg_glucose": 164.43,
+      "avg_glucose": 164.44,
       "readings": 1062
     },
     {
       "hour": 13,
-      "avg_glucose": 166.44,
+      "avg_glucose": 165.2,
       "readings": 1067
     },
     {
       "hour": 14,
-      "avg_glucose": 178.42,
+      "avg_glucose": 177.62,
       "readings": 1068
     },
     {
       "hour": 15,
-      "avg_glucose": 170.2,
+      "avg_glucose": 170.59,
       "readings": 1063
     },
     {
       "hour": 16,
-      "avg_glucose": 155.84,
+      "avg_glucose": 155.27,
       "readings": 1060
     },
     {
       "hour": 17,
-      "avg_glucose": 143.54,
+      "avg_glucose": 143.19,
       "readings": 1056
     },
     {
       "hour": 18,
-      "avg_glucose": 138.77,
+      "avg_glucose": 138.64,
       "readings": 1051
     },
     {
       "hour": 19,
-      "avg_glucose": 139.05,
+      "avg_glucose": 139.3,
       "readings": 1064
     },
     {
       "hour": 20,
-      "avg_glucose": 137.75,
+      "avg_glucose": 137.62,
       "readings": 1057
     },
     {
       "hour": 21,
-      "avg_glucose": 145.37,
+      "avg_glucose": 145.55,
       "readings": 1041
     },
     {
       "hour": 22,
-      "avg_glucose": 156.26,
+      "avg_glucose": 156.37,
       "readings": 1056
     },
     {
       "hour": 23,
-      "avg_glucose": 147.31,
+      "avg_glucose": 147.33,
       "readings": 1057
     }
   ],
@@ -3958,97 +3958,97 @@
     "periods": {
       "last7": {
         "days": 7,
-        "avg_glucose": 154.96,
-        "tir_70_180": 71.7,
-        "high_pct": 18.92,
-        "very_high_pct": 6.94,
-        "low_pct": 1.41,
-        "very_low_pct": 1.04,
-        "gmi": 7.02,
-        "avg_total_insulin": 35.15,
-        "avg_basal": 19.21,
-        "avg_bolus": 15.94,
-        "avg_carbs": 190.29,
-        "avg_cv_pct": 29.29,
+        "avg_glucose": 150.31,
+        "tir_70_180": 80.02,
+        "high_pct": 15.95,
+        "very_high_pct": 2.48,
+        "low_pct": 1.05,
+        "very_low_pct": 0.5,
+        "gmi": 6.91,
+        "avg_total_insulin": 34.04,
+        "avg_basal": 18.83,
+        "avg_bolus": 15.21,
+        "avg_carbs": 215.17,
+        "avg_cv_pct": 24.49,
         "overnight_low_pct": 0.99,
-        "evening_avg": 132.54
+        "evening_avg": 133.52
       },
       "last14": {
         "days": 14,
-        "avg_glucose": 153.32,
-        "tir_70_180": 74.79,
-        "high_pct": 19.61,
-        "very_high_pct": 3.99,
-        "low_pct": 1.05,
-        "very_low_pct": 0.57,
-        "gmi": 6.98,
-        "avg_total_insulin": 38.96,
-        "avg_basal": 20.42,
-        "avg_bolus": 18.54,
-        "avg_carbs": 188.54,
-        "avg_cv_pct": 26.19,
+        "avg_glucose": 152.34,
+        "tir_70_180": 76.87,
+        "high_pct": 19.75,
+        "very_high_pct": 2.18,
+        "low_pct": 0.82,
+        "very_low_pct": 0.37,
+        "gmi": 6.95,
+        "avg_total_insulin": 38.45,
+        "avg_basal": 20.5,
+        "avg_bolus": 17.95,
+        "avg_carbs": 204.42,
+        "avg_cv_pct": 24.79,
         "overnight_low_pct": 0.5,
-        "evening_avg": 141.48
+        "evening_avg": 142.59
       },
       "last30": {
         "days": 30,
-        "avg_glucose": 155.73,
-        "tir_70_180": 74.37,
-        "high_pct": 19.65,
-        "very_high_pct": 4.53,
-        "low_pct": 1.12,
-        "very_low_pct": 0.34,
-        "gmi": 7.03,
-        "avg_total_insulin": 42.54,
-        "avg_basal": 21.57,
-        "avg_bolus": 20.97,
-        "avg_carbs": 186.65,
-        "avg_cv_pct": 26.99,
+        "avg_glucose": 155.01,
+        "tir_70_180": 75.49,
+        "high_pct": 19.66,
+        "very_high_pct": 3.59,
+        "low_pct": 1.02,
+        "very_low_pct": 0.24,
+        "gmi": 7.02,
+        "avg_total_insulin": 42.27,
+        "avg_basal": 21.43,
+        "avg_bolus": 20.84,
+        "avg_carbs": 193.91,
+        "avg_cv_pct": 26.18,
         "overnight_low_pct": 0.23,
-        "evening_avg": 141.1
+        "evening_avg": 141.64
       },
       "last90": {
         "days": 90,
-        "avg_glucose": 156.85,
-        "tir_70_180": 73.14,
-        "high_pct": 21.09,
-        "very_high_pct": 4.45,
-        "low_pct": 1.11,
-        "very_low_pct": 0.21,
+        "avg_glucose": 156.6,
+        "tir_70_180": 73.51,
+        "high_pct": 21.12,
+        "very_high_pct": 4.11,
+        "low_pct": 1.08,
+        "very_low_pct": 0.18,
         "gmi": 7.06,
         "avg_total_insulin": 42.5,
-        "avg_basal": 21.89,
+        "avg_basal": 21.88,
         "avg_bolus": 20.62,
-        "avg_carbs": 178.11,
-        "avg_cv_pct": 27.31,
-        "overnight_low_pct": 0.88,
-        "evening_avg": 144.03
+        "avg_carbs": 181.6,
+        "avg_cv_pct": 26.99,
+        "overnight_low_pct": 0.82,
+        "evening_avg": 144.08
       },
       "previous30": {
         "days": 30,
-        "avg_glucose": 158.34,
-        "tir_70_180": 72.71,
-        "high_pct": 20.54,
-        "very_high_pct": 5.69,
-        "low_pct": 1.01,
+        "avg_glucose": 157.63,
+        "tir_70_180": 73.55,
+        "high_pct": 19.86,
+        "very_high_pct": 5.48,
+        "low_pct": 1.06,
         "very_low_pct": 0.06,
-        "gmi": 7.1,
-        "avg_total_insulin": 43.91,
-        "avg_basal": 22.21,
-        "avg_bolus": 21.7,
-        "avg_carbs": 186.47,
-        "avg_cv_pct": 28.02,
+        "gmi": 7.08,
+        "avg_total_insulin": 44.06,
+        "avg_basal": 22.18,
+        "avg_bolus": 21.88,
+        "avg_carbs": 189.1,
+        "avg_cv_pct": 27.91,
         "overnight_low_pct": 0.56,
-        "evening_avg": 146.33
+        "evening_avg": 145.01
       }
     },
     "deltas": {
-      "tir_70_180": 1.66,
-      "avg_glucose": -2.61,
-      "gmi": -0.07,
-      "avg_cv_pct": -1.03,
-      "avg_total_insulin": -1.37,
-      "avg_carbs": 0.18
+      "tir_70_180": 1.94,
+      "avg_glucose": -2.62,
+      "gmi": -0.06,
+      "avg_cv_pct": -1.73,
+      "avg_total_insulin": -1.79,
+      "avg_carbs": 4.81
     },
     "weekdays": [
       {
@@ -4072,56 +4072,56 @@
       {
         "weekday": "Tue",
         "days": 13,
-        "avg_glucose": 166.31,
-        "tir_70_180": 65.39,
-        "high_pct": 25.65,
-        "very_high_pct": 7.74,
-        "low_pct": 0.79,
-        "very_low_pct": 0.43,
-        "gmi": 7.29,
-        "avg_total_insulin": 45.48,
-        "avg_basal": 21.68,
-        "avg_bolus": 23.79,
-        "avg_carbs": 198.19,
-        "avg_cv_pct": 27.04,
+        "avg_glucose": 164.74,
+        "tir_70_180": 66.91,
+        "high_pct": 26.43,
+        "very_high_pct": 5.8,
+        "low_pct": 0.65,
+        "very_low_pct": 0.22,
+        "gmi": 7.25,
+        "avg_total_insulin": 47.76,
+        "avg_basal": 22.75,
+        "avg_bolus": 25.01,
+        "avg_carbs": 215.35,
+        "avg_cv_pct": 26.48,
         "overnight_low_pct": 0.53,
-        "evening_avg": 150.65
+        "evening_avg": 149.99
       },
       {
         "weekday": "Wed",
-        "days": 12,
-        "avg_glucose": 157.11,
-        "tir_70_180": 70.32,
-        "high_pct": 23.12,
-        "very_high_pct": 4.68,
-        "low_pct": 1.51,
-        "very_low_pct": 0.38,
-        "gmi": 7.07,
-        "avg_total_insulin": 44.18,
-        "avg_basal": 22.13,
-        "avg_bolus": 22.05,
+        "days": 13,
+        "avg_glucose": 156.44,
+        "tir_70_180": 72.6,
+        "high_pct": 21.34,
+        "very_high_pct": 4.32,
+        "low_pct": 1.39,
+        "very_low_pct": 0.35,
+        "gmi": 7.05,
+        "avg_total_insulin": 41.35,
+        "avg_basal": 21.0,
+        "avg_bolus": 20.35,
         "avg_carbs": 190.17,
-        "avg_cv_pct": 29.18,
-        "overnight_low_pct": 2.9,
+        "avg_cv_pct": 27.66,
+        "overnight_low_pct": 2.68,
         "evening_avg": 140.43
       },
       {
         "weekday": "Thu",
-        "days": 13,
-        "avg_glucose": 150.69,
-        "tir_70_180": 75.04,
-        "high_pct": 20.19,
-        "very_high_pct": 2.79,
-        "low_pct": 1.77,
-        "very_low_pct": 0.21,
+        "days": 12,
+        "avg_glucose": 150.68,
+        "tir_70_180": 74.11,
+        "high_pct": 21.26,
+        "very_high_pct": 2.59,
+        "low_pct": 1.8,
+        "very_low_pct": 0.23,
         "gmi": 6.91,
-        "avg_total_insulin": 41.59,
-        "avg_basal": 20.49,
-        "avg_bolus": 21.1,
-        "avg_carbs": 186.85,
-        "avg_cv_pct": 28.46,
-        "overnight_low_pct": 0.43,
-        "evening_avg": 133.25
+        "avg_total_insulin": 41.94,
+        "avg_basal": 20.38,
+        "avg_bolus": 21.56,
+        "avg_carbs": 194.92,
+        "avg_cv_pct": 28.29,
+        "overnight_low_pct": 0.0,
+        "evening_avg": 132.9
       },
       {
         "weekday": "Fri",
@@ -4450,7 +4450,7 @@
         "bolus_sum": 27.4,
         "carbs_sum": 179.0,
         "bolus_count": 10,
-        "alarm_count": 202,
+        "alarm_count": 215,
         "stddev": 74.5,
         "cv_pct": 37.45,
         "overnight_avg": 283.6,
@@ -4508,7 +4508,7 @@
         "bolus_sum": 27.4,
         "carbs_sum": 179.0,
         "bolus_count": 10,
-        "alarm_count": 202,
+        "alarm_count": 215,
         "stddev": 74.5,
         "cv_pct": 37.45,
         "overnight_avg": 283.6,
@@ -4622,7 +4622,7 @@
         "bolus_sum": 28.9,
         "carbs_sum": 259.0,
         "bolus_count": 10,
-        "alarm_count": 345,
+        "alarm_count": 363,
         "stddev": 50.24,
         "cv_pct": 32.18,
         "overnight_avg": 163.58,
@@ -4734,7 +4734,7 @@
         "bolus_sum": 20.8,
         "carbs_sum": 231.0,
         "bolus_count": 10,
-        "alarm_count": 36,
+        "alarm_count": 45,
         "stddev": 37.99,
         "cv_pct": 27.75,
         "overnight_avg": 151.06,
@@ -4751,88 +4751,76 @@
         "label": "Glucose variability vs TIR",
         "x": "cv_pct",
         "y": "tir_70_180",
-        "r": -0.74,
+        "r": -0.76,
         "n": 30,
         "note": "Variability is usually a major TIR lever.",
-        "strength": 0.74
-      },
-      {
-        "label": "HRV vs same-day avg glucose",
-        "x": "hrv",
-        "y": "avg_glucose",
-        "r": 0.33,
-        "n": 30,
-        "note": "HRV and average glucose relationship.",
-        "strength": 0.33
-      },
-      {
-        "label": "Carbs logged vs same-day avg glucose",
-        "x": "carbs_sum",
-        "y": "avg_glucose",
-        "r": -0.27,
-        "n": 30,
-        "note": "Carb load vs average glucose.",
-        "strength": 0.27
-      },
-      {
-        "label": "Sleep performance vs same-day TIR",
-        "x": "sleep_performance",
-        "y": "tir_70_180",
-        "r": 0.24,
-        "n": 30,
-        "note": "Higher sleep performance days tended to align with TIR.",
-        "strength": 0.24
-      },
-      {
-        "label": "Sleep hours vs same-day avg glucose",
-        "x": "asleep_hours",
-        "y": "avg_glucose",
-        "r": -0.19,
-        "n": 30,
-        "note": "More sleep vs average glucose.",
-        "strength": 0.19
-      },
-      {
-        "label": "RHR vs same-day avg glucose",
-        "x": "rhr",
-        "y": "avg_glucose",
-        "r": -0.16,
-        "n": 30,
-        "note": "Resting HR and average glucose relationship.",
-        "strength": 0.16
+        "strength": 0.76
       },
       {
         "label": "Total insulin vs same-day avg glucose",
         "x": "total_insulin",
         "y": "avg_glucose",
-        "r": 0.05,
+        "r": 0.44,
         "n": 30,
         "note": "Total daily insulin vs average glucose.",
-        "strength": 0.05
+        "strength": 0.44
+      },
+      {
+        "label": "HRV vs same-day avg glucose",
+        "x": "hrv",
+        "y": "avg_glucose",
+        "r": 0.41,
+        "n": 30,
+        "note": "HRV and average glucose relationship.",
+        "strength": 0.41
+      },
+      {
+        "label": "Sleep performance vs same-day TIR",
+        "x": "sleep_performance",
+        "y": "tir_70_180",
+        "r": 0.23,
+        "n": 30,
+        "note": "Higher sleep performance days tended to align with TIR.",
+        "strength": 0.23
+      },
+      {
+        "label": "RHR vs same-day avg glucose",
+        "x": "rhr",
+        "y": "avg_glucose",
+        "r": -0.2,
+        "n": 30,
+        "note": "Resting HR and average glucose relationship.",
+        "strength": 0.2
+      },
+      {
+        "label": "Sleep hours vs same-day avg glucose",
+        "x": "asleep_hours",
+        "y": "avg_glucose",
+        "r": -0.13,
+        "n": 30,
+        "note": "More sleep vs average glucose.",
+        "strength": 0.13
       },
       {
         "label": "Recovery vs same-day TIR",
         "x": "recovery_score",
         "y": "tir_70_180",
-        "r": 0.03,
+        "r": -0.09,
         "n": 30,
         "note": "WHOOP recovery and glucose control moved together.",
-        "strength": 0.03
+        "strength": 0.09
+      },
+      {
+        "label": "Carbs logged vs same-day avg glucose",
+        "x": "carbs_sum",
+        "y": "avg_glucose",
+        "r": 0.02,
+        "n": 29,
+        "note": "Carb load vs average glucose.",
+        "strength": 0.02
       }
     ],
     "workout_days": [
-      {
-        "local_date": "2026-09-14",
-        "workouts": 1,
-        "strain": 13.4,
-        "z3_5_min": 7.26,
-        "z2_min": 4.58,
-        "avg_hr": 121.0,
-        "same_day_tir": 86.06,
-        "same_day_avg_glucose": 149.61,
-        "next_day_tir": 56.18,
-        "next_day_avg_glucose": 173.65
-      },
       {
         "local_date": "2026-09-15",
         "workouts": 1,
@@ -5082,24 +5070,36 @@
         "avg_hr": 122.0,
         "same_day_tir": 90.28,
         "same_day_avg_glucose": 143.65,
-        "next_day_tir": 46.25,
-        "next_day_avg_glucose": 188.12
+        "next_day_tir": 65.97,
+        "next_day_avg_glucose": 167.64
+      },
+      {
+        "local_date": "2026-10-13",
+        "workouts": 1,
+        "strain": 13.44,
+        "z3_5_min": 10.13,
+        "z2_min": 4.48,
+        "avg_hr": 113.0,
+        "same_day_tir": 65.97,
+        "same_day_avg_glucose": 167.64,
+        "next_day_tir": 100.0,
+        "next_day_avg_glucose": 148.47
       }
     ],
     "workout_correlations": [
       {
         "label": "Workout Z3-5 min vs same-day TIR",
-        "r": -0.06,
+        "r": -0.08,
         "n": 22
       },
       {
         "label": "Workout strain vs next-day avg glucose",
-        "r": -0.25,
+        "r": -0.42,
         "n": 22
       },
       {
         "label": "Zone 2 min vs same-day avg glucose",
-        "r": 0.02,
+        "r": 0.01,
         "n": 22
       }
     ],
@@ -5107,7 +5107,7 @@
       {
         "kind": "watch",
         "title": "Diabetes supply cadence",
-        "text": "Dexcom G7 sensors: last collected 2026-07-07 from CVS. Next fill is preordered for 2026-07-30 (-75 days from dashboard generation) and current supply is estimated through 2026-08-05. This is logistics tracking only; ordering stays David-confirmed.",
+        "text": "Dexcom G7 sensors: last collected 2026-07-07 from CVS. Next fill is preordered for 2026-07-30 (-76 days from dashboard generation) and current supply is estimated through 2026-08-05. This is logistics tracking only; ordering stays David-confirmed.",
         "stat": "Ready for pickup/refill"
       },
       {
@@ -5129,52 +5129,52 @@
         "stat": "$335 YTD"
       },
       {
-        "kind": "focus",
+        "kind": "win",
         "title": "Glucose control baseline",
-        "text": "Last 30 days: 74.37% time-in-range with average glucose 155.73 mg/dL and GMI about 7.03%.",
-        "stat": "74.37% TIR"
+        "text": "Last 30 days: 75.49% time-in-range with average glucose 155.01 mg/dL and GMI about 7.02%.",
+        "stat": "75.49% TIR"
       },
       {
-        "kind": "watch",
+        "kind": "win",
         "title": "Recent direction",
-        "text": "The last 7 days are 2.7 percentage points below your 30-day TIR baseline.",
-        "stat": "-2.7 pts"
+        "text": "The last 7 days are 4.5 percentage points above your 30-day TIR baseline.",
+        "stat": "+4.5 pts"
       },
       {
         "kind": "win",
         "title": "Stability / variability",
-        "text": "Average glucose variability is 26.99% CV over the last 30 days. Lower variability usually makes gym sessions, work focus, and parenting energy more predictable.",
-        "stat": "CV 26.99%"
+        "text": "Average glucose variability is 26.18% CV over the last 30 days. Lower variability usually makes gym sessions, work focus, and parenting energy more predictable.",
+        "stat": "CV 26.18%"
       },
       {
         "kind": "pattern",
         "title": "Glucose variability vs TIR",
-        "text": "Observed negative correlation r=-0.74 across 30 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=-0.74"
+        "text": "Observed negative correlation r=-0.76 across 30 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=-0.76"
+      },
+      {
+        "kind": "pattern",
+        "title": "Total insulin vs same-day avg glucose",
+        "text": "Observed positive correlation r=0.44 across 30 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.44"
       },
       {
         "kind": "pattern",
         "title": "HRV vs same-day avg glucose",
-        "text": "Observed positive correlation r=0.33 across 30 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=0.33"
-      },
-      {
-        "kind": "pattern",
-        "title": "Carbs logged vs same-day avg glucose",
-        "text": "Observed negative correlation r=-0.27 across 30 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=-0.27"
+        "text": "Observed positive correlation r=0.41 across 30 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.41"
       },
       {
         "kind": "pattern",
         "title": "Sleep performance vs same-day TIR",
-        "text": "Observed positive correlation r=0.24 across 30 paired days. Treat as a pattern to test, not proof of cause.",
-        "stat": "r=0.24"
+        "text": "Observed positive correlation r=0.23 across 30 paired days. Treat as a pattern to test, not proof of cause.",
+        "stat": "r=0.23"
       },
       {
         "kind": "performance",
         "title": "Training load snapshot",
-        "text": "Across logged workouts in the last 30 days you accumulated about 152 minutes in HR Zones 3-5. The dashboard now compares hard-training days against same/next-day glucose patterns.",
-        "stat": "152m Z3-5"
+        "text": "Across logged workouts in the last 30 days you accumulated about 155 minutes in HR Zones 3-5. The dashboard now compares hard-training days against same/next-day glucose patterns.",
+        "stat": "155m Z3-5"
       }
     ],
     "coach_plan": [
@@ -5716,9 +5716,9 @@
         "buffer_days_at_next_fill_ready": 7,
         "status": "preordered",
         "notes": "David collected a 30-day supply from CVS on 2026-07-07 and preordered the next fill to be ready on 2026-07-30. Track refill cadence for eventual supply-ordering workflow. No autonomous ordering without David confirmation.",
-        "days_until_ready": -75,
-        "days_until_supply_runs_out": -69,
-        "days_since_last_collection": 98,
+        "days_until_ready": -76,
+        "days_until_supply_runs_out": -70,
+        "days_since_last_collection": 99,
         "urgency": "ready",
         "urgency_label": "Ready for pickup/refill"
       }
@@ -5737,9 +5737,9 @@
         "buffer_days_at_next_fill_ready": 7,
         "status": "preordered",
         "notes": "David collected a 30-day supply from CVS on 2026-07-07 and preordered the next fill to be ready on 2026-07-30. Track refill cadence for eventual supply-ordering workflow. No autonomous ordering without David confirmation.",
-        "days_until_ready": -75,
-        "days_until_supply_runs_out": -69,
-        "days_since_last_collection": 98,
+        "days_until_ready": -76,
+        "days_until_supply_runs_out": -70,
+        "days_since_last_collection": 99,
         "urgency": "ready",
         "urgency_label": "Ready for pickup/refill"
       }
@@ -5961,11 +5961,11 @@
   },
   "safety_note": "Trend summary and coaching context only \u2014 not dosing, diagnosis, or treatment advice. Verify against Dexcom/Glooko/Omnipod/WHOOP/Sutter source records and your clinical plan before making medical decisions.",
   "ladder_exercises": {
-    "workouts": 22,
-    "total_reps": 969,
-    "total_volume_lb": 53800.0,
+    "workouts": 23,
+    "total_reps": 1181,
+    "total_volume_lb": 62100.0,
     "date_range": {
-      "start": "2026-10-12",
+      "start": "2026-10-13",
       "end": "2026-10-01"
     },
     "exercises": [
@@ -5986,12 +5986,14 @@
       "Bulgarian Split Squat (R)",
       "Cat Cow",
       "Chest Fly",
+      "Child's Pose Thread The Needle (right)",
       "Child's Pose Thread The Needle Right",
       "Commando Plank (alternating)",
       "Commando To 4 Shoulder Taps",
       "Deadlift \u2014 Single Leg (R)",
       "Downward Dog To Upward Facing Dog",
       "Elevate Energy Shoulder Press",
+      "Flutter Kick",
       "Flutter Kick (50% Slower)",
       "Focus Power Commando To 4 Shoulder Taps",
       "Forearm Plank",
@@ -6021,6 +6023,7 @@
       "Pushup (eccentric)",
       "Raise The Roof Shoulder Raise (21's)",
       "Reset Now Wide Leg Toe Reach Static",
+      "Reverse Crunch",
       "Reverse Crunch (50% Slower)",
       "Romanian Deadlift",
       "Russian Twist",
@@ -6051,11 +6054,12 @@
       "Tricep Dip (Elevated)",
       "Tricep Kickback",
       "Tricep Pushup",
+      "V Sit (kick Out)",
       "V Sit Kick Out (50% Slower)",
       "Wall Sit",
       "Wide Leg Toe Reach Static"
     ],
-    "exercise_count": 85,
+    "exercise_count": 89,
     "by_exercise": {
       "Air Squat Deep Hold": [
         {
@@ -6103,6 +6107,13 @@
         }
       ],
       "Bench Press": [
+        {
+          "date": "2026-10-13",
+          "sets": 4,
+          "weight_lb": 80,
+          "reps": 8,
+          "bodyweight": false
+        },
         {
           "date": "2026-10-07",
           "sets": 3,
@@ -6252,6 +6263,13 @@
       ],
       "Chest Fly": [
         {
+          "date": "2026-10-13",
+          "sets": 3,
+          "weight_lb": 60,
+          "reps": 8,
+          "bodyweight": false
+        },
+        {
           "date": "2026-10-07",
           "sets": 2,
           "weight_lb": 65,
@@ -6278,6 +6296,15 @@
           "weight_lb": null,
           "reps": null,
           "bodyweight": false
+        }
+      ],
+      "Child's Pose Thread The Needle (right)": [
+        {
+          "date": "2026-10-13",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
         }
       ],
       "Child's Pose Thread The Needle Right": [
@@ -6332,6 +6359,15 @@
           "weight_lb": 35,
           "reps": null,
           "bodyweight": false
+        }
+      ],
+      "Flutter Kick": [
+        {
+          "date": "2026-10-13",
+          "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
         }
       ],
       "Flutter Kick (50% Slower)": [
@@ -6394,6 +6430,13 @@
         }
       ],
       "Front Raise": [
+        {
+          "date": "2026-10-13",
+          "sets": 2,
+          "weight_lb": 35,
+          "reps": 12,
+          "bodyweight": false
+        },
         {
           "date": "2026-10-07",
           "sets": 1,
@@ -6700,6 +6743,15 @@
           "bodyweight": true
         }
       ],
+      "Reverse Crunch": [
+        {
+          "date": "2026-10-13",
+          "sets": 1,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
       "Reverse Crunch (50% Slower)": [
         {
           "date": "2026-10-07",
@@ -6801,6 +6853,13 @@
       ],
       "Shoulder Press (Seated)": [
         {
+          "date": "2026-10-13",
+          "sets": 3,
+          "weight_lb": 40,
+          "reps": 8,
+          "bodyweight": false
+        },
+        {
           "date": "2026-09-30",
           "sets": null,
           "weight_lb": null,
@@ -6827,6 +6886,13 @@
         }
       ],
       "Shoulder Raise (21's)": [
+        {
+          "date": "2026-10-13",
+          "sets": 1,
+          "weight_lb": 25,
+          "reps": 21,
+          "bodyweight": false
+        },
         {
           "date": "2026-10-07",
           "sets": 1,
@@ -7052,6 +7118,13 @@
       ],
       "Tricep Kickback": [
         {
+          "date": "2026-10-13",
+          "sets": 3,
+          "weight_lb": 70,
+          "reps": 12,
+          "bodyweight": false
+        },
+        {
           "date": "2026-10-07",
           "sets": 2,
           "weight_lb": 60,
@@ -7077,6 +7150,15 @@
         {
           "date": "2026-09-30",
           "sets": null,
+          "weight_lb": null,
+          "reps": null,
+          "bodyweight": true
+        }
+      ],
+      "V Sit (kick Out)": [
+        {
+          "date": "2026-10-13",
+          "sets": 1,
           "weight_lb": null,
           "reps": null,
           "bodyweight": true
@@ -7139,6 +7221,85 @@
       ]
     },
     "workout_details": [
+      {
+        "date": "2026-10-13",
+        "title": "Coach Brian (Upper Body Push + Core)",
+        "volume_reps": 212,
+        "volume_lb": 8300.0,
+        "exercise_count": 10,
+        "exercises": [
+          {
+            "name": "Bench Press",
+            "sets": 4,
+            "weight_lb": 80,
+            "reps": 8,
+            "bodyweight": false
+          },
+          {
+            "name": "Shoulder Press (Seated)",
+            "sets": 3,
+            "weight_lb": 40,
+            "reps": 8,
+            "bodyweight": false
+          },
+          {
+            "name": "Chest Fly",
+            "sets": 3,
+            "weight_lb": 60,
+            "reps": 8,
+            "bodyweight": false
+          },
+          {
+            "name": "Tricep Kickback",
+            "sets": 3,
+            "weight_lb": 70,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Front Raise",
+            "sets": 2,
+            "weight_lb": 35,
+            "reps": 12,
+            "bodyweight": false
+          },
+          {
+            "name": "Shoulder Raise (21's)",
+            "sets": 1,
+            "weight_lb": 25,
+            "reps": 21,
+            "bodyweight": false
+          },
+          {
+            "name": "V Sit (kick Out)",
+            "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Reverse Crunch",
+            "sets": 1,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Flutter Kick",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          },
+          {
+            "name": "Child's Pose Thread The Needle (right)",
+            "sets": null,
+            "weight_lb": null,
+            "reps": null,
+            "bodyweight": true
+          }
+        ]
+      },
       {
         "date": "2026-10-12",
         "title": "Coach Brian (Full Body + Core)",
