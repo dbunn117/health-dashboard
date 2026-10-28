@@ -13,7 +13,7 @@ DB = Path("/root/health-dashboard/data/health.sqlite")
 DASH = Path("/root/health-dashboard/data/dashboard_data.json")
 DEXA = Path("/root/health-data/dexa/dexa_measurements.json")
 LADDER_DIR = Path("/root/health-data/ladder")
-FOOD_LOG = Path("/root/obsidian/David OS/03 Health/Training & Diet/Daily Food Log.md")
+FOOD_LOG = Path("/root/obsidian/David OS/03 Health/Nutrition/Daily Food Log.md")
 HEATH_NOTE = Path("/root/health-portal/heath_note.json")
 TZ = ZoneInfo("America/Los_Angeles")
 OUT = Path(sys.argv[1] if len(sys.argv) > 1 else "/root/health-portal/portal_data.json")
@@ -27,7 +27,7 @@ TARGETS = {
     "lowMax": 1.0, "veryLowMax": 0.1, "sdMax": 30, "a1cMax": 7.0,
     "sleepHours": [7, 8], "strengthPerWeek": 4, "proteinG": [175, 195],
     "hrvBaseline": 52, "rhrBaseline": 50,
-    # Omnipod 5 bolus settings (vault: 03 Health/Omnipod 5 Settings.md). Update both when the pump changes.
+    # Omnipod 5 bolus settings (vault: 03 Health/Diabetes/Omnipod 5 Settings.md). Update both when the pump changes.
     "icr": 10, "isf": 30,
 }
 
@@ -155,9 +155,12 @@ ladder_out = {"export_through": export_end, "sessions": [[d, *s] for d in sorted
 
 # food log (Heath writes it; see health-nutrition-macro-tracking skill)
 food = {}
-if FOOD_LOG.exists():
+# older months are rotated into "Nutrition/Archive/Daily Food Log YYYY-MM.md" (2026-10-27); read them first, then the current-month log
+FOOD_FILES = sorted((FOOD_LOG.parent / "Archive").glob("Daily Food Log *.md")) + [FOOD_LOG]
+for _food_file in FOOD_FILES:
+  if _food_file.exists():
     cur_date, cols = None, None
-    for line in FOOD_LOG.read_text(errors="ignore").splitlines():
+    for line in _food_file.read_text(errors="ignore").splitlines():
         m = re.match(r"^##\s+(\d{4}-\d{2}-\d{2})", line)
         if m:
             cur_date, cols = m[1], None

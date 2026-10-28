@@ -3,7 +3,7 @@
 
 Mirrors the podcast-digest archive sweep (podcast_digest_collect.py, 2026-09-08):
 a rolling 30-day window in the live note, older entries moved into
-Ladder Workout Log - Archive/YYYY-MM.md. The live file was already 1,333
+Training/Archive/Ladder Workout Log YYYY-MM.md. The live file was already 1,333
 lines / 27 entries after 5 weeks with no archive mechanism -- same shape
 as the podcast-digest bug before it was fixed, just not yet hit. Added
 2026-09-09 as part of the Health folder audit.
@@ -15,9 +15,9 @@ import re
 from datetime import datetime, timedelta
 from pathlib import Path
 
-OBSIDIAN_HEALTH_DIR = Path('/root/obsidian/David OS/03 Health/Training & Diet')
+OBSIDIAN_HEALTH_DIR = Path('/root/obsidian/David OS/03 Health/Training')
 LOG_PATH = OBSIDIAN_HEALTH_DIR / 'Ladder Workout Log.md'
-ARCHIVE_DIR = OBSIDIAN_HEALTH_DIR / 'Ladder Workout Log - Archive'
+ARCHIVE_DIR = OBSIDIAN_HEALTH_DIR / 'Archive'
 ARCHIVE_WINDOW_DAYS = 30
 
 HEADING_RE = re.compile(r'^## (\d{4}-\d{2}-\d{2})\b.*$', re.MULTILINE)
@@ -33,7 +33,7 @@ def archive_fm(month_label: str) -> str:
         'status: archive\n'
         'owner: Heath\n'
         '---\n\n'
-        f'# Ladder Workout Log — Archive — {month_label}\n\n'
+        f'# Ladder Workout Log {month_label}\n\n'
         f'Archived from [[Ladder Workout Log]] automatically by the daily health dashboard refresh, per the {ARCHIVE_WINDOW_DAYS}-day rolling-window rule.\n\n'
     )
 
@@ -77,7 +77,7 @@ def main() -> None:
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
     archived_count = 0
     for month_label, bodies in to_archive.items():
-        archive_path = ARCHIVE_DIR / f'{month_label}.md'
+        archive_path = ARCHIVE_DIR / f'Ladder Workout Log {month_label}.md'
         if archive_path.exists():
             existing = archive_path.read_text(encoding='utf-8')
         else:

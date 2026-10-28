@@ -48,4 +48,4 @@ Heath's profile (`/root/.hermes/profiles/heath/scripts/`) holds thin wrappers wi
 
 - **Ladder:** request a full export from the Ladder app and replace the two CSVs in `/root/health-data/ladder/`. Newer sessions in between come from Heath's screen-recording ingest.
 - **DEXA:** drop BodySpec PDFs in the shared DEXA folder on Google Drive; the next 08:00 run picks them up.
-- **Food:** text or photograph meals to Heath; they land in Obsidian `03 Health/Training & Diet/Daily Food Log.md`, which `build_portal_data.py` reads.
+- **Food:** text or photograph meals to Heath; they land in Obsidian `03 Health/Nutrition/Daily Food Log.md`, which `build_portal_data.py` reads.

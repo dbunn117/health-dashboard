@@ -25,7 +25,7 @@ import requests
 
 PT = timezone(timedelta(hours=-7))
 RAW_DIR = Path('/root/health-data/glooko/raw')
-LOG_PATH = Path('/root/obsidian/David OS/03 Health/Training & Diet/Ladder Workout Log.md')
+LOG_PATH = Path('/root/obsidian/David OS/03 Health/Training/Ladder Workout Log.md')
 PROFILE_ENV = Path(os.environ.get('HERMES_PROFILE_ENV', '/root/.hermes/profiles/heath/.env'))
 
 
