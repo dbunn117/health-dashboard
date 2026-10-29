@@ -151,6 +151,8 @@ a { color: var(--accent); }
 .tbl-wrap { overflow-x: auto; }
 .metric-list.heart-list > div { grid-template-columns: minmax(0, 1fr) auto auto auto; }
 table.log tr.day-first td { border-top: 1px solid var(--hair); }
+table.log tr.wk-row td { padding-top: 14px; border-top: 1px solid var(--hair); font: 500 12px var(--font-mono); color: var(--ink-2); }
+table.log tr.wk-row + tr.day-first td { border-top: 0; }
 details.ex { margin-top: 4px; font-size: 12px; color: var(--ink-2); }
 details.ex summary { cursor: pointer; color: var(--accent); width: fit-content; }
 details.ex ul { margin: 6px 0 2px; padding-left: 16px; display: grid; gap: 2px; }
