@@ -153,6 +153,8 @@ a { color: var(--accent); }
 .tbl-wrap { overflow-x: auto; }
 .metric-list.heart-list > div { grid-template-columns: minmax(0, 1fr) auto auto auto; }
 table.log tr.day-first td { border-top: 1px solid var(--hair); }
+table.log tr.wk-row td { padding-top: 14px; border-top: 1px solid var(--hair); font: 500 12px var(--font-mono); color: var(--ink-2); }
+table.log tr.wk-row + tr.day-first td { border-top: 0; }
 details.ex { margin-top: 4px; font-size: 12px; color: var(--ink-2); }
 details.ex summary { cursor: pointer; color: var(--accent); width: fit-content; }
 details.ex ul { margin: 6px 0 2px; padding-left: 16px; display: grid; gap: 2px; }
@@ -273,6 +275,10 @@ const WDL = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', '
 const dow = s => new Date(toUTC(s)).getUTCDay();
 const fmtD = s => `${MON[+s.slice(5, 7) - 1]} ${+s.slice(8, 10)}`;
 const fmtDY = s => `${fmtD(s)}, ${s.slice(0, 4)}`;
+/* ISO weeks (Mon–Sun), named like the Obsidian To Do notes: 2026-W44. The week belongs to the year of its Thursday. */
+const isoWeek = s => { const th = addDays(s, 3 - ((dow(s) + 6) % 7)); return [th.slice(0, 4), String(Math.floor(diffDays(th.slice(0, 4) + '-01-01', th) / 7) + 1).padStart(2, '0')]; };
+const wkTag = s => `W${isoWeek(s)[1]}`;
+const wkTagY = s => isoWeek(s).join('-W');
 const fmtMY = s => `${MON[+s.slice(5, 7) - 1]} ${s.slice(2, 4) === '' ? '' : "'" + s.slice(2, 4)}`;
 const fmtHM = slot => { const m = slot * 5, h = Math.floor(m / 60), mm = m % 60, ap = h < 12 ? 'AM' : 'PM'; return `${(h % 12) || 12}:${String(mm).padStart(2, '0')} ${ap}`; };
 const fmtHour = h => h === 0 ? '12a' : h < 12 ? `${h}a` : h === 12 ? '12p' : `${h - 12}p`;
@@ -682,9 +688,9 @@ function tierItemsForRange(start, end) {
   for (const [key, ds] of groups) {
     const acc = newAcc(); let withData = 0; ds.forEach(d => { const a = cgm(d); if (a) { bucketCounts(a, acc); withData++; } });
     const st = finish(acc, ds.length); const tr = tier(st ? st.tir : null);
-    const label = weekly ? fmtD(key) : `${MON[+key.slice(5) - 1]} '${key.slice(2, 4)}`;
+    const label = weekly ? wkTag(key) : `${MON[+key.slice(5) - 1]} '${key.slice(2, 4)}`;
     const full = weekly ? ds.length === 7 : ds[0].endsWith('-01') && addDays(ds[ds.length - 1], 1).endsWith('-01');
-    items.push({ label, value: st ? st.tir : null, color: tierColor(tr.cls), tip: { head: fmtSpan(ds[0], ds[ds.length - 1]) + (full ? '' : ' (part)'), rows: st ? [{ label: 'Time in range', value: f1(st.tir) + '%', color: tierColor(tr.cls) }, { label: 'Tier', value: tr.label }, { label: 'Below 70', value: f1(st.lowAll) + '%' }, { label: 'Average', value: f0(st.mean) + ' mg/dL' }, { label: 'Days with data', value: `${withData} of ${ds.length}` }] : [] } });
+    items.push({ label, value: st ? st.tir : null, color: tierColor(tr.cls), tip: { head: (weekly ? wkTagY(key) + ' · ' : '') + fmtSpan(ds[0], ds[ds.length - 1]) + (full ? '' : ' (part)'), rows: st ? [{ label: 'Time in range', value: f1(st.tir) + '%', color: tierColor(tr.cls) }, { label: 'Tier', value: tr.label }, { label: 'Below 70', value: f1(st.lowAll) + '%' }, { label: 'Average', value: f0(st.mean) + ' mg/dL' }, { label: 'Days with data', value: `${withData} of ${ds.length}` }] : [] } });
   }
   return { items, unit: weekly ? 'week' : 'month' };
 }
@@ -872,7 +878,7 @@ function viewToday(root) {
         row('Below 70', f1(w7 && w7.lowAll) + '%', `Goal <${T.lowMax}%`, okChip(w7 && w7.lowAll < T.lowMax), g7),
         row('Below 54', f2(w7 && w7.vlow) + '%', `Goal <${T.veryLowMax}%`, okChip(w7 && w7.vlow < T.veryLowMax), g7),
         row('Variability (SD)', f0(w7 && w7.sd), `Goal <${T.sdMax}`, okChip(w7 && w7.sd < T.sdMax), g7),
-        row('Strength sessions this week', `${strengthThisWeek} of ${T.strengthPerWeek}`, `Goal ${T.strengthPerWeek}`, okChip(strengthThisWeek >= T.strengthPerWeek, 'Done', 'In progress'), `Mon ${fmtD(monday)} – ${fmtD(lastDate)}`),
+        row('Strength sessions this week', `${strengthThisWeek} of ${T.strengthPerWeek}`, `Goal ${T.strengthPerWeek}`, okChip(strengthThisWeek >= T.strengthPerWeek, 'Done', 'In progress'), `${wkTag(monday)} · Mon ${fmtD(monday)} – ${fmtD(lastDate)}`),
         row('Average sleep', sleepAvg == null ? '—' : f1(sleepAvg) + ' h', `Goal ${T.sleepHours[0]}–${T.sleepHours[1]} h`, okChip(sleepAvg == null ? null : sleepAvg >= T.sleepHours[0]), sl7))),
     (() => {
       const ft = FOOD.get(lastDate), logged = [...FOOD.keys()].sort(), lastLogged = logged[logged.length - 1];
@@ -976,8 +982,8 @@ function groupDays(ds, maxDaily) {
   const groups = new Map();
   ds.forEach(d => { const k = monthly ? d.slice(0, 7) : weekly ? addDays(d, -((dow(d) + 6) % 7)) : d; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(d); });
   return [...groups].map(([k, arr]) => ({
-    label: monthly ? `${MON[+k.slice(5) - 1]} '${k.slice(2, 4)}` : fmtD(k),
-    head: (monthly || weekly) ? `${fmtSpan(arr[0], arr[arr.length - 1])} (daily avg of ${arr.length} days)` : `${WDL[dow(k)]}, ${fmtDY(k)}`,
+    label: monthly ? `${MON[+k.slice(5) - 1]} '${k.slice(2, 4)}` : weekly ? wkTag(k) : fmtD(k),
+    head: (monthly || weekly) ? `${weekly ? wkTagY(k) + ' · ' : ''}${fmtSpan(arr[0], arr[arr.length - 1])} (daily avg of ${arr.length} days)` : `${WDL[dow(k)]}, ${fmtDY(k)}`,
     mean: key => { const v = arr.map(d => DAY.get(d) && DAY.get(d)[key]).filter(x => x != null && x > 0); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; },
   }));
 }
@@ -1046,7 +1052,7 @@ function viewTraining(root) {
   // ---- heart-health zones, compare weeks, training log
   const thisWk = weekOf(lastDate), lastWk = addDays(thisWk, -7);
   const inWeek = (wk, list = TLOG) => list.filter(x => x.d >= wk && x.d <= addDays(wk, 6) && x.d <= lastDate);
-  const wkLabel = wk => fmtSpan(wk, addDays(wk, 6) > lastDate ? lastDate : addDays(wk, 6), false);
+  const wkLabel = wk => `${wkTag(wk)} · ${fmtSpan(wk, addDays(wk, 6) > lastDate ? lastDate : addDays(wk, 6), false)}`;
   const zThis = zsum(inWeek(thisWk)), zLast = zsum(inWeek(lastWk));
   const heartChip = me => chip(me >= HEART.more ? 'good' : me >= HEART.min ? 'target' : 'warn', me >= HEART.more ? 'Extra benefit' : me >= HEART.min ? 'Guideline met' : 'Below 150');
   const zoneHost = h('div', { class: 'chart' });
@@ -1063,7 +1069,7 @@ function viewTraining(root) {
 
   const cats = (() => { const c = new Map(); TLOG.filter(x => x.d >= addDays(lastDate, -63)).forEach(x => c.set(x.cat, (c.get(x.cat) || 0) + 1)); return [...c].sort((a, b) => b[1] - a[1]).map(x => x[0]); })();
   if (!explore.cmpCat || (explore.cmpCat !== 'All training' && !cats.includes(explore.cmpCat))) explore.cmpCat = 'All training';
-  const pairs = [['now', 'This week vs last week', thisWk, lastWk], ['prev', 'Last week vs the week before', lastWk, addDays(lastWk, -7)]];
+  const pairs = [['now', `This week vs last week (${wkTag(thisWk)} vs ${wkTag(lastWk)})`, thisWk, lastWk], ['prev', `Last week vs the week before (${wkTag(lastWk)} vs ${wkTag(addDays(lastWk, -7))})`, lastWk, addDays(lastWk, -7)]];
   const pr = pairs.find(p => p[0] === explore.cmpWeeks) || pairs[0];
   const pick = list => explore.cmpCat === 'All training' ? list : list.filter(x => x.cat === explore.cmpCat);
   const A = pick(inWeek(pr[2])), B = pick(inWeek(pr[3]));
@@ -1089,13 +1095,14 @@ function viewTraining(root) {
 
   const logList = TLOG.filter(x => x.d >= R.start && x.d <= lastDate).reverse();
   const shown = explore.logAll ? logList : logList.slice(0, 25);
-  let prevDay = null;
-  const logRows = shown.map(x => { const first = x.d !== prevDay; prevDay = x.d;
-    return h('tr', { class: first ? 'day-first' : null }, h('td', null, first ? `${WD[dow(x.d)]} ${fmtD(x.d)}` : ''), h('td', null, x.m == null ? '—' : fmtHM(Math.round(x.m / 5))),
+  let prevDay = null, prevWk = null;
+  const logRows = shown.flatMap(x => { const first = x.d !== prevDay; prevDay = x.d;
+    const wk = weekOf(x.d), wkRow = wk !== prevWk ? h('tr', { class: 'wk-row' }, h('td', { colspan: 8 }, h('b', null, wkTagY(wk)), ` · ${fmtSpan(wk, addDays(wk, 6) > lastDate ? lastDate : addDays(wk, 6), false)}`)) : null; prevWk = wk;
+    return [wkRow, h('tr', { class: first ? 'day-first' : null }, h('td', null, first ? `${WD[dow(x.d)]} ${fmtD(x.d)}` : ''), h('td', null, x.m == null ? '—' : fmtHM(Math.round(x.m / 5))),
       h('td', null, h('b', null, x.cat), x.name ? h('small', { class: 'when' }, x.name) : null,
         x.ex && x.ex.length ? h('details', { class: 'ex' }, h('summary', null, `${x.ex.length} exercises`), h('ul', null, ...x.ex.map(([n, t]) => h('li', null, n, t ? h('span', null, ` · ${t}`) : null)))) : null),
       h('td', { class: 'num' }, fmtDur(x.dur)), h('td', { class: 'num' }, x.kcal == null ? '—' : f0(x.kcal)), h('td', { class: 'num' }, x.strain == null ? '—' : f1(x.strain)),
-      h('td', { class: 'num' }, x.hr == null ? '—' : `${f0(x.hr)} / ${f0(x.maxhr)}`), h('td', null, zoneBar(x.z))); });
+      h('td', { class: 'num' }, x.hr == null ? '—' : `${f0(x.hr)} / ${f0(x.maxhr)}`), h('td', null, zoneBar(x.z)))].filter(Boolean); });
   const logCard = card('Training log', `${fmtSpan(R.start, lastDate)} (through today) · ${plural(logList.length, 'session')} · WHOOP numbers, Ladder session type and exercises`, null,
     logList.length ? h('div', { class: 'tbl-wrap' }, h('table', { class: 'log' }, h('thead', null, h('tr', null, h('th', null, 'Day'), h('th', null, 'Start'), h('th', null, 'Activity'), h('th', { class: 'num' }, 'Duration'), h('th', { class: 'num' }, 'Calories'), h('th', { class: 'num' }, 'Strain'), h('th', { class: 'num' }, 'Avg / max HR'), h('th', null, 'Heart-rate zones'))),
       h('tbody', null, ...logRows))) : h('p', { class: 'heath-src' }, 'No sessions in this period.'),
@@ -1159,13 +1166,13 @@ function viewTraining(root) {
     const items = [...groups].map(([k, arr]) => {
       const per = monthly ? arr.length / 7 : 1;
       const c = key => +(arr.filter(d => ACT.get(d) && ACT.get(d).has(key)).length / per).toFixed(1);
-      return { label: monthly ? `${MON[+k.slice(5) - 1]} '${k.slice(2, 4)}` : fmtD(k), tipHead: `${fmtSpan(arr[0], arr[arr.length - 1])}${monthly ? ' · per week' : arr.length < 7 ? ` (${arr.length} of 7 days)` : ''}`, values: [c('strength'), c('conditioning'), c('pickleball'), c('cardio')],
+      return { label: monthly ? `${MON[+k.slice(5) - 1]} '${k.slice(2, 4)}` : wkTag(k), tipHead: `${monthly ? '' : wkTagY(k) + ' · '}${fmtSpan(arr[0], arr[arr.length - 1])}${monthly ? ' · per week' : arr.length < 7 ? ` (${arr.length} of 7 days)` : ''}`, values: [c('strength'), c('conditioning'), c('pickleball'), c('cardio')],
         vol: arr.reduce((a, d) => a + (VOL.get(d) || 0), 0) };
     });
     const zw = new Map();
     TLOG.filter(x => x.d >= R.start && x.d <= R.end).forEach(x => { const k = weekOf(x.d); if (!zw.has(k)) zw.set(k, []); zw.get(k).push(x); });
     const zItems = datesIn(weekOf(R.start), R.end).filter(d => d === weekOf(d)).map(wk => { const L = zw.get(wk) || [], z = zsum(L), e = addDays(wk, 6) > R.end ? R.end : addDays(wk, 6), st = wk < R.start ? R.start : wk;
-      return { label: fmtD(wk), values: [Math.round(z[2] + z[3]), Math.round(2 * (z[4] + z[5]))], tipHead: `${fmtSpan(st, e)}${nDays(st, e) < 7 ? ` (${nDays(st, e)} days)` : ''}`,
+      return { label: wkTag(wk), values: [Math.round(z[2] + z[3]), Math.round(2 * (z[4] + z[5]))], tipHead: `${wkTagY(wk)} · ${fmtSpan(st, e)}${nDays(st, e) < 7 ? ` (${nDays(st, e)} days)` : ''}`,
         tipRows: [{ label: 'Moderate-equivalent', value: `${f0(modEq(z))} min` }, ...[1, 2, 3, 4, 5].map(i => ({ label: ZONE_NAMES[i], value: `${f0(z[i])} min`, color: ZONE_COLORS[i] })), { label: 'Sessions', value: String(L.length) }] }; });
     stacked(zoneHost, { items: zItems, series: [{ name: 'Zones 2–3', color: ZONE_COLORS[3] }, { name: 'Zones 4–5 ×2', color: ZONE_COLORS[5] }], height: 200, refs: [{ value: HEART.min, label: '150' }, { value: HEART.more, label: '300' }] });
     stacked(freqHost, { items, series: [{ name: 'Strength', color: 'var(--c1)' }, { name: 'Conditioning', color: 'var(--c2)' }, { name: 'Pickleball', color: 'var(--c3)' }, { name: 'Cardio/other', color: 'var(--c4)' }], height: 230, ref: { value: T.strengthPerWeek } });
@@ -1230,9 +1237,9 @@ function viewSleep(root) {
     const rd = ds.filter(d => REC.get(d)), sd = ds.filter(d => SLP.get(d));
     const unit = ds.length > 400 ? 'month' : ds.length > 120 ? 'week' : 'day';
     const keyOf = d => unit === 'month' ? d.slice(0, 7) : unit === 'week' ? addDays(d, -((dow(d) + 6) % 7)) : d;
-    const labelOf = k => unit === 'month' ? `${MON[+k.slice(5, 7) - 1]} '${k.slice(2, 4)}` : fmtD(k);
+    const labelOf = k => unit === 'month' ? `${MON[+k.slice(5, 7) - 1]} '${k.slice(2, 4)}` : unit === 'week' ? wkTag(k) : fmtD(k);
     const spanOf = new Map(); ds.forEach(d => { const k = keyOf(d); const v = spanOf.get(k); spanOf.set(k, v ? [v[0], d] : [d, d]); });
-    const headOf = k => unit === 'day' ? `Morning of ${fmtDY(k)}` : `${fmtSpan(...spanOf.get(k))} (average)`;
+    const headOf = k => unit === 'day' ? `Morning of ${fmtDY(k)}` : `${unit === 'week' ? wkTagY(k) + ' · ' : ''}${fmtSpan(...spanOf.get(k))} (average)`;
     const group = (dates, get) => { const m = new Map(); dates.forEach(d => { const k = keyOf(d); if (!m.has(k)) m.set(k, []); m.get(k).push(get(d)); }); return [...m].map(([k, arr]) => ({ k, arr })); };
     const mean = (arr, f) => { const v = arr.map(f).filter(x => x != null); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; };
     const recG = group(rd, d => REC.get(d)), slG = group(sd, d => SLP.get(d));
